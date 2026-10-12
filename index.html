@@ -729,41 +729,32 @@
         <button class="category-chip" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी)</button>
       </div>
 
-      <!-- १. शाळा निवड (UDISE Live Search द्वारे) -->
+      <!-- १. शाळा निवडा (फक्त सर्च व निवडलेली शाळा) -->
       <div class="app-card">
         <div class="app-card-title"><i class="fa-solid fa-school"></i> १. शाळा निवडा (UDISE कोड किंवा नावाने शोधा)</div>
         
         <!-- प्रभावी UDISE / नाव सर्च बॉक्स -->
-        <div class="form-group" style="margin-bottom: 14px;">
+        <div class="form-group" style="margin-bottom: 12px;">
           <label><i class="fa-solid fa-magnifying-glass" style="color:var(--primary);"></i> UDISE कोडचे काही अंक किंवा शाळेचे नाव टाका:</label>
           <input type="text" id="udise-search-input" class="form-control" placeholder="उदा. 2727 किंवा शाळेचे नाव टाईप करा..." oninput="searchSchoolsByUdise(this.value)">
           <div class="udise-suggestions-box" id="udise-results-box"></div>
-          <p style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">* UDISE कोडचे ३-४ अंक किंवा नाव टाईप करताच खाली सर्व २,५७४ शाळांची यादी दिसेल, त्यातून आपली शाळा निवडा.</p>
+          
+          <!-- अधिक ठळक व इंग्रजी अंकांमध्ये सूचना -->
+          <p style="font-size:0.84rem; color:#1e293b; font-weight:700; margin-top:6px; line-height:1.4;">
+            <i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> UDISE कोडचे 3-4 अंक किंवा नाव टाईप करताच खाली सर्व 2,574 शाळांची यादी दिसेल, त्यातून आपली शाळा निवडा.
+          </p>
         </div>
 
-        <div class="grid-2">
-          <div class="form-group">
-            <label>चाचणी क्रमांक</label>
-            <select class="form-control" id="entry-test-no" onchange="loadStudentMarksForSelectedTest()"></select>
-          </div>
-          <div class="form-group">
-            <label>तालुका निवडा (पर्यायी)</label>
-            <select class="form-control" id="entry-taluka" onchange="onTalukaSelected()">
-              <option value="">-- तालुका निवडा --</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- शाळा ड्रॉपडाउन -->
-        <div class="form-group">
+        <!-- फक्त निवडलेली शाळा पर्याय (तालुका व चाचणी पर्याय काढून टाकले) -->
+        <div class="form-group" style="margin-bottom: 4px;">
           <label>निवडलेली शाळा</label>
           <select class="form-control" id="entry-school" onchange="lockSelectedSchool()">
             <option value="">-- वरील सर्च बॉक्समधून शाळा निवडा --</option>
           </select>
         </div>
 
-        <div id="lock-notice" style="display:none; color:var(--accent); font-weight:700; font-size:0.88rem; margin-top:6px;">
-          <i class="fa-solid fa-circle-check"></i> शाळा निवड सुरक्षित आहे. 
+        <div id="lock-notice" style="display:none; color:var(--accent); font-weight:700; font-size:0.88rem; margin-top:8px;">
+          <i class="fa-solid fa-circle-check"></i> शाळा निवड सुरक्षित झाली आहे. 
           <a href="javascript:void(0)" onclick="resetSchoolLock()" style="color:var(--danger); margin-left:8px; text-decoration:underline;">बदला</a>
         </div>
       </div>
@@ -800,16 +791,22 @@
         <button class="app-btn btn-success" onclick="addStudentToList()"><i class="fa-solid fa-plus"></i> यादीत नवीन विद्यार्थी जोडा</button>
       </div>
 
-      <!-- ३. गुण भरा व उपस्थित/गैरहजर नोंदवा (सुटसुटीत शीर्षक व नंबर कीबोर्ड) -->
+      <!-- ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी (चाचणी क्रमांक निवडीसह) -->
       <div class="app-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-          <div class="app-card-title" style="margin:0; border:none;">
-            <i class="fa-solid fa-pen-nib"></i> ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी
-          </div>
+        <div class="app-card-title">
+          <i class="fa-solid fa-pen-nib"></i> ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी
+        </div>
+
+        <!-- चाचणी क्रमांक निवडण्याचा पर्याय भाग ३ मध्ये स्थलांतरित केला -->
+        <div class="form-group" style="background:#f1f5f9; padding:12px; border-radius:10px; margin-bottom:14px; border:1px solid #cbd5e1;">
+          <label style="color:#0369a1; font-weight:800; font-size:0.92rem;">
+            <i class="fa-solid fa-list-ol"></i> ज्या चाचणीचे गुण भरायचे आहेत ती चाचणी निवडा:
+          </label>
+          <select class="form-control" id="entry-test-no" onchange="loadStudentMarksForSelectedTest()" style="font-weight:700; border-color:var(--primary);"></select>
         </div>
         
         <div id="student-list-container">
-          <p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">कृपया प्रथम वरील फॉर्ममधून शाळा निवडा.</p>
+          <p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">कृपया प्रथम भाग १ मधून शाळा निवडा.</p>
         </div>
 
         <div style="margin-top: 14px;">
@@ -955,7 +952,7 @@
               तालुका: <strong><span id="cert-taluka-name">---</span></strong> 
               <strong id="cert-gender-pronoun" style="color:#0369a1;">या विद्यार्थ्याने</strong> 
               जिल्हा परिषद, बीड अंतर्गत आयोजित <strong><span id="cert-exam-title">---</span></strong> अंतर्गत 
-              चाचणी क्र. <strong id="cert-test-no" style="font-size: 1.15rem; color:#b45309; font-family:'Poppins', sans-serif;">1</strong> मध्ये उत्कृष्ट यश संपादन केले आहे[span_9](start_span)[span_9](end_span)।
+              चाचणी क्र. <strong id="cert-test-no" style="font-size: 1.15rem; color:#b45309; font-family:'Poppins', sans-serif;">1</strong> मध्ये उत्कृष्ट यश संपादन केले आहे[span_6](start_span)[span_6](end_span)।
             </p>
             
             <div class="cert-badges">
@@ -1131,7 +1128,6 @@
             l: parseInt(s.lowest_class, 10) || 1,
             h: parseInt(s.highest_class, 10) || 7
           }));
-          onTalukaSelected();
         })
         .catch(err => {
           console.error("schools.json त्रुटी:", err);
@@ -1266,31 +1262,16 @@
       document.getElementById('entry-test-no').value = autoTest;
 
       resetSchoolLock();
-      onTalukaSelected();
     }
 
     function initTalukaDropdown() {
-      const select = document.getElementById('entry-taluka');
       const pSelect = document.getElementById('pending-taluka-filter');
-      if (select) select.innerHTML = '<option value="">-- तालुका निवडा --</option>';
-      if (pSelect) pSelect.innerHTML = '<option value="all">-- सर्व तालुक्यांमधील प्रलंबित शाळा --</option>';
-
-      TALUKA_LIST.forEach(t => {
-        if (select) select.innerHTML += `<option value="${t}">${t}</option>`;
-        if (pSelect) pSelect.innerHTML += `<option value="${t}">${t} तालुका</option>`;
-      });
-    }
-
-    function onTalukaSelected() {
-      const taluka = document.getElementById('entry-taluka').value;
-      const schoolSelect = document.getElementById('entry-school');
-      schoolSelect.innerHTML = '<option value="">-- शाळा निवडा --</option>';
-      if (!taluka || BEED_ALL_SCHOOLS.length === 0) return;
-
-      const filtered = BEED_ALL_SCHOOLS.filter(s => s.t === taluka && isSchoolEligible(s, currentEntryCategory));
-      filtered.forEach(s => {
-        schoolSelect.innerHTML += `<option value="${s.c}">${s.n}</option>`;
-      });
+      if (pSelect) {
+        pSelect.innerHTML = '<option value="all">-- सर्व तालुक्यांमधील प्रलंबित शाळा --</option>';
+        TALUKA_LIST.forEach(t => {
+          pSelect.innerHTML += `<option value="${t}">${t} तालुका</option>`;
+        });
+      }
     }
 
     /* प्रभावी UDISE कोड व नाव सर्च फंक्शन */
@@ -1309,7 +1290,7 @@
       ).slice(0, 20);
       
       if (matches.length === 0) {
-        box.innerHTML = `<div style="padding:12px; color:#64748b; font-size:0.88rem; text-align:center;">जुळणारी शाळा सापडली नाही.</div>`;
+        box.innerHTML = `<div style="padding:12px; color:#64748b; font-size:0.88rem; text-align:center;">या माहितीशी जुळणारी शाळा सापडली नाही.</div>`;
       } else {
         box.innerHTML = matches.map(s => `
           <div class="udise-suggest-item" onclick="selectSchoolFromUdise('${s.c}')">
@@ -1323,11 +1304,9 @@
     function selectSchoolFromUdise(udiseCode) {
       const school = BEED_ALL_SCHOOLS.find(s => s.c === udiseCode);
       if (!school) return;
-
-      if (school.t) document.getElementById('entry-taluka').value = school.t;
       
       const schoolSelect = document.getElementById('entry-school');
-      schoolSelect.innerHTML = `<option value="${school.c}">${school.n}</option>`;
+      schoolSelect.innerHTML = `<option value="${school.c}">${school.n} (${school.t})</option>`;
       schoolSelect.value = school.c;
 
       document.getElementById('udise-results-box').style.display = 'none';
@@ -1342,20 +1321,18 @@
       selectedSchoolObj = BEED_ALL_SCHOOLS.find(s => s.c === udise);
 
       document.getElementById('lock-notice').style.display = 'block';
-      document.getElementById('entry-taluka').classList.add('locked');
       document.getElementById('entry-school').classList.add('locked');
-      showToast('शाळा निवड लॉक झाली!');
+      showToast('शाळा निवड सुरक्षित झाली!');
       loadStudentsFromFirebase();
     }
 
     function resetSchoolLock() {
       selectedSchoolObj = null;
       document.getElementById('lock-notice').style.display = 'none';
-      document.getElementById('entry-taluka').classList.remove('locked');
       document.getElementById('entry-school').classList.remove('locked');
       document.getElementById('entry-school').value = '';
       document.getElementById('udise-search-input').value = '';
-      document.getElementById('student-list-container').innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">कृपया प्रथम शाळा निवडा.</p>`;
+      document.getElementById('student-list-container').innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">कृपया प्रथम भाग १ मधून शाळा निवडा.</p>`;
       currentStudentsList = [];
     }
 
@@ -1407,7 +1384,7 @@
       }
       const key = getSchoolDbKey();
       if (!key) {
-        alert('आधी शाळा निवडा!');
+        alert('आधी भाग १ मधून शाळा निवडा!');
         return;
       }
 
@@ -1477,13 +1454,13 @@
       });
     }
 
-    /* मोबाईलसाठी स्वयंचलित Numeric Keypad व मोठा ग्राफ आयकॉन */
+    /* मोबाईलसाठी थेट Numeric Keypad व मोठा ग्राफ आयकॉन */
     function renderMobileStudentList(savedStudents) {
       const cont = document.getElementById('student-list-container');
       cont.innerHTML = '';
 
       if (currentStudentsList.length === 0) {
-        cont.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">या शाळेसाठी अद्याप विद्यार्थी जोडलेले नाहीत. कृपया वरील फॉर्ममधून जोडा.</p>`;
+        cont.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">या शाळेसाठी अद्याप विद्यार्थी जोडलेले नाहीत. कृपया वरील भाग २ मधून जोडा.</p>`;
         return;
       }
 
@@ -1953,6 +1930,7 @@
           }
           marksRow.innerHTML += `<td>${m}</td>`;
 
+          // आलेखाची उंची टक्केवारीनुसार काढणे
           const heightPercent = (m !== '-' && m !== 'AB') ? ((m / maxLimit) * 100) : 0;
           graphBars.innerHTML += `
             <div class="progress-col">
