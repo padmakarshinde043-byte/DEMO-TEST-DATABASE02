@@ -154,6 +154,32 @@
     .form-control:focus { border-color: var(--primary); }
     .form-control.locked { background: #f1f5f9; pointer-events: none; }
 
+    /* Live UDISE Results Box */
+    .udise-suggestions-box {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      max-height: 250px;
+      overflow-y: auto;
+      z-index: 1000;
+      display: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+    }
+    .udise-suggest-item {
+      padding: 11px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.92rem;
+      transition: background 0.15s;
+    }
+    .udise-suggest-item:hover, .udise-suggest-item:active {
+      background: var(--primary-light);
+    }
+
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
     .app-btn {
@@ -680,43 +706,36 @@
         <button class="category-chip" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी - 50 गुण)</button>
       </div>
 
-      <!-- १. शाळा निवड (UDISE Live Search + तालुका ➔ केंद्र ➔ शाळा) -->
+      <!-- १. शाळा निवड (UDISE Live Search द्वारे) -->
       <div class="app-card">
-        <div class="app-card-title"><i class="fa-solid fa-school"></i> १. शाळा निवडा (UDISE किंवा केंद्रानुसार)</div>
+        <div class="app-card-title"><i class="fa-solid fa-school"></i> १. शाळा निवडा (UDISE कोड किंवा नावाने शोधा)</div>
         
-        <!-- पर्याय अ: UDISE कोड थेट शोध -->
-        <div class="form-group">
-          <label><i class="fa-solid fa-magnifying-glass"></i> UDISE कोड टाकून शाळा शोधा (सर्व २,५७४ शाळा):</label>
-          <input type="text" id="udise-search-input" class="form-control" placeholder="उदा. 272707 किंवा कोडचे काही अंक..." oninput="searchSchoolsByUdise(this.value)">
-          <div class="udise-suggestions" id="udise-results-box" style="position:absolute; top:100%; left:0; right:0; background:white; border:1.5px solid var(--primary); border-radius:8px; max-height:220px; overflow-y:auto; z-index:1000; display:none; box-shadow:0 10px 20px rgba(0,0,0,0.15);"></div>
+        <!-- प्रभावी UDISE / नाव सर्च बॉक्स -->
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label><i class="fa-solid fa-magnifying-glass" style="color:var(--primary);"></i> UDISE कोडचे काही अंक किंवा शाळेचे नाव टाका:</label>
+          <input type="text" id="udise-search-input" class="form-control" placeholder="उदा. 2727 किंवा शाळेचे नाव टाईप करा..." oninput="searchSchoolsByUdise(this.value)">
+          <div class="udise-suggestions-box" id="udise-results-box"></div>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">* UDISE कोडचे ३-४ अंक किंवा नाव टाईप करताच खाली सर्व २,५७४ शाळांची यादी दिसेल, त्यातून आपली शाळा निवडा.</p>
         </div>
 
-        <div class="form-group">
-          <label>चाचणी क्रमांक</label>
-          <select class="form-control" id="entry-test-no" onchange="loadStudentMarksForSelectedTest()"></select>
-        </div>
-
-        <!-- पर्याय ब: तालुका ➔ केंद्र निवडा -->
         <div class="grid-2">
           <div class="form-group">
-            <label>१. तालुका निवडा</label>
+            <label>चाचणी क्रमांक</label>
+            <select class="form-control" id="entry-test-no" onchange="loadStudentMarksForSelectedTest()"></select>
+          </div>
+          <div class="form-group">
+            <label>तालुका निवडा (पर्यायी)</label>
             <select class="form-control" id="entry-taluka" onchange="onTalukaSelected()">
               <option value="">-- तालुका निवडा --</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>२. केंद्र निवडा (Cluster)</label>
-            <select class="form-control" id="entry-cluster" onchange="onClusterSelected()">
-              <option value="">-- आधी तालुका निवडा --</option>
-            </select>
-          </div>
         </div>
 
-        <!-- शाळा निवडा (वर्गाचा उल्लेख काढून टाकलेला) -->
+        <!-- शाळा ड्रॉपडाउन -->
         <div class="form-group">
-          <label>३. शाळा निवडा</label>
+          <label>निवडलेली शाळा</label>
           <select class="form-control" id="entry-school" onchange="lockSelectedSchool()">
-            <option value="">-- वरील पर्यायातून शाळा निवडा --</option>
+            <option value="">-- वरील सर्च बॉक्समधून शाळा निवडा --</option>
           </select>
         </div>
 
@@ -1028,7 +1047,7 @@
       "गेवराई", "केज", "माजलगाव", "परळी", "पाटोदा", "शिरूर कासार", "वडवणी"
     ];
 
-    /* ================= २. FIREBASE CONFIG ================= */
+    /* ================= २. FIREBASE CONFIG (आपले मूळ खाते) ================= */
     const firebaseConfig = {
       apiKey: "AIzaSyBrKGEMc9uxBoZ4VIcNfOXq7xt_IZmluDE",
       authDomain: "test-database-34c8a.firebaseapp.com",
@@ -1071,15 +1090,16 @@
     let currentRawResults = {};
     let cachedPendingSchools = [];
 
-    // दुहेरी डेटा सेट्स
-    let BEED_ALL_SCHOOLS = [];      // schools.json (UDISE शोध)
-    let CLUSTER_BASED_SCHOOLS = []; // cluster_schools.json (केंद्र शोध)
+    // मूळ schools.json मधील सर्व २,५७४ शाळांचा मास्टर डेटा
+    let BEED_ALL_SCHOOLS = [];
 
-    /* ================= ३. दुहेरी JSON डेटा लोड करणे ================= */
-    function loadDualSchoolsData() {
-      // १. सर्व २,५७४ शाळा लोड करणे (UDISE शोधासाठी)
+    /* ================= ३. केवळ schools.json लोड करणे ================= */
+    function loadSchoolsData() {
       fetch('schools.json')
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) throw new Error("schools.json सापडली नाही");
+          return res.json();
+        })
         .then(data => {
           BEED_ALL_SCHOOLS = data.map(s => ({
             c: String(s.udise).trim(),
@@ -1088,27 +1108,17 @@
             l: parseInt(s.lowest_class, 10) || 1,
             h: parseInt(s.highest_class, 10) || 7
           }));
+          console.log("सर्व शाळा (schools.json) यशस्वीरित्या लोड झाल्या! संख्या:", BEED_ALL_SCHOOLS.length);
+          onTalukaSelected();
         })
-        .catch(err => console.log("schools.json fetch info:", err));
-
-      // २. केंद्रनिहाय शाळा लोड करणे (cluster_schools.json)
-      fetch('cluster_schools.json')
-        .then(res => res.json())
-        .then(data => {
-          CLUSTER_BASED_SCHOOLS = data.map(s => ({
-            c: String(s.c).trim(),
-            n: s.n,
-            k: s.k,
-            t: s.t || 'माजलगाव',
-            l: parseInt(s.l, 10) || 1,
-            h: parseInt(s.h, 10) || 8
-          }));
-        })
-        .catch(err => console.log("cluster_schools.json fetch info:", err));
+        .catch(err => {
+          console.error("schools.json त्रुटी:", err);
+          showToast("शाळा डेटा लोड करताना अडचण आली.");
+        });
     }
 
     function initPortal() {
-      loadDualSchoolsData();
+      loadSchoolsData();
       initTalukaDropdown();
       buildTalukaTabs();
       buildDashboardTestPills();
@@ -1253,77 +1263,40 @@
       });
     }
 
-    /* १. तालुका निवडल्यानंतर त्या तालुक्यातील केंद्रे लोड करणे */
     function onTalukaSelected() {
       const taluka = document.getElementById('entry-taluka').value;
-      const clusterSelect = document.getElementById('entry-cluster');
       const schoolSelect = document.getElementById('entry-school');
-
-      clusterSelect.innerHTML = '<option value="">-- केंद्र निवडा --</option>';
-      schoolSelect.innerHTML = '<option value="">-- आधी केंद्र निवडा --</option>';
-
-      if (!taluka) return;
-
-      const filteredClusters = CLUSTER_BASED_SCHOOLS.filter(s => (s.t === taluka || (!s.t && taluka === 'माजलगाव')));
-      const uniqueClusters = [...new Set(filteredClusters.map(s => s.k))].filter(Boolean).sort();
-
-      if (uniqueClusters.length === 0) {
-        clusterSelect.innerHTML = '<option value="">-- केंद्रे उपलब्ध नाहीत (थेट शाळा निवडा) --</option>';
-        const directSchools = BEED_ALL_SCHOOLS.filter(s => s.t === taluka && isSchoolEligible(s, currentEntryCategory));
-        directSchools.forEach(s => {
-          schoolSelect.innerHTML += `<option value="${s.c}">${s.n}</option>`;
-        });
-        return;
-      }
-
-      uniqueClusters.forEach(k => {
-        clusterSelect.innerHTML += `<option value="${k}">${k}</option>`;
-      });
-    }
-
-    /* २. केंद्र निवडल्यानंतर त्या केंद्रातील शाळा लोड करणे (वर्गाचा उल्लेख काढून टाकलेला) */
-    function onClusterSelected() {
-      const taluka = document.getElementById('entry-taluka').value;
-      const cluster = document.getElementById('entry-cluster').value;
-      const schoolSelect = document.getElementById('entry-school');
-
       schoolSelect.innerHTML = '<option value="">-- शाळा निवडा --</option>';
-      if (!cluster) return;
+      if (!taluka || BEED_ALL_SCHOOLS.length === 0) return;
 
-      const filteredSchools = CLUSTER_BASED_SCHOOLS.filter(s => 
-        s.k === cluster && 
-        (s.t === taluka || (!s.t && taluka === 'माजलगाव')) && 
-        isSchoolEligible(s, currentEntryCategory)
-      );
-
-      if (filteredSchools.length === 0) {
-        schoolSelect.innerHTML = '<option value="">-- या केंद्रात पात्र शाळा नाहीत --</option>';
-        return;
-      }
-
-      filteredSchools.forEach(s => {
+      const filtered = BEED_ALL_SCHOOLS.filter(s => s.t === taluka && isSchoolEligible(s, currentEntryCategory));
+      filtered.forEach(s => {
         schoolSelect.innerHTML += `<option value="${s.c}">${s.n}</option>`;
       });
     }
 
-    /* UDISE कोड थेट शोध (schools.json मधून) */
+    /* प्रभावी UDISE कोड व नाव सर्च फंक्शन (schools.json मधून) */
     function searchSchoolsByUdise(query) {
       const box = document.getElementById('udise-results-box');
-      const q = query.trim();
-      if (q.length < 2) {
+      const q = query.trim().toLowerCase();
+      
+      if (q.length < 2 || BEED_ALL_SCHOOLS.length === 0) {
         box.style.display = 'none';
         return;
       }
 
-      const source = BEED_ALL_SCHOOLS.length > 0 ? BEED_ALL_SCHOOLS : CLUSTER_BASED_SCHOOLS;
-      const matches = source.filter(s => s.c.includes(q) && isSchoolEligible(s, currentEntryCategory)).slice(0, 15);
+      // UDISE कोडचे अंक किंवा शाळेच्या नावाने शोधणे
+      const matches = BEED_ALL_SCHOOLS.filter(s => 
+        (s.c.includes(q) || s.n.toLowerCase().includes(q)) && 
+        isSchoolEligible(s, currentEntryCategory)
+      ).slice(0, 20);
       
       if (matches.length === 0) {
-        box.innerHTML = `<div style="padding:10px; color:#64748b; font-size:0.85rem;">जुळणारी शाळा सापडली नाही.</div>`;
+        box.innerHTML = `<div style="padding:12px; color:#64748b; font-size:0.88rem; text-align:center;">या UDISE शी जुळणारी शाळा सापडली नाही.</div>`;
       } else {
         box.innerHTML = matches.map(s => `
-          <div style="padding:10px; cursor:pointer; border-bottom:1px solid #f1f5f9; font-size:0.88rem;" onclick="selectSchoolFromUdise('${s.c}')">
-            <strong>${s.c}</strong> - ${s.n} <span style="color:#0284c7;">(${s.t || s.k})</span>
+          <div class="udise-suggest-item" onclick="selectSchoolFromUdise('${s.c}')">
+            <strong>${s.c}</strong> - ${s.n} <span style="color:#0284c7; font-weight:700;">(${s.t})</span>
           </div>
         `).join('');
       }
@@ -1331,15 +1304,10 @@
     }
 
     function selectSchoolFromUdise(udiseCode) {
-      const source = BEED_ALL_SCHOOLS.length > 0 ? BEED_ALL_SCHOOLS : CLUSTER_BASED_SCHOOLS;
-      const school = source.find(s => s.c === udiseCode);
+      const school = BEED_ALL_SCHOOLS.find(s => s.c === udiseCode);
       if (!school) return;
 
       if (school.t) document.getElementById('entry-taluka').value = school.t;
-      if (school.k) {
-        onTalukaSelected();
-        document.getElementById('entry-cluster').value = school.k;
-      }
       
       const schoolSelect = document.getElementById('entry-school');
       schoolSelect.innerHTML = `<option value="${school.c}">${school.n}</option>`;
@@ -1354,12 +1322,10 @@
       const udise = document.getElementById('entry-school').value;
       if (!udise) return;
 
-      const source = BEED_ALL_SCHOOLS.length > 0 ? BEED_ALL_SCHOOLS : CLUSTER_BASED_SCHOOLS;
-      selectedSchoolObj = source.find(s => s.c === udise) || CLUSTER_BASED_SCHOOLS.find(s => s.c === udise);
+      selectedSchoolObj = BEED_ALL_SCHOOLS.find(s => s.c === udise);
 
       document.getElementById('lock-notice').style.display = 'block';
       document.getElementById('entry-taluka').classList.add('locked');
-      document.getElementById('entry-cluster').classList.add('locked');
       document.getElementById('entry-school').classList.add('locked');
       showToast('शाळा निवड लॉक झाली!');
       loadStudentsFromFirebase();
@@ -1369,7 +1335,6 @@
       selectedSchoolObj = null;
       document.getElementById('lock-notice').style.display = 'none';
       document.getElementById('entry-taluka').classList.remove('locked');
-      document.getElementById('entry-cluster').classList.remove('locked');
       document.getElementById('entry-school').classList.remove('locked');
       document.getElementById('entry-school').value = '';
       document.getElementById('udise-search-input').value = '';
@@ -1585,7 +1550,6 @@
 
       const payload = {
         taluka: selectedSchoolObj.t || 'बीड',
-        cluster: selectedSchoolObj.k || 'केंद्र',
         school: selectedSchoolObj.n,
         udise: selectedSchoolObj.c,
         students: studentsWithMarks,
@@ -1697,8 +1661,7 @@
         if (entry.udise) filledUdises.add(String(entry.udise).trim());
       });
 
-      const source = BEED_ALL_SCHOOLS.length > 0 ? BEED_ALL_SCHOOLS : CLUSTER_BASED_SCHOOLS;
-      const eligibleSchools = source.filter(s => isSchoolEligible(s, currentSelectedCategory));
+      const eligibleSchools = BEED_ALL_SCHOOLS.filter(s => isSchoolEligible(s, currentSelectedCategory));
       cachedPendingSchools = eligibleSchools.filter(s => !filledUdises.has(s.c));
 
       renderPendingSchoolsList();
