@@ -71,7 +71,7 @@
       gap: 8px;
       margin-bottom: 12px;
       border-bottom: 1px solid var(--primary-light);
-      padding-bottom: 6px;
+      padding-bottom: 8px;
     }
 
     /* Chips */
@@ -235,6 +235,28 @@
     .btn-delete:active { background: #fee2e2; }
     .btn-edit { color: var(--primary); border-color: #bae6fd; }
 
+    /* मोठा व ठळक प्रगती आलेख आयकॉन */
+    .btn-progress-chart {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 2px solid #0284c7;
+      background: #f0f9ff;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.25rem;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.15);
+      transition: all 0.2s;
+    }
+    .btn-progress-chart:active {
+      background: #0284c7;
+      color: white;
+      transform: scale(0.95);
+    }
+
     .student-entry-bottom {
       display: flex;
       justify-content: space-between;
@@ -266,17 +288,18 @@
     .att-btn.absent.active { background: #fee2e2; color: #b91c1c; }
 
     .marks-input {
-      width: 78px;
-      height: 38px;
+      width: 80px;
+      height: 44px;
       text-align: center;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 800;
-      border-radius: 8px;
-      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      border: 2px solid var(--border);
       outline: none;
       background: white;
+      font-family: 'Poppins', sans-serif;
     }
-    .marks-input:focus { border-color: var(--primary); }
+    .marks-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2); }
     .marks-input.is-absent {
       background: #f1f5f9;
       color: var(--danger);
@@ -399,7 +422,7 @@
       overflow-y: auto;
     }
 
-    /* ================= A4 लँडस्केप परिपूर्ण प्रमाणपत्र ================= */
+    /* प्रमाणपत्र बॉक्स */
     .cert-scroll-wrapper {
       width: 100%;
       overflow-x: auto;
@@ -500,7 +523,7 @@
       font-family: 'Mukta', 'Poppins', sans-serif;
     }
 
-    /* ================= A4 पोर्ट्रेट बॅनर ================= */
+    /* बॅनर */
     .banner-preview-box {
       width: 600px;
       min-width: 600px;
@@ -644,10 +667,10 @@
     <!-- ================= 1. डॅशबोर्ड स्क्रीन ================= -->
     <div id="screen-dashboard">
       <div class="chip-scroll">
-        <button class="category-chip active" onclick="selectDashboardCategory('navodaya', this)"><i class="fa-solid fa-school-flag"></i> नवोदय (5 वी - 100 गुण)</button>
-        <button class="category-chip" onclick="selectDashboardCategory('4th', this)"><i class="fa-solid fa-book-open"></i> 4 थी शिष्यवृत्ती (50 गुण)</button>
-        <button class="category-chip" onclick="selectDashboardCategory('7th', this)"><i class="fa-solid fa-award"></i> 7 वी शिष्यवृत्ती (50 गुण)</button>
-        <button class="category-chip" onclick="selectDashboardCategory('nmms', this)"><i class="fa-solid fa-medal"></i> NMMS (8 वी - 50 गुण)</button>
+        <button class="category-chip active" onclick="selectDashboardCategory('navodaya', this)"><i class="fa-solid fa-school-flag"></i> नवोदय (5 वी)</button>
+        <button class="category-chip" onclick="selectDashboardCategory('4th', this)"><i class="fa-solid fa-book-open"></i> 4 थी शिष्यवृत्ती</button>
+        <button class="category-chip" onclick="selectDashboardCategory('7th', this)"><i class="fa-solid fa-award"></i> 7 वी शिष्यवृत्ती</button>
+        <button class="category-chip" onclick="selectDashboardCategory('nmms', this)"><i class="fa-solid fa-medal"></i> NMMS (8 वी)</button>
       </div>
 
       <div class="app-card" style="padding: 10px 14px;">
@@ -688,7 +711,7 @@
           <button class="app-btn btn-success" style="width:auto; height:32px; font-size:0.75rem; padding:0 10px;" onclick="exportDataToExcel()"><i class="fa-solid fa-file-excel"></i> Excel</button>
         </div>
 
-        <!-- तालुका टॅब्स (जिल्हा व सर्व १२ तालुके) -->
+        <!-- तालुका टॅब्स -->
         <div class="test-pill-wrap" id="taluka-tabs" style="margin-bottom:12px;"></div>
 
         <div id="toppers-container">
@@ -700,10 +723,10 @@
     <!-- ================= 2. गुण नोंदणी स्क्रीन (शिक्षक पोर्टल) ================= -->
     <div id="screen-entry" style="display:none;">
       <div class="chip-scroll">
-        <button class="category-chip active" id="entry-chip-navodaya" onclick="selectEntryCategory('navodaya')">नवोदय (5 वी - 100 गुण)</button>
-        <button class="category-chip" id="entry-chip-4th" onclick="selectEntryCategory('4th')">4 थी शिष्यवृत्ती (50 गुण)</button>
-        <button class="category-chip" id="entry-chip-7th" onclick="selectEntryCategory('7th')">7 वी शिष्यवृत्ती (50 गुण)</button>
-        <button class="category-chip" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी - 50 गुण)</button>
+        <button class="category-chip active" id="entry-chip-navodaya" onclick="selectEntryCategory('navodaya')">नवोदय (5 वी)</button>
+        <button class="category-chip" id="entry-chip-4th" onclick="selectEntryCategory('4th')">4 थी शिष्यवृत्ती</button>
+        <button class="category-chip" id="entry-chip-7th" onclick="selectEntryCategory('7th')">7 वी शिष्यवृत्ती</button>
+        <button class="category-chip" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी)</button>
       </div>
 
       <!-- १. शाळा निवड (UDISE Live Search द्वारे) -->
@@ -777,11 +800,11 @@
         <button class="app-btn btn-success" onclick="addStudentToList()"><i class="fa-solid fa-plus"></i> यादीत नवीन विद्यार्थी जोडा</button>
       </div>
 
-      <!-- ३. गुण भरा व उपस्थित/गैरहजर नोंदवा -->
+      <!-- ३. गुण भरा व उपस्थित/गैरहजर नोंदवा (सुटसुटीत शीर्षक व नंबर कीबोर्ड) -->
       <div class="app-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <div class="app-card-title" style="margin:0; border:none;">
-            <i class="fa-solid fa-pen-nib"></i> ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी (<span id="entry-marks-limit-label" style="color:var(--gold);">पैकी १०० गुण</span>)
+            <i class="fa-solid fa-pen-nib"></i> ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी
           </div>
         </div>
         
@@ -790,7 +813,7 @@
         </div>
 
         <div style="margin-top: 14px;">
-          <button class="app-btn btn-primary" onclick="submitMarksToFirebase()"><i class="fa-solid fa-cloud-arrow-up"></i> सर्व गुण Firebase वर सेव्ह करा</button>
+          <button class="app-btn btn-primary" onclick="submitMarksToFirebase()"><i class="fa-solid fa-cloud-arrow-up"></i> सर्व गुण सुरक्षित सेव्ह करा</button>
         </div>
       </div>
     </div>
@@ -932,7 +955,7 @@
               तालुका: <strong><span id="cert-taluka-name">---</span></strong> 
               <strong id="cert-gender-pronoun" style="color:#0369a1;">या विद्यार्थ्याने</strong> 
               जिल्हा परिषद, बीड अंतर्गत आयोजित <strong><span id="cert-exam-title">---</span></strong> अंतर्गत 
-              चाचणी क्र. <strong id="cert-test-no" style="font-size: 1.15rem; color:#b45309; font-family:'Poppins', sans-serif;">1</strong> मध्ये उत्कृष्ट यश संपादन केले आहे.[span_3](start_span)[span_3](end_span)
+              चाचणी क्र. <strong id="cert-test-no" style="font-size: 1.15rem; color:#b45309; font-family:'Poppins', sans-serif;">1</strong> मध्ये उत्कृष्ट यश संपादन केले आहे[span_9](start_span)[span_9](end_span)।
             </p>
             
             <div class="cert-badges">
@@ -1047,7 +1070,7 @@
       "गेवराई", "केज", "माजलगाव", "परळी", "पाटोदा", "शिरूर कासार", "वडवणी"
     ];
 
-    /* ================= २. FIREBASE CONFIG (आपले मूळ खाते) ================= */
+    /* ================= २. FIREBASE CONFIG ================= */
     const firebaseConfig = {
       apiKey: "AIzaSyBrKGEMc9uxBoZ4VIcNfOXq7xt_IZmluDE",
       authDomain: "test-database-34c8a.firebaseapp.com",
@@ -1108,7 +1131,6 @@
             l: parseInt(s.lowest_class, 10) || 1,
             h: parseInt(s.highest_class, 10) || 7
           }));
-          console.log("सर्व शाळा (schools.json) यशस्वीरित्या लोड झाल्या! संख्या:", BEED_ALL_SCHOOLS.length);
           onTalukaSelected();
         })
         .catch(err => {
@@ -1239,10 +1261,6 @@
       currentEntryCategory = cat;
       document.querySelectorAll('#screen-entry .category-chip').forEach(c => c.classList.remove('active'));
       document.getElementById(`entry-chip-${cat}`).classList.add('active');
-      
-      const maxMarks = getMaxMarksForCategory(cat);
-      const label = document.getElementById('entry-marks-limit-label');
-      if (label) label.innerText = `पैकी ${maxMarks} गुण`;
 
       const autoTest = getAutoActiveTest(cat);
       document.getElementById('entry-test-no').value = autoTest;
@@ -1275,7 +1293,7 @@
       });
     }
 
-    /* प्रभावी UDISE कोड व नाव सर्च फंक्शन (schools.json मधून) */
+    /* प्रभावी UDISE कोड व नाव सर्च फंक्शन */
     function searchSchoolsByUdise(query) {
       const box = document.getElementById('udise-results-box');
       const q = query.trim().toLowerCase();
@@ -1285,14 +1303,13 @@
         return;
       }
 
-      // UDISE कोडचे अंक किंवा शाळेच्या नावाने शोधणे
       const matches = BEED_ALL_SCHOOLS.filter(s => 
         (s.c.includes(q) || s.n.toLowerCase().includes(q)) && 
         isSchoolEligible(s, currentEntryCategory)
       ).slice(0, 20);
       
       if (matches.length === 0) {
-        box.innerHTML = `<div style="padding:12px; color:#64748b; font-size:0.88rem; text-align:center;">या UDISE शी जुळणारी शाळा सापडली नाही.</div>`;
+        box.innerHTML = `<div style="padding:12px; color:#64748b; font-size:0.88rem; text-align:center;">जुळणारी शाळा सापडली नाही.</div>`;
       } else {
         box.innerHTML = matches.map(s => `
           <div class="udise-suggest-item" onclick="selectSchoolFromUdise('${s.c}')">
@@ -1460,6 +1477,7 @@
       });
     }
 
+    /* मोबाईलसाठी स्वयंचलित Numeric Keypad व मोठा ग्राफ आयकॉन */
     function renderMobileStudentList(savedStudents) {
       const cont = document.getElementById('student-list-container');
       cont.innerHTML = '';
@@ -1505,10 +1523,13 @@
                 <button type="button" class="att-btn absent ${isAbsent ? 'active' : ''}" id="att-a-${st.id}" onclick="setAttendance(${st.id}, 'absent')">गैरहजर (AB)</button>
               </div>
 
-              <div style="display:flex; align-items:center; gap:6px;">
-                <input type="number" min="0" max="${maxLimit}" class="marks-input ${isAbsent ? 'is-absent' : ''}" id="marks-input-${st.id}" value="${marks}" placeholder="0-${maxLimit}" ${isAbsent ? 'readonly' : ''}>
-                <button class="btn-icon-action" style="color:var(--primary); width:38px; height:38px;" onclick="openReportCardModal(${st.id}, '${st.name}')" title="प्रगती पुस्तक">
-                  <i class="fa-solid fa-address-card"></i>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <!-- inputmode="numeric" मुळे मोबाईलवर थेट नंबर कीबोर्ड उघडेल -->
+                <input type="text" inputmode="numeric" pattern="[0-9]*" class="marks-input ${isAbsent ? 'is-absent' : ''}" id="marks-input-${st.id}" value="${marks}" placeholder="गुण" ${isAbsent ? 'readonly' : ''}>
+                
+                <!-- मोठा व ठळक प्रगती आलेख आयकॉन -->
+                <button class="btn-progress-chart" onclick="openReportCardModal(${st.id}, '${st.name}')" title="विद्यार्थी प्रगती आलेख">
+                  <i class="fa-solid fa-chart-column"></i>
                 </button>
               </div>
             </div>
@@ -1533,7 +1554,7 @@
         const val = inp ? inp.value.trim() : '';
         if (val !== '' && val.toUpperCase() !== 'AB') {
           const num = parseFloat(val);
-          if (num < 0 || num > maxLimit) {
+          if (isNaN(num) || num < 0 || num > maxLimit) {
             alert(`विद्यार्थी "${st.name}" याचे गुण ० ते ${maxLimit} दरम्यान असावेत!`);
             hasError = true;
           }
@@ -1710,10 +1731,10 @@
       }
 
       const examNames = {
-        'navodaya': 'नवोदय प्रवेश पात्रता परीक्षा (5 वी - 100 गुण)',
-        '4th': 'इयत्ता 4 थी शिष्यवृत्ती सराव परीक्षा (50 गुण)',
-        '7th': 'इयत्ता 7 वी शिष्यवृत्ती सराव परीक्षा (50 गुण)',
-        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा (8 वी - 50 गुण)'
+        'navodaya': 'नवोदय प्रवेश पात्रता परीक्षा (5 वी)',
+        '4th': 'इयत्ता 4 थी शिष्यवृत्ती सराव परीक्षा',
+        '7th': 'इयत्ता 7 वी शिष्यवृत्ती सराव परीक्षा',
+        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा (8 वी)'
       };
 
       let msg = `*📢 शिक्षण विभाग, जिल्हा परिषद बीड*\n`;
@@ -1732,17 +1753,17 @@
       });
     }
 
-    /* ================= Top 10 बॅनर (A4 Portrait) ================= */
+    /* ================= Top 10 बॅनर ================= */
     function openToppersBannerModal(type) {
       const listEl = document.getElementById('banner-toppers-list');
       listEl.innerHTML = '';
 
       const maxLimit = getMaxMarksForCategory(currentSelectedCategory);
       const examNames = {
-        'navodaya': 'नवोदय प्रवेश पात्रता परीक्षा (5 वी - 100 गुण)',
-        '4th': 'इयत्ता 4 थी शिष्यवृत्ती सराव परीक्षा (50 गुण)',
-        '7th': 'इयत्ता 7 वी शिष्यवृत्ती सराव परीक्षा (50 गुण)',
-        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा (8 वी - 50 गुण)'
+        'navodaya': 'नवोदय प्रवेश पात्रता परीक्षा (5 वी)',
+        '4th': 'इयत्ता 4 थी शिष्यवृत्ती सराव परीक्षा',
+        '7th': 'इयत्ता 7 वी शिष्यवृत्ती सराव परीक्षा',
+        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा (8 वी)'
       };
 
       let title = "";
@@ -1932,7 +1953,6 @@
           }
           marksRow.innerHTML += `<td>${m}</td>`;
 
-          // आलेखाची उंची टक्केवारीनुसार काढणे
           const heightPercent = (m !== '-' && m !== 'AB') ? ((m / maxLimit) * 100) : 0;
           graphBars.innerHTML += `
             <div class="progress-col">
