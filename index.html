@@ -238,7 +238,7 @@
     /* मोठा व ठळक प्रगती आलेख आयकॉन */
     .btn-progress-chart {
       width: 44px;
-      height: 44px;
+      height: 48px;
       border-radius: 10px;
       border: 2px solid #0284c7;
       background: #f0f9ff;
@@ -247,7 +247,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       box-shadow: 0 2px 6px rgba(2, 132, 199, 0.15);
       transition: all 0.2s;
     }
@@ -287,24 +287,47 @@
     .att-btn.present.active { background: #dcfce7; color: #15803d; }
     .att-btn.absent.active { background: #fee2e2; color: #b91c1c; }
 
+    /* अंश व छेद स्वरूपात गुण नोंदणी बॉक्स */
+    .fraction-marks-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      padding: 3px 6px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .fraction-marks-wrap:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+    }
     .marks-input {
-      width: 80px;
-      height: 44px;
+      width: 72px;
+      height: 32px;
       text-align: center;
       font-size: 1.15rem;
       font-weight: 800;
-      border-radius: 10px;
-      border: 2px solid var(--border);
+      border: none;
+      border-bottom: 2px solid #cbd5e1;
       outline: none;
-      background: white;
+      background: transparent;
       font-family: 'Poppins', sans-serif;
+      color: #0f172a;
     }
-    .marks-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2); }
     .marks-input.is-absent {
-      background: #f1f5f9;
       color: var(--danger);
       font-weight: 800;
-      border-color: #fca5a5;
+      background: #fef2f2;
+    }
+    .fraction-denominator {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #64748b;
+      font-family: 'Poppins', sans-serif;
+      margin-top: 2px;
+      letter-spacing: 0.5px;
     }
 
     /* Stats Grid */
@@ -420,6 +443,33 @@
       max-width: 840px;
       max-height: 94vh;
       overflow-y: auto;
+    }
+
+    /* कस्टम सूचना पॉप-अप (Alert & Confirm Replacement) */
+    .custom-alert-box {
+      max-width: 390px;
+      text-align: center;
+      padding: 22px 18px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .custom-alert-icon {
+      font-size: 2.8rem;
+      color: #d97706;
+      margin-bottom: 8px;
+    }
+    .custom-alert-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+    .custom-alert-msg {
+      font-size: 0.95rem;
+      color: #475569;
+      line-height: 1.5;
+      margin-bottom: 18px;
+      font-weight: 600;
     }
 
     /* प्रमाणपत्र बॉक्स */
@@ -729,7 +779,7 @@
         <button class="category-chip" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी)</button>
       </div>
 
-      <!-- १. शाळा निवडा (फक्त सर्च व निवडलेली शाळा) -->
+      <!-- १. शाळा निवडा -->
       <div class="app-card">
         <div class="app-card-title"><i class="fa-solid fa-school"></i> १. शाळा निवडा (UDISE कोड किंवा नावाने शोधा)</div>
         
@@ -740,12 +790,12 @@
           <div class="udise-suggestions-box" id="udise-results-box"></div>
           
           <!-- अधिक ठळक व इंग्रजी अंकांमध्ये सूचना -->
-          <p style="font-size:0.84rem; color:#1e293b; font-weight:700; margin-top:6px; line-height:1.4;">
+          <p style="font-size:0.84rem; color:#0f172a; font-weight:700; margin-top:6px; line-height:1.4;">
             <i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> UDISE कोडचे 3-4 अंक किंवा नाव टाईप करताच खाली सर्व 2,574 शाळांची यादी दिसेल, त्यातून आपली शाळा निवडा.
           </p>
         </div>
 
-        <!-- फक्त निवडलेली शाळा पर्याय (तालुका व चाचणी पर्याय काढून टाकले) -->
+        <!-- फक्त निवडलेली शाळा पर्याय -->
         <div class="form-group" style="margin-bottom: 4px;">
           <label>निवडलेली शाळा</label>
           <select class="form-control" id="entry-school" onchange="lockSelectedSchool()">
@@ -791,13 +841,13 @@
         <button class="app-btn btn-success" onclick="addStudentToList()"><i class="fa-solid fa-plus"></i> यादीत नवीन विद्यार्थी जोडा</button>
       </div>
 
-      <!-- ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी (चाचणी क्रमांक निवडीसह) -->
+      <!-- ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी -->
       <div class="app-card">
         <div class="app-card-title">
           <i class="fa-solid fa-pen-nib"></i> ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी
         </div>
 
-        <!-- चाचणी क्रमांक निवडण्याचा पर्याय भाग ३ मध्ये स्थलांतरित केला -->
+        <!-- चाचणी क्रमांक निवडण्याचा पर्याय भाग ३ मध्ये -->
         <div class="form-group" style="background:#f1f5f9; padding:12px; border-radius:10px; margin-bottom:14px; border:1px solid #cbd5e1;">
           <label style="color:#0369a1; font-weight:800; font-size:0.92rem;">
             <i class="fa-solid fa-list-ol"></i> ज्या चाचणीचे गुण भरायचे आहेत ती चाचणी निवडा:
@@ -829,6 +879,18 @@
   </nav>
 
   <!-- ================= MODALS ================= -->
+
+  <!-- कस्टम 'आवश्यक सूचना' पॉप-अप (Custom Alert / Confirm Modal) -->
+  <div class="modal" id="customAlertModal">
+    <div class="modal-content custom-alert-box">
+      <div class="custom-alert-icon" id="custom-alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <h3 class="custom-alert-title" id="custom-alert-title">आवश्यक सूचना</h3>
+      <p class="custom-alert-msg" id="custom-alert-msg">येथे संदेश दिसेल.</p>
+      <div id="custom-alert-actions" style="display:flex; justify-content:center; gap:10px;">
+        <!-- dynamic buttons -->
+      </div>
+    </div>
+  </div>
 
   <!-- १. प्रलंबित शाळा ट्रॅकर Modal -->
   <div class="modal" id="pendingSchoolsModal">
@@ -1110,10 +1172,41 @@
     let currentRawResults = {};
     let cachedPendingSchools = [];
 
-    // मूळ schools.json मधील सर्व २,५७४ शाळांचा मास्टर डेटा
+    // मूळ schools.json मधील सर्व २,५७४ शाळा
     let BEED_ALL_SCHOOLS = [];
 
-    /* ================= ३. केवळ schools.json लोड करणे ================= */
+    /* ================= ३. कस्टम 'आवश्यक सूचना' डायलॉग सिस्टीम ================= */
+    function showCustomAlert(msg, icon = 'fa-circle-info') {
+      document.getElementById('custom-alert-icon').innerHTML = `<i class="fa-solid ${icon}"></i>`;
+      document.getElementById('custom-alert-title').innerText = "आवश्यक सूचना";
+      document.getElementById('custom-alert-msg').innerText = msg;
+      
+      const act = document.getElementById('custom-alert-actions');
+      act.innerHTML = `<button class="app-btn btn-primary" style="width:130px;" onclick="closeModal('customAlertModal')">ठीक आहे</button>`;
+      
+      document.getElementById('customAlertModal').style.display = 'flex';
+    }
+
+    function showCustomConfirm(msg, onConfirm) {
+      document.getElementById('custom-alert-icon').innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:var(--danger);"></i>`;
+      document.getElementById('custom-alert-title').innerText = "आवश्यक सूचना";
+      document.getElementById('custom-alert-msg').innerText = msg;
+      
+      const act = document.getElementById('custom-alert-actions');
+      act.innerHTML = `
+        <button class="app-btn btn-outline" style="width:110px;" onclick="closeModal('customAlertModal')">रद्द करा</button>
+        <button class="app-btn btn-danger" style="width:110px;" id="custom-confirm-btn">कमी करा</button>
+      `;
+
+      document.getElementById('custom-confirm-btn').onclick = function() {
+        closeModal('customAlertModal');
+        onConfirm();
+      };
+
+      document.getElementById('customAlertModal').style.display = 'flex';
+    }
+
+    /* ================= ४. शाळा डेटा लोड करणे ================= */
     function loadSchoolsData() {
       fetch('schools.json')
         .then(res => {
@@ -1379,12 +1472,12 @@
       const gender = document.getElementById('std-gender').value;
 
       if (!fname || !lname) {
-        alert('नाव व आडनाव भरा!');
+        showCustomAlert('कृपया विद्यार्थ्याचे नाव व आडनाव भरा!');
         return;
       }
       const key = getSchoolDbKey();
       if (!key) {
-        alert('आधी भाग १ मधून शाळा निवडा!');
+        showCustomAlert('आधी भाग १ मधून आपली शाळा निवडा!');
         return;
       }
 
@@ -1403,15 +1496,17 @@
       });
     }
 
+    /* कस्टम सूचना पॉप-अप द्वारे विद्यार्थी कमी करणे */
     function deleteStudent(id, name) {
-      if (!confirm(`तुम्हाला "${name}" या विद्यार्थ्याचे नाव यादीतून नक्की कमी करायचे आहे का?`)) return;
-      const key = getSchoolDbKey();
-      if (!key) return;
+      showCustomConfirm(`तुम्हाला "${name}" या विद्यार्थ्याचे नाव यादीतून नक्की कमी करायचे आहे का?`, function() {
+        const key = getSchoolDbKey();
+        if (!key) return;
 
-      currentStudentsList = currentStudentsList.filter(s => s.id !== id);
-      db.ref(`students_master/${key}`).set(currentStudentsList).then(() => {
-        loadStudentMarksForSelectedTest();
-        showToast('नाव कमी केले!');
+        currentStudentsList = currentStudentsList.filter(s => s.id !== id);
+        db.ref(`students_master/${key}`).set(currentStudentsList).then(() => {
+          loadStudentMarksForSelectedTest();
+          showToast('नाव कमी केले!');
+        });
       });
     }
 
@@ -1427,7 +1522,10 @@
       const newName = document.getElementById('edit-std-name').value.trim();
       const newGender = document.getElementById('edit-std-gender').value;
 
-      if (!newName) return;
+      if (!newName) {
+        showCustomAlert('विद्यार्थ्याचे नाव रिकामे असू शकत नाही!');
+        return;
+      }
       const key = getSchoolDbKey();
       if (!key) return;
 
@@ -1454,7 +1552,7 @@
       });
     }
 
-    /* मोबाईलसाठी थेट Numeric Keypad व मोठा ग्राफ आयकॉन */
+    /* अंश व छेद स्वरूपात गुण नोंदणी व मोठा आलेख आयकॉन */
     function renderMobileStudentList(savedStudents) {
       const cont = document.getElementById('student-list-container');
       cont.innerHTML = '';
@@ -1501,8 +1599,11 @@
               </div>
 
               <div style="display:flex; align-items:center; gap:8px;">
-                <!-- inputmode="numeric" मुळे मोबाईलवर थेट नंबर कीबोर्ड उघडेल -->
-                <input type="text" inputmode="numeric" pattern="[0-9]*" class="marks-input ${isAbsent ? 'is-absent' : ''}" id="marks-input-${st.id}" value="${marks}" placeholder="गुण" ${isAbsent ? 'readonly' : ''}>
+                <!-- अंशामध्ये गुण इनपुट व छेदामध्ये इंग्रजी अंकांमध्ये एकूण गुण (/100 किंवा /50) -->
+                <div class="fraction-marks-wrap">
+                  <input type="text" inputmode="numeric" pattern="[0-9]*" class="marks-input ${isAbsent ? 'is-absent' : ''}" id="marks-input-${st.id}" value="${marks}" placeholder="गुण" ${isAbsent ? 'readonly' : ''}>
+                  <span class="fraction-denominator">/ ${maxLimit}</span>
+                </div>
                 
                 <!-- मोठा व ठळक प्रगती आलेख आयकॉन -->
                 <button class="btn-progress-chart" onclick="openReportCardModal(${st.id}, '${st.name}')" title="विद्यार्थी प्रगती आलेख">
@@ -1518,7 +1619,7 @@
     function submitMarksToFirebase() {
       const key = getSchoolDbKey();
       if (!key || !selectedSchoolObj) {
-        alert('आधी शाळा निवडा!');
+        showCustomAlert('कृपया प्रथम भाग १ मधून शाळा निवडा!');
         return;
       }
 
@@ -1532,7 +1633,7 @@
         if (val !== '' && val.toUpperCase() !== 'AB') {
           const num = parseFloat(val);
           if (isNaN(num) || num < 0 || num > maxLimit) {
-            alert(`विद्यार्थी "${st.name}" याचे गुण ० ते ${maxLimit} दरम्यान असावेत!`);
+            showCustomAlert(`विद्यार्थी "${st.name}" याचे गुण 0 ते ${maxLimit} दरम्यान असावेत!`);
             hasError = true;
           }
         }
@@ -1557,11 +1658,11 @@
       db.ref(`results/${currentEntryCategory}/test_${testNo}/${key}`).set(payload).then(() => {
         showToast('सर्व गुण सुरक्षित सेव्ह झाले!');
       }).catch(err => {
-        alert('त्रुटी: ' + err.message);
+        showCustomAlert('त्रुटी: ' + err.message);
       });
     }
 
-    /* ================= डॅशबोर्ड डेटा ================= */
+    /* ================= ५. डॅशबोर्ड डेटा ================= */
     function listenLiveDashboardData() {
       const refPath = `results/${currentSelectedCategory}/test_${currentSelectedTest}`;
       const maxLimit = getMaxMarksForCategory(currentSelectedCategory);
@@ -1652,7 +1753,7 @@
       });
     }
 
-    /* ================= प्रलंबित शाळा ट्रॅकर ================= */
+    /* ================= ६. प्रलंबित शाळा ट्रॅकर ================= */
     function openPendingSchoolsModal() {
       const filledUdises = new Set();
       Object.values(currentRawResults).forEach(entry => {
@@ -1703,7 +1804,7 @@
       }
 
       if (list.length === 0) {
-        alert("एकही शाळा प्रलंबित नाही!");
+        showCustomAlert("एकही शाळा प्रलंबित नाही!");
         return;
       }
 
@@ -1730,7 +1831,7 @@
       });
     }
 
-    /* ================= Top 10 बॅनर ================= */
+    /* ================= ७. Top 10 बॅनर ================= */
     function openToppersBannerModal(type) {
       const listEl = document.getElementById('banner-toppers-list');
       listEl.innerHTML = '';
@@ -1823,7 +1924,7 @@
       });
     }
 
-    /* ================= गुणवत्ता सन्मान प्रमाणपत्र ================= */
+    /* ================= ८. गुणवत्ता सन्मान प्रमाणपत्र ================= */
     let currentCertStudentName = 'विद्यार्थी';
 
     function openCertificateModal(name, school, udise, taluka, marks, rankText, gender) {
@@ -1886,7 +1987,7 @@
       });
     }
 
-    /* ================= प्रगती पुस्तक (Report Card) ================= */
+    /* ================= ९. प्रगती पुस्तक (Report Card) ================= */
     function openReportCardModal(studentId, studentName) {
       if (!selectedSchoolObj) return;
 
@@ -1930,7 +2031,6 @@
           }
           marksRow.innerHTML += `<td>${m}</td>`;
 
-          // आलेखाची उंची टक्केवारीनुसार काढणे
           const heightPercent = (m !== '-' && m !== 'AB') ? ((m / maxLimit) * 100) : 0;
           graphBars.innerHTML += `
             <div class="progress-col">
@@ -1968,10 +2068,10 @@
       });
     }
 
-    /* ================= सर्वोत्कृष्ट शाळा गौरव ================= */
+    /* ================= १०. सर्वोत्कृष्ट शाळा गौरव ================= */
     function openBestSchoolModal() {
       if (!currentRawResults || Object.keys(currentRawResults).length === 0) {
-        alert("अद्याप चाचणीचा निकाल उपलब्ध नाही.");
+        showCustomAlert("अद्याप चाचणीचा निकाल उपलब्ध नाही.");
         return;
       }
 
@@ -2018,10 +2118,10 @@
       });
     }
 
-    /* ================= EXCEL EXPORT ================= */
+    /* ================= ११. EXCEL EXPORT ================= */
     function exportDataToExcel() {
       if (currentFetchedToppers.length === 0) {
-        alert("डाउनलोड करण्यासाठी निकाल उपलब्ध नाही.");
+        showCustomAlert("डाउनलोड करण्यासाठी निकाल उपलब्ध नाही.");
         return;
       }
       const maxLimit = getMaxMarksForCategory(currentSelectedCategory);
