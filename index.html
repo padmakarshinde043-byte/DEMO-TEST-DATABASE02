@@ -474,7 +474,7 @@
       font-family: 'Mukta', 'Poppins', sans-serif;
     }
 
-    /* ================= A4 पोर्ट्रेट परिपूर्ण बॅनर ================= */
+    /* ================= A4 पोर्ट्रेट बॅनर ================= */
     .banner-preview-box {
       width: 600px;
       min-width: 600px;
@@ -618,10 +618,10 @@
     <!-- ================= 1. डॅशबोर्ड स्क्रीन ================= -->
     <div id="screen-dashboard">
       <div class="chip-scroll">
-        <button class="category-chip active" onclick="selectDashboardCategory('navodaya', this)"><i class="fa-solid fa-school-flag"></i> नवोदय (5 वी)</button>
-        <button class="category-chip" onclick="selectDashboardCategory('4th', this)"><i class="fa-solid fa-book-open"></i> 4 थी शिष्यवृत्ती</button>
-        <button class="category-chip" onclick="selectDashboardCategory('7th', this)"><i class="fa-solid fa-award"></i> 7 वी शिष्यवृत्ती</button>
-        <button class="category-chip" onclick="selectDashboardCategory('nmms', this)"><i class="fa-solid fa-medal"></i> NMMS (8 वी)</button>
+        <button class="category-chip active" onclick="selectDashboardCategory('navodaya', this)"><i class="fa-solid fa-school-flag"></i> नवोदय (5 वी - 100 गुण)</button>
+        <button class="category-chip" onclick="selectDashboardCategory('4th', this)"><i class="fa-solid fa-book-open"></i> 4 थी शिष्यवृत्ती (50 गुण)</button>
+        <button class="category-chip" onclick="selectDashboardCategory('7th', this)"><i class="fa-solid fa-award"></i> 7 वी शिष्यवृत्ती (50 गुण)</button>
+        <button class="category-chip" onclick="selectDashboardCategory('nmms', this)"><i class="fa-solid fa-medal"></i> NMMS (8 वी - 50 गुण)</button>
       </div>
 
       <div class="app-card" style="padding: 10px 14px;">
@@ -674,10 +674,10 @@
     <!-- ================= 2. गुण नोंदणी स्क्रीन (शिक्षक पोर्टल) ================= -->
     <div id="screen-entry" style="display:none;">
       <div class="chip-scroll">
-        <button class="category-chip active" id="entry-chip-navodaya" onclick="selectEntryCategory('navodaya')">नवोदय (5 वी)</button>
-        <button class="category-chip" id="entry-chip-4th" onclick="selectEntryCategory('4th')">4 थी शिष्यवृत्ती</button>
-        <button class="category-chip" id="entry-chip-7th" onclick="selectEntryCategory('7th')">7 वी शिष्यवृत्ती</button>
-        <button class="category-chip" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी)</button>
+        <button class="category-chip active" id="entry-chip-navodaya" onclick="selectEntryCategory('navodaya')">नवोदय (5 वी - 100 गुण)</button>
+        <button class="category-chip" id="entry-chip-4th" onclick="selectEntryCategory('4th')">4 थी शिष्यवृत्ती (50 गुण)</button>
+        <button class="category-chip" id="entry-chip-7th" onclick="selectEntryCategory('7th')">7 वी शिष्यवृत्ती (50 गुण)</button>
+        <button class="category-chip" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी - 50 गुण)</button>
       </div>
 
       <!-- १. शाळा निवड (UDISE Live Search + केंद्र दोन्ही प्रकारे) -->
@@ -696,7 +696,7 @@
           <select class="form-control" id="entry-test-no" onchange="loadStudentMarksForSelectedTest()"></select>
         </div>
 
-        <!-- पर्याय ब: केंद्रानुसार शाळा निवड (cluster_schools.json मधून) -->
+        <!-- पर्याय ब: केंद्र व तालुक्यानुसार शाळा निवड -->
         <div class="grid-2">
           <div class="form-group">
             <label>केंद्र निवडा (Cluster)</label>
@@ -729,7 +729,7 @@
       <div class="app-card">
         <div class="app-card-title"><i class="fa-solid fa-user-plus"></i> २. नवीन विद्यार्थी वाढवा / जोडा</div>
         <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">
-          * सूचना: एकदा जोडलेले नाव सर्व चाचण्यांसाठी उपलब्ध राहील. नाव दुरुस्त करणे किंवा कमी करण्याचे पर्याय खाली दिले आहेत.
+          * सूचना: एकदा जोडलेले नाव सर्व चाचण्यांसाठी उपलब्ध राहील.
         </p>
         <div class="grid-2">
           <div class="form-group">
@@ -760,7 +760,9 @@
       <!-- ३. गुण भरा व उपस्थित/गैरहजर नोंदवा -->
       <div class="app-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-          <div class="app-card-title" style="margin:0; border:none;"><i class="fa-solid fa-pen-nib"></i> ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी</div>
+          <div class="app-card-title" style="margin:0; border:none;">
+            <i class="fa-solid fa-pen-nib"></i> ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी (<span id="entry-marks-limit-label" style="color:var(--gold);">पैकी १०० गुण</span>)
+          </div>
         </div>
         
         <div id="student-list-container">
@@ -1039,6 +1041,11 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
+    // परीक्षा प्रकारानुसार कमाल गुण निश्चिती (नवोदय = १००, इतर तिन्ही = ५०)
+    function getMaxMarksForCategory(cat) {
+      return (cat === 'navodaya') ? 100 : 50;
+    }
+
     function getAutoActiveTest(category) {
       const baseDate = new Date(2026, 9, 10);
       const today = new Date();
@@ -1081,7 +1088,6 @@
             l: parseInt(s.lowest_class, 10) || 1,
             h: parseInt(s.highest_class, 10) || 7
           }));
-          console.log("सर्व शाळा (schools.json) लोड झाल्या:", BEED_ALL_SCHOOLS.length);
         })
         .catch(err => console.log("schools.json fetch info:", err));
 
@@ -1097,7 +1103,6 @@
             l: parseInt(s.l, 10) || 1,
             h: parseInt(s.h, 10) || 8
           }));
-          console.log("केंद्र शाळा (cluster_schools.json) लोड झाल्या:", CLUSTER_BASED_SCHOOLS.length);
           initClusterDropdown();
         })
         .catch(err => console.log("cluster_schools.json fetch info:", err));
@@ -1249,6 +1254,10 @@
       document.querySelectorAll('#screen-entry .category-chip').forEach(c => c.classList.remove('active'));
       document.getElementById(`entry-chip-${cat}`).classList.add('active');
       
+      const maxMarks = getMaxMarksForCategory(cat);
+      const label = document.getElementById('entry-marks-limit-label');
+      if (label) label.innerText = `पैकी ${maxMarks} गुण`;
+
       const autoTest = getAutoActiveTest(cat);
       document.getElementById('entry-test-no').value = autoTest;
 
@@ -1477,6 +1486,8 @@
         return;
       }
 
+      const maxLimit = getMaxMarksForCategory(currentEntryCategory);
+
       currentStudentsList.forEach((st, idx) => {
         let marks = '';
         let isAbsent = false;
@@ -1512,7 +1523,7 @@
               </div>
 
               <div style="display:flex; align-items:center; gap:6px;">
-                <input type="text" class="marks-input ${isAbsent ? 'is-absent' : ''}" id="marks-input-${st.id}" value="${marks}" placeholder="गुण" ${isAbsent ? 'readonly' : ''}>
+                <input type="number" min="0" max="${maxLimit}" class="marks-input ${isAbsent ? 'is-absent' : ''}" id="marks-input-${st.id}" value="${marks}" placeholder="0-${maxLimit}" ${isAbsent ? 'readonly' : ''}>
                 <button class="btn-icon-action" style="color:var(--primary); width:38px; height:38px;" onclick="openReportCardModal(${st.id}, '${st.name}')" title="प्रगती पुस्तक">
                   <i class="fa-solid fa-address-card"></i>
                 </button>
@@ -1530,16 +1541,29 @@
         return;
       }
 
+      const maxLimit = getMaxMarksForCategory(currentEntryCategory);
       const testNo = document.getElementById('entry-test-no').value;
+      let hasError = false;
+
       let studentsWithMarks = currentStudentsList.map(st => {
         const inp = document.getElementById(`marks-input-${st.id}`);
+        const val = inp ? inp.value.trim() : '';
+        if (val !== '' && val.toUpperCase() !== 'AB') {
+          const num = parseFloat(val);
+          if (num < 0 || num > maxLimit) {
+            alert(`विद्यार्थी "${st.name}" याचे गुण ० ते ${maxLimit} दरम्यान असावेत!`);
+            hasError = true;
+          }
+        }
         return {
           id: st.id,
           name: st.name,
           gender: st.gender,
-          marks: inp ? inp.value.trim() : ''
+          marks: val
         };
       });
+
+      if (hasError) return;
 
       const payload = {
         taluka: selectedSchoolObj.t || 'बीड',
@@ -1560,6 +1584,8 @@
     /* ================= डॅशबोर्ड डेटा ================= */
     function listenLiveDashboardData() {
       const refPath = `results/${currentSelectedCategory}/test_${currentSelectedTest}`;
+      const maxLimit = getMaxMarksForCategory(currentSelectedCategory);
+
       db.ref(refPath).on('value', (snapshot) => {
         const data = snapshot.val();
         currentRawResults = data || {};
@@ -1597,8 +1623,12 @@
         }
 
         document.getElementById('stat-total-students').innerText = allStudents.length;
-        document.getElementById('stat-avg-score').innerText = presentCount > 0 ? (totalScore / presentCount).toFixed(1) + '%' : '0%';
-        document.getElementById('stat-max-score').innerText = maxScore + '/100';
+        
+        // टक्केवारी अचूक काढणे (५० पैकी असल्यास दुप्पट करून १००% प्रमाणात)
+        const avgPercent = (presentCount > 0) ? ((totalScore / (presentCount * maxLimit)) * 100).toFixed(1) : 0;
+        document.getElementById('stat-avg-score').innerText = avgPercent + '%';
+        
+        document.getElementById('stat-max-score').innerText = `${maxScore}/${maxLimit}`;
         document.getElementById('stat-active-talukas').innerText = `${talukaSet.size}/${TALUKA_LIST.length}`;
 
         let filtered = allStudents;
@@ -1619,6 +1649,9 @@
         cont.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:20px; font-size:0.85rem;">या चाचणीचा निकाल अद्याप उपलब्ध नाही.</p>`;
         return;
       }
+
+      const maxLimit = getMaxMarksForCategory(currentSelectedCategory);
+
       list.forEach((st, idx) => {
         const rankLabel = (currentSelectedTaluka === 'all') ? `जिल्ह्यात क्रमांक #${idx + 1}` : `${st.taluka} तालुक्यात क्रमांक #${idx + 1}`;
         cont.innerHTML += `
@@ -1629,7 +1662,7 @@
               <p>${st.school} (${st.taluka})</p>
             </div>
             <div class="topper-score">
-              <span class="topper-score-badge">${st.marks} गुण</span>
+              <span class="topper-score-badge">${st.marks} / ${maxLimit} गुण</span>
               <button class="app-btn btn-outline" style="width:auto; height:26px; font-size:0.7rem; padding:0 8px; margin-top:4px;" 
                 onclick="openCertificateModal('${st.name}', '${st.school}', '${st.udise}', '${st.taluka}', ${st.marks}, '${rankLabel}', '${st.gender || ''}')">
                 <i class="fa-solid fa-award"></i> प्रमाणपत्र
@@ -1697,10 +1730,10 @@
       }
 
       const examNames = {
-        'navodaya': 'नवोदय प्रवेश पात्रता परीक्षा (5 वी)',
-        '4th': 'इयत्ता 4 थी शिष्यवृत्ती सराव परीक्षा',
-        '7th': 'इयत्ता 7 वी शिष्यवृत्ती सराव परीक्षा',
-        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा (8 वी)'
+        'navodaya': 'नवोदय प्रवेश पात्रता परीक्षा (5 वी - 100 गुण)',
+        '4th': 'इयत्ता 4 थी शिष्यवृत्ती सराव परीक्षा (50 गुण)',
+        '7th': 'इयत्ता 7 वी शिष्यवृत्ती सराव परीक्षा (50 गुण)',
+        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा (8 वी - 50 गुण)'
       };
 
       let msg = `*📢 शिक्षण विभाग, जिल्हा परिषद बीड*\n`;
@@ -1724,11 +1757,12 @@
       const listEl = document.getElementById('banner-toppers-list');
       listEl.innerHTML = '';
 
+      const maxLimit = getMaxMarksForCategory(currentSelectedCategory);
       const examNames = {
-        'navodaya': 'नवोदय प्रवेश पात्रता परीक्षा (5 वी)',
-        '4th': 'इयत्ता 4 थी शिष्यवृत्ती सराव परीक्षा',
-        '7th': 'इयत्ता 7 वी शिष्यवृत्ती सराव परीक्षा',
-        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा (8 वी)'
+        'navodaya': 'नवोदय प्रवेश पात्रता परीक्षा (5 वी - 100 गुण)',
+        '4th': 'इयत्ता 4 थी शिष्यवृत्ती सराव परीक्षा (50 गुण)',
+        '7th': 'इयत्ता 7 वी शिष्यवृत्ती सराव परीक्षा (50 गुण)',
+        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा (8 वी - 50 गुण)'
       };
 
       let title = "";
@@ -1777,7 +1811,7 @@
           listEl.innerHTML += `
             <div class="banner-row">
               <span>${medal} <strong>${st.name}</strong> (${st.school})</span>
-              <span style="color:#d97706; font-weight:800;">${st.marks} गुण</span>
+              <span style="color:#d97706; font-weight:800;">${st.marks}/${maxLimit} गुण</span>
             </div>
           `;
         });
@@ -1827,8 +1861,10 @@
       const isGirl = (gender === "मुलगी" || gender === "girl" || gender === "Female");
       document.getElementById('cert-gender-pronoun').innerText = isGirl ? "या विद्यार्थिनीने" : "या विद्यार्थ्याने";
 
+      const maxLimit = getMaxMarksForCategory(currentSelectedCategory);
+
       document.getElementById('cert-test-no').innerText = currentSelectedTest;
-      document.getElementById('cert-marks').innerHTML = `<i class="fa-solid fa-star" style="color:#d97706;"></i> प्राप्त गुण: ${marks} / 100`;
+      document.getElementById('cert-marks').innerHTML = `<i class="fa-solid fa-star" style="color:#d97706;"></i> प्राप्त गुण: ${marks} / ${maxLimit}`;
       document.getElementById('cert-rank-text').innerHTML = `<i class="fa-solid fa-trophy" style="color:#d97706;"></i> ${rankText}`;
 
       const today = new Date();
@@ -1872,7 +1908,7 @@
       });
     }
 
-    /* ================= प्रगती पुस्तक ================= */
+    /* ================= प्रगती पुस्तक (Report Card) ================= */
     function openReportCardModal(studentId, studentName) {
       if (!selectedSchoolObj) return;
 
@@ -1883,6 +1919,7 @@
       const classMap = { 'navodaya': 'इयत्ता ५ वी', '4th': 'इयत्ता ४ थी', '7th': 'इयत्ता ७ वी', 'nmms': 'इयत्ता ८ वी' };
       document.getElementById('rc-class-name').innerText = classMap[currentEntryCategory] || '-';
 
+      const maxLimit = getMaxMarksForCategory(currentEntryCategory);
       const key = getSchoolDbKey();
       const marksRow = document.getElementById('rc-marks-row');
       const graphBars = document.getElementById('rc-graph-bars');
@@ -1915,7 +1952,8 @@
           }
           marksRow.innerHTML += `<td>${m}</td>`;
 
-          const heightPercent = (m !== '-' && m !== 'AB') ? m : 0;
+          // आलेखाची उंची टक्केवारीनुसार काढणे
+          const heightPercent = (m !== '-' && m !== 'AB') ? ((m / maxLimit) * 100) : 0;
           graphBars.innerHTML += `
             <div class="progress-col">
               <span style="font-size:0.68rem; font-weight:700;">${m !== '-' ? m : ''}</span>
@@ -1925,12 +1963,12 @@
           `;
         });
 
-        const avg = count > 0 ? (total / count).toFixed(1) : 0;
-        marksRow.innerHTML += `<td style="color:#0284c7;">${avg}%</td>`;
+        const avgPercent = (count > 0) ? ((total / (count * maxLimit)) * 100).toFixed(1) : 0;
+        marksRow.innerHTML += `<td style="color:#0284c7;">${avgPercent}%</td>`;
 
         let remark = "उत्कृष्ट कामगिरी व सातत्यपूर्ण प्रगती!";
-        if (avg < 50) remark = "विशेष मार्गदर्शनाची व सरावाची आवश्यकता आहे.";
-        else if (avg < 75) remark = "चांगली प्रगती, काठिण्य पातळीनुसार अधिक सराव हवा.";
+        if (avgPercent < 50) remark = "विशेष मार्गदर्शनाची व सरावाची आवश्यकता आहे.";
+        else if (avgPercent < 75) remark = "चांगली प्रगती, काठिण्य पातळीनुसार अधिक सराव हवा.";
         document.getElementById('rc-remark-text').innerText = remark;
 
         document.getElementById('reportCardModal').style.display = 'flex';
@@ -1959,7 +1997,9 @@
         return;
       }
 
+      const maxLimit = getMaxMarksForCategory(currentSelectedCategory);
       let bestSchool = null, highestAvg = 0;
+
       Object.values(currentRawResults).forEach(entry => {
         if (entry.students && entry.students.length > 0) {
           let sum = 0, cnt = 0;
@@ -1969,7 +2009,7 @@
               cnt++;
             }
           });
-          const avg = cnt > 0 ? (sum / cnt) : 0;
+          const avg = cnt > 0 ? ((sum / (cnt * maxLimit)) * 100) : 0;
           if (avg > highestAvg) {
             highestAvg = avg;
             bestSchool = entry;
@@ -2006,9 +2046,10 @@
         alert("डाउनलोड करण्यासाठी निकाल उपलब्ध नाही.");
         return;
       }
-      let csv = "\uFEFFरँक,नाव,शाळा,UDISE,तालुका,गुण\n";
+      const maxLimit = getMaxMarksForCategory(currentSelectedCategory);
+      let csv = "\uFEFFरँक,नाव,शाळा,UDISE,तालुका,प्राप्त गुण,एकूण गुण\n";
       currentFetchedToppers.forEach((st, idx) => {
-        csv += `"${idx+1}","${st.name}","${st.school}","${st.udise}","${st.taluka}","${st.marks}"\n`;
+        csv += `"${idx+1}","${st.name}","${st.school}","${st.udise}","${st.taluka}","${st.marks}","${maxLimit}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement("a");
