@@ -680,11 +680,11 @@
         <button class="category-chip" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी - 50 गुण)</button>
       </div>
 
-      <!-- १. शाळा निवड (UDISE Live Search + केंद्र दोन्ही प्रकारे) -->
+      <!-- १. शाळा निवड (UDISE Live Search + तालुका ➔ केंद्र ➔ शाळा) -->
       <div class="app-card">
         <div class="app-card-title"><i class="fa-solid fa-school"></i> १. शाळा निवडा (UDISE किंवा केंद्रानुसार)</div>
         
-        <!-- पर्याय अ: UDISE कोड थेट शोध (schools.json मधून) -->
+        <!-- पर्याय अ: UDISE कोड थेट शोध -->
         <div class="form-group">
           <label><i class="fa-solid fa-magnifying-glass"></i> UDISE कोड टाकून शाळा शोधा (सर्व २,५७४ शाळा):</label>
           <input type="text" id="udise-search-input" class="form-control" placeholder="उदा. 272707 किंवा कोडचे काही अंक..." oninput="searchSchoolsByUdise(this.value)">
@@ -696,24 +696,25 @@
           <select class="form-control" id="entry-test-no" onchange="loadStudentMarksForSelectedTest()"></select>
         </div>
 
-        <!-- पर्याय ब: केंद्र व तालुक्यानुसार शाळा निवड -->
+        <!-- पर्याय ब: तालुका ➔ केंद्र निवडा -->
         <div class="grid-2">
           <div class="form-group">
-            <label>केंद्र निवडा (Cluster)</label>
-            <select class="form-control" id="entry-cluster" onchange="onClusterSelected()">
-              <option value="">-- केंद्र निवडा --</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>तालुका निवडा</label>
+            <label>१. तालुका निवडा</label>
             <select class="form-control" id="entry-taluka" onchange="onTalukaSelected()">
               <option value="">-- तालुका निवडा --</option>
             </select>
           </div>
+          <div class="form-group">
+            <label>२. केंद्र निवडा (Cluster)</label>
+            <select class="form-control" id="entry-cluster" onchange="onClusterSelected()">
+              <option value="">-- आधी तालुका निवडा --</option>
+            </select>
+          </div>
         </div>
 
+        <!-- शाळा निवडा (वर्गाचा उल्लेख काढून टाकलेला) -->
         <div class="form-group">
-          <label>शाळा निवडा (वर्ग पात्रतेनुसार)</label>
+          <label>३. शाळा निवडा</label>
           <select class="form-control" id="entry-school" onchange="lockSelectedSchool()">
             <option value="">-- वरील पर्यायातून शाळा निवडा --</option>
           </select>
@@ -912,7 +913,7 @@
               तालुका: <strong><span id="cert-taluka-name">---</span></strong> 
               <strong id="cert-gender-pronoun" style="color:#0369a1;">या विद्यार्थ्याने</strong> 
               जिल्हा परिषद, बीड अंतर्गत आयोजित <strong><span id="cert-exam-title">---</span></strong> अंतर्गत 
-              चाचणी क्र. <strong id="cert-test-no" style="font-size: 1.15rem; color:#b45309; font-family:'Poppins', sans-serif;">1</strong> मध्ये उत्कृष्ट यश संपादन केले आहे.
+              चाचणी क्र. <strong id="cert-test-no" style="font-size: 1.15rem; color:#b45309; font-family:'Poppins', sans-serif;">1</strong> मध्ये उत्कृष्ट यश संपादन केले आहे.[span_3](start_span)[span_3](end_span)
             </p>
             
             <div class="cert-badges">
@@ -1021,13 +1022,13 @@
   <div class="toast" id="toastMsg">माहिती सेव्ह झाली!</div>
 
   <script>
-    /* ================= १. १२ तालुक्यांची यादी व केंद्रे ================= */
+    /* ================= १. १२ तालुक्यांची यादी ================= */
     const TALUKA_LIST = [
       "अंबाजोगाई", "आष्टी", "बीड ग्रामीण", "बीड शहर", "धारूर", 
       "गेवराई", "केज", "माजलगाव", "परळी", "पाटोदा", "शिरूर कासार", "वडवणी"
     ];
 
-    /* ================= २. FIREBASE CONFIG (आपले मूळ खाते) ================= */
+    /* ================= २. FIREBASE CONFIG ================= */
     const firebaseConfig = {
       apiKey: "AIzaSyBrKGEMc9uxBoZ4VIcNfOXq7xt_IZmluDE",
       authDomain: "test-database-34c8a.firebaseapp.com",
@@ -1041,7 +1042,6 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // परीक्षा प्रकारानुसार कमाल गुण निश्चिती (नवोदय = १००, इतर तिन्ही = ५०)
     function getMaxMarksForCategory(cat) {
       return (cat === 'navodaya') ? 100 : 50;
     }
@@ -1103,32 +1103,8 @@
             l: parseInt(s.l, 10) || 1,
             h: parseInt(s.h, 10) || 8
           }));
-          initClusterDropdown();
         })
         .catch(err => console.log("cluster_schools.json fetch info:", err));
-    }
-
-    function initClusterDropdown() {
-      const select = document.getElementById('entry-cluster');
-      if (!select) return;
-      select.innerHTML = '<option value="">-- केंद्र निवडा --</option>';
-
-      const clusters = [...new Set(CLUSTER_BASED_SCHOOLS.map(s => s.k))].filter(Boolean).sort();
-      clusters.forEach(k => {
-        select.innerHTML += `<option value="${k}">${k}</option>`;
-      });
-    }
-
-    function onClusterSelected() {
-      const cluster = document.getElementById('entry-cluster').value;
-      const schoolSelect = document.getElementById('entry-school');
-      schoolSelect.innerHTML = '<option value="">-- शाळा निवडा --</option>';
-      if (!cluster) return;
-
-      const filtered = CLUSTER_BASED_SCHOOLS.filter(s => s.k === cluster && isSchoolEligible(s, currentEntryCategory));
-      filtered.forEach(s => {
-        schoolSelect.innerHTML += `<option value="${s.c}">${s.n} (वर्ग ${s.l}-${s.h})</option>`;
-      });
     }
 
     function initPortal() {
@@ -1263,7 +1239,6 @@
 
       resetSchoolLock();
       onTalukaSelected();
-      onClusterSelected();
     }
 
     function initTalukaDropdown() {
@@ -1278,16 +1253,56 @@
       });
     }
 
+    /* १. तालुका निवडल्यानंतर त्या तालुक्यातील केंद्रे लोड करणे */
     function onTalukaSelected() {
       const taluka = document.getElementById('entry-taluka').value;
+      const clusterSelect = document.getElementById('entry-cluster');
       const schoolSelect = document.getElementById('entry-school');
-      schoolSelect.innerHTML = '<option value="">-- शाळा निवडा --</option>';
+
+      clusterSelect.innerHTML = '<option value="">-- केंद्र निवडा --</option>';
+      schoolSelect.innerHTML = '<option value="">-- आधी केंद्र निवडा --</option>';
+
       if (!taluka) return;
 
-      const sourceList = BEED_ALL_SCHOOLS.length > 0 ? BEED_ALL_SCHOOLS : CLUSTER_BASED_SCHOOLS;
-      const filtered = sourceList.filter(s => (s.t === taluka) && isSchoolEligible(s, currentEntryCategory));
-      filtered.forEach(s => {
-        schoolSelect.innerHTML += `<option value="${s.c}">${s.n} (वर्ग ${s.l}-${s.h})</option>`;
+      const filteredClusters = CLUSTER_BASED_SCHOOLS.filter(s => (s.t === taluka || (!s.t && taluka === 'माजलगाव')));
+      const uniqueClusters = [...new Set(filteredClusters.map(s => s.k))].filter(Boolean).sort();
+
+      if (uniqueClusters.length === 0) {
+        clusterSelect.innerHTML = '<option value="">-- केंद्रे उपलब्ध नाहीत (थेट शाळा निवडा) --</option>';
+        const directSchools = BEED_ALL_SCHOOLS.filter(s => s.t === taluka && isSchoolEligible(s, currentEntryCategory));
+        directSchools.forEach(s => {
+          schoolSelect.innerHTML += `<option value="${s.c}">${s.n}</option>`;
+        });
+        return;
+      }
+
+      uniqueClusters.forEach(k => {
+        clusterSelect.innerHTML += `<option value="${k}">${k}</option>`;
+      });
+    }
+
+    /* २. केंद्र निवडल्यानंतर त्या केंद्रातील शाळा लोड करणे (वर्गाचा उल्लेख काढून टाकलेला) */
+    function onClusterSelected() {
+      const taluka = document.getElementById('entry-taluka').value;
+      const cluster = document.getElementById('entry-cluster').value;
+      const schoolSelect = document.getElementById('entry-school');
+
+      schoolSelect.innerHTML = '<option value="">-- शाळा निवडा --</option>';
+      if (!cluster) return;
+
+      const filteredSchools = CLUSTER_BASED_SCHOOLS.filter(s => 
+        s.k === cluster && 
+        (s.t === taluka || (!s.t && taluka === 'माजलगाव')) && 
+        isSchoolEligible(s, currentEntryCategory)
+      );
+
+      if (filteredSchools.length === 0) {
+        schoolSelect.innerHTML = '<option value="">-- या केंद्रात पात्र शाळा नाहीत --</option>';
+        return;
+      }
+
+      filteredSchools.forEach(s => {
+        schoolSelect.innerHTML += `<option value="${s.c}">${s.n}</option>`;
       });
     }
 
@@ -1308,7 +1323,7 @@
       } else {
         box.innerHTML = matches.map(s => `
           <div style="padding:10px; cursor:pointer; border-bottom:1px solid #f1f5f9; font-size:0.88rem;" onclick="selectSchoolFromUdise('${s.c}')">
-            <strong>${s.c}</strong> - ${s.n} <span style="color:#0284c7;">(${s.t || s.k}, वर्ग: ${s.l}-${s.h})</span>
+            <strong>${s.c}</strong> - ${s.n} <span style="color:#0284c7;">(${s.t || s.k})</span>
           </div>
         `).join('');
       }
@@ -1321,10 +1336,13 @@
       if (!school) return;
 
       if (school.t) document.getElementById('entry-taluka').value = school.t;
-      if (school.k) document.getElementById('entry-cluster').value = school.k;
+      if (school.k) {
+        onTalukaSelected();
+        document.getElementById('entry-cluster').value = school.k;
+      }
       
       const schoolSelect = document.getElementById('entry-school');
-      schoolSelect.innerHTML = `<option value="${school.c}">${school.n} (वर्ग ${school.l}-${school.h})</option>`;
+      schoolSelect.innerHTML = `<option value="${school.c}">${school.n}</option>`;
       schoolSelect.value = school.c;
 
       document.getElementById('udise-results-box').style.display = 'none';
@@ -1624,7 +1642,6 @@
 
         document.getElementById('stat-total-students').innerText = allStudents.length;
         
-        // टक्केवारी अचूक काढणे (५० पैकी असल्यास दुप्पट करून १००% प्रमाणात)
         const avgPercent = (presentCount > 0) ? ((totalScore / (presentCount * maxLimit)) * 100).toFixed(1) : 0;
         document.getElementById('stat-avg-score').innerText = avgPercent + '%';
         
