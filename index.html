@@ -1015,6 +1015,12 @@
         <div style="margin-top: 14px;">
           <button class="app-btn btn-primary" onclick="submitMarksToFirebase()"><i class="fa-solid fa-cloud-arrow-up"></i> सर्व गुण सुरक्षित सेव्ह करा</button>
         </div>
+
+        <!-- तांत्रिक संपर्क फूटर नोंद (लहान अक्षरात) -->
+        <div style="text-align: center; margin-top: 16px; padding-top: 10px; border-top: 1px dashed #cbd5e1; font-size: 0.78rem; color: #64748b; font-weight: 600;">
+          <i class="fa-solid fa-headset" style="color: var(--sky); margin-right: 4px;"></i>
+          तांत्रिक अडचणी करिता संपर्क: <a href="tel:7219123699" style="color: var(--sky-dark); text-decoration: none; font-weight: 700; font-family: 'Poppins', sans-serif;">7219123699</a>
+        </div>
       </div>
     </div>
 
@@ -1277,7 +1283,7 @@
               तालुका: <strong><span id="cert-taluka-name">---</span></strong> 
               <strong id="cert-gender-pronoun" style="color:#0369a1;">या विद्यार्थ्याने</strong> 
               जिल्हा परिषद, बीड अंतर्गत आयोजित <strong><span id="cert-exam-title">---</span></strong> अंतर्गत 
-              चाचणी क्र. <strong id="cert-test-no" style="font-size: 1.15rem; color:#b45309; font-family:'Poppins', sans-serif;">1</strong> मध्ये उत्कृष्ट यश संपादन केले आहे[span_0](start_span)[span_0](end_span)।
+              चाचणी क्र. <strong id="cert-test-no" style="font-size: 1.15rem; color:#b45309; font-family:'Poppins', sans-serif;">1</strong> मध्ये उत्कृष्ट यश संपादन केले आहे[span_1](start_span)[span_1](end_span)।
             </p>
             
             <div class="cert-badges">
@@ -2770,7 +2776,25 @@
       html2canvas(card, { scale: 1.8, useCORS: true }).then(canvas => {
         const imgData = canvas.toDataURL('image/jpeg', 0.9);
         const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-        pdf.addImage(imgData, 'JPEG', 8, 8, 281, 194);
+        const pageWidth = 297;
+        const pageHeight = 210;
+        const margin = 8;
+        const maxW = pageWidth - (margin * 2);
+        const maxH = pageHeight - (margin * 2);
+
+        const imgRatio = canvas.width / canvas.height;
+        let printW = maxW;
+        let printH = printW / imgRatio;
+
+        if (printH > maxH) {
+          printH = maxH;
+          printW = printH * imgRatio;
+        }
+
+        const posX = (pageWidth - printW) / 2;
+        const posY = (pageHeight - printH) / 2;
+
+        pdf.addImage(imgData, 'JPEG', posX, posY, printW, printH);
         const scName = document.getElementById('bs-school-name').innerText.trim().replace(/\s+/g, '_');
         pdf.save(`Best_School_Award_${scName}.pdf`);
       });
