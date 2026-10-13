@@ -229,7 +229,7 @@
       background: var(--sky-light);
     }
 
-    /* Stats Grid - स्वतंत्र रंगसंगती */
+    /* Stats Grid - इंग्रजी अंक व स्वतंत्र रंगसंगती */
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .stat-box {
       background: white;
@@ -239,7 +239,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
     .stat-box p { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
-    .stat-box h2 { font-size: 1.45rem; font-weight: 800; }
+    .stat-box h2 { font-size: 1.45rem; font-weight: 800; font-family: 'Poppins', sans-serif; }
     
     .stat-box-students { border-left: 5px solid #7c3aed; background: linear-gradient(to right, #faf5ff, #ffffff); }
     .stat-box-students h2 { color: #6b21a8; }
@@ -457,6 +457,7 @@
       font-size: 0.95rem;
       margin-right: 10px;
       flex-shrink: 0;
+      font-family: 'Poppins', sans-serif;
     }
     .topper-details { flex: 1; }
     .topper-details h4 { font-size: 0.98rem; font-weight: 700; line-height: 1.2; }
@@ -469,6 +470,7 @@
       border-radius: 14px;
       font-weight: 800;
       font-size: 0.88rem;
+      font-family: 'Poppins', sans-serif;
     }
 
     /* Bottom Navigation - डायनॅमिक ग्रेडियंट्स */
@@ -679,6 +681,13 @@
       letter-spacing: 0.2px;
     }
     .cert-para span, .cert-para strong { word-spacing: 3px; }
+    .cert-udise-txt {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      white-space: nowrap;
+    }
     .cert-badges {
       margin-top: 12px;
       display: flex;
@@ -697,7 +706,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-family: 'Mukta', 'Poppins', sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
 
     /* बॅनर */
@@ -828,7 +837,7 @@
 </head>
 <body>
 
-  <!-- Top App Bar (३ वेळा क्लिक केल्यास गुप्त शिक्षणाधिकारी कक्ष) -->
+  <!-- Top App Bar (३ वेळा क्लिक केल्यास शिक्षणाधिकारी कक्ष) -->
   <header class="app-header">
     <div class="brand-wrap" onclick="handleSecretAdminTrigger()">
       <img src="logo.jpeg" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
@@ -854,7 +863,7 @@
         <div class="test-pill-wrap" id="dash-test-pills"></div>
       </div>
 
-      <!-- Stats Grid - रंगीबेरंगी बॉर्डर्स व अचूक शाळा प्रमाण -->
+      <!-- Stats Grid - इंग्रजी अंक -->
       <div class="stats-grid">
         <div class="stat-box stat-box-students">
           <p>प्रविष्ट विद्यार्थी</p>
@@ -898,7 +907,7 @@
           </button>
         </div>
 
-        <!-- तालुका निवड फिल्टर (टॅब २ सक्रिय असताना) -->
+        <!-- तालुका निवड फिल्टर -->
         <div class="form-group" id="taluka-select-group" style="display:none; margin-bottom:12px;">
           <label style="font-size:0.85rem;"><i class="fa-solid fa-filter"></i> तालुका निवडा:</label>
           <select class="form-control" id="tri-taluka-select" onchange="renderDeclaredResultsOnDashboard()"></select>
@@ -919,9 +928,9 @@
         <button class="category-chip cat-nmms" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी)</button>
       </div>
 
-      <!-- १. शाळा निवडा (UDISE Live Search) -->
+      <!-- १. शाळा निवडा -->
       <div class="app-card">
-        <div class="app-card-title"><i class="fa-solid fa-school" style="color:var(--sky);"></i> १. शाळा निवडा (UDISE कोड किंवा नावाने शोधा)</div>
+        <div class="app-card-title"><i class="fa-solid fa-school" style="color:var(--sky);"></i> 1. शाळा निवडा (UDISE कोड किंवा नावाने शोधा)</div>
         
         <div class="form-group" style="margin-bottom: 12px;">
           <label><i class="fa-solid fa-magnifying-glass" style="color:var(--sky);"></i> UDISE कोडचे काही अंक किंवा शाळेचे नाव टाका:</label>
@@ -946,9 +955,9 @@
         </div>
       </div>
 
-      <!-- २. नवीन विद्यार्थी वाढवा / जोडा (पिन पडताळणीशिवाय लॉक) -->
+      <!-- २. नवीन विद्यार्थी वाढवा / जोडा -->
       <div class="app-card" id="card-student-add-section" style="opacity:0.5; pointer-events:none;">
-        <div class="app-card-title"><i class="fa-solid fa-user-plus" style="color:var(--accent-green);"></i> २. नवीन विद्यार्थी वाढवा / जोडा</div>
+        <div class="app-card-title"><i class="fa-solid fa-user-plus" style="color:var(--accent-green);"></i> 2. नवीन विद्यार्थी वाढवा / जोडा</div>
         <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">
           * सूचना: एकदा जोडलेले नाव सर्व चाचण्यांसाठी उपलब्ध राहील.
         </p>
@@ -977,7 +986,7 @@
         </div>
         <button class="app-btn btn-success" onclick="addStudentToList()"><i class="fa-solid fa-plus"></i> यादीत नवीन विद्यार्थी जोडा</button>
 
-        <!-- नोंदणीकृत विद्यार्थी व्यवस्थापक (नाव बदल / कमी करा) -->
+        <!-- नोंदणीकृत विद्यार्थी व्यवस्थापक -->
         <div class="registered-students-container" id="registered-students-box" style="display:none;">
           <div style="font-weight:800; font-size:0.9rem; color:#475569; margin-bottom:8px;">
             <i class="fa-solid fa-users"></i> नोंदणीकृत विद्यार्थी यादी (नाव बदल / कमी करा):
@@ -989,7 +998,7 @@
       <!-- ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी -->
       <div class="app-card" id="card-student-marks-section" style="opacity:0.5; pointer-events:none;">
         <div class="app-card-title">
-          <i class="fa-solid fa-pen-nib" style="color:var(--kesari);"></i> ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी
+          <i class="fa-solid fa-pen-nib" style="color:var(--kesari);"></i> 3. विद्यार्थ्यांची हजेरी व गुण नोंदणी
         </div>
 
         <div class="form-group" style="background:#f0fdf4; padding:12px; border-radius:10px; margin-bottom:14px; border:1.5px solid #86efac;">
@@ -1000,7 +1009,7 @@
         </div>
         
         <div id="student-list-container">
-          <p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">कृपया प्रथम भाग १ मधून शाळा निवडून सुरक्षा पिन टाका.</p>
+          <p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">कृपया प्रथम भाग 1 मधून शाळा निवडून सुरक्षा पिन टाका.</p>
         </div>
 
         <div style="margin-top: 14px;">
@@ -1017,7 +1026,7 @@
           <button class="app-btn btn-outline" style="width:auto; height:30px; font-size:0.75rem; padding:0 8px;" onclick="switchTab('dashboard')">बंद करा</button>
         </div>
         <p style="font-size:0.82rem; color:#475569;">
-          येथून आपण चाचणीचे एकूण गुण निश्चित करू शकता, अधिकृत निकाल जाहीर करू शकता आणि १२ तालुक्यांमधील शाळांचा सविस्तर आढावा घेऊ शकता.
+          येथून आपण चाचणीचे एकूण गुण निश्चित करू शकता, अधिकृत निकाल जाहीर करू शकता आणि 12 तालुक्यांमधील शाळांचा सविस्तर आढावा घेऊ शकता.
         </p>
       </div>
 
@@ -1041,7 +1050,7 @@
         </div>
         <div class="form-group">
           <label>एकूण गुण (Max Marks):</label>
-          <input type="number" class="form-control" id="admin-mm-input" placeholder="उदा. 50 किंवा 100" style="font-size:1.1rem; font-weight:800;">
+          <input type="number" class="form-control" id="admin-mm-input" placeholder="उदा. 50 किंवा 100" style="font-size:1.1rem; font-weight:800; font-family:'Poppins', sans-serif;">
         </div>
         <button class="app-btn btn-gold" onclick="saveCustomMaxMarks()">
           <i class="fa-solid fa-floppy-disk"></i> या चाचणीचे एकूण गुण निश्चित करा
@@ -1074,7 +1083,7 @@
 
       <!-- १२ तालुक्यांचे टॅब्स व सहभागी शाळा तपशील -->
       <div class="app-card" style="border-left: 5px solid var(--sky);">
-        <div class="app-card-title"><i class="fa-solid fa-chart-pie" style="color:var(--sky);"></i> सहभागी तालुका व शाळा तपशील (१२ तालुके)</div>
+        <div class="app-card-title"><i class="fa-solid fa-chart-pie" style="color:var(--sky);"></i> सहभागी तालुका व शाळा तपशील (12 तालुके)</div>
         <div class="grid-2" style="margin-bottom:10px;">
           <select class="form-control" id="admin-part-category" onchange="renderAdminParticipationDetails()"></select>
           <select class="form-control" id="admin-part-test" onchange="renderAdminParticipationDetails()"></select>
@@ -1100,7 +1109,7 @@
           </select>
         </div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <span style="font-size:0.85rem; font-weight:700; color:var(--danger);" id="admin-pending-count">0 शाळा प्रलंबित</span>
+          <span style="font-size:0.85rem; font-weight:700; color:var(--danger); font-family:'Poppins', sans-serif;" id="admin-pending-count">0 शाळा प्रलंबित</span>
           <button class="app-btn btn-outline" style="width:auto; height:32px; font-size:0.75rem; padding:0 8px;" onclick="copyPendingWhatsAppMessage()">
             <i class="fa-solid fa-copy"></i> WhatsApp मेसेज कॉपी
           </button>
@@ -1137,10 +1146,10 @@
         <span id="pinModalTitle">शाळा सुरक्षा पिन</span>
       </div>
       <p id="pinModalDesc" style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">
-        कृपया या शाळेचा ४-अंकी सुरक्षा पिन टाका:
+        कृपया या शाळेचा 4-अंकी सुरक्षा पिन टाका:
       </p>
       <div class="form-group" style="margin-bottom:12px;">
-        <input type="password" id="inputSchoolPin" maxlength="4" class="form-control" placeholder="••••" style="text-align:center; font-size:1.4rem; letter-spacing:6px; font-weight:800;">
+        <input type="password" id="inputSchoolPin" maxlength="4" class="form-control" placeholder="••••" style="text-align:center; font-size:1.4rem; letter-spacing:6px; font-weight:800; font-family:'Poppins', sans-serif;">
       </div>
       <div style="display:flex; flex-direction:column; gap:8px;">
         <button class="app-btn btn-primary" onclick="verifyOrSetSchoolPin()">पुढे जा</button>
@@ -1163,10 +1172,10 @@
         सुरक्षा कारणास्तव कार्यालयाकडून <strong>वन-टाइम कोड (One Time Code)</strong> प्राप्त करून येथे टाका:
       </p>
       <div class="form-group" style="margin-bottom:10px;">
-        <input type="text" id="inputVerifyReverseUdise" maxlength="15" class="form-control" placeholder="कार्यालयीन वन-टाइम कोड" style="text-align:center; font-size:1rem; font-weight:800;">
+        <input type="text" id="inputVerifyReverseUdise" maxlength="15" class="form-control" placeholder="कार्यालयीन वन-टाइम कोड" style="text-align:center; font-size:1rem; font-weight:800; font-family:'Poppins', sans-serif;">
       </div>
       <div class="form-group" style="margin-bottom:12px;">
-        <input type="password" id="inputNewPin" maxlength="4" class="form-control" placeholder="नवीन ४-अंकी पिन" style="text-align:center; font-size:1.1rem; letter-spacing:4px; font-weight:800;">
+        <input type="password" id="inputNewPin" maxlength="4" class="form-control" placeholder="नवीन 4-अंकी पिन" style="text-align:center; font-size:1.1rem; letter-spacing:4px; font-weight:800; font-family:'Poppins', sans-serif;">
       </div>
       <div style="display:flex; gap:8px;">
         <button class="app-btn btn-outline" onclick="closeModal('forgotPinModal')">रद्द करा</button>
@@ -1175,7 +1184,7 @@
     </div>
   </div>
 
-  <!-- ३. कस्टम 'आवश्यक सूचना' मोडल (Alert / Confirm) -->
+  <!-- ३. कस्टम 'आवश्यक सूचना' मोडल -->
   <div class="modal" id="customNoticeModal">
     <div class="custom-dialog-box">
       <div class="custom-dialog-header" id="customNoticeHeader">
@@ -1246,7 +1255,7 @@
     </div>
   </div>
 
-  <!-- ६. गुणवत्ता सन्मान प्रमाणपत्र Modal (cert.jpeg बॅकग्राउंड) -->
+  <!-- ६. गुणवत्ता सन्मान प्रमाणपत्र Modal (इंग्रजी अंकांसह) -->
   <div class="modal" id="certModal">
     <div class="modal-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -1307,7 +1316,7 @@
             <h2 class="cert-student-title" id="bs-school-name" style="font-size:1.5rem;">जि.प.प्रा.शाळा सावरगाव</h2>
             <p class="cert-para">
               तालुका: <strong><span id="bs-taluka-name">माजलगाव</span></strong> यांनी जिल्हा परिषद बीड अंतर्गत आयोजित सराव परीक्षांमध्ये 
-              विद्यार्थ्यांचा १००% सहभाग व सरासरी <strong><span id="bs-avg-score">88.5%</span></strong> गुणांसह सर्वोत्कृष्ट गुणवत्ता सिद्ध केली आहे.
+              विद्यार्थ्यांचा 100% सहभाग व सरासरी <strong style="font-family:'Poppins', sans-serif;"><span id="bs-avg-score">88.5%</span></strong> गुणांसह सर्वोत्कृष्ट गुणवत्ता सिद्ध केली आहे.
             </p>
             <div class="cert-badges">
               <div class="cert-badge-gold"><i class="fa-solid fa-medal"></i> आदर्श गुणवत्ता शाळा 2026-27</div>
@@ -1342,19 +1351,19 @@
           <div>शाळा: <strong id="rc-school-name">---</strong></div>
           <div>तालुका: <strong id="rc-taluka-name">---</strong></div>
           <div>वर्ग: <strong id="rc-class-name">---</strong></div>
-          <div>UDISE: <strong id="rc-udise">---</strong></div>
+          <div>UDISE: <strong id="rc-udise" style="font-family:'Poppins', sans-serif;">---</strong></div>
         </div>
 
         <div class="table-responsive">
           <table>
             <thead>
-              <tr>
+              <tr style="font-family:'Poppins', sans-serif;">
                 <th>T1</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>T8</th><th>T9</th><th>T10</th>
-                <th>सरासरी</th>
+                <th>Avg</th>
               </tr>
             </thead>
             <tbody>
-              <tr id="rc-marks-row" style="text-align:center; font-weight:700;"></tr>
+              <tr id="rc-marks-row" style="text-align:center; font-weight:700; font-family:'Poppins', sans-serif;"></tr>
             </tbody>
           </table>
         </div>
@@ -1728,12 +1737,12 @@
         if (!fetchedSchoolSecurityPin) {
           isCurrentSchoolPinNew = true;
           modalTitle.innerText = "सुरक्षा पिन सेट करा";
-          modalDesc.innerText = `शाळा: ${pendingSchoolToLock.n}\nकोणतीही दुसरी शाळा आपले गुण बदलू नये म्हणून आपल्या शाळेसाठी एक सोपा ४-अंकी सुरक्षा पिन तयार करा:`;
+          modalDesc.innerText = `शाळा: ${pendingSchoolToLock.n}\nकोणतीही दुसरी शाळा आपले गुण बदलू नये म्हणून आपल्या शाळेसाठी एक सोपा 4-अंकी सुरक्षा पिन तयार करा:`;
           btnForgot.style.display = 'none';
         } else {
           isCurrentSchoolPinNew = false;
           modalTitle.innerText = "शाळा सुरक्षा पिन पडताळणी";
-          modalDesc.innerText = `शाळा: ${pendingSchoolToLock.n}\nया शाळेचे विद्यार्थी व गुण पाहण्यासाठी / भरण्यासाठी आपला ४-अंकी सुरक्षा पिन टाका:`;
+          modalDesc.innerText = `शाळा: ${pendingSchoolToLock.n}\nया शाळेचे विद्यार्थी व गुण पाहण्यासाठी / भरण्यासाठी आपला 4-अंकी सुरक्षा पिन टाका:`;
           btnForgot.style.display = 'block';
         }
 
@@ -1746,7 +1755,7 @@
       const enteredPin = document.getElementById('inputSchoolPin').value.trim();
 
       if (!enteredPin || enteredPin.length !== 4 || isNaN(enteredPin)) {
-        showCustomAlert("कृपया बरोबर ४ आकडी संख्यात्मक पिन टाका!");
+        showCustomAlert("कृपया बरोबर 4 आकडी संख्यात्मक पिन टाका!");
         return;
       }
 
@@ -1789,7 +1798,7 @@
       const newPin = document.getElementById('inputNewPin').value.trim();
 
       if (!enteredMasterCode || !newPin || newPin.length !== 4 || isNaN(newPin)) {
-        showCustomAlert("कृपया कार्यालयाकडून प्राप्त वन-टाइम कोड आणि नवीन ४-अंकी पिन अचूक भरा!");
+        showCustomAlert("कृपया कार्यालयाकडून प्राप्त वन-टाइम कोड आणि नवीन 4-अंकी पिन अचूक भरा!");
         return;
       }
 
@@ -1924,7 +1933,7 @@
       }
       const key = getSchoolDbKey();
       if (!key) {
-        showCustomAlert('आधी भाग १ मधून आपली शाळा निवडा!');
+        showCustomAlert('आधी भाग 1 मधून आपली शाळा निवडा!');
         return;
       }
 
@@ -2001,13 +2010,13 @@
       });
     }
 
-    /* अंश व छेद स्वरूपात गुण नोंदणी व मोठा आलेख आयकॉन */
+    /* अंश व छेद स्वरूपात गुण नोंदणी व मोठा आलेख आयकॉन (इंग्रजी अंक) */
     function renderMobileStudentList(savedStudents) {
       const cont = document.getElementById('student-list-container');
       cont.innerHTML = '';
 
       if (currentStudentsList.length === 0) {
-        cont.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">या शाळेसाठी अद्याप विद्यार्थी जोडलेले नाहीत. कृपया वरील भाग २ मधून जोडा.</p>`;
+        cont.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">या शाळेसाठी अद्याप विद्यार्थी जोडलेले नाहीत. कृपया वरील भाग 2 मधून जोडा.</p>`;
         return;
       }
 
@@ -2061,7 +2070,7 @@
     function submitMarksToFirebase() {
       const key = getSchoolDbKey();
       if (!key || !selectedSchoolObj) {
-        showCustomAlert('कृपया प्रथम भाग १ मधून शाळा निवडा!');
+        showCustomAlert('कृपया प्रथम भाग 1 मधून शाळा निवडा!');
         return;
       }
 
@@ -2157,7 +2166,7 @@
         document.getElementById('stat-avg-score').innerText = avgPercentage;
         document.getElementById('stat-max-score').innerText = `${maxScore}/${maxM}`;
         
-        // अचूक गुणोत्तर: गुण भरलेल्या शाळा / एकूण पात्र शाळा
+        // अचूक गुणोत्तर: गुण भरलेल्या शाळा / एकूण पात्र शाळा (इंग्रजी अंक)
         document.getElementById('stat-active-schools').innerText = `${submittedSchoolsSet.size}/${totalEligibleSchools}`;
 
         renderDeclaredResultsOnDashboard();
@@ -2171,7 +2180,7 @@
       });
     }
 
-    /* डॅशबोर्डवर ३ चमकदार टॅब्सनुसार अधिकृत निकाल दाखवणे */
+    /* डॅशबोर्डवर ३ चमकदार टॅब्सनुसार अधिकृत निकाल दाखवणे (इंग्रजी अंकांसह) */
     function renderDeclaredResultsOnDashboard() {
       const cont = document.getElementById('dashboard-toppers-container');
       if (!cont) return;
@@ -2277,7 +2286,7 @@
               🏆 आदर्श गुणवत्ता शाळा
             </span>
             <h3 style="font-size:1.25rem; font-weight:800; color:#78350f; margin-top:8px;">${bSchool.school}</h3>
-            <p style="font-size:0.9rem; color:#475569; font-weight:700;">तालुका: ${bSchool.taluka} | सरासरी: ${bSchool.avgScore}%</p>
+            <p style="font-size:0.9rem; color:#475569; font-weight:700;">तालुका: ${bSchool.taluka} | सरासरी: <span style="font-family:'Poppins', sans-serif;">${bSchool.avgScore}%</span></p>
             <div style="margin-top:14px;">
               <button class="app-btn btn-gold" style="width:auto; height:38px; padding:0 20px; font-size:0.85rem;" onclick="openDeclaredBestSchoolModal()">
                 <i class="fa-solid fa-award"></i> सन्मान पत्र पहा व डाऊनलोड करा
@@ -2318,7 +2327,7 @@
         listEl.innerHTML += `
           <div class="banner-row">
             <span>${medal} <strong>${st.name}</strong> (${st.school})</span>
-            <span style="color:#d97706; font-weight:800;">${st.marks}/${maxM} गुण</span>
+            <span style="color:#d97706; font-weight:800; font-family:'Poppins', sans-serif;">${st.marks}/${maxM} गुण</span>
           </div>
         `;
       });
@@ -2568,7 +2577,7 @@
           listHtml += `
             <div class="admin-school-row">
               <span><strong>${i + 1}. ${sc.school}</strong></span>
-              <span style="font-weight:800; color:#0369a1; background:#e0f2fe; padding:2px 10px; border-radius:10px;">
+              <span style="font-weight:800; color:#0369a1; background:#e0f2fe; padding:2px 10px; border-radius:10px; font-family:'Poppins', sans-serif;">
                 ${sc.studentCount} विद्यार्थी
               </span>
             </div>
@@ -2578,7 +2587,7 @@
         box.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1.5px solid #cbd5e1; padding-bottom:6px;">
             <span style="font-weight:800; color:#0369a1;">📍 ${selectedAdminTaluka} तालुका (${targetTalukaSchools.length} शाळांनी भरले)</span>
-            <span style="font-weight:800; color:#15803d;">एकूण विद्यार्थी: ${totalTalukaStudents}</span>
+            <span style="font-weight:800; color:#15803d; font-family:'Poppins', sans-serif;">एकूण विद्यार्थी: ${totalTalukaStudents}</span>
           </div>
           <div>${listHtml}</div>
         `;
@@ -2609,7 +2618,7 @@
         tbody.innerHTML = '';
 
         pending.slice(0, 100).forEach((s, idx) => {
-          tbody.innerHTML += `<tr><td>${idx+1}</td><td>${s.c}</td><td><strong>${s.n}</strong></td><td>${s.t}</td></tr>`;
+          tbody.innerHTML += `<tr><td style="font-family:'Poppins', sans-serif;">${idx+1}</td><td style="font-family:'Poppins', sans-serif;">${s.c}</td><td><strong>${s.n}</strong></td><td>${s.t}</td></tr>`;
         });
       });
     }
@@ -2653,7 +2662,7 @@
       });
     }
 
-    /* ================= ८. बॅनर व प्रमाणपत्र डाऊनलोड ================= */
+    /* ================= ८. बॅनर व प्रमाणपत्र डाऊनलोड (इंग्रजी अंक) ================= */
     function downloadBannerPDF() {
       const { jsPDF } = window.jspdf;
       const card = document.getElementById('banner-card-render');
@@ -2681,12 +2690,12 @@
         const posY = (pageHeight - printH) / 2;
 
         pdf.addImage(imgData, 'JPEG', posX, posY, printW, printH);
-        pdf.save(`बॅनर_बीड_चाचणी_${currentSelectedTest}.pdf`);
+        pdf.save(`Banner_Beed_Test_${currentSelectedTest}.pdf`);
         showToast('बॅनर PDF डाऊनलोड झाले!');
       });
     }
 
-    let currentCertStudentName = 'विद्यार्थी';
+    let currentCertStudentName = 'Student';
 
     function openCertificateModal(name, school, udise, taluka, marks, rankText, gender, maxMarks) {
       currentCertStudentName = name.trim();
@@ -2763,7 +2772,7 @@
         const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
         pdf.addImage(imgData, 'JPEG', 8, 8, 281, 194);
         const scName = document.getElementById('bs-school-name').innerText.trim().replace(/\s+/g, '_');
-        pdf.save(`आदर्श_शाळा_सन्मान_${scName}.pdf`);
+        pdf.save(`Best_School_Award_${scName}.pdf`);
       });
     }
 
@@ -2775,7 +2784,7 @@
       document.getElementById('rc-school-name').innerText = selectedSchoolObj.n;
       document.getElementById('rc-taluka-name').innerText = selectedSchoolObj.t || '-';
       document.getElementById('rc-udise').innerText = selectedSchoolObj.c;
-      const classMap = { 'navodaya': 'इयत्ता ५ वी', '4th': 'इयत्ता ४ थी', '7th': 'इयत्ता ७ वी', 'nmms': 'इयत्ता ८ वी' };
+      const classMap = { 'navodaya': 'Class 5th', '4th': 'Class 4th', '7th': 'Class 7th', 'nmms': 'Class 8th' };
       document.getElementById('rc-class-name').innerText = classMap[currentEntryCategory] || '-';
 
       const key = getSchoolDbKey();
@@ -2815,7 +2824,7 @@
           const heightPercent = (m !== '-' && m !== 'AB' && maxLimit > 0) ? ((m / maxLimit) * 100) : 0;
           graphBars.innerHTML += `
             <div class="progress-col">
-              <span style="font-size:0.68rem; font-weight:700;">${m !== '-' ? m : ''}</span>
+              <span style="font-size:0.68rem; font-weight:700; font-family:'Poppins', sans-serif;">${m !== '-' ? m : ''}</span>
               <div class="progress-bar-fill" style="height: ${heightPercent}%;"></div>
               <span class="progress-col-label">T${tNum}</span>
             </div>
@@ -2845,7 +2854,7 @@
         pdf.addImage(imgData, 'JPEG', 10, 15, imgWidth, imgHeight);
         
         const stdName = document.getElementById('rc-student-name').innerText.trim().replace(/\s+/g, '_');
-        pdf.save(`प्रगती_पुस्तक_${stdName}.pdf`);
+        pdf.save(`Report_Card_${stdName}.pdf`);
       });
     }
 
