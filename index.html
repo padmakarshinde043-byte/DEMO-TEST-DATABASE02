@@ -227,11 +227,9 @@
       font-size: 0.92rem;
       transition: background 0.15s;
     }
-    .udise-suggest-item:hover, .udise-suggest-item:active {
-      background: var(--sky-light);
-    }
+    .udise-suggest-item:hover, .udise-suggest-item:active { background: var(--sky-light); }
 
-    /* Stats Grid - केवळ २ आवश्यक बॉक्स */
+    /* Stats Grid */
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .stat-box {
       background: white;
@@ -279,11 +277,64 @@
       border-color: #064e3b;
       box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
     }
-    .tri-tab-school.active {
+    .tri-tab-kendra.active {
       background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
       color: white;
       border-color: #78350f;
       box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
+    }
+
+    /* १२ तालुक्यांची एका रांगेत ४ प्रमाणे ३ रांगांची ग्रीड */
+    .taluka-4col-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .taluka-4col-btn {
+      background: white;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 4px;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #1e293b;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    .taluka-4col-btn:hover, .taluka-4col-btn:active, .taluka-4col-btn.active {
+      border-color: var(--sky);
+      background: #f0f9ff;
+      color: var(--sky-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.2);
+    }
+
+    /* केंद्रांची ग्रीड */
+    .kendra-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .kendra-btn {
+      background: #ffffff;
+      border: 1.5px solid #fed7aa;
+      border-radius: 8px;
+      padding: 8px 4px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #78350f;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .kendra-btn:hover, .kendra-btn:active, .kendra-btn.active {
+      background: #fef3c7;
+      border-color: #d97706;
+      font-weight: 800;
     }
 
     /* Registered Students Manager */
@@ -392,7 +443,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* प्रगती आलेख आयकॉन */
     .btn-progress-chart {
       width: 44px;
       height: 48px;
@@ -853,7 +903,7 @@
         <div class="test-pill-wrap" id="dash-test-pills"></div>
       </div>
 
-      <!-- Stats Grid (केवळ प्रविष्ट विद्यार्थी व गुण भरलेल्या शाळा) -->
+      <!-- Stats Grid -->
       <div class="stats-grid">
         <div class="stat-box stat-box-students">
           <p>प्रविष्ट विद्यार्थी</p>
@@ -865,7 +915,7 @@
         </div>
       </div>
 
-      <!-- अधिकृत गुणवत्ता यादी विभाग (केवळ निकाल जाहीर झाल्यावरच दिसणार) -->
+      <!-- अधिकृत गुणवत्ता यादी विभाग (३ मुख्य टॅब्स) -->
       <div class="app-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <h3 class="app-card-title" style="margin:0; border:none;">
@@ -877,22 +927,32 @@
         <div class="topper-tri-tabs">
           <button class="tri-tab-btn tri-tab-district active" id="tri-btn-district" onclick="switchTriTab('district')">
             <i class="fa-solid fa-trophy"></i>
-            <span>जिल्हा यादी</span>
+            <span>जिल्हा Toppers यादी</span>
           </button>
           <button class="tri-tab-btn tri-tab-taluka" id="tri-btn-taluka" onclick="switchTriTab('taluka')">
             <i class="fa-solid fa-medal"></i>
-            <span>तालुका यादी</span>
+            <span>तालुका Toppers यादी</span>
           </button>
-          <button class="tri-tab-btn tri-tab-school" id="tri-btn-school" onclick="switchTriTab('school')">
+          <button class="tri-tab-btn tri-tab-kendra" id="tri-btn-kendra" onclick="switchTriTab('kendra')">
             <i class="fa-solid fa-school-flag"></i>
-            <span>आदर्श शाळा गौरव</span>
+            <span>केंद्र Toppers यादी</span>
           </button>
         </div>
 
-        <!-- तालुका निवड फिल्टर -->
-        <div class="form-group" id="taluka-select-group" style="display:none; margin-bottom:12px;">
-          <label style="font-size:0.85rem;"><i class="fa-solid fa-filter"></i> तालुका निवडा:</label>
-          <select class="form-control" id="tri-taluka-select" onchange="renderDeclaredResultsOnDashboard()"></select>
+        <!-- १२ तालुक्यांची एका रांगेत ४ प्रमाणे ३ रांगा (तालुका व केंद्र निवडण्यासाठी) -->
+        <div id="taluka-4col-grid-wrap" style="display:none; margin-bottom:14px;">
+          <p style="font-size:0.85rem; font-weight:700; color:#475569; margin-bottom:8px;" id="taluka-grid-label">
+            <i class="fa-solid fa-hand-pointer" style="color:var(--sky);"></i> तालुका निवडा:
+          </p>
+          <div class="taluka-4col-grid" id="taluka-4col-container"></div>
+        </div>
+
+        <!-- संबंधित तालुक्यातील केंद्रे (केंद्र Toppers निवडल्यावर) -->
+        <div id="kendra-grid-wrap" style="display:none; margin-bottom:14px; background:#fffbeb; padding:10px; border-radius:10px; border:1px solid #fed7aa;">
+          <p style="font-size:0.85rem; font-weight:800; color:#92400e; margin-bottom:8px;" id="kendra-list-label">
+            <i class="fa-solid fa-map-pin"></i> केंद्र निवडा:
+          </p>
+          <div class="kendra-grid" id="kendra-container"></div>
         </div>
 
         <div id="dashboard-toppers-container">
@@ -976,7 +1036,7 @@
         </div>
       </div>
 
-      <!-- ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी (फक्त चालू चाचणी - ऑटो लॉक व मर्यादा तपासणी) -->
+      <!-- ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी -->
       <div class="app-card" id="card-student-marks-section" style="opacity:0.5; pointer-events:none;">
         <div class="app-card-title">
           <i class="fa-solid fa-pen-nib" style="color:var(--kesari);"></i> 3. विद्यार्थ्यांची हजेरी व गुण नोंदणी
@@ -1006,7 +1066,6 @@
           <button class="app-btn btn-primary" onclick="submitMarksToFirebase()"><i class="fa-solid fa-cloud-arrow-up"></i> सर्व गुण सुरक्षित सेव्ह करा</button>
         </div>
 
-        <!-- तांत्रिक संपर्क फूटर नोंद -->
         <div style="text-align: center; margin-top: 16px; padding-top: 10px; border-top: 1px dashed #cbd5e1; font-size: 0.78rem; color: #64748b; font-weight: 600;">
           <i class="fa-solid fa-headset" style="color: var(--sky); margin-right: 4px;"></i>
           तांत्रिक अडचणी करिता संपर्क: <a href="tel:7219123699" style="color: var(--sky-dark); text-decoration: none; font-weight: 700; font-family: 'Poppins', sans-serif;">7219123699</a>
@@ -1014,7 +1073,7 @@
       </div>
     </div>
 
-    <!-- ================= 3. गुप्त शिक्षणाधिकारी (प्राथमिक) प्रशासकीय कक्ष ================= -->
+    <!-- ================= 3. गुप्त शिक्षणाधिकारी प्रशासकीय कक्ष ================= -->
     <div id="screen-admin-backend" style="display:none;">
       <div class="app-card" style="border: 2px solid var(--sky); background: #f0fdf4;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -1022,7 +1081,7 @@
           <button class="app-btn btn-outline" style="width:auto; height:30px; font-size:0.75rem; padding:0 8px;" onclick="switchTab('dashboard')">बंद करा</button>
         </div>
         <p style="font-size:0.82rem; color:#475569;">
-          येथून आपण चाचणीचे एकूण गुण निश्चित करू शकता, अधिकृत निकाल जाहीर करू शकता आणि 12 तालुक्यांमधील शाळांचा सविस्तर आढावा घेऊ शकता.
+          येथून आपण चाचणीचे एकूण गुण निश्चित करू शकता, प्रमाणपत्र/बॅनर कस्टमाइज करू शकता व अधिकृत निकाल जाहीर करू शकता.
         </p>
       </div>
 
@@ -1053,7 +1112,7 @@
         </button>
       </div>
 
-      <!-- २. निकाल जाहीर व लॉक करा विभाग -->
+      <!-- २. निकाल जाहीर व लॉक करा -->
       <div class="app-card">
         <div class="app-card-title"><i class="fa-solid fa-lock" style="color:var(--accent-green);"></i> अधिकृत निकाल जाहीर व लॉक करा</div>
         <div class="form-group">
@@ -1075,47 +1134,6 @@
         <button class="app-btn btn-primary" onclick="declareAndLockResults()">
           <i class="fa-solid fa-shield-halved"></i> 📢 निकाल जाहीर व लॉक करा
         </button>
-      </div>
-
-      <!-- ३. १२ तालुक्यांचे टॅब्स व सहभागी शाळा तपशील -->
-      <div class="app-card" style="border-left: 5px solid var(--sky);">
-        <div class="app-card-title"><i class="fa-solid fa-chart-pie" style="color:var(--sky);"></i> सहभागी तालुका व शाळा तपशील (12 तालुके)</div>
-        <div class="grid-2" style="margin-bottom:10px;">
-          <select class="form-control" id="admin-part-category" onchange="renderAdminParticipationDetails()"></select>
-          <select class="form-control" id="admin-part-test" onchange="renderAdminParticipationDetails()"></select>
-        </div>
-        
-        <div class="admin-cluster-pills-wrap" id="admin-cluster-pills"></div>
-
-        <div id="admin-cluster-schools-box" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:10px; min-height:80px;">
-          <p style="text-align:center; color:var(--text-muted); padding:10px;">माहिती पाहण्यासाठी वरील तालुक्यावर क्लिक करा.</p>
-        </div>
-      </div>
-
-      <!-- ४. प्रलंबित शाळा ट्रॅकर -->
-      <div class="app-card">
-        <div class="app-card-title"><i class="fa-solid fa-clock" style="color:var(--danger);"></i> प्रलंबित शाळा ट्रॅकर</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
-          <select class="form-control" id="admin-pending-category" onchange="renderAdminPendingSchools()"></select>
-          <select class="form-control" id="admin-pending-test" onchange="renderAdminPendingSchools()"></select>
-        </div>
-        <div class="form-group">
-          <select class="form-control" id="admin-pending-cluster" onchange="renderAdminPendingSchools()">
-            <option value="all">-- सर्व तालुके --</option>
-          </select>
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <span style="font-size:0.85rem; font-weight:700; color:var(--danger); font-family:'Poppins', sans-serif;" id="admin-pending-count">0 शाळा प्रलंबित</span>
-          <button class="app-btn btn-outline" style="width:auto; height:32px; font-size:0.75rem; padding:0 8px;" onclick="copyPendingWhatsAppMessage()">
-            <i class="fa-solid fa-copy"></i> WhatsApp मेसेज कॉपी
-          </button>
-        </div>
-        <div class="table-responsive" style="max-height:280px;">
-          <table>
-            <thead><tr><th>अ.क्र.</th><th>UDISE कोड</th><th>शाळेचे नाव</th><th>तालुका</th></tr></thead>
-            <tbody id="admin-pending-tbody"></tbody>
-          </table>
-        </div>
       </div>
     </div>
   </div>
@@ -1196,7 +1214,7 @@
     </div>
   </div>
 
-  <!-- ३. कस्टम 'आवश्यक सूचना' मोडल -->
+  <!-- ३. कस्टम सूचना मोडल -->
   <div class="modal" id="customNoticeModal">
     <div class="custom-dialog-box">
       <div class="custom-dialog-header" id="customNoticeHeader">
@@ -1289,7 +1307,7 @@
                 <i class="fa-solid fa-star" style="color: #d97706;"></i> प्राप्त गुण: 98 / 100
               </div>
               <div class="cert-badge-gold" id="cert-rank-text">
-                <i class="fa-solid fa-trophy" style="color: #d97706;"></i> जिल्ह्यात क्रमांक #1
+                <i class="fa-solid fa-trophy" style="color: #d97706;"></i> क्रमांक #1
               </div>
             </div>
 
@@ -1307,40 +1325,7 @@
     </div>
   </div>
 
-  <!-- ७. आदर्श शाळा सन्मान पत्र Modal -->
-  <div class="modal" id="bestSchoolModal">
-    <div class="modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <h3 style="color: #b45309; font-size: 1.05rem;"><i class="fa-solid fa-school-flag"></i> गुणवत्ता शाळा सन्मान पत्र</h3>
-        <button onclick="closeModal('bestSchoolModal')" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
-      </div>
-      
-      <div class="cert-scroll-wrapper">
-        <div class="cert-container-box" id="best-school-card-render">
-          <div class="cert-main-heading">गुणवत्ता शाळा सन्मान पत्र</div>
-          <div class="cert-date-badge" id="bs-date-text">Date: 14/10/2026</div>
-
-          <div class="cert-overlay-content" style="top: 140px;">
-            <h2 class="cert-student-title" id="bs-school-name" style="font-size:1.5rem;">जि.प.प्रा.शाळा सावरगाव</h2>
-            <p class="cert-para">
-              तालुका: <strong><span id="bs-taluka-name">माजलगाव</span></strong> यांनी जिल्हा परिषद बीड अंतर्गत आयोजित सराव परीक्षांमध्ये 
-              विद्यार्थ्यांचा 100% सहभाग व सरासरी <strong style="font-family:'Poppins', sans-serif;"><span id="bs-avg-score">88.5%</span></strong> गुणांसह सर्वोत्कृष्ट गुणवत्ता सिद्ध केली आहे.
-            </p>
-            <div class="cert-badges">
-              <div class="cert-badge-gold"><i class="fa-solid fa-medal"></i> आदर्श गुणवत्ता शाळा 2026-27</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid-2" style="margin-top: 14px;">
-        <button class="app-btn btn-outline" onclick="closeModal('bestSchoolModal')">बंद करा</button>
-        <button class="app-btn btn-success" onclick="downloadBestSchoolPDF()"><i class="fa-solid fa-download"></i> सन्मान पत्र PDF</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ८. प्रगती पुस्तक Modal -->
+  <!-- ७. प्रगती पुस्तक Modal -->
   <div class="modal" id="reportCardModal">
     <div class="modal-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:10px;">
@@ -1415,9 +1400,7 @@
     const db = firebase.database();
 
     function getAutoActiveTest(category) {
-      if (category === 'navodaya') {
-        return 6;
-      }
+      if (category === 'navodaya') return 6;
       return 8;
     }
 
@@ -1451,6 +1434,8 @@
     let currentSelectedCategory = 'navodaya';
     let currentSelectedTest = getAutoActiveTest('navodaya');
     let currentTriTab = 'district';
+    let selectedTopperTaluka = null;
+    let selectedTopperKendra = null;
 
     let currentEntryCategory = 'navodaya';
     let currentStudentsList = [];
@@ -1593,6 +1578,7 @@
     function initPortal() {
       loadSchoolsData();
       initTalukaDropdowns();
+      build12Taluka4ColGrid();
       buildDashboardTestPills();
       buildEntryTestOptions();
       listenLiveDashboardData();
@@ -1729,6 +1715,7 @@
             c: String(s.udise).trim(),
             n: s.name,
             t: s.taluka,
+            k: s.kendra || s.cluster || s.taluka, // केंद्र / Cluster मॅपिंग
             l: parseInt(s.lowest_class, 10) || 1,
             h: parseInt(s.highest_class, 10) || 7
           }));
@@ -1787,12 +1774,111 @@
       listenLiveDashboardData();
     }
 
+    /* १२ तालुक्यांची एका रांगेत ४ प्रमाणे ३ रांगांची ग्रीड तयार करणे */
+    function build12Taluka4ColGrid() {
+      const cont = document.getElementById('taluka-4col-container');
+      if (!cont) return;
+      cont.innerHTML = '';
+
+      TALUKA_LIST.forEach(tName => {
+        cont.innerHTML += `
+          <button class="taluka-4col-btn" id="btn-taluka-${tName}" onclick="handleTalukaSelection('${tName}', this)">
+            ${tName}
+          </button>
+        `;
+      });
+    }
+
+    /* टॅब स्विचिंग (जिल्हा / तालुका / केंद्र Toppers यादी) */
     function switchTriTab(tab) {
       currentTriTab = tab;
       document.getElementById('tri-btn-district').classList.toggle('active', tab === 'district');
       document.getElementById('tri-btn-taluka').classList.toggle('active', tab === 'taluka');
-      document.getElementById('tri-btn-school').classList.toggle('active', tab === 'school');
-      document.getElementById('taluka-select-group').style.display = (tab === 'taluka') ? 'block' : 'none';
+      document.getElementById('tri-btn-kendra').classList.toggle('active', tab === 'kendra');
+      
+      const talukaGridWrap = document.getElementById('taluka-4col-grid-wrap');
+      const kendraGridWrap = document.getElementById('kendra-grid-wrap');
+      const gridLabel = document.getElementById('taluka-grid-label');
+
+      // ॲक्टिव्ह बटन्स रीसेट
+      document.querySelectorAll('.taluka-4col-btn').forEach(b => b.classList.remove('active'));
+
+      if (tab === 'district') {
+        talukaGridWrap.style.display = 'none';
+        kendraGridWrap.style.display = 'none';
+        selectedTopperTaluka = null;
+        selectedTopperKendra = null;
+      } else if (tab === 'taluka') {
+        talukaGridWrap.style.display = 'block';
+        kendraGridWrap.style.display = 'none';
+        gridLabel.innerHTML = `<i class="fa-solid fa-hand-pointer" style="color:var(--sky);"></i> ज्या तालुक्याचे Top 10 पाहायचे आहेत तो तालुका निवडा:`;
+        selectedTopperTaluka = TALUKA_LIST[0];
+        const firstBtn = document.getElementById(`btn-taluka-${selectedTopperTaluka}`);
+        if (firstBtn) firstBtn.classList.add('active');
+      } else if (tab === 'kendra') {
+        talukaGridWrap.style.display = 'block';
+        gridLabel.innerHTML = `<i class="fa-solid fa-hand-pointer" style="color:var(--gold);"></i> प्रथम तालुका निवडा (त्यानंतर केंद्रांची यादी दिसेल):`;
+        selectedTopperTaluka = TALUKA_LIST[0];
+        const firstBtn = document.getElementById(`btn-taluka-${selectedTopperTaluka}`);
+        if (firstBtn) firstBtn.classList.add('active');
+        renderKendrasForTaluka(selectedTopperTaluka);
+      }
+
+      renderDeclaredResultsOnDashboard();
+    }
+
+    function handleTalukaSelection(tName, btn) {
+      document.querySelectorAll('.taluka-4col-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedTopperTaluka = tName;
+
+      if (currentTriTab === 'taluka') {
+        renderDeclaredResultsOnDashboard();
+      } else if (currentTriTab === 'kendra') {
+        renderKendrasForTaluka(tName);
+      }
+    }
+
+    /* तालुक्यातील सर्व केंद्रे शोधून ग्रीडमध्ये दाखवणे */
+    function renderKendrasForTaluka(tName) {
+      const wrap = document.getElementById('kendra-grid-wrap');
+      const cont = document.getElementById('kendra-container');
+      const lbl = document.getElementById('kendra-list-label');
+      wrap.style.display = 'block';
+      cont.innerHTML = '';
+      lbl.innerHTML = `<i class="fa-solid fa-map-pin"></i> ${tName} तालुक्यातील केंद्रे निवडा:`;
+
+      // शाळेच्या डेटामधून संबंधित तालुक्यातील युनिक केंद्रे काढणे
+      const kendrasSet = new Set();
+      BEED_ALL_SCHOOLS.forEach(s => {
+        if (s.t === tName && s.k) kendrasSet.add(s.k);
+      });
+
+      const kendraList = Array.from(kendrasSet).sort();
+
+      if (kendraList.length === 0) {
+        cont.innerHTML = `<p style="grid-column:1/-1; font-size:0.8rem; color:#92400e; text-align:center;">या तालुक्यासाठी केंद्र उपलब्ध नाही.</p>`;
+        selectedTopperKendra = null;
+        renderDeclaredResultsOnDashboard();
+        return;
+      }
+
+      kendraList.forEach((kName, idx) => {
+        cont.innerHTML += `
+          <button class="kendra-btn ${idx === 0 ? 'active' : ''}" onclick="selectKendra('${kName}', this)">
+            ${kName}
+          </button>
+        `;
+      });
+
+      selectedTopperKendra = kendraList[0];
+      renderDeclaredResultsOnDashboard();
+    }
+
+    function selectKendra(kName, btn) {
+      document.querySelectorAll('.kendra-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedTopperKendra = kName;
       renderDeclaredResultsOnDashboard();
     }
 
@@ -1847,7 +1933,6 @@
       handleSchoolSelectionWithSecurity();
     }
 
-    /* ================= शाळा सुरक्षा पिन व मुख्याध्यापक नंबर पडताळणी ================= */
     function handleSchoolSelectionWithSecurity() {
       const udise = document.getElementById('entry-school').value;
       if (!udise) return;
@@ -1943,7 +2028,7 @@
           showToast('पिन पडताळणी यशस्वी!');
           proceedWithSchoolSelection(pendingSchoolToLock);
         } else {
-          showCustomAlert('चुकीचा सुरक्षा पिन! जर पिन विसरला असाल तर खालील "पिन विसरलात का?" पर्यायावर क्लिक करून मुख्याध्यापकांच्या नंबरद्वारे रिसेट करा.');
+          showCustomAlert('चुकीचा सुरक्षा पिन!');
         }
       }
     }
@@ -2309,6 +2394,7 @@
 
       const payload = {
         taluka: selectedSchoolObj.t || 'बीड',
+        kendra: selectedSchoolObj.k || selectedSchoolObj.t || 'बीड',
         school: selectedSchoolObj.n,
         udise: selectedSchoolObj.c,
         students: studentsWithMarks,
@@ -2348,6 +2434,7 @@
                       school: entry.school,
                       udise: entry.udise || '-',
                       taluka: entry.taluka || '-',
+                      kendra: entry.kendra || entry.taluka || '-',
                       marks: parseFloat(st.marks) || 0
                     });
                   }
@@ -2374,7 +2461,7 @@
       });
     }
 
-    /* ================= अधिकृत निकाल रेंडरिंग (लॉक असल्यासच दिसणार) ================= */
+    /* ================= गुणवत्ता यादी रेंडरिंग (जिल्हा, तालुका आणि केंद्र Toppers) ================= */
     function renderDeclaredResultsOnDashboard() {
       const cont = document.getElementById('dashboard-toppers-container');
       if (!cont) return;
@@ -2397,6 +2484,7 @@
 
       const testData = declaredCat[testKey];
 
+      // १. जिल्हा Toppers यादी
       if (currentTriTab === 'district') {
         const list = testData.districtToppers || [];
         if (list.length === 0) {
@@ -2405,40 +2493,26 @@
         }
 
         cont.innerHTML += `
-          <div style="margin-bottom:10px; display:flex; justify-content:flex-end;">
+          <div style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#0f2b5c; font-size:0.95rem;"><i class="fa-solid fa-trophy" style="color:var(--gold);"></i> बीड जिल्हा Top 10</strong>
             <button class="app-btn btn-gold" style="width:auto; height:34px; font-size:0.8rem; padding:0 14px;" onclick="openDeclaredBanner(${currentSelectedTest}, 'district')">
-              <i class="fa-solid fa-trophy"></i> जिल्हा Top 10 बॅनर पहा
+              <i class="fa-solid fa-award"></i> जिल्हा Top 10 बॅनर पहा
             </button>
           </div>
         `;
 
-        list.forEach((st, idx) => {
-          cont.innerHTML += `
-            <div class="topper-card">
-              <div class="topper-rank">#${idx + 1}</div>
-              <div class="topper-details">
-                <h4>${st.name}</h4>
-                <p>${st.school} (${st.taluka})</p>
-              </div>
-              <div class="topper-score">
-                <span class="topper-score-badge">${st.marks}/${maxM} गुण</span>
-                <button class="app-btn btn-outline" style="width:auto; height:26px; font-size:0.7rem; padding:0 8px; margin-top:4px;" 
-                  onclick="openCertificateModal('${st.name}', '${st.school}', '${st.udise}', '${st.taluka}', ${st.marks}, 'जिल्ह्यात क्रमांक #${idx + 1}', '${st.gender || ''}', ${maxM})">
-                  <i class="fa-solid fa-award"></i> प्रमाणपत्र
-                </button>
-              </div>
-            </div>
-          `;
-        });
+        renderStudentsCards(list, maxM, 'जिल्ह्यात क्रमांक');
       } 
+      // २. तालुका Toppers यादी
       else if (currentTriTab === 'taluka') {
-        const selTaluka = document.getElementById('tri-taluka-select').value || TALUKA_LIST[0];
+        const selTaluka = selectedTopperTaluka || TALUKA_LIST[0];
         const tToppers = (testData.talukaToppers && testData.talukaToppers[selTaluka]) ? testData.talukaToppers[selTaluka] : [];
 
         cont.innerHTML += `
-          <div style="margin-bottom:10px; display:flex; justify-content:flex-end;">
-            <button class="app-btn btn-success" style="width:auto; height:34px; font-size:0.8rem; padding:0 14px;" onclick="openDeclaredBanner(${currentSelectedTest}, 'taluka')">
-              <i class="fa-solid fa-medal"></i> ${selTaluka} तालुका बॅनर पहा
+          <div style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#059669; font-size:0.95rem;"><i class="fa-solid fa-medal"></i> ${selTaluka} तालुका Top 10</strong>
+            <button class="app-btn btn-success" style="width:auto; height:34px; font-size:0.8rem; padding:0 14px;" onclick="openDeclaredBanner(${currentSelectedTest}, 'taluka', '${selTaluka}')">
+              <i class="fa-solid fa-award"></i> ${selTaluka} तालुका बॅनर पहा
             </button>
           </div>
         `;
@@ -2448,50 +2522,65 @@
           return;
         }
 
-        tToppers.forEach((st, idx) => {
-          cont.innerHTML += `
-            <div class="topper-card">
-              <div class="topper-rank">#${idx + 1}</div>
-              <div class="topper-details">
-                <h4>${st.name}</h4>
-                <p>${st.school}</p>
-              </div>
-              <div class="topper-score">
-                <span class="topper-score-badge">${st.marks}/${maxM} गुण</span>
-                <button class="app-btn btn-outline" style="width:auto; height:26px; font-size:0.7rem; padding:0 8px; margin-top:4px;" 
-                  onclick="openCertificateModal('${st.name}', '${st.school}', '${st.udise}', '${selTaluka}', ${st.marks}, '${selTaluka} तालुक्यात क्रमांक #${idx + 1}', '${st.gender || ''}', ${maxM})">
-                  <i class="fa-solid fa-award"></i> प्रमाणपत्र
-                </button>
-              </div>
-            </div>
-          `;
-        });
+        renderStudentsCards(tToppers, maxM, `${selTaluka} तालुक्यात क्रमांक`);
       } 
-      else if (currentTriTab === 'school') {
-        if (!testData.bestSchool) {
-          cont.innerHTML = `<p style="text-align:center; color:#64748b; padding:15px;">आदर्श शाळा निकाल उपलब्ध नाही.</p>`;
+      // ३. केंद्र Toppers यादी
+      else if (currentTriTab === 'kendra') {
+        if (!selectedTopperKendra) {
+          cont.innerHTML = `<p style="text-align:center; color:#64748b; padding:15px;">कृपया वरील यादीतून केंद्र निवडा.</p>`;
           return;
         }
 
-        const bSchool = testData.bestSchool;
-        cont.innerHTML = `
-          <div style="background:#fffbeb; border:2px solid #fde68a; border-radius:12px; padding:16px; text-align:center;">
-            <span style="background:#d97706; color:white; padding:4px 12px; border-radius:14px; font-size:0.78rem; font-weight:800;">
-              🏆 आदर्श गुणवत्ता शाळा
-            </span>
-            <h3 style="font-size:1.25rem; font-weight:800; color:#78350f; margin-top:8px;">${bSchool.school}</h3>
-            <p style="font-size:0.9rem; color:#475569; font-weight:700;">तालुका: ${bSchool.taluka} | सरासरी: <span style="font-family:'Poppins', sans-serif;">${bSchool.avgScore}%</span></p>
-            <div style="margin-top:14px;">
-              <button class="app-btn btn-gold" style="width:auto; height:38px; padding:0 20px; font-size:0.85rem;" onclick="openDeclaredBestSchoolModal()">
-                <i class="fa-solid fa-award"></i> सन्मान पत्र पहा व डाऊनलोड करा
+        let kToppers = [];
+        if (testData.kendraToppers && testData.kendraToppers[selectedTopperKendra]) {
+          kToppers = testData.kendraToppers[selectedTopperKendra];
+        } else {
+          // तात्काळ बॅकअप फिल्टर
+          const allStd = testData.districtToppers || [];
+          kToppers = allStd.filter(s => (s.kendra === selectedTopperKendra || s.school.includes(selectedTopperKendra))).slice(0, 10);
+        }
+
+        cont.innerHTML += `
+          <div style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#b45309; font-size:0.95rem;"><i class="fa-solid fa-school-flag"></i> केंद्र: ${selectedTopperKendra} Top 10</strong>
+            <button class="app-btn btn-gold" style="width:auto; height:34px; font-size:0.8rem; padding:0 14px;" onclick="openDeclaredBanner(${currentSelectedTest}, 'kendra', '${selectedTopperKendra}')">
+              <i class="fa-solid fa-award"></i> केंद्र बॅनर पहा
+            </button>
+          </div>
+        `;
+
+        if (kToppers.length === 0) {
+          cont.innerHTML += `<p style="text-align:center; color:#64748b; padding:15px;">या केंद्राचा निकाल अद्याप उपलब्ध नाही.</p>`;
+          return;
+        }
+
+        renderStudentsCards(kToppers, maxM, `${selectedTopperKendra} केंद्रात क्रमांक`);
+      }
+    }
+
+    function renderStudentsCards(list, maxM, rankPrefix) {
+      const cont = document.getElementById('dashboard-toppers-container');
+      list.forEach((st, idx) => {
+        cont.innerHTML += `
+          <div class="topper-card">
+            <div class="topper-rank">#${idx + 1}</div>
+            <div class="topper-details">
+              <h4>${st.name}</h4>
+              <p>${st.school} (${st.taluka || '-'})</p>
+            </div>
+            <div class="topper-score">
+              <span class="topper-score-badge">${st.marks}/${maxM} गुण</span>
+              <button class="app-btn btn-outline" style="width:auto; height:26px; font-size:0.7rem; padding:0 8px; margin-top:4px;" 
+                onclick="openCertificateModal('${st.name}', '${st.school}', '${st.udise}', '${st.taluka}', ${st.marks}, '${rankPrefix} #${idx + 1}', '${st.gender || ''}', ${maxM})">
+                <i class="fa-solid fa-award"></i> प्रमाणपत्र
               </button>
             </div>
           </div>
         `;
-      }
+      });
     }
 
-    function openDeclaredBanner(testNum, type) {
+    function openDeclaredBanner(testNum, type, scopeName) {
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
       if (!testData) return;
@@ -2507,10 +2596,14 @@
       if (type === 'district') {
         titleText = TEMPLATE_CONFIG.bannerTitle || `बीड जिल्हा Top 10 गुणवत्ता यादी`;
         toppersList = testData.districtToppers || [];
-      } else {
-        const selTaluka = document.getElementById('tri-taluka-select').value || TALUKA_LIST[0];
+      } else if (type === 'taluka') {
+        const selTaluka = scopeName || selectedTopperTaluka || TALUKA_LIST[0];
         titleText = `${selTaluka} तालुका Top 10 गुणवत्ता यादी`;
         toppersList = (testData.talukaToppers && testData.talukaToppers[selTaluka]) ? testData.talukaToppers[selTaluka] : [];
+      } else if (type === 'kendra') {
+        const selKendra = scopeName || selectedTopperKendra || "केंद्र";
+        titleText = `${selKendra} केंद्र Top 10 गुणवत्ता यादी`;
+        toppersList = (testData.kendraToppers && testData.kendraToppers[selKendra]) ? testData.kendraToppers[selKendra] : [];
       }
 
       document.getElementById('banner-heading-text').innerText = titleText;
@@ -2531,26 +2624,9 @@
       document.getElementById('bannerModal').style.display = 'flex';
     }
 
-    function openDeclaredBestSchoolModal() {
-      const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
-      const testData = declaredCat ? declaredCat[`test_${currentSelectedTest}`] : null;
-      if (!testData || !testData.bestSchool) return;
-
-      const bSchool = testData.bestSchool;
-      document.getElementById('bs-school-name').innerText = bSchool.school;
-      document.getElementById('bs-taluka-name').innerText = bSchool.taluka;
-      document.getElementById('bs-avg-score').innerText = bSchool.avgScore + "%";
-      document.getElementById('bestSchoolModal').style.display = 'flex';
-    }
-
     function initAdminPanelOptions() {
       const admTest = document.getElementById('admin-lock-test');
-      const admPendTest = document.getElementById('admin-pending-test');
-      const admPendCat = document.getElementById('admin-pending-category');
-
       const admMmTest = document.getElementById('admin-mm-test');
-      const admPartTest = document.getElementById('admin-part-test');
-      const admPartCat = document.getElementById('admin-part-category');
 
       if (admTest) {
         admTest.innerHTML = '';
@@ -2560,56 +2636,10 @@
         admMmTest.innerHTML = '';
         for (let i = 1; i <= 10; i++) admMmTest.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
       }
-      if (admPartTest) {
-        admPartTest.innerHTML = '';
-        for (let i = 1; i <= 10; i++) admPartTest.innerHTML += `<option value="${i}">चाचणी ${i}</option>`;
-      }
-      if (admPendTest) {
-        admPendTest.innerHTML = '';
-        for (let i = 1; i <= 10; i++) admPendTest.innerHTML += `<option value="${i}">चाचणी ${i}</option>`;
-      }
-      if (admPendCat) {
-        admPendCat.innerHTML = `
-          <option value="navodaya">नवोदय (5 वी)</option>
-          <option value="4th">4 थी शिष्यवृत्ती</option>
-          <option value="7th">7 वी शिष्यवृत्ती</option>
-          <option value="nmms">NMMS (8 वी)</option>
-        `;
-      }
-      if (admPartCat) {
-        admPartCat.innerHTML = `
-          <option value="navodaya">नवोदय (5 वी)</option>
-          <option value="4th">4 थी शिष्यवृत्ती</option>
-          <option value="7th">7 वी शिष्यवृत्ती</option>
-          <option value="nmms">NMMS (8 वी)</option>
-        `;
-      }
 
-      buildAdminTalukaPills();
       loadCurrentCustomMaxMarks();
       updateAdminMaxMarksInfo();
       loadTemplatesIntoInputs();
-    }
-
-    function buildAdminTalukaPills() {
-      const wrap = document.getElementById('admin-cluster-pills');
-      if (!wrap) return;
-      wrap.innerHTML = '';
-      TALUKA_LIST.forEach((tName, idx) => {
-        wrap.innerHTML += `
-          <button class="admin-c-tab ${idx === 0 ? 'active' : ''}" onclick="selectAdminTalukaTab('${tName}', this)">
-            ${tName}
-          </button>
-        `;
-      });
-      selectedAdminTaluka = TALUKA_LIST[0];
-    }
-
-    function selectAdminTalukaTab(tName, btn) {
-      document.querySelectorAll('.admin-c-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedAdminTaluka = tName;
-      renderAdminParticipationDetails();
     }
 
     function loadCurrentCustomMaxMarks() {
@@ -2650,6 +2680,7 @@
       }
     }
 
+    /* शिक्षणाधिकारी अधिकृत निकाल लॉक व जाहीर करतात (केंद्र टॉपर्ससह) */
     function declareAndLockResults() {
       const cat = document.getElementById('admin-lock-category').value;
       const testNo = document.getElementById('admin-lock-test').value;
@@ -2662,10 +2693,9 @@
           const data = snap.val() || {};
           let allStudents = [];
           let talukaWise = {};
-          let bestSchoolObj = null, highestAvg = 0;
+          let kendraWise = {};
 
           Object.values(data).forEach(entry => {
-            let sSum = 0, sCnt = 0;
             if (entry.students && Array.isArray(entry.students)) {
               entry.students.forEach(st => {
                 if (st.marks !== '' && String(st.marks).toUpperCase() !== 'AB') {
@@ -2674,30 +2704,23 @@
                     name: st.name,
                     school: entry.school,
                     taluka: entry.taluka || 'इतर',
+                    kendra: entry.kendra || entry.taluka || 'इतर',
                     udise: entry.udise || '-',
                     marks: marksNum,
                     gender: st.gender || 'मुलगा'
                   };
                   allStudents.push(rec);
 
+                  // तालुका वर्गीकरण
                   if (!talukaWise[entry.taluka]) talukaWise[entry.taluka] = [];
                   talukaWise[entry.taluka].push(rec);
 
-                  sSum += marksNum;
-                  sCnt++;
+                  // केंद्र वर्गीकरण
+                  const kKey = entry.kendra || entry.taluka;
+                  if (!kendraWise[kKey]) kendraWise[kKey] = [];
+                  kendraWise[kKey].push(rec);
                 }
               });
-            }
-            if (sCnt > 0 && maxM > 0) {
-              const scAvg = ((sSum / (sCnt * maxM)) * 100);
-              if (scAvg > highestAvg) {
-                highestAvg = scAvg;
-                bestSchoolObj = {
-                  school: entry.school,
-                  taluka: entry.taluka,
-                  avgScore: scAvg.toFixed(1)
-                };
-              }
             }
           });
 
@@ -2710,12 +2733,18 @@
             talukaToppers[tName] = talukaWise[tName].slice(0, 10);
           });
 
+          let kendraToppers = {};
+          Object.keys(kendraWise).forEach(kName => {
+            kendraWise[kName].sort((a,b) => b.marks - a.marks);
+            kendraToppers[kName] = kendraWise[kName].slice(0, 10);
+          });
+
           const payload = {
             declaredAt: new Date().toISOString(),
             maxMarks: maxM,
             districtToppers: districtToppers,
             talukaToppers: talukaToppers,
-            bestSchool: bestSchoolObj
+            kendraToppers: kendraToppers
           };
 
           db.ref(`declared_toppers/${cat}/test_${testNo}`).set(payload).then(() => {
@@ -2724,136 +2753,6 @@
           }).catch(err => {
             showCustomAlert('लॉकिंग त्रुटी: ' + err.message);
           });
-        });
-      });
-    }
-
-    function renderAdminParticipationDetails() {
-      const cat = document.getElementById('admin-part-category').value || 'navodaya';
-      const testNo = document.getElementById('admin-part-test').value || '1';
-      const box = document.getElementById('admin-cluster-schools-box');
-      if (!box) return;
-
-      db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
-        const data = snap.val() || {};
-        let targetTalukaSchools = [];
-
-        Object.values(data).forEach(entry => {
-          if (entry.taluka === selectedAdminTaluka) {
-            let count = 0;
-            if (entry.students && Array.isArray(entry.students)) {
-              entry.students.forEach(s => {
-                if (s.marks !== undefined && s.marks !== '') count++;
-              });
-            }
-            if (count > 0) {
-              targetTalukaSchools.push({
-                school: entry.school,
-                studentCount: count
-              });
-            }
-          }
-        });
-
-        box.innerHTML = '';
-
-        if (targetTalukaSchools.length === 0) {
-          box.innerHTML = `
-            <div style="text-align:center; padding:15px; color:#64748b;">
-              <strong>${selectedAdminTaluka}</strong> तालुक्यात अद्याप एकाही शाळेने निकाल भरलेला नाही.
-            </div>
-          `;
-          return;
-        }
-
-        let totalTalukaStudents = 0;
-        let listHtml = '';
-        targetTalukaSchools.forEach((sc, i) => {
-          totalTalukaStudents += sc.studentCount;
-          listHtml += `
-            <div class="admin-school-row">
-              <span><strong>${i + 1}. ${sc.school}</strong></span>
-              <span style="font-weight:800; color:#0369a1; background:#e0f2fe; padding:2px 10px; border-radius:10px; font-family:'Poppins', sans-serif;">
-                ${sc.studentCount} विद्यार्थी
-              </span>
-            </div>
-          `;
-        });
-
-        box.innerHTML = `
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1.5px solid #cbd5e1; padding-bottom:6px;">
-            <span style="font-weight:800; color:#0369a1;">📍 ${selectedAdminTaluka} तालुका (${targetTalukaSchools.length} शाळांनी भरले)</span>
-            <span style="font-weight:800; color:#15803d; font-family:'Poppins', sans-serif;">एकूण विद्यार्थी: ${totalTalukaStudents}</span>
-          </div>
-          <div>${listHtml}</div>
-        `;
-      });
-    }
-
-    function renderAdminPendingSchools() {
-      const cat = document.getElementById('admin-pending-category').value;
-      const testNo = document.getElementById('admin-pending-test').value;
-      const tFilter = document.getElementById('admin-pending-cluster').value;
-
-      db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
-        const data = snap.val() || {};
-        const filledUdises = new Set();
-        Object.values(data).forEach(entry => {
-          if (entry.udise) filledUdises.add(String(entry.udise).trim());
-        });
-
-        const eligible = BEED_ALL_SCHOOLS.filter(s => isSchoolEligible(s, cat));
-        let pending = eligible.filter(s => !filledUdises.has(s.c));
-
-        if (tFilter !== 'all') {
-          pending = pending.filter(s => s.t === tFilter);
-        }
-
-        document.getElementById('admin-pending-count').innerText = `${pending.length} शाळा प्रलंबित`;
-        const tbody = document.getElementById('admin-pending-tbody');
-        tbody.innerHTML = '';
-
-        pending.slice(0, 100).forEach((s, idx) => {
-          tbody.innerHTML += `<tr><td style="font-family:'Poppins', sans-serif;">${idx+1}</td><td style="font-family:'Poppins', sans-serif;">${s.c}</td><td><strong>${s.n}</strong></td><td>${s.t}</td></tr>`;
-        });
-      });
-    }
-
-    function copyPendingWhatsAppMessage() {
-      const cat = document.getElementById('admin-pending-category').value;
-      const testNo = document.getElementById('admin-pending-test').value;
-      const tFilter = document.getElementById('admin-pending-cluster').value;
-
-      db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
-        const data = snap.val() || {};
-        const filledUdises = new Set();
-        Object.values(data).forEach(entry => {
-          if (entry.udise) filledUdises.add(String(entry.udise).trim());
-        });
-
-        const eligible = BEED_ALL_SCHOOLS.filter(s => isSchoolEligible(s, cat));
-        let pending = eligible.filter(s => !filledUdises.has(s.c));
-
-        if (tFilter !== 'all') {
-          pending = pending.filter(s => s.t === tFilter);
-        }
-
-        if (pending.length === 0) {
-          showCustomAlert("कोणतीही शाळा प्रलंबित नाही!");
-          return;
-        }
-
-        let msg = `*📢 शिक्षण विभाग, जिल्हा परिषद बीड*\n`;
-        msg += `*विषय: चाचणी क्र. ${testNo} निकाल भरणेबाबत*\n\n`;
-        msg += `खालील शाळांनी अद्याप सराव चाचणी पोर्टलवर निकाल भरलेला नाही. कृपया संबंधित मुख्याध्यापकांनी तात्काळ गुण भरून लॉक करावेत:\n\n`;
-        pending.slice(0, 50).forEach((s, idx) => {
-          msg += `${idx + 1}. ${s.n} (${s.t})\n`;
-        });
-        msg += `\n*एकूण प्रलंबित शाळा:* ${pending.length}\n`;
-        msg += `*शिक्षण विभाग, जिल्हा परिषद बीड*`;
-
-        navigator.clipboard.writeText(msg).then(() => {
-          showToast('WhatsApp मेसेज कॉपी झाला!');
         });
       });
     }
@@ -2971,17 +2870,6 @@
         const cleanName = currentCertStudentName.replace(/\s+/g, '_');
         pdf.save(`Certificate_${cleanName}.pdf`);
         showToast('प्रमाणपत्र PDF डाऊनलोड झाले!');
-      });
-    }
-
-    function downloadBestSchoolPDF() {
-      const { jsPDF } = window.jspdf;
-      const card = document.getElementById('best-school-card-render');
-      html2canvas(card, { scale: 1.8, useCORS: true }).then(canvas => {
-        const imgData = canvas.toDataURL('image/jpeg', 0.9);
-        const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-        const scName = document.getElementById('bs-school-name').innerText.trim().replace(/\s+/g, '_');
-        pdf.save(`Best_School_Award_${scName}.pdf`);
       });
     }
 
