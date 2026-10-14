@@ -231,7 +231,7 @@
       background: var(--sky-light);
     }
 
-    /* Stats Grid */
+    /* Stats Grid - केवळ २ आवश्यक बॉक्स */
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .stat-box {
       background: white;
@@ -245,10 +245,6 @@
     
     .stat-box-students { border-left: 5px solid #7c3aed; background: linear-gradient(to right, #faf5ff, #ffffff); }
     .stat-box-students h2 { color: #6b21a8; }
-    .stat-box-avg { border-left: 5px solid #059669; background: linear-gradient(to right, #f0fdf4, #ffffff); }
-    .stat-box-avg h2 { color: #065f46; }
-    .stat-box-max { border-left: 5px solid #d97706; background: linear-gradient(to right, #fffbeb, #ffffff); }
-    .stat-box-max h2 { color: #92400e; }
     .stat-box-schools { border-left: 5px solid #0284c7; background: linear-gradient(to right, #f0f9ff, #ffffff); }
     .stat-box-schools h2 { color: #075985; }
 
@@ -396,6 +392,7 @@
       letter-spacing: 0.5px;
     }
 
+    /* प्रगती आलेख आयकॉन */
     .btn-progress-chart {
       width: 44px;
       height: 48px;
@@ -520,6 +517,46 @@
       color: #ffffff;
       border-color: #c2410c;
       box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
+    }
+
+    /* ॲडमिन पॅनलमधील १२ तालुके पिल्स टॅब्स */
+    .admin-cluster-pills-wrap {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+    .admin-cluster-pills-wrap::-webkit-scrollbar { display: none; }
+    .admin-c-tab {
+      flex: 0 0 auto;
+      background: white;
+      border: 1.5px solid #bae6fd;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #0369a1;
+      transition: 0.2s;
+    }
+    .admin-c-tab.active {
+      background: #0284c7;
+      color: white;
+      border-color: #0369a1;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+    }
+    .admin-school-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 10px;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #f1f5f9;
+      background: white;
+      border-radius: 6px;
+      margin-bottom: 4px;
     }
 
     /* Modals & Dialogs */
@@ -816,19 +853,11 @@
         <div class="test-pill-wrap" id="dash-test-pills"></div>
       </div>
 
-      <!-- Stats Grid -->
+      <!-- Stats Grid (केवळ प्रविष्ट विद्यार्थी व गुण भरलेल्या शाळा) -->
       <div class="stats-grid">
         <div class="stat-box stat-box-students">
           <p>प्रविष्ट विद्यार्थी</p>
           <h2 id="stat-total-students">0</h2>
-        </div>
-        <div class="stat-box stat-box-avg">
-          <p>सरासरी टक्केवारी</p>
-          <h2 id="stat-avg-score">0%</h2>
-        </div>
-        <div class="stat-box stat-box-max">
-          <p>सर्वोच्च गुण</p>
-          <h2 id="stat-max-score">0/100</h2>
         </div>
         <div class="stat-box stat-box-schools">
           <p>गुण भरलेल्या शाळा</p>
@@ -1105,7 +1134,7 @@
 
   <!-- ================= MODALS & DIALOGS ================= -->
 
-  <!-- १. शाळा सुरक्षा पिन मोडल (नवीन नोंदणी / पडताळणी) -->
+  <!-- १. शाळा सुरक्षा पिन मोडल -->
   <div class="modal" id="schoolPinModal">
     <div class="custom-dialog-box" style="max-width:360px;">
       <div class="custom-dialog-header" style="color:#0369a1;">
@@ -1116,7 +1145,6 @@
         कृपया या शाळेचा 4-अंकी सुरक्षा पिन टाका:
       </p>
 
-      <!-- मुख्याध्यापक मोबाईल नोंदणी (फक्त नवीन पिन किंवा री-रजिस्ट्रेशनसाठी) -->
       <div class="form-group" id="groupHmMobileReg" style="display:none; margin-bottom:10px;">
         <label style="text-align:left; font-size:0.82rem; color:#0f172a;"><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> मुख्याध्यापकांचा अधिकृत WhatsApp नंबर:</label>
         <input type="tel" id="inputHmMobileReg" maxlength="10" class="form-control" placeholder="10-अंकी मोबाईल नंबर" style="text-align:center; font-size:1rem; font-weight:800; font-family:'Poppins', sans-serif;">
@@ -1141,7 +1169,7 @@
     </div>
   </div>
 
-  <!-- २. पिन रिसेट मोडल (नोंदणीकृत मुख्याध्यापक नंबरद्वारे थेट रिसेट) -->
+  <!-- २. पिन रिसेट मोडल -->
   <div class="modal" id="forgotPinModal">
     <div class="custom-dialog-box" style="max-width:360px;">
       <div class="custom-dialog-header" style="color:#059669;">
@@ -1435,7 +1463,7 @@
 
     let pendingSchoolToLock = null;
     let isCurrentSchoolPinNew = false;
-    let isReRegistrationNeeded = false; // मोबाईल नंबर नसलेल्या जुन्या शाळांसाठी
+    let isReRegistrationNeeded = false;
     let fetchedSchoolSecurityPin = null;
     let fetchedSchoolHmMobile = null;
     let selectedAdminTaluka = TALUKA_LIST[0];
@@ -1829,12 +1857,10 @@
 
       const schoolKey = pendingSchoolToLock.c;
 
-      // नवीन आणि जुना डेटाबेस तपासणे
       db.ref(`school_auth/${schoolKey}`).once('value', (snapAuth) => {
         const authData = snapAuth.val();
 
         if (authData && authData.pin && authData.mobile) {
-          // मुख्याध्यापक मोबाईल आधीच नोंदवलेला आहे (नियमित लॉगिन)
           fetchedSchoolSecurityPin = authData.pin;
           fetchedSchoolHmMobile = authData.mobile;
           isCurrentSchoolPinNew = false;
@@ -1851,18 +1877,15 @@
           document.getElementById('schoolPinModal').style.display = 'flex';
           setTimeout(() => document.getElementById('inputSchoolPin').focus(), 150);
         } else {
-          // जुन्या स्कूल-पिन मधील डेटा तपासणे
           db.ref(`school_pins/${schoolKey}`).once('value', (snapOld) => {
             const oldPin = snapOld.val();
 
             if (!oldPin) {
-              // पूर्णपणे नवीन शाळा (पिन + मोबाईल नंबर दोन्ही नोंदवणे)
               isCurrentSchoolPinNew = true;
               isReRegistrationNeeded = false;
               document.getElementById('pinModalTitle').innerText = "शाळा सुरक्षा पिन सेट करा";
               document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\nसुरक्षिततेसाठी मुख्याध्यापकांचा अधिकृत WhatsApp नंबर व नवीन 4-अंकी पिन तयार करा:`;
             } else {
-              // आधी पिन बनवला होता पण मोबाईल नंबर नव्हता (री-रजिस्ट्रेशन)
               isCurrentSchoolPinNew = false;
               isReRegistrationNeeded = true;
               document.getElementById('pinModalTitle').innerText = "सुरक्षा अद्ययावत करा";
@@ -1893,7 +1916,6 @@
 
       const schoolKey = pendingSchoolToLock.c;
 
-      // जर नवीन नोंदणी किंवा री-रजिस्ट्रेशन असेल
       if (isCurrentSchoolPinNew || isReRegistrationNeeded) {
         const hmMobile = document.getElementById('inputHmMobileReg').value.trim();
         if (!hmMobile || hmMobile.length !== 10 || isNaN(hmMobile)) {
@@ -1907,7 +1929,6 @@
           updatedAt: new Date().toISOString()
         };
 
-        // दोन्ही ठिकाणी सेव्ह करणे
         db.ref(`school_auth/${schoolKey}`).set(authPayload).then(() => {
           db.ref(`school_pins/${schoolKey}`).set(enteredPin);
           fetchedSchoolSecurityPin = enteredPin;
@@ -1917,7 +1938,6 @@
           proceedWithSchoolSelection(pendingSchoolToLock);
         });
       } else {
-        // नियमित लॉगिन पडताळणी
         if (enteredPin === String(fetchedSchoolSecurityPin)) {
           closeModal('schoolPinModal');
           showToast('पिन पडताळणी यशस्वी!');
@@ -1935,7 +1955,6 @@
       lockUIWithoutPin();
     }
 
-    /* मुख्याध्यापकांच्या मोबाईल नंबरद्वारे सोपे पिन रिसेट मोडल उघडणे */
     function openForgotPinModal() {
       closeModal('schoolPinModal');
       document.getElementById('inputVerifyHmMobile').value = '';
@@ -1944,7 +1963,6 @@
       setTimeout(() => document.getElementById('inputVerifyHmMobile').focus(), 150);
     }
 
-    /* मोबाईल नंबर पडताळून नवीन पिन सेव्ह करणे */
     function verifyMobileAndResetPin() {
       const enteredMobile = document.getElementById('inputVerifyHmMobile').value.trim();
       const newPin = document.getElementById('inputResetNewPin').value.trim();
@@ -2176,7 +2194,6 @@
       });
     }
 
-    /* गुण इनपुट करताना थेट कमाल मर्यादेची तपासणी */
     function validateMarksInput(inputEl, maxLimit, studentName) {
       const val = inputEl.value.trim();
       if (val === '' || val.toUpperCase() === 'AB') {
@@ -2312,12 +2329,8 @@
         const data = snapshot.val();
         currentRawResults = data || {};
         let allStudents = [];
-        let totalScore = 0;
-        let presentCount = 0;
         let submittedSchoolsSet = new Set();
-        let maxScore = 0;
 
-        const maxM = getMaxMarksForTest(currentSelectedCategory, currentSelectedTest);
         const totalEligibleSchools = getTotalEligibleSchoolsForCategory(currentSelectedCategory);
 
         if (data) {
@@ -2329,18 +2342,14 @@
                   schoolHasMarks = true;
                   const mStr = String(st.marks).toUpperCase();
                   if (mStr !== 'AB') {
-                    const marksNum = parseFloat(st.marks) || 0;
                     allStudents.push({
                       name: st.name,
                       gender: st.gender,
                       school: entry.school,
                       udise: entry.udise || '-',
                       taluka: entry.taluka || '-',
-                      marks: marksNum
+                      marks: parseFloat(st.marks) || 0
                     });
-                    totalScore += marksNum;
-                    presentCount++;
-                    if (marksNum > maxScore) maxScore = marksNum;
                   }
                 }
               });
@@ -2352,10 +2361,6 @@
         }
 
         document.getElementById('stat-total-students').innerText = allStudents.length;
-        
-        const avgPercentage = (presentCount > 0 && maxM > 0) ? ((totalScore / (presentCount * maxM)) * 100).toFixed(1) + '%' : '0%';
-        document.getElementById('stat-avg-score').innerText = avgPercentage;
-        document.getElementById('stat-max-score').innerText = `${maxScore}/${maxM}`;
         document.getElementById('stat-active-schools').innerText = `${submittedSchoolsSet.size}/${totalEligibleSchools}`;
 
         renderDeclaredResultsOnDashboard();
@@ -2379,7 +2384,6 @@
       const testKey = `test_${currentSelectedTest}`;
       const maxM = getMaxMarksForTest(currentSelectedCategory, currentSelectedTest);
 
-      // जर शिक्षणाधिकाऱ्यांनी निकाल जाहीर व लॉक केलेला नसेल तर थेट अधिकृत संदेश दाखवणे
       if (!declaredCat || !declaredCat[testKey]) {
         cont.innerHTML = `
           <div style="text-align:center; padding:25px 15px; color:#64748b;">
