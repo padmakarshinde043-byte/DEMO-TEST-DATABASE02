@@ -31,6 +31,7 @@
       --text-muted: #64748b;
       --border: #e2e8f0;
       --danger: #dc2626;
+      --whatsapp: #25d366;
       --radius: 14px;
       --shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
     }
@@ -202,6 +203,7 @@
     .btn-outline { background: white; border: 2px solid var(--sky); color: var(--sky); }
     .btn-gold { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; }
     .btn-danger { background: var(--danger); color: white; }
+    .btn-whatsapp { background: var(--whatsapp); color: white; }
 
     /* UDISE Suggest Box */
     .udise-suggestions-box {
@@ -394,7 +396,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* प्रगती आलेख आयकॉन */
     .btn-progress-chart {
       width: 44px;
       height: 48px;
@@ -519,46 +520,6 @@
       color: #ffffff;
       border-color: #c2410c;
       box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
-    }
-
-    /* ॲडमिन पॅनलमधील १२ तालुके पिल्स टॅब्स */
-    .admin-cluster-pills-wrap {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
-      scrollbar-width: none;
-    }
-    .admin-cluster-pills-wrap::-webkit-scrollbar { display: none; }
-    .admin-c-tab {
-      flex: 0 0 auto;
-      background: white;
-      border: 1.5px solid #bae6fd;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      color: #0369a1;
-      transition: 0.2s;
-    }
-    .admin-c-tab.active {
-      background: #0284c7;
-      color: white;
-      border-color: #0369a1;
-      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
-    }
-    .admin-school-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 7px 10px;
-      font-size: 0.88rem;
-      border-bottom: 1px solid #f1f5f9;
-      background: white;
-      border-radius: 6px;
-      margin-bottom: 4px;
     }
 
     /* Modals & Dialogs */
@@ -1144,48 +1105,65 @@
 
   <!-- ================= MODALS & DIALOGS ================= -->
 
-  <!-- १. शाळा सुरक्षा पिन मोडल -->
+  <!-- १. शाळा सुरक्षा पिन मोडल (नवीन नोंदणी / पडताळणी) -->
   <div class="modal" id="schoolPinModal">
-    <div class="custom-dialog-box" style="max-width:350px;">
+    <div class="custom-dialog-box" style="max-width:360px;">
       <div class="custom-dialog-header" style="color:#0369a1;">
         <i class="fa-solid fa-shield-halved" style="color:#0284c7;"></i>
         <span id="pinModalTitle">शाळा सुरक्षा पिन</span>
       </div>
-      <p id="pinModalDesc" style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">
+      <p id="pinModalDesc" style="font-size:0.85rem; color:#64748b; margin-bottom:12px; line-height:1.4;">
         कृपया या शाळेचा 4-अंकी सुरक्षा पिन टाका:
       </p>
+
+      <!-- मुख्याध्यापक मोबाईल नोंदणी (फक्त नवीन पिन किंवा री-रजिस्ट्रेशनसाठी) -->
+      <div class="form-group" id="groupHmMobileReg" style="display:none; margin-bottom:10px;">
+        <label style="text-align:left; font-size:0.82rem; color:#0f172a;"><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> मुख्याध्यापकांचा अधिकृत WhatsApp नंबर:</label>
+        <input type="tel" id="inputHmMobileReg" maxlength="10" class="form-control" placeholder="10-अंकी मोबाईल नंबर" style="text-align:center; font-size:1rem; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
       <div class="form-group" style="margin-bottom:12px;">
+        <label id="labelSchoolPin" style="text-align:left; font-size:0.82rem; color:#0f172a; display:none;">4-अंकी सुरक्षा पिन सेट करा:</label>
         <input type="password" id="inputSchoolPin" maxlength="4" class="form-control" placeholder="••••" style="text-align:center; font-size:1.4rem; letter-spacing:6px; font-weight:800; font-family:'Poppins', sans-serif;">
       </div>
+
+      <p id="pinNoticeReg" style="display:none; font-size:0.75rem; color:#b45309; margin-bottom:12px; line-height:1.3; text-align:left; background:#fffbeb; padding:6px 8px; border-radius:6px; border:1px solid #fde68a;">
+        * सूचना: भविष्यात पिन विसरल्यास तो रिसेट करण्यासाठी हाच अधिकृत WhatsApp नंबर लागणार आहे.
+      </p>
+
       <div style="display:flex; flex-direction:column; gap:8px;">
         <button class="app-btn btn-primary" onclick="verifyOrSetSchoolPin()">पुढे जा</button>
         <button class="app-btn btn-outline" style="border-color:#cbd5e1; color:#64748b; height:36px; font-size:0.82rem;" onclick="cancelPinModal()">रद्द करा</button>
         <a href="javascript:void(0)" id="btnForgotPin" onclick="openForgotPinModal()" style="font-size:0.8rem; color:#dc2626; text-decoration:underline; font-weight:700; margin-top:4px; display:none;">
-          पिन विसरलात का? (कार्यालयीन कोडद्वारे रिसेट करा)
+          पिन विसरलात का? (मुख्याध्यापक नंबरद्वारे रिसेट करा)
         </a>
       </div>
     </div>
   </div>
 
-  <!-- २. पिन रिसेट मोडल -->
+  <!-- २. पिन रिसेट मोडल (नोंदणीकृत मुख्याध्यापक नंबरद्वारे थेट रिसेट) -->
   <div class="modal" id="forgotPinModal">
-    <div class="custom-dialog-box" style="max-width:350px;">
-      <div class="custom-dialog-header" style="color:#dc2626;">
-        <i class="fa-solid fa-key" style="color:#dc2626;"></i>
+    <div class="custom-dialog-box" style="max-width:360px;">
+      <div class="custom-dialog-header" style="color:#059669;">
+        <i class="fa-brands fa-whatsapp" style="color:#25d366; font-size:1.4rem;"></i>
         <span>सुरक्षा पिन रिसेट</span>
       </div>
+
       <p style="font-size:0.84rem; color:#475569; margin-bottom:12px; line-height:1.4;">
-        सुरक्षा कारणास्तव कार्यालयाकडून <strong>वन-टाइम कोड (One Time Code)</strong> प्राप्त करून येथे टाका:
+        पिन रिसेट करण्यासाठी शाळेच्या नोंदणीकृत <strong>मुख्याध्यापकांचा अधिकृत WhatsApp नंबर</strong> टाका:
       </p>
+
       <div class="form-group" style="margin-bottom:10px;">
-        <input type="text" id="inputVerifyReverseUdise" maxlength="15" class="form-control" placeholder="कार्यालयीन वन-टाइम कोड" style="text-align:center; font-size:1rem; font-weight:800; font-family:'Poppins', sans-serif;">
+        <input type="tel" id="inputVerifyHmMobile" maxlength="10" class="form-control" placeholder="नोंदणीकृत 10-अंकी मोबाईल नंबर" style="text-align:center; font-size:1.05rem; font-weight:800; font-family:'Poppins', sans-serif;">
       </div>
-      <div class="form-group" style="margin-bottom:12px;">
-        <input type="password" id="inputNewPin" maxlength="4" class="form-control" placeholder="नवीन 4-अंकी पिन" style="text-align:center; font-size:1.1rem; letter-spacing:4px; font-weight:800; font-family:'Poppins', sans-serif;">
+
+      <div class="form-group" style="margin-bottom:14px;">
+        <input type="password" id="inputResetNewPin" maxlength="4" class="form-control" placeholder="नवीन 4-अंकी पिन" style="text-align:center; font-size:1.1rem; letter-spacing:4px; font-weight:800; font-family:'Poppins', sans-serif;">
       </div>
+
       <div style="display:flex; gap:8px;">
         <button class="app-btn btn-outline" onclick="closeModal('forgotPinModal')">रद्द करा</button>
-        <button class="app-btn btn-danger" onclick="resetPinWithReverseUdise()">पिन बदला</button>
+        <button class="app-btn btn-primary" onclick="verifyMobileAndResetPin()">पिन बदला</button>
       </div>
     </div>
   </div>
@@ -1457,7 +1435,9 @@
 
     let pendingSchoolToLock = null;
     let isCurrentSchoolPinNew = false;
+    let isReRegistrationNeeded = false; // मोबाईल नंबर नसलेल्या जुन्या शाळांसाठी
     let fetchedSchoolSecurityPin = null;
+    let fetchedSchoolHmMobile = null;
     let selectedAdminTaluka = TALUKA_LIST[0];
 
     let BEED_ALL_SCHOOLS = [];
@@ -1839,6 +1819,7 @@
       handleSchoolSelectionWithSecurity();
     }
 
+    /* ================= शाळा सुरक्षा पिन व मुख्याध्यापक नंबर पडताळणी ================= */
     function handleSchoolSelectionWithSecurity() {
       const udise = document.getElementById('entry-school').value;
       if (!udise) return;
@@ -1848,28 +1829,57 @@
 
       const schoolKey = pendingSchoolToLock.c;
 
-      db.ref(`school_pins/${schoolKey}`).once('value', (snap) => {
-        fetchedSchoolSecurityPin = snap.val();
+      // नवीन आणि जुना डेटाबेस तपासणे
+      db.ref(`school_auth/${schoolKey}`).once('value', (snapAuth) => {
+        const authData = snapAuth.val();
 
-        document.getElementById('inputSchoolPin').value = '';
-        const modalTitle = document.getElementById('pinModalTitle');
-        const modalDesc = document.getElementById('pinModalDesc');
-        const btnForgot = document.getElementById('btnForgotPin');
-
-        if (!fetchedSchoolSecurityPin) {
-          isCurrentSchoolPinNew = true;
-          modalTitle.innerText = "सुरक्षा पिन सेट करा";
-          modalDesc.innerText = `शाळा: ${pendingSchoolToLock.n}\nकोणतीही दुसरी शाळा आपले गुण बदलू नये म्हणून आपल्या शाळेसाठी एक सोपा 4-अंकी सुरक्षा पिन तयार करा:`;
-          btnForgot.style.display = 'none';
-        } else {
+        if (authData && authData.pin && authData.mobile) {
+          // मुख्याध्यापक मोबाईल आधीच नोंदवलेला आहे (नियमित लॉगिन)
+          fetchedSchoolSecurityPin = authData.pin;
+          fetchedSchoolHmMobile = authData.mobile;
           isCurrentSchoolPinNew = false;
-          modalTitle.innerText = "शाळा सुरक्षा पिन पडताळणी";
-          modalDesc.innerText = `शाळा: ${pendingSchoolToLock.n}\nया शाळेचे विद्यार्थी व गुण पाहण्यासाठी / भरण्यासाठी आपला 4-अंकी सुरक्षा पिन टाका:`;
-          btnForgot.style.display = 'block';
-        }
+          isReRegistrationNeeded = false;
 
-        document.getElementById('schoolPinModal').style.display = 'flex';
-        setTimeout(() => document.getElementById('inputSchoolPin').focus(), 150);
+          document.getElementById('pinModalTitle').innerText = "शाळा सुरक्षा पिन पडताळणी";
+          document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\nया शाळेचे विद्यार्थी व गुण पाहण्यासाठी / भरण्यासाठी आपला 4-अंकी सुरक्षा पिन टाका:`;
+          document.getElementById('groupHmMobileReg').style.display = 'none';
+          document.getElementById('pinNoticeReg').style.display = 'none';
+          document.getElementById('labelSchoolPin').style.display = 'none';
+          document.getElementById('btnForgotPin').style.display = 'block';
+          
+          document.getElementById('inputSchoolPin').value = '';
+          document.getElementById('schoolPinModal').style.display = 'flex';
+          setTimeout(() => document.getElementById('inputSchoolPin').focus(), 150);
+        } else {
+          // जुन्या स्कूल-पिन मधील डेटा तपासणे
+          db.ref(`school_pins/${schoolKey}`).once('value', (snapOld) => {
+            const oldPin = snapOld.val();
+
+            if (!oldPin) {
+              // पूर्णपणे नवीन शाळा (पिन + मोबाईल नंबर दोन्ही नोंदवणे)
+              isCurrentSchoolPinNew = true;
+              isReRegistrationNeeded = false;
+              document.getElementById('pinModalTitle').innerText = "शाळा सुरक्षा पिन सेट करा";
+              document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\nसुरक्षिततेसाठी मुख्याध्यापकांचा अधिकृत WhatsApp नंबर व नवीन 4-अंकी पिन तयार करा:`;
+            } else {
+              // आधी पिन बनवला होता पण मोबाईल नंबर नव्हता (री-रजिस्ट्रेशन)
+              isCurrentSchoolPinNew = false;
+              isReRegistrationNeeded = true;
+              document.getElementById('pinModalTitle').innerText = "सुरक्षा अद्ययावत करा";
+              document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\nआपल्या शाळेची सुरक्षा अद्ययावत करण्यासाठी मुख्याध्यापकांचा अधिकृत WhatsApp नंबर नोंदवून नवीन पिन तयार करा:`;
+            }
+
+            document.getElementById('groupHmMobileReg').style.display = 'block';
+            document.getElementById('pinNoticeReg').style.display = 'block';
+            document.getElementById('labelSchoolPin').style.display = 'block';
+            document.getElementById('btnForgotPin').style.display = 'none';
+
+            document.getElementById('inputHmMobileReg').value = '';
+            document.getElementById('inputSchoolPin').value = '';
+            document.getElementById('schoolPinModal').style.display = 'flex';
+            setTimeout(() => document.getElementById('inputHmMobileReg').focus(), 150);
+          });
+        }
       });
     }
 
@@ -1883,19 +1893,37 @@
 
       const schoolKey = pendingSchoolToLock.c;
 
-      if (isCurrentSchoolPinNew) {
-        db.ref(`school_pins/${schoolKey}`).set(enteredPin).then(() => {
+      // जर नवीन नोंदणी किंवा री-रजिस्ट्रेशन असेल
+      if (isCurrentSchoolPinNew || isReRegistrationNeeded) {
+        const hmMobile = document.getElementById('inputHmMobileReg').value.trim();
+        if (!hmMobile || hmMobile.length !== 10 || isNaN(hmMobile)) {
+          showCustomAlert("कृपया मुख्याध्यापकांचा वैध 10-अंकी WhatsApp नंबर टाका! पिन विसरल्यास तो रिसेट करण्यासाठी हा नंबर अनिवार्य आहे.");
+          return;
+        }
+
+        const authPayload = {
+          pin: enteredPin,
+          mobile: hmMobile,
+          updatedAt: new Date().toISOString()
+        };
+
+        // दोन्ही ठिकाणी सेव्ह करणे
+        db.ref(`school_auth/${schoolKey}`).set(authPayload).then(() => {
+          db.ref(`school_pins/${schoolKey}`).set(enteredPin);
+          fetchedSchoolSecurityPin = enteredPin;
+          fetchedSchoolHmMobile = hmMobile;
           closeModal('schoolPinModal');
-          showToast('सुरक्षा पिन यशस्वीरीत्या सेट झाला!');
+          showToast('शाळा पिन व मुख्याध्यापक नंबर यशस्वीरीत्या सेट झाला!');
           proceedWithSchoolSelection(pendingSchoolToLock);
         });
       } else {
+        // नियमित लॉगिन पडताळणी
         if (enteredPin === String(fetchedSchoolSecurityPin)) {
           closeModal('schoolPinModal');
           showToast('पिन पडताळणी यशस्वी!');
           proceedWithSchoolSelection(pendingSchoolToLock);
         } else {
-          showCustomAlert('चुकीचा सुरक्षा पिन! जर पिन विसरला असाल तर खालील "पिन विसरलात का?" पर्यायावर क्लिक करून कार्यालयाकडून वन-टाइम कोड प्राप्त करून रिसेट करा.');
+          showCustomAlert('चुकीचा सुरक्षा पिन! जर पिन विसरला असाल तर खालील "पिन विसरलात का?" पर्यायावर क्लिक करून मुख्याध्यापकांच्या नंबरद्वारे रिसेट करा.');
         }
       }
     }
@@ -1907,34 +1935,50 @@
       lockUIWithoutPin();
     }
 
+    /* मुख्याध्यापकांच्या मोबाईल नंबरद्वारे सोपे पिन रिसेट मोडल उघडणे */
     function openForgotPinModal() {
       closeModal('schoolPinModal');
-      document.getElementById('inputVerifyReverseUdise').value = '';
-      document.getElementById('inputNewPin').value = '';
+      document.getElementById('inputVerifyHmMobile').value = '';
+      document.getElementById('inputResetNewPin').value = '';
       document.getElementById('forgotPinModal').style.display = 'flex';
-      setTimeout(() => document.getElementById('inputVerifyReverseUdise').focus(), 150);
+      setTimeout(() => document.getElementById('inputVerifyHmMobile').focus(), 150);
     }
 
-    function resetPinWithReverseUdise() {
-      const enteredMasterCode = document.getElementById('inputVerifyReverseUdise').value.trim();
-      const newPin = document.getElementById('inputNewPin').value.trim();
+    /* मोबाईल नंबर पडताळून नवीन पिन सेव्ह करणे */
+    function verifyMobileAndResetPin() {
+      const enteredMobile = document.getElementById('inputVerifyHmMobile').value.trim();
+      const newPin = document.getElementById('inputResetNewPin').value.trim();
 
-      if (!enteredMasterCode || !newPin || newPin.length !== 4 || isNaN(newPin)) {
-        showCustomAlert("कृपया कार्यालयाकडून प्राप्त वन-टाइम कोड आणि नवीन 4-अंकी पिन अचूक भरा!");
+      if (!enteredMobile || enteredMobile.length !== 10 || isNaN(enteredMobile)) {
+        showCustomAlert("कृपया मुख्याध्यापकांचा वैध 10-अंकी WhatsApp नंबर टाका!");
         return;
       }
 
-      const expectedCode = pendingSchoolToLock.c.split('').reverse().join('');
-
-      if (enteredMasterCode !== expectedCode) {
-        showCustomAlert("टाकलेला वन-टाइम कोड चुकीचा आहे! कृपया अधिकृत कोडसाठी कार्यालयाशी संपर्क साधा.");
+      if (!newPin || newPin.length !== 4 || isNaN(newPin)) {
+        showCustomAlert("कृपया नवीन 4-अंकी संख्यात्मक पिन टाका!");
         return;
       }
 
-      db.ref(`school_pins/${pendingSchoolToLock.c}`).set(newPin).then(() => {
+      if (enteredMobile !== String(fetchedSchoolHmMobile)) {
+        showCustomAlert("टाकलेला मुख्याध्यापकांचा नंबर चुकीचा आहे! या शाळेसाठी नोंदवलेल्या अधिकृत WhatsApp नंबरवरूनच पिन रिसेट करता येईल.");
+        return;
+      }
+
+      const schoolKey = pendingSchoolToLock.c;
+      const authPayload = {
+        pin: newPin,
+        mobile: enteredMobile,
+        updatedAt: new Date().toISOString()
+      };
+
+      db.ref(`school_auth/${schoolKey}`).set(authPayload).then(() => {
+        db.ref(`school_pins/${schoolKey}`).set(newPin);
+        fetchedSchoolSecurityPin = newPin;
         closeModal('forgotPinModal');
         showCustomAlert("शाळा सुरक्षा पिन यशस्वीरीत्या रिसेट झाला आहे! आता आपण गुण भरू शकता.");
         proceedWithSchoolSelection(pendingSchoolToLock);
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
       });
     }
 
@@ -2227,7 +2271,7 @@
         if (val !== '' && val.toUpperCase() !== 'AB') {
           const num = parseFloat(val);
           if (isNaN(num) || num < 0 || num > maxLimit) {
-            showCustomAlert(`विद्यार्थी "${st.name}" याचे गुण 0 ते ${maxLimit} दरम्यान असावेत! आपण ${val} गुण टाकले आहेत.`);
+            showCustomAlert(`विद्यार्थी "${st.name}" चे गुण 0 ते ${maxLimit} दरम्यान असावेत! आपण ${val} गुण टाकले आहेत.`);
             if (inp) {
               inp.focus();
               inp.style.borderColor = '#dc2626';
@@ -2335,7 +2379,7 @@
       const testKey = `test_${currentSelectedTest}`;
       const maxM = getMaxMarksForTest(currentSelectedCategory, currentSelectedTest);
 
-      // जर शिक्षणाधिकाऱ्यांनी निकाल जाहीर व लॉक केलेला नसेल तर थेट संदेश दाखवणे
+      // जर शिक्षणाधिकाऱ्यांनी निकाल जाहीर व लॉक केलेला नसेल तर थेट अधिकृत संदेश दाखवणे
       if (!declaredCat || !declaredCat[testKey]) {
         cont.innerHTML = `
           <div style="text-align:center; padding:25px 15px; color:#64748b;">
@@ -2602,7 +2646,6 @@
       }
     }
 
-    /* शिक्षणाधिकारी अधिकृत निकाल लॉक व जाहीर करतात */
     function declareAndLockResults() {
       const cat = document.getElementById('admin-lock-category').value;
       const testNo = document.getElementById('admin-lock-test').value;
@@ -2933,7 +2976,6 @@
       html2canvas(card, { scale: 1.8, useCORS: true }).then(canvas => {
         const imgData = canvas.toDataURL('image/jpeg', 0.9);
         const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-        pdf.addImage(imgData, 'JPEG', 8, 8, 281, 194);
         const scName = document.getElementById('bs-school-name').innerText.trim().replace(/\s+/g, '_');
         pdf.save(`Best_School_Award_${scName}.pdf`);
       });
