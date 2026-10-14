@@ -290,7 +290,7 @@
       box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
     }
 
-    /* १२ तालुक्यांची सुंदर आयताकृती कार्ड्स ग्रीड */
+    /* १२ तालुक्यांची ग्रीड */
     .taluka-cards-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -318,68 +318,38 @@
     .taluka-rect-card strong { font-size: 0.95rem; color: #1e293b; }
     .taluka-rect-card i { color: var(--gold); font-size: 1.1rem; }
 
-    /* Registered Students Manager */
-    .registered-students-container {
-      margin-top: 14px;
-      border-top: 1.5px dashed var(--border);
-      padding-top: 12px;
+    /* Collapsible Boxes */
+    .collapsible-header {
+      background: #f1f5f9;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-weight: 800;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #cbd5e1;
+      margin-bottom: 8px;
     }
-    .reg-std-item {
-      background: #f8fafc;
+    .collapsible-body {
+      display: none;
+      padding: 12px;
+      background: white;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 8px 12px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .reg-std-item strong { font-size: 0.95rem; color: #1e293b; }
-    .reg-std-item span { font-size: 0.78rem; color: var(--text-muted); }
-
-    /* Student Entry Cards */
-    .student-entry-card {
-      background: #ffffff;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-    }
-    .student-entry-header { display: flex; justify-content: space-between; align-items: center; }
-    .student-entry-info h4 { font-size: 1.05rem; font-weight: 800; color: #0f172a; }
-    .student-entry-info span { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
-
-    .student-entry-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px dashed var(--border);
-      padding-top: 10px;
+      margin-bottom: 14px;
     }
 
-    .att-toggle-group {
-      display: flex;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      background: white;
+    /* Draggable Item Style */
+    .draggable-item {
+      cursor: move;
+      user-select: none;
+      position: absolute;
     }
-    .att-btn {
-      padding: 6px 14px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      color: #64748b;
-      transition: 0.2s;
+    .draggable-item:active {
+      outline: 2px dashed #0284c7;
     }
-    .att-btn.present.active { background: #dcfce7; color: #15803d; }
-    .att-btn.absent.active { background: #fee2e2; color: #b91c1c; }
 
     /* अंश व छेद स्वरूपात गुण नोंदणी बॉक्स */
     .fraction-marks-wrap {
@@ -461,183 +431,7 @@
     .btn-delete:active { background: #fee2e2; }
     .btn-edit { color: var(--sky); border-color: #bae6fd; }
 
-    /* Leaderboard Cards */
-    .topper-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-    }
-    .topper-rank {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: #ede9fe;
-      color: #6b21a8;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.95rem;
-      margin-right: 10px;
-      flex-shrink: 0;
-      font-family: 'Poppins', sans-serif;
-    }
-    .topper-details { flex: 1; }
-    .topper-details h4 { font-size: 0.98rem; font-weight: 700; line-height: 1.2; }
-    .topper-details p { font-size: 0.78rem; color: var(--text-muted); }
-    .topper-score { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-    .topper-score-badge {
-      background: #d1fae5;
-      color: #065f46;
-      padding: 3px 10px;
-      border-radius: 14px;
-      font-weight: 800;
-      font-size: 0.88rem;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    /* Bottom Navigation */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 68px;
-      background: #ffffff;
-      border-top: 2px solid #cbd5e1;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 1000;
-      box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
-      padding: 6px 14px;
-      gap: 12px;
-    }
-    .nav-item {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      height: 52px;
-      background: #f8fafc;
-      border: 1.5px solid transparent;
-      border-radius: 14px;
-      color: #64748b;
-      cursor: pointer;
-      gap: 8px;
-      font-size: 1rem;
-      font-weight: 800;
-      transition: all 0.2s;
-    }
-    .nav-item i { font-size: 1.3rem; }
-    .nav-item-dash.active {
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-      color: #ffffff;
-      border-color: #0369a1;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
-    }
-    .nav-item-entry.active {
-      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-      color: #ffffff;
-      border-color: #c2410c;
-      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
-    }
-
-    /* ॲडमिन पॅनलमधील १२ तालुके पिल्स टॅब्स */
-    .admin-cluster-pills-wrap {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
-      scrollbar-width: none;
-    }
-    .admin-cluster-pills-wrap::-webkit-scrollbar { display: none; }
-    .admin-c-tab {
-      flex: 0 0 auto;
-      background: white;
-      border: 1.5px solid #bae6fd;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      color: #0369a1;
-      transition: 0.2s;
-    }
-    .admin-c-tab.active {
-      background: #0284c7;
-      color: white;
-      border-color: #0369a1;
-      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
-    }
-    .admin-school-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 7px 10px;
-      font-size: 0.88rem;
-      border-bottom: 1px solid #f1f5f9;
-      background: white;
-      border-radius: 6px;
-      margin-bottom: 4px;
-    }
-
-    /* Modals & Dialogs */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
-    }
-    .modal-content {
-      background: white;
-      padding: 16px;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 840px;
-      max-height: 94vh;
-      overflow-y: auto;
-    }
-    .custom-dialog-box {
-      background: white;
-      border-radius: 16px;
-      padding: 20px 18px;
-      width: 100%;
-      max-width: 380px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    }
-    .custom-dialog-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #991b1b;
-      margin-bottom: 12px;
-    }
-    .custom-dialog-body {
-      font-size: 0.95rem;
-      color: #334155;
-      font-weight: 600;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
-
-    /* प्रमाणपत्र */
+    /* प्रमाणपत्र रेंडरिंग बॉक्स (दिनांक लोगो खाली सुरक्षित) */
     .cert-scroll-wrapper {
       width: 100%;
       overflow-x: auto;
@@ -663,30 +457,27 @@
       margin: auto;
     }
     .cert-main-heading {
-      position: absolute;
-      top: 48px;
-      left: 130px;
-      right: 130px;
       text-align: center;
       font-size: 1.95rem;
       font-weight: 800;
       color: #0f2b5c;
       letter-spacing: 1px;
-      z-index: 5;
+      width: 100%;
     }
+    /* दिनांक उजव्या बाजूच्या चित्रात न घुसता खाली राहील */
     .cert-date-badge {
-      position: absolute;
-      top: 104px;
-      right: 36px;
-      font-size: 0.86rem;
-      font-weight: 600;
+      font-size: 0.88rem;
+      font-weight: 700;
       color: #334155;
       font-family: 'Poppins', sans-serif;
       letter-spacing: 0.5px;
+      background: rgba(255, 255, 255, 0.75);
+      padding: 3px 10px;
+      border-radius: 6px;
     }
     .cert-overlay-content {
       position: absolute;
-      top: 132px;
+      top: 140px;
       left: 55px;
       right: 55px;
       text-align: center;
@@ -741,6 +532,7 @@
       box-shadow: 0 8px 24px rgba(217, 119, 6, 0.15);
       position: relative;
       margin: 0 auto;
+      background-size: cover;
     }
     .banner-top-badge {
       background: linear-gradient(135deg, #b45309 0%, #d97706 100%);
@@ -780,64 +572,27 @@
       font-weight: 800;
     }
 
-    /* प्रगती पुस्तक */
-    .report-card-container {
-      background: #ffffff;
-      border: 3px double #0284c7;
-      padding: 18px;
-      border-radius: 8px;
-      color: #1e293b;
-      margin: 10px 0;
-    }
-    .report-card-header {
-      text-align: center;
-      border-bottom: 2px solid #e0f2fe;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
-    }
-    .report-card-header h2 { font-size: 1.3rem; color: #0369a1; }
-    .report-meta-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      background: #f8fafc;
-      padding: 10px;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      font-size: 0.88rem;
-    }
-    .progress-bar-container {
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
-      height: 90px;
-      padding: 8px;
-      background: #f8fafc;
-      border-radius: 8px;
-      margin-top: 10px;
-      border: 1px solid #e2e8f0;
-    }
-    .progress-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100%;
-      justify-content: flex-end;
-    }
-    .progress-bar-fill {
+    /* A4 प्रिंट तक्ता (शिक्षणाधिकाऱ्यांसाठी PDF) */
+    .printable-chart-container {
+      background: white;
+      padding: 20px;
+      color: #0f172a;
       width: 100%;
-      background: #0284c7;
-      border-radius: 4px 4px 0 0;
-      min-height: 4px;
-      transition: height 0.3s;
     }
-    .progress-col-label { font-size: 0.7rem; margin-top: 4px; color: #64748b; font-family: 'Poppins', sans-serif; }
-
-    .table-responsive { overflow-x: auto; margin-top: 10px; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-    th, td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; }
-    th { background: #f8fafc; font-weight: 700; color: #475569; }
+    .chart-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      text-align: center;
+    }
+    .chart-table th, .chart-table td {
+      border: 1.5px solid #334155;
+      padding: 6px 4px;
+    }
+    .chart-table th {
+      background: #f1f5f9;
+      font-weight: 800;
+    }
 
     .toast {
       position: fixed;
@@ -928,14 +683,12 @@
           </button>
         </div>
 
-        <!-- १२ तालुक्यांची सुंदर आयताकृती कार्ड्स ग्रीड (टॅब २ निवडल्यावर दिसेल) -->
+        <!-- १२ तालुक्यांची सुंदर आयताकृती कार्ड्स ग्रीड -->
         <div id="taluka-cards-grid-wrap" style="display:none; margin-bottom:14px;">
           <p style="font-size:0.85rem; font-weight:700; color:#475569; margin-bottom:8px;">
             <i class="fa-solid fa-hand-pointer" style="color:var(--sky);"></i> ज्या तालुक्याचे Top 10 बॅनर पाहायचे आहे त्या तालुक्यावर क्लिक करा:
           </p>
-          <div class="taluka-cards-grid" id="taluka-cards-container">
-            <!-- १२ तालुक्यांची कार्ड्स आपोआप तयार होतील -->
-          </div>
+          <div class="taluka-cards-grid" id="taluka-cards-container"></div>
         </div>
 
         <div id="dashboard-toppers-container">
@@ -953,7 +706,6 @@
         <button class="category-chip cat-nmms" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी)</button>
       </div>
 
-      <!-- १. शाळा निवडा -->
       <div class="app-card">
         <div class="app-card-title"><i class="fa-solid fa-school" style="color:var(--sky);"></i> 1. शाळा निवडा (UDISE कोड किंवा नावाने शोधा)</div>
         
@@ -980,7 +732,6 @@
         </div>
       </div>
 
-      <!-- २. नवीन विद्यार्थी वाढवा / जोडा -->
       <div class="app-card" id="card-student-add-section" style="opacity:0.5; pointer-events:none;">
         <div class="app-card-title"><i class="fa-solid fa-user-plus" style="color:var(--accent-green);"></i> 2. नवीन विद्यार्थी वाढवा / जोडा</div>
         <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">
@@ -1019,7 +770,6 @@
         </div>
       </div>
 
-      <!-- ३. विद्यार्थ्यांची हजेरी व गुण नोंदणी -->
       <div class="app-card" id="card-student-marks-section" style="opacity:0.5; pointer-events:none;">
         <div class="app-card-title">
           <i class="fa-solid fa-pen-nib" style="color:var(--kesari);"></i> 3. विद्यार्थ्यांची हजेरी व गुण नोंदणी
@@ -1055,22 +805,47 @@
           <button class="app-btn btn-outline" style="width:auto; height:30px; font-size:0.75rem; padding:0 8px;" onclick="switchTab('dashboard')">बंद करा</button>
         </div>
         <p style="font-size:0.82rem; color:#475569;">
-          येथून आपण चाचणीचे एकूण गुण निश्चित करू शकता, प्रमाणपत्र/बॅनर बॅकग्राउंड इमेज बदलू शकता व त्याचा थेट प्रिव्ह्यू पाहू शकता.
+          येथून आपण चाचणीचे एकूण गुण निश्चित करू शकता, प्रमाणपत्र/बॅनर कस्टमाइज करू शकता, अधिकृत निकाल जाहीर करू शकता आणि सर्व परीक्षांचा एकत्रित A4 PDF अहवाल काढू शकता.
         </p>
       </div>
 
-      <!-- प्रमाणपत्र व बॅनर कस्टमायझर सह लाईव्ह प्रिव्ह्यू व इमेज अपलोड -->
+      <!-- नवीन: सर्व ४ परीक्षांचा १२ तालुका सहभाग चार्ट (A4 PDF) -->
+      <div class="app-card" style="border-left: 5px solid #059669;">
+        <div class="app-card-title"><i class="fa-solid fa-file-pdf" style="color:#059669;"></i> 📊 सर्व 4 परीक्षांचा 12 तालुका सहभाग चार्ट (A4 PDF)</div>
+        <p style="font-size:0.84rem; color:#475569; margin-bottom:10px;">
+          एका खाली एक ४ परीक्षांची नावे आणि समोर १२ तालुक्यांमध्ये किती पैकी किती शाळांनी गुण भरले आहेत याचा सुटसुटीत तक्ता तयार करा.
+        </p>
+        <div class="form-group" style="margin-bottom:10px;">
+          <label>चाचणी क्रमांक निवडा:</label>
+          <select class="form-control" id="admin-summary-test"></select>
+        </div>
+        <button class="app-btn btn-success" onclick="generateDistrictSummaryPDF()">
+          <i class="fa-solid fa-download"></i> A4 साईज अधिकृत सहभाग अहवाल PDF डाऊनलोड करा
+        </button>
+      </div>
+
+      <!-- प्रमाणपत्र व बॅनर कस्टमायझर (Collapsible / Minimized) -->
       <div class="app-card" style="border-left: 5px solid #6366f1;">
-        <div class="app-card-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6366f1;"></i> 🎨 प्रमाणपत्र व बॅनर कस्टमायझर (लाईव्ह प्रिव्ह्यूसह)</div>
+        <div class="collapsible-header" onclick="toggleCollapse('collapse-cert-editor')">
+          <span><i class="fa-solid fa-certificate" style="color:#6366f1;"></i> १. प्रमाणपत्र मजकूर व बॅकग्राउंड कस्टमायझर</span>
+          <i class="fa-solid fa-chevron-down" id="icon-collapse-cert-editor"></i>
+        </div>
         
-        <!-- १. प्रमाणपत्र बॅकग्राउंड व मजकूर -->
-        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:12px; margin-bottom:14px;">
-          <h4 style="font-size:0.95rem; color:#1e293b; margin-bottom:8px;"><i class="fa-solid fa-image"></i> १. प्रमाणपत्र पार्श्वभूमी (Background Image) व मजकूर:</h4>
-          
+        <div class="collapsible-body" id="collapse-cert-editor">
           <div class="form-group">
-            <label><i class="fa-solid fa-upload"></i> स्वतःची प्रमाणपत्र इमेज अपलोड करा (JPG/PNG):</label>
+            <label><i class="fa-solid fa-upload"></i> स्वतःची प्रमाणपत्र पार्श्वभूमी इमेज अपलोड करा (JPG/PNG):</label>
             <input type="file" id="cert-bg-upload" accept="image/*" class="form-control" style="height:auto; padding:8px;" onchange="handleCertBgUpload(event)">
-            <span style="font-size:0.75rem; color:var(--sky-dark);">* अपलोड केलेली इमेज खालील प्रिव्ह्यूमध्ये तात्काळ दिसेल आणि सेव्ह होईल.</span>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>ओळींमधील अंतर (Line Spacing):</label>
+              <input type="range" id="cert-line-height-range" min="1.2" max="2.6" step="0.1" value="1.85" oninput="updateLiveCertPreview()">
+            </div>
+            <div class="form-group">
+              <label>मजकूर फॉन्ट साईज (Font Size):</label>
+              <input type="range" id="cert-font-size-range" min="0.8" max="1.3" step="0.05" value="1.04" oninput="updateLiveCertPreview()">
+            </div>
           </div>
 
           <div class="form-group">
@@ -1087,21 +862,22 @@
             <input type="text" class="form-control" id="tmpl-cert-sign" value="शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड" oninput="updateLiveCertPreview()">
           </div>
 
-          <!-- प्रमाणपत्र लाईव्ह प्रिव्ह्यू बॉक्स -->
-          <div style="margin-top:12px;">
-            <label style="font-weight:800; font-size:0.85rem; color:#0369a1;"><i class="fa-solid fa-eye"></i> प्रमाणपत्र लाईव्ह प्रिव्ह्यू (Live Preview):</label>
+          <!-- माऊसने हलवता येणारा प्रिव्ह्यू बॉक्स -->
+          <div style="margin-top:10px;">
+            <label style="font-weight:800; font-size:0.85rem; color:#0369a1;"><i class="fa-solid fa-hand-pointer"></i> प्रमाणपत्र प्रिव्ह्यू (मजकूर व दिनांक माऊसने धरून जागेवर हलवा):</label>
             <div style="width:100%; overflow-x:auto; background:#e2e8f0; padding:8px; border-radius:8px;">
               <div class="cert-container-box" id="admin-live-cert-preview" style="transform: scale(0.65); transform-origin: top left; margin-bottom: -180px;">
-                <div class="cert-main-heading" id="prev-cert-title">गुणवत्ता सन्मान प्रमाणपत्र</div>
-                <div class="cert-date-badge">Date: 14/10/2026</div>
-                <div class="cert-overlay-content">
+                <div class="cert-main-heading draggable-item" id="prev-cert-title" style="top:45px; left:0; right:0;">गुणवत्ता सन्मान प्रमाणपत्र</div>
+                <!-- दिनांक सुरक्षित खाली घेतली -->
+                <div class="cert-date-badge draggable-item" id="prev-cert-date" style="top:110px; right:40px;">Date: 14/10/2026</div>
+                <div class="cert-overlay-content draggable-item" id="prev-cert-content-box" style="top:145px; left:55px; right:55px;">
                   <h2 class="cert-student-title">सार्थक रामराव सोळंके</h2>
                   <div class="cert-para" id="prev-cert-body"></div>
                   <div class="cert-badges">
                     <div class="cert-badge-gold"><i class="fa-solid fa-star"></i> प्राप्त गुण: 98 / 100</div>
                     <div class="cert-badge-gold"><i class="fa-solid fa-trophy"></i> जिल्ह्यात क्रमांक #1</div>
                   </div>
-                  <div style="position:absolute; bottom:-140px; right:20px; font-weight:800; color:#0f2b5c;" id="prev-cert-sign">
+                  <div style="margin-top:25px; text-align:right; font-weight:800; color:#0f2b5c;" id="prev-cert-sign">
                     शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड
                   </div>
                 </div>
@@ -1110,10 +886,17 @@
           </div>
         </div>
 
-        <!-- २. बॅनर कस्टमायझर व लाईव्ह प्रिव्ह्यू -->
-        <div style="background:#fffdfa; border:1px solid #fed7aa; border-radius:10px; padding:12px; margin-bottom:12px;">
-          <h4 style="font-size:0.95rem; color:#b45309; margin-bottom:8px;"><i class="fa-solid fa-trophy"></i> २. बॅनर पार्श्वभूमी व मजकूर:</h4>
-          
+        <div class="collapsible-header" onclick="toggleCollapse('collapse-banner-editor')">
+          <span><i class="fa-solid fa-trophy" style="color:var(--gold);"></i> २. बॅनर मजकूर व पार्श्वभूमी कस्टमायझर</span>
+          <i class="fa-solid fa-chevron-down" id="icon-collapse-banner-editor"></i>
+        </div>
+        
+        <div class="collapsible-body" id="collapse-banner-editor">
+          <div class="form-group">
+            <label><i class="fa-solid fa-upload"></i> स्वतःची बॅनर पार्श्वभूमी इमेज अपलोड करा (पर्यायी):</label>
+            <input type="file" id="banner-bg-upload" accept="image/*" class="form-control" style="height:auto; padding:8px;" onchange="handleBannerBgUpload(event)">
+          </div>
+
           <div class="form-group">
             <label>बॅनर मुख्य शीर्षक:</label>
             <input type="text" class="form-control" id="tmpl-banner-title" value="बीड जिल्हा सराव परीक्षा टॉपर्स" oninput="updateLiveBannerPreview()">
@@ -1127,9 +910,8 @@
             <input type="text" class="form-control" id="tmpl-banner-footer" value="🎯 शिक्षण विभाग, जिल्हा परिषद बीड" oninput="updateLiveBannerPreview()">
           </div>
 
-          <!-- बॅनर लाईव्ह प्रिव्ह्यू -->
           <div style="margin-top:10px;">
-            <label style="font-weight:800; font-size:0.85rem; color:#b45309;"><i class="fa-solid fa-eye"></i> बॅनर लाईव्ह प्रिव्ह्यू:</label>
+            <label style="font-weight:800; font-size:0.85rem; color:#b45309;"><i class="fa-solid fa-eye"></i> बॅनर थेट प्रिव्ह्यू:</label>
             <div style="width:100%; overflow-x:auto; background:#f1f5f9; padding:8px; border-radius:8px;">
               <div class="banner-preview-box" id="admin-live-banner-preview" style="transform: scale(0.75); transform-origin: top center; margin-bottom: -50px;">
                 <div style="text-align:center;">
@@ -1151,7 +933,7 @@
         </div>
 
         <button class="app-btn btn-primary" onclick="saveTemplatesToFirebase()">
-          <i class="fa-solid fa-floppy-disk"></i> सर्व डिझाईन व मजकूर कायमस्वरूपी सेव्ह करा
+          <i class="fa-solid fa-floppy-disk"></i> सर्व डिझाईन व पोझिशन्स कायमस्वरूपी सेव्ह करा
         </button>
       </div>
 
@@ -1344,7 +1126,7 @@
     </div>
   </div>
 
-  <!-- ५. अभिनंदन गौरव बॅनर Modal (थेट शेअरिंग बटनांसह) -->
+  <!-- ५. अभिनंदन गौरव बॅनर Modal -->
   <div class="modal" id="bannerModal">
     <div class="modal-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -1373,7 +1155,6 @@
         </div>
       </div>
 
-      <!-- बॅनर शेअरिंग व डाऊनलोड बटने -->
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-top:14px;">
         <button class="app-btn btn-whatsapp" onclick="shareBannerViaWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp शेअर</button>
         <button class="app-btn btn-gold" onclick="downloadBannerPDF()"><i class="fa-solid fa-download"></i> बॅनर PDF डाऊनलोड</button>
@@ -1384,7 +1165,7 @@
     </div>
   </div>
 
-  <!-- ६. गुणवत्ता सन्मान प्रमाणपत्र Modal (थेट बॅकग्राउंडसह) -->
+  <!-- ६. गुणवत्ता सन्मान प्रमाणपत्र Modal -->
   <div class="modal" id="certModal">
     <div class="modal-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -1394,10 +1175,11 @@
 
       <div class="cert-scroll-wrapper">
         <div class="cert-container-box" id="cert-card-render">
-          <div class="cert-main-heading" id="cert-render-title">गुणवत्ता सन्मान प्रमाणपत्र</div>
-          <div class="cert-date-badge" id="cert-date-text">Date: 14/10/2026</div>
+          <div class="cert-main-heading" id="cert-render-title" style="position:absolute; top:45px; left:0; right:0;">गुणवत्ता सन्मान प्रमाणपत्र</div>
+          <!-- सुरक्षित जागा -->
+          <div class="cert-date-badge" id="cert-date-text" style="position:absolute; top:110px; right:40px;">Date: 14/10/2026</div>
 
-          <div class="cert-overlay-content">
+          <div class="cert-overlay-content" id="cert-render-content-box" style="top:145px; left:55px; right:55px;">
             <h2 class="cert-student-title" id="cert-std-name">---</h2>
             <div class="cert-para" id="cert-render-body"></div>
             
@@ -1410,7 +1192,7 @@
               </div>
             </div>
 
-            <div style="position:absolute; bottom:-140px; right:20px; text-align:right; font-size:0.88rem; font-weight:800; color:#0f2b5c;" id="cert-render-sign">
+            <div style="margin-top:25px; text-align:right; font-size:0.88rem; font-weight:800; color:#0f2b5c;" id="cert-render-sign">
               शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड
             </div>
           </div>
@@ -1508,16 +1290,34 @@
     </div>
   </div>
 
+  <!-- ९. लपलेला A4 प्रिंट तक्ता (शिक्षणाधिकाऱ्यांच्या अहवालासाठी) -->
+  <div style="position:absolute; left:-9999px; top:-9999px;">
+    <div id="district-summary-render" class="printable-chart-container" style="width:1100px;">
+      <div style="text-align:center; margin-bottom:12px; border-bottom:2px solid #0f172a; padding-bottom:8px;">
+        <h2 style="font-size:1.4rem; color:#0f2b5c; font-weight:800;">जिल्हा परिषद, बीड - शिक्षण विभाग (प्राथमिक)</h2>
+        <h3 style="font-size:1.1rem; color:#b45309; font-weight:700;" id="chart-main-title">सराव परीक्षा चाचणी सहभाग अहवाल</h3>
+        <p style="font-size:0.85rem; color:#475569;">सर्व 4 परीक्षा व 12 तालुक्यांचा सविस्तर शाळा सहभाग चार्ट (पात्र शाळांपैकी गुण भरलेल्या शाळा)</p>
+      </div>
+
+      <table class="chart-table" id="summary-render-table">
+        <!-- डायनॅमिक तक्ता तयार होईल -->
+      </table>
+
+      <div style="display:flex; justify-content:space-between; margin-top:20px; font-weight:800; font-size:0.88rem;">
+        <div>दिनांक: 14/10/2026</div>
+        <div>शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड</div>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toastMsg">माहिती सेव्ह झाली!</div>
 
   <script>
-    /* ================= १. १२ तालुक्यांची यादी ================= */
     const TALUKA_LIST = [
       "अंबाजोगाई", "आष्टी", "बीड ग्रामीण", "बीड शहर", "धारूर", 
       "गेवराई", "केज", "माजलगाव", "परळी", "पाटोदा", "शिरूर कासार", "वडवणी"
     ];
 
-    /* ================= २. FIREBASE CONFIG ================= */
     const firebaseConfig = {
       apiKey: "AIzaSyBrKGEMc9uxBoZ4VIcNfOXq7xt_IZmluDE",
       authDomain: "test-database-34c8a.firebaseapp.com",
@@ -1593,16 +1393,36 @@
 
     let BEED_ALL_SCHOOLS = [];
 
-    /* डीफॉल्ट कस्टमाइझ टेम्पलेट मजकूर व बॅकग्राउंड्स */
     let TEMPLATE_CONFIG = {
       certTitle: "गुणवत्ता सन्मान प्रमाणपत्र",
       certBody: "({CLASS}), शाळा: <strong>{SCHOOL}</strong> (UDISE: <span class=\"cert-udise-txt\">{UDISE}</span>), तालुका: <strong>{TALUKA}</strong> {PRONOUN} जिल्हा परिषद, बीड अंतर्गत आयोजित <strong>{EXAM}</strong> अंतर्गत चाचणी क्र. <strong style=\"font-size:1.15rem; color:#b45309; font-family:'Poppins', sans-serif;\">{TEST}</strong> मध्ये उत्कृष्ट यश संपादन केले आहे.",
       certSign: "शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड",
       certBgUrl: "cert.jpeg",
+      certLineHeight: "1.85",
+      certFontSize: "1.04",
+      certPositions: {
+        titleTop: "45px",
+        dateTop: "110px",
+        dateRight: "40px",
+        contentTop: "145px"
+      },
       bannerTitle: "बीड जिल्हा सराव परीक्षा टॉपर्स",
       bannerBadge: "💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐",
-      bannerFooter: "🎯 शिक्षण विभाग, जिल्हा परिषद बीड"
+      bannerFooter: "🎯 शिक्षण विभाग, जिल्हा परिषद बीड",
+      bannerBgUrl: ""
     };
+
+    function toggleCollapse(id) {
+      const el = document.getElementById(id);
+      const icon = document.getElementById('icon-' + id);
+      if (el.style.display === 'block') {
+        el.style.display = 'none';
+        if (icon) icon.className = "fa-solid fa-chevron-down";
+      } else {
+        el.style.display = 'block';
+        if (icon) icon.className = "fa-solid fa-chevron-up";
+      }
+    }
 
     function listenCustomTemplates() {
       db.ref('custom_templates').on('value', (snap) => {
@@ -1620,12 +1440,19 @@
       document.querySelectorAll('.cert-container-box').forEach(el => {
         el.style.backgroundImage = `url('${bgUrl}')`;
       });
+      if (TEMPLATE_CONFIG.bannerBgUrl) {
+        document.querySelectorAll('.banner-preview-box').forEach(el => {
+          el.style.backgroundImage = `url('${TEMPLATE_CONFIG.bannerBgUrl}')`;
+        });
+      }
     }
 
     function loadTemplatesIntoInputs() {
       if (document.getElementById('tmpl-cert-title')) document.getElementById('tmpl-cert-title').value = TEMPLATE_CONFIG.certTitle;
       if (document.getElementById('tmpl-cert-body')) document.getElementById('tmpl-cert-body').value = TEMPLATE_CONFIG.certBody;
       if (document.getElementById('tmpl-cert-sign')) document.getElementById('tmpl-cert-sign').value = TEMPLATE_CONFIG.certSign;
+      if (document.getElementById('cert-line-height-range')) document.getElementById('cert-line-height-range').value = TEMPLATE_CONFIG.certLineHeight || 1.85;
+      if (document.getElementById('cert-font-size-range')) document.getElementById('cert-font-size-range').value = TEMPLATE_CONFIG.certFontSize || 1.04;
       if (document.getElementById('tmpl-banner-title')) document.getElementById('tmpl-banner-title').value = TEMPLATE_CONFIG.bannerTitle;
       if (document.getElementById('tmpl-banner-badge')) document.getElementById('tmpl-banner-badge').value = TEMPLATE_CONFIG.bannerBadge;
       if (document.getElementById('tmpl-banner-footer')) document.getElementById('tmpl-banner-footer').value = TEMPLATE_CONFIG.bannerFooter;
@@ -1634,43 +1461,56 @@
       updateLiveBannerPreview();
     }
 
-    /* बॅकग्राउंड इमेज अपलोड हँडलर */
     function handleCertBgUpload(e) {
       const file = e.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
       reader.onload = function(evt) {
-        const base64Img = evt.target.result;
-        TEMPLATE_CONFIG.certBgUrl = base64Img;
+        TEMPLATE_CONFIG.certBgUrl = evt.target.result;
         applyCustomBgToCertificates();
-        showToast('बॅकग्राउंड इमेज प्रिव्ह्यूमध्ये लोड झाली!');
+        showToast('प्रमाणपत्र पार्श्वभूमी इमेज प्रिव्ह्यूमध्ये लोड झाली!');
       };
       reader.readAsDataURL(file);
     }
 
-    /* ॲडमिन पॅनेलमध्ये लाईव्ह प्रिव्ह्यू अपडेट करणे */
+    function handleBannerBgUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        TEMPLATE_CONFIG.bannerBgUrl = evt.target.result;
+        applyCustomBgToCertificates();
+        showToast('बॅनर पार्श्वभूमी इमेज प्रिव्ह्यूमध्ये लोड झाली!');
+      };
+      reader.readAsDataURL(file);
+    }
+
     function updateLiveCertPreview() {
       const t = document.getElementById('tmpl-cert-title').value;
       const b = document.getElementById('tmpl-cert-body').value;
       const s = document.getElementById('tmpl-cert-sign').value;
+      const lh = document.getElementById('cert-line-height-range').value;
+      const fs = document.getElementById('cert-font-size-range').value;
 
       if (document.getElementById('prev-cert-title')) document.getElementById('prev-cert-title').innerText = t;
       if (document.getElementById('prev-cert-sign')) document.getElementById('prev-cert-sign').innerText = s;
 
-      let dummy = b.replace(/{NAME}/g, "सार्थक सोळंके")
-                   .replace(/{CLASS}/g, "Class 5th")
-                   .replace(/{SCHOOL}/g, "जि.प.प्रा.शाळा सावरगाव")
-                   .replace(/{UDISE}/g, "27270709601")
-                   .replace(/{TALUKA}/g, "माजलगाव")
-                   .replace(/{PRONOUN}/g, "या विद्यार्थ्याने")
-                   .replace(/{EXAM}/g, "नवोदय सराव परीक्षा")
-                   .replace(/{TEST}/g, "6")
-                   .replace(/{MARKS}/g, "98")
-                   .replace(/{TOTAL}/g, "100")
-                   .replace(/{RANK}/g, "जिल्ह्यात क्रमांक #1");
-
-      if (document.getElementById('prev-cert-body')) document.getElementById('prev-cert-body').innerHTML = dummy;
+      const pBody = document.getElementById('prev-cert-body');
+      if (pBody) {
+        pBody.style.lineHeight = lh;
+        pBody.style.fontSize = fs + 'rem';
+        pBody.innerHTML = b.replace(/{NAME}/g, "सार्थक सोळंके")
+                           .replace(/{CLASS}/g, "Class 5th")
+                           .replace(/{SCHOOL}/g, "जि.प.प्रा.शाळा सावरगाव")
+                           .replace(/{UDISE}/g, "27270709601")
+                           .replace(/{TALUKA}/g, "माजलगाव")
+                           .replace(/{PRONOUN}/g, "या विद्यार्थ्याने")
+                           .replace(/{EXAM}/g, "नवोदय सराव परीक्षा")
+                           .replace(/{TEST}/g, "6")
+                           .replace(/{MARKS}/g, "98")
+                           .replace(/{TOTAL}/g, "100")
+                           .replace(/{RANK}/g, "जिल्ह्यात क्रमांक #1");
+      }
     }
 
     function updateLiveBannerPreview() {
@@ -1683,12 +1523,51 @@
       if (document.getElementById('prev-banner-footer')) document.getElementById('prev-banner-footer').innerText = f;
     }
 
+    /* माऊसने ड्रॅग करून घटक हलवण्याची सुविधा */
+    function makeElementDraggable(elmnt, posKey) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      elmnt.onmousedown = dragMouseDown;
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+        if (!TEMPLATE_CONFIG.certPositions) TEMPLATE_CONFIG.certPositions = {};
+        TEMPLATE_CONFIG.certPositions[posKey + 'Top'] = elmnt.style.top;
+        TEMPLATE_CONFIG.certPositions[posKey + 'Left'] = elmnt.style.left;
+        showToast('घटकाची जागा अपडेट झाली!');
+      }
+    }
+
     function saveTemplatesToFirebase() {
       const cfg = {
         certTitle: document.getElementById('tmpl-cert-title').value.trim() || TEMPLATE_CONFIG.certTitle,
         certBody: document.getElementById('tmpl-cert-body').value.trim() || TEMPLATE_CONFIG.certBody,
         certSign: document.getElementById('tmpl-cert-sign').value.trim() || TEMPLATE_CONFIG.certSign,
         certBgUrl: TEMPLATE_CONFIG.certBgUrl || 'cert.jpeg',
+        bannerBgUrl: TEMPLATE_CONFIG.bannerBgUrl || '',
+        certLineHeight: document.getElementById('cert-line-height-range').value || "1.85",
+        certFontSize: document.getElementById('cert-font-size-range').value || "1.04",
+        certPositions: TEMPLATE_CONFIG.certPositions || {},
         bannerTitle: document.getElementById('tmpl-banner-title').value.trim() || TEMPLATE_CONFIG.bannerTitle,
         bannerBadge: document.getElementById('tmpl-banner-badge').value.trim() || TEMPLATE_CONFIG.bannerBadge,
         bannerFooter: document.getElementById('tmpl-banner-footer').value.trim() || TEMPLATE_CONFIG.bannerFooter
@@ -1698,7 +1577,7 @@
         TEMPLATE_CONFIG = cfg;
         applyCustomBgToCertificates();
         showToast('सर्व सेटिंग्ज सेव्ह झाल्या!');
-        showCustomAlert('अभिनंदन! प्रमाणपत्र व बॅनरचा मजकूर आणि बॅकग्राउंड इमेज संपूर्ण जिल्ह्यात लागू झाली आहे.');
+        showCustomAlert('अभिनंदन! प्रमाणपत्र व बॅनरचा मजकूर, पोझिशन्स आणि बॅकग्राउंड इमेज यशस्वीरीत्या सेव्ह झाले आहेत.');
       });
     }
 
@@ -1713,11 +1592,101 @@
           <div class="taluka-rect-card" onclick="openDeclaredBanner(${currentSelectedTest}, 'taluka', '${tName}')">
             <div>
               <strong>${tName}</strong>
-              <div style="font-size:0.75rem; color:#64748b;">Top 10 गुणवत्ता यादी</div>
+              <div style="font-size:0.75rem; color:#64748b;">Top 10 बॅनर पहा</div>
             </div>
             <i class="fa-solid fa-chevron-right"></i>
           </div>
         `;
+      });
+    }
+
+    /* ================= शिक्षणाधिकाऱ्यांसाठी A4 PDF चार्ट जनरेटर ================= */
+    function generateDistrictSummaryPDF() {
+      const testNo = document.getElementById('admin-summary-test').value || 1;
+      showToast('A4 सहभाग अहवाल PDF तयार होत आहे...');
+
+      document.getElementById('chart-main-title').innerText = `सराव परीक्षा चाचणी क्रमांक ${testNo} सहभाग अहवाल`;
+
+      const exams = [
+        { key: 'navodaya', name: 'नवोदय (5 वी)' },
+        { key: '4th', name: '4 थी शिष्यवृत्ती' },
+        { key: '7th', name: '7 वी शिष्यवृत्ती' },
+        { key: 'nmms', name: 'NMMS (8 वी)' }
+      ];
+
+      // सर्व ४ परीक्षांचा डेटा Firebase वरून मिळवणे
+      Promise.all(exams.map(ex => db.ref(`results/${ex.key}/test_${testNo}`).once('value'))).then(snapshots => {
+        const table = document.getElementById('summary-render-table');
+        let html = `
+          <thead>
+            <tr>
+              <th style="width:120px;">परीक्षेचे नाव</th>
+              ${TALUKA_LIST.map(t => `<th>${t}</th>`).join('')}
+              <th style="background:#e2e8f0;">एकूण जिल्हा</th>
+            </tr>
+          </thead>
+          <tbody>
+        `;
+
+        exams.forEach((ex, idx) => {
+          const data = snapshots[idx].val() || {};
+          let rowHtml = `<tr><td style="font-weight:800; text-align:left; background:#f8fafc;">${ex.name}</td>`;
+          let distFilled = 0, distEligible = 0;
+
+          TALUKA_LIST.forEach(tName => {
+            const eligibleInTaluka = BEED_ALL_SCHOOLS.filter(s => s.t === tName && isSchoolEligible(s, ex.key)).length;
+            
+            let filledCount = 0;
+            Object.values(data).forEach(entry => {
+              if (entry.taluka === tName) {
+                let hasMarks = false;
+                if (entry.students && Array.isArray(entry.students)) {
+                  entry.students.forEach(st => {
+                    if (st.marks !== undefined && st.marks !== '') hasMarks = true;
+                  });
+                }
+                if (hasMarks) filledCount++;
+              }
+            });
+
+            distFilled += filledCount;
+            distEligible += eligibleInTaluka;
+
+            const pct = eligibleInTaluka > 0 ? Math.round((filledCount / eligibleInTaluka) * 100) : 0;
+            const color = pct >= 80 ? '#15803d' : (pct >= 50 ? '#b45309' : '#dc2626');
+
+            rowHtml += `
+              <td>
+                <div style="font-weight:800; font-family:'Poppins', sans-serif;">${filledCount} / ${eligibleInTaluka}</div>
+                <div style="font-size:0.7rem; color:${color}; font-weight:700; font-family:'Poppins', sans-serif;">(${pct}%)</div>
+              </td>
+            `;
+          });
+
+          const totalDistPct = distEligible > 0 ? Math.round((distFilled / distEligible) * 100) : 0;
+          rowHtml += `
+            <td style="font-weight:800; background:#f1f5f9; font-family:'Poppins', sans-serif;">
+              ${distFilled} / ${distEligible}<br>
+              <span style="color:#0369a1;">(${totalDistPct}%)</span>
+            </td>
+          </tr>`;
+
+          html += rowHtml;
+        });
+
+        html += `</tbody>`;
+        table.innerHTML = html;
+
+        // html2canvas द्वारे A4 Landscape PDF बनवणे
+        const renderEl = document.getElementById('district-summary-render');
+        html2canvas(renderEl, { scale: 2 }).then(canvas => {
+          const imgData = canvas.toDataURL('image/jpeg', 0.9);
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+          pdf.addImage(imgData, 'JPEG', 10, 15, 277, (canvas.height * 277) / canvas.width);
+          pdf.save(`Beed_District_Exam_Summary_Test_${testNo}.pdf`);
+          showToast('अधिकृत A4 अहवाल PDF डाऊनलोड झाली!');
+        });
       });
     }
 
@@ -1732,6 +1701,13 @@
       listenCustomMaxMarks();
       listenCustomTemplates();
       initAdminPanelOptions();
+
+      // ड्रॅगेबल घटक जोडणे
+      setTimeout(() => {
+        makeElementDraggable(document.getElementById('prev-cert-title'), 'title');
+        makeElementDraggable(document.getElementById('prev-cert-date'), 'date');
+        makeElementDraggable(document.getElementById('prev-cert-content-box'), 'content');
+      }, 1000);
 
       try { history.pushState({ page: 'home' }, ''); } catch(e) {}
     }
@@ -1882,11 +1858,14 @@
 
     function buildEntryTestOptions() {
       const select = document.getElementById('entry-test-no');
+      const summTest = document.getElementById('admin-summary-test');
       if (!select) return;
       select.innerHTML = '';
+      if (summTest) summTest.innerHTML = '';
       const autoTest = getAutoActiveTest(currentEntryCategory);
       for (let i = 1; i <= 10; i++) {
         select.innerHTML += `<option value="${i}" ${i === autoTest ? 'selected' : ''}>चाचणी क्रमांक ${i}</option>`;
+        if (summTest) summTest.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
       }
     }
 
@@ -1906,7 +1885,6 @@
       listenLiveDashboardData();
     }
 
-    /* टॅब स्विचिंग (१२ तालुक्यांची कार्ड्स दाखवणे) */
     function switchTriTab(tab) {
       currentTriTab = tab;
       document.getElementById('tri-btn-district').classList.toggle('active', tab === 'district');
@@ -2509,7 +2487,6 @@
       }
     }
 
-    /* बॅनर उघडणे व थेट शेअर संदेश तयार करणे */
     function openDeclaredBanner(testNum, type, customTaluka) {
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
@@ -2964,7 +2941,10 @@
                          .replace(/{TOTAL}/g, totalM)
                          .replace(/{RANK}/g, rankText);
 
-      document.getElementById('cert-render-body').innerHTML = bodyHtml;
+      const renderBody = document.getElementById('cert-render-body');
+      renderBody.innerHTML = bodyHtml;
+      renderBody.style.lineHeight = TEMPLATE_CONFIG.certLineHeight || "1.85";
+      renderBody.style.fontSize = (TEMPLATE_CONFIG.certFontSize || "1.04") + "rem";
 
       document.getElementById('cert-marks').innerHTML = `<i class="fa-solid fa-star" style="color:var(--gold);"></i> प्राप्त गुण: ${marks} / ${totalM}`;
       document.getElementById('cert-rank-text').innerHTML = `<i class="fa-solid fa-trophy" style="color:var(--gold);"></i> ${rankText}`;
