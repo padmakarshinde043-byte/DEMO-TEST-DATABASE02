@@ -61,6 +61,39 @@
 
     .app-container { max-width: 650px; margin: 0 auto; padding: 12px; }
 
+    /* १० सेकंद टिकणारा ठळक फ्लोटिंग फ्लॅश मेसेज */
+    .flash-notice-banner {
+      display: none;
+      background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+      color: white;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
+      border: 2px solid #fecaca;
+      animation: slideDownNotice 0.3s ease-out forwards;
+      position: relative;
+    }
+    @keyframes slideDownNotice {
+      from { transform: translateY(-15px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .flash-notice-content { display: flex; align-items: flex-start; gap: 10px; }
+    .flash-notice-content i { font-size: 1.5rem; color: #fef08a; margin-top: 2px; }
+    .flash-notice-text h4 { font-size: 1rem; font-weight: 800; letter-spacing: 0.3px; color: #fef08a; margin-bottom: 3px; }
+    .flash-notice-text p { font-size: 0.88rem; font-weight: 600; line-height: 1.4; color: #ffffff; }
+    .flash-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0.8;
+    }
+
     .app-card {
       background: var(--surface);
       border-radius: var(--radius);
@@ -569,46 +602,6 @@
       box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
     }
 
-    /* ॲडमिन पॅनलमधील १२ तालुके पिल्स टॅब्स */
-    .admin-cluster-pills-wrap {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
-      scrollbar-width: none;
-    }
-    .admin-cluster-pills-wrap::-webkit-scrollbar { display: none; }
-    .admin-c-tab {
-      flex: 0 0 auto;
-      background: white;
-      border: 1.5px solid #bae6fd;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      color: #0369a1;
-      transition: 0.2s;
-    }
-    .admin-c-tab.active {
-      background: #0284c7;
-      color: white;
-      border-color: #0369a1;
-      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
-    }
-    .admin-school-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 7px 10px;
-      font-size: 0.88rem;
-      border-bottom: 1px solid #f1f5f9;
-      background: white;
-      border-radius: 6px;
-      margin-bottom: 4px;
-    }
-
     /* Modals & Dialogs */
     .modal {
       display: none;
@@ -903,7 +896,7 @@
         <div class="test-pill-wrap" id="dash-test-pills"></div>
       </div>
 
-      <!-- Stats Grid -->
+      <!-- Stats Grid (केवळ प्रविष्ट विद्यार्थी व गुण भरलेल्या शाळा) -->
       <div class="stats-grid">
         <div class="stat-box stat-box-students">
           <p>प्रविष्ट विद्यार्थी</p>
@@ -963,6 +956,19 @@
 
     <!-- ================= 2. गुण नोंदणी स्क्रीन (शिक्षक पोर्टल) ================= -->
     <div id="screen-entry" style="display:none;">
+
+      <!-- १० सेकंद टिकणारा ठळक फ्लोटिंग इशारा मेसेज -->
+      <div class="flash-notice-banner" id="flash-entry-notice">
+        <button class="flash-close-btn" onclick="closeFlashNotice()">&times;</button>
+        <div class="flash-notice-content">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <div class="flash-notice-text">
+            <h4>📢 अत्यंत महत्त्वाची सूचना</h4>
+            <p>यामागे झालेल्या चाचण्यांचे गुण भरायचे नाहीत. सध्या <strong>फक्त चालू असलेली चाचणी आणि यापुढील</strong> चाचण्यांचेच गुण भरायचे आहेत!</p>
+          </div>
+        </div>
+      </div>
+
       <div class="chip-scroll">
         <button class="category-chip active cat-navodaya" id="entry-chip-navodaya" onclick="selectEntryCategory('navodaya')">नवोदय (5 वी)</button>
         <button class="category-chip cat-4th" id="entry-chip-4th" onclick="selectEntryCategory('4th')">4 थी शिष्यवृत्ती</button>
@@ -1001,7 +1007,7 @@
       <div class="app-card" id="card-student-add-section" style="opacity:0.5; pointer-events:none;">
         <div class="app-card-title"><i class="fa-solid fa-user-plus" style="color:var(--accent-green);"></i> 2. नवीन विद्यार्थी वाढवा / जोडा</div>
         <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">
-          * सूचना: एकदा जोडलेले नाव सर्व चाचण्यांसाठी उपलब्ध राहील.
+          * सूचना: एकदा जोडलेले नाव पुढील सर्व चाचण्यांसाठी कायमस्वरूपी उपलब्ध राहील.
         </p>
         <div class="grid-2">
           <div class="form-group">
@@ -1091,7 +1097,7 @@
         <div class="grid-2">
           <div class="form-group">
             <label>परीक्षेचा प्रकार:</label>
-            <select class="form-control" id="admin-mm-category" onchange="loadCurrentCustomMaxMarks()">
+            <select class="form-control" id="admin-mm-category" onchange="updateAdminTestOptions(); loadCurrentCustomMaxMarks();">
               <option value="navodaya">नवोदय (5 वी)</option>
               <option value="4th">4 थी शिष्यवृत्ती</option>
               <option value="7th">7 वी शिष्यवृत्ती</option>
@@ -1117,7 +1123,7 @@
         <div class="app-card-title"><i class="fa-solid fa-lock" style="color:var(--accent-green);"></i> अधिकृत निकाल जाहीर व लॉक करा</div>
         <div class="form-group">
           <label>परीक्षेचा प्रकार निवडा:</label>
-          <select class="form-control" id="admin-lock-category" onchange="updateAdminMaxMarksInfo()">
+          <select class="form-control" id="admin-lock-category" onchange="updateAdminLockTestOptions(); updateAdminMaxMarksInfo();">
             <option value="navodaya">नवोदय प्रवेश पात्रता परीक्षा (5 वी)</option>
             <option value="4th">4 थी शिष्यवृत्ती सराव परीक्षा</option>
             <option value="7th">7 वी शिष्यवृत्ती सराव परीक्षा</option>
@@ -1129,7 +1135,7 @@
           <select class="form-control" id="admin-lock-test" onchange="updateAdminMaxMarksInfo()"></select>
         </div>
         <div style="margin-bottom:12px; font-weight:700; font-size:0.85rem; color:#0369a1;" id="admin-max-marks-info">
-          * या चाचणीचे सर्वोच्च गुण: 100 पैकी धरले जातील.
+          * या चाचणीचे सर्वोच्च गुण लोड होत आहेत...
         </div>
         <button class="app-btn btn-primary" onclick="declareAndLockResults()">
           <i class="fa-solid fa-shield-halved"></i> 📢 निकाल जाहीर व लॉक करा
@@ -1453,6 +1459,8 @@
     let fetchedSchoolHmMobile = null;
     let selectedAdminTaluka = TALUKA_LIST[0];
 
+    let flashTimer = null; // १० सेकंद फ्लॅश मेसेज टाइमर
+
     let BEED_ALL_SCHOOLS = [];
 
     let TEMPLATE_CONFIG = {
@@ -1500,7 +1508,6 @@
       });
     }
 
-    /* ================= पुढील चाचण्यांचा डेटा चालू चाचणीमध्ये विलीन करणे ================= */
     function runGlobalOneTimeMergeDistrict() {
       const migrationFlagKey = 'beed_district_merged_v3';
       if (localStorage.getItem(migrationFlagKey)) return;
@@ -1657,6 +1664,23 @@
       setTimeout(() => { t.style.display = 'none'; }, 2500);
     }
 
+    /* १० सेकंद टिकणारा फ्लॅश मेसेज दाखवणे */
+    function triggerFlashNotice() {
+      const banner = document.getElementById('flash-entry-notice');
+      if (!banner) return;
+      banner.style.display = 'block';
+      clearTimeout(flashTimer);
+      flashTimer = setTimeout(() => {
+        closeFlashNotice();
+      }, 10000); // अचूक १० सेकंद टिकेल
+    }
+
+    function closeFlashNotice() {
+      const banner = document.getElementById('flash-entry-notice');
+      if (banner) banner.style.display = 'none';
+      clearTimeout(flashTimer);
+    }
+
     function switchTab(view) {
       document.getElementById('screen-dashboard').style.display = (view === 'dashboard') ? 'block' : 'none';
       document.getElementById('screen-entry').style.display = (view === 'entry') ? 'block' : 'none';
@@ -1666,6 +1690,7 @@
       document.getElementById('nav-btn-entry').classList.toggle('active', view === 'entry');
       
       if (view === 'entry') {
+        triggerFlashNotice(); // १० सेकंद टिकणारा फ्लॅश मेसेज सुरू
         const autoTest = getAutoActiveTest(currentEntryCategory);
         document.getElementById('entry-test-no').value = autoTest;
         updateEntryNotice(autoTest);
@@ -1675,6 +1700,8 @@
       } else if (view === 'admin') {
         renderAdminParticipationDetails();
         loadTemplatesIntoInputs();
+        updateAdminTestOptions();
+        updateAdminLockTestOptions();
       }
       window.scrollTo(0, 0);
     }
@@ -1715,7 +1742,7 @@
             c: String(s.udise).trim(),
             n: s.name,
             t: s.taluka,
-            k: s.kendra || s.cluster || s.taluka, // केंद्र / Cluster मॅपिंग
+            k: s.kendra || s.cluster || s.taluka,
             l: parseInt(s.lowest_class, 10) || 1,
             h: parseInt(s.highest_class, 10) || 7
           }));
@@ -1743,7 +1770,13 @@
       const cont = document.getElementById('dash-test-pills');
       if (!cont) return;
       cont.innerHTML = '';
-      for (let i = 1; i <= 10; i++) {
+      
+      const startTest = getAutoActiveTest(currentSelectedCategory);
+      if (currentSelectedTest < startTest) {
+        currentSelectedTest = startTest;
+      }
+
+      for (let i = startTest; i <= 10; i++) {
         cont.innerHTML += `<button id="pill-test-${i}" class="test-chip ${i === currentSelectedTest ? 'active' : ''}" onclick="selectTest(${i}, this)">चाचणी ${i}</button>`;
       }
       setTimeout(() => {
@@ -1774,7 +1807,6 @@
       listenLiveDashboardData();
     }
 
-    /* १२ तालुक्यांची एका रांगेत ४ प्रमाणे ३ रांगांची ग्रीड तयार करणे */
     function build12Taluka4ColGrid() {
       const cont = document.getElementById('taluka-4col-container');
       if (!cont) return;
@@ -1789,7 +1821,6 @@
       });
     }
 
-    /* टॅब स्विचिंग (जिल्हा / तालुका / केंद्र Toppers यादी) */
     function switchTriTab(tab) {
       currentTriTab = tab;
       document.getElementById('tri-btn-district').classList.toggle('active', tab === 'district');
@@ -1800,7 +1831,6 @@
       const kendraGridWrap = document.getElementById('kendra-grid-wrap');
       const gridLabel = document.getElementById('taluka-grid-label');
 
-      // ॲक्टिव्ह बटन्स रीसेट
       document.querySelectorAll('.taluka-4col-btn').forEach(b => b.classList.remove('active'));
 
       if (tab === 'district') {
@@ -1839,7 +1869,6 @@
       }
     }
 
-    /* तालुक्यातील सर्व केंद्रे शोधून ग्रीडमध्ये दाखवणे */
     function renderKendrasForTaluka(tName) {
       const wrap = document.getElementById('kendra-grid-wrap');
       const cont = document.getElementById('kendra-container');
@@ -1848,7 +1877,6 @@
       cont.innerHTML = '';
       lbl.innerHTML = `<i class="fa-solid fa-map-pin"></i> ${tName} तालुक्यातील केंद्रे निवडा:`;
 
-      // शाळेच्या डेटामधून संबंधित तालुक्यातील युनिक केंद्रे काढणे
       const kendrasSet = new Set();
       BEED_ALL_SCHOOLS.forEach(s => {
         if (s.t === tName && s.k) kendrasSet.add(s.k);
@@ -2461,7 +2489,7 @@
       });
     }
 
-    /* ================= गुणवत्ता यादी रेंडरिंग (जिल्हा, तालुका आणि केंद्र Toppers) ================= */
+    /* ================= गुणवत्ता यादी रेंडरिंग ================= */
     function renderDeclaredResultsOnDashboard() {
       const cont = document.getElementById('dashboard-toppers-container');
       if (!cont) return;
@@ -2535,7 +2563,6 @@
         if (testData.kendraToppers && testData.kendraToppers[selectedTopperKendra]) {
           kToppers = testData.kendraToppers[selectedTopperKendra];
         } else {
-          // तात्काळ बॅकअप फिल्टर
           const allStd = testData.districtToppers || [];
           kToppers = allStd.filter(s => (s.kendra === selectedTopperKendra || s.school.includes(selectedTopperKendra))).slice(0, 10);
         }
@@ -2625,26 +2652,61 @@
     }
 
     function initAdminPanelOptions() {
-      const admTest = document.getElementById('admin-lock-test');
-      const admMmTest = document.getElementById('admin-mm-test');
-
-      if (admTest) {
-        admTest.innerHTML = '';
-        for (let i = 1; i <= 10; i++) admTest.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
-      }
-      if (admMmTest) {
-        admMmTest.innerHTML = '';
-        for (let i = 1; i <= 10; i++) admMmTest.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
-      }
-
+      updateAdminTestOptions();
+      updateAdminLockTestOptions();
       loadCurrentCustomMaxMarks();
       updateAdminMaxMarksInfo();
       loadTemplatesIntoInputs();
     }
 
+    function updateAdminTestOptions() {
+      const cat = document.getElementById('admin-mm-category').value;
+      const admMmTest = document.getElementById('admin-mm-test');
+      if (!admMmTest) return;
+
+      const startTest = getAutoActiveTest(cat);
+      admMmTest.innerHTML = '';
+      for (let i = startTest; i <= 10; i++) {
+        admMmTest.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
+      }
+    }
+
+    function updateAdminLockTestOptions() {
+      const cat = document.getElementById('admin-lock-category').value;
+      const admLockTest = document.getElementById('admin-lock-test');
+      if (!admLockTest) return;
+
+      const startTest = getAutoActiveTest(cat);
+      admLockTest.innerHTML = '';
+      for (let i = startTest; i <= 10; i++) {
+        admLockTest.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
+      }
+    }
+
+    function buildAdminTalukaPills() {
+      const wrap = document.getElementById('admin-cluster-pills');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+      TALUKA_LIST.forEach((tName, idx) => {
+        wrap.innerHTML += `
+          <button class="admin-c-tab ${idx === 0 ? 'active' : ''}" onclick="selectAdminTalukaTab('${tName}', this)">
+            ${tName}
+          </button>
+        `;
+      });
+      selectedAdminTaluka = TALUKA_LIST[0];
+    }
+
+    function selectAdminTalukaTab(tName, btn) {
+      document.querySelectorAll('.admin-c-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedAdminTaluka = tName;
+      renderAdminParticipationDetails();
+    }
+
     function loadCurrentCustomMaxMarks() {
       const cat = document.getElementById('admin-mm-category').value;
-      const testNo = parseInt(document.getElementById('admin-mm-test').value, 10) || 1;
+      const testNo = parseInt(document.getElementById('admin-mm-test').value, 10) || getAutoActiveTest(cat);
       const currentVal = getMaxMarksForTest(cat, testNo);
       const inp = document.getElementById('admin-mm-input');
       if (inp) inp.value = currentVal;
@@ -2652,7 +2714,7 @@
 
     function saveCustomMaxMarks() {
       const cat = document.getElementById('admin-mm-category').value;
-      const testNo = parseInt(document.getElementById('admin-mm-test').value, 10) || 1;
+      const testNo = parseInt(document.getElementById('admin-mm-test').value, 10) || getAutoActiveTest(cat);
       const val = parseInt(document.getElementById('admin-mm-input').value, 10);
 
       if (!val || val <= 0) {
@@ -2672,7 +2734,7 @@
 
     function updateAdminMaxMarksInfo() {
       const cat = document.getElementById('admin-lock-category').value;
-      const testNo = parseInt(document.getElementById('admin-lock-test').value, 10) || 1;
+      const testNo = parseInt(document.getElementById('admin-lock-test').value, 10) || getAutoActiveTest(cat);
       const maxM = getMaxMarksForTest(cat, testNo);
       const info = document.getElementById('admin-max-marks-info');
       if (info) {
@@ -2680,7 +2742,6 @@
       }
     }
 
-    /* शिक्षणाधिकारी अधिकृत निकाल लॉक व जाहीर करतात (केंद्र टॉपर्ससह) */
     function declareAndLockResults() {
       const cat = document.getElementById('admin-lock-category').value;
       const testNo = document.getElementById('admin-lock-test').value;
@@ -2711,11 +2772,9 @@
                   };
                   allStudents.push(rec);
 
-                  // तालुका वर्गीकरण
                   if (!talukaWise[entry.taluka]) talukaWise[entry.taluka] = [];
                   talukaWise[entry.taluka].push(rec);
 
-                  // केंद्र वर्गीकरण
                   const kKey = entry.kendra || entry.taluka;
                   if (!kendraWise[kKey]) kendraWise[kKey] = [];
                   kendraWise[kKey].push(rec);
