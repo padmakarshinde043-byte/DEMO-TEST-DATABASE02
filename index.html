@@ -36,7 +36,7 @@
       --shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Mukta', sans-serif; -webkit-tap-highlight-color: transparent; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Mukta', 'Aparajita', sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; min-height: 100vh; overflow-x: hidden; }
 
     /* Header */
@@ -61,7 +61,7 @@
 
     .app-container { max-width: 650px; margin: 0 auto; padding: 12px; }
 
-    /* १० सेकंद टिकणारा ठळक फ्लोटिंग फ्लॅश मेसेज */
+    /* १० सेकंद टिकणारा ठळक फ्लोटिंग इशारा मेसेज */
     .flash-notice-banner {
       display: none;
       background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
@@ -851,6 +851,30 @@
     th, td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; }
     th { background: #f8fafc; font-weight: 700; color: #475569; }
 
+    /* शाळेच्या रेकॉर्डसाठी सुटसुटीत Aparajita स्टाईल प्रिंट टेबल */
+    .school-record-print-wrap {
+      background: white;
+      padding: 24px 28px;
+      width: 800px;
+      color: #0f172a;
+      font-family: 'Aparajita', 'Mukta', sans-serif;
+    }
+    .school-record-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+    .school-record-table th, .school-record-table td {
+      border: 1.5px solid #334155;
+      padding: 6px 10px;
+      font-size: 1rem;
+    }
+    .school-record-table th {
+      background: #f1f5f9;
+      font-weight: 800;
+      text-align: center;
+    }
+
     .toast {
       position: fixed;
       bottom: 80px;
@@ -1068,8 +1092,13 @@
           <p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.85rem;">कृपया प्रथम भाग 1 मधून शाळा निवडून सुरक्षा पिन टाका.</p>
         </div>
 
-        <div style="margin-top: 14px;">
+        <div style="margin-top: 14px; display:flex; flex-direction:column; gap:10px;">
           <button class="app-btn btn-primary" onclick="submitMarksToFirebase()"><i class="fa-solid fa-cloud-arrow-up"></i> सर्व गुण सुरक्षित सेव्ह करा</button>
+          
+          <!-- शाळेच्या स्वतःच्या रेकॉर्डसाठी Aparajita Font PDF यादी -->
+          <button class="app-btn btn-success" style="background: linear-gradient(135deg, #047857 0%, #065f46 100%);" onclick="downloadSchoolRecordPDF()">
+            <i class="fa-solid fa-file-pdf"></i> 📄 शाळेची अधिकृत गुण यादी PDF डाऊनलोड करा
+          </button>
         </div>
 
         <div style="text-align: center; margin-top: 16px; padding-top: 10px; border-top: 1px dashed #cbd5e1; font-size: 0.78rem; color: #64748b; font-weight: 600;">
@@ -1382,6 +1411,31 @@
     </div>
   </div>
 
+  <!-- ८. शाळेच्या रेकॉर्डसाठी लपलेला A4 प्रिंट तक्ता (Aparajita Style PDF साठी) -->
+  <div style="position:absolute; left:-9999px; top:-9999px;">
+    <div id="school-record-print-render" class="school-record-print-wrap">
+      <div style="text-align:center; border-bottom:2px solid #0f172a; padding-bottom:8px; margin-bottom:10px;">
+        <h2 style="font-size:1.35rem; color:#0f2b5c; font-weight:800; margin-bottom:2px;">जिल्हा परिषद बीड - शिक्षण विभाग</h2>
+        <h3 style="font-size:1.15rem; color:#b45309; font-weight:700;" id="print-school-exam-title">सराव चाचणी विद्यार्थी गुण नोंद तक्ता</h3>
+        <p style="font-size:0.95rem; font-weight:600; color:#334155; margin-top:3px;">
+          शाळा: <strong><span id="print-school-name">-</span></strong> | UDISE: <strong><span id="print-school-udise">-</span></strong> | तालुका: <strong><span id="print-school-taluka">-</span></strong>
+        </p>
+        <p style="font-size:0.9rem; font-weight:700; color:#0369a1; margin-top:2px;" id="print-test-info-badge">
+          चाचणी क्रमांक: 6 | एकूण गुण: 100
+        </p>
+      </div>
+
+      <table class="school-record-table" id="school-record-render-table">
+        <!-- डायनॅमिक विद्यार्थी यादी लोड होईल -->
+      </table>
+
+      <div style="display:flex; justify-content:space-between; margin-top:35px; font-weight:700; font-size:0.95rem; padding:0 10px;">
+        <div>वर्गशिक्षक स्वाक्षरी: ________________</div>
+        <div>मुख्याध्यापक स्वाक्षरी व शिक्का: ________________</div>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toastMsg">माहिती सेव्ह झाली!</div>
 
   <script>
@@ -1459,7 +1513,7 @@
     let fetchedSchoolHmMobile = null;
     let selectedAdminTaluka = TALUKA_LIST[0];
 
-    let flashTimer = null; // १० सेकंद फ्लॅश मेसेज टाइमर
+    let flashTimer = null;
 
     let BEED_ALL_SCHOOLS = [];
 
@@ -1664,7 +1718,6 @@
       setTimeout(() => { t.style.display = 'none'; }, 2500);
     }
 
-    /* १० सेकंद टिकणारा फ्लॅश मेसेज दाखवणे */
     function triggerFlashNotice() {
       const banner = document.getElementById('flash-entry-notice');
       if (!banner) return;
@@ -1672,7 +1725,7 @@
       clearTimeout(flashTimer);
       flashTimer = setTimeout(() => {
         closeFlashNotice();
-      }, 10000); // अचूक १० सेकंद टिकेल
+      }, 10000);
     }
 
     function closeFlashNotice() {
@@ -1690,7 +1743,7 @@
       document.getElementById('nav-btn-entry').classList.toggle('active', view === 'entry');
       
       if (view === 'entry') {
-        triggerFlashNotice(); // १० सेकंद टिकणारा फ्लॅश मेसेज सुरू
+        triggerFlashNotice();
         const autoTest = getAutoActiveTest(currentEntryCategory);
         document.getElementById('entry-test-no').value = autoTest;
         updateEntryNotice(autoTest);
@@ -2056,7 +2109,7 @@
           showToast('पिन पडताळणी यशस्वी!');
           proceedWithSchoolSelection(pendingSchoolToLock);
         } else {
-          showCustomAlert('चुकीचा सुरक्षा पिन!');
+          showCustomAlert('चुकीचा सुरक्षा पिन! जर पिन विसरला असाल तर खालील "पिन विसरलात का?" पर्यायावर क्लिक करून मुख्याध्यापकांच्या नंबरद्वारे रिसेट करा.');
         }
       }
     }
@@ -2296,6 +2349,7 @@
       }
     }
 
+    /* ================= गुण लोड करणे (लाइव्ह डेटा सिंकसह) ================= */
     function loadStudentMarksForSelectedTest() {
       const key = getSchoolDbKey();
       const testNo = document.getElementById('entry-test-no').value;
@@ -2344,7 +2398,7 @@
         let marks = '';
         let isAbsent = false;
         if (savedStudents) {
-          const found = savedStudents.find(s => s.id === st.id || s.name === st.name);
+          const found = savedStudents.find(s => s.id === st.id || s.name.trim() === st.name.trim());
           if (found && found.marks !== undefined) {
             marks = found.marks;
             if (String(marks).toUpperCase() === 'AB') isAbsent = true;
@@ -2384,6 +2438,7 @@
       });
     }
 
+    /* ================= स्मार्ट ऑटो-मर्ज सेव्ह (Smart Non-Destructive Update) ================= */
     function submitMarksToFirebase() {
       const key = getSchoolDbKey();
       if (!key || !selectedSchoolObj) {
@@ -2395,7 +2450,9 @@
       const maxLimit = getMaxMarksForTest(currentEntryCategory, parseInt(testNo, 10));
       let hasError = false;
 
-      let studentsWithMarks = currentStudentsList.map(st => {
+      // चालू स्क्रीनवरील भरलेले गुण गोळा करणे
+      let currentScreenInputs = {};
+      currentStudentsList.forEach(st => {
         const inp = document.getElementById(`marks-input-${st.id}`);
         const val = inp ? inp.value.trim() : '';
         if (val !== '' && val.toUpperCase() !== 'AB') {
@@ -2410,8 +2467,7 @@
             hasError = true;
           }
         }
-        return {
-          id: st.id,
+        currentScreenInputs[st.id] = {
           name: st.name,
           gender: st.gender,
           marks: val
@@ -2420,20 +2476,150 @@
 
       if (hasError) return;
 
-      const payload = {
-        taluka: selectedSchoolObj.t || 'बीड',
-        kendra: selectedSchoolObj.k || selectedSchoolObj.t || 'बीड',
-        school: selectedSchoolObj.n,
-        udise: selectedSchoolObj.c,
-        students: studentsWithMarks,
-        maxMarks: maxLimit,
-        updatedAt: new Date().toISOString()
+      // आधी डेटाबेसमध्ये असलेले मागील गुण आणून स्मार्ट मर्ज करणे
+      const targetDbRef = db.ref(`results/${currentEntryCategory}/test_${testNo}/${key}`);
+
+      targetDbRef.once('value', (snapshot) => {
+        const existingData = snapshot.val();
+        let existingStudentsMap = {};
+
+        if (existingData && existingData.students && Array.isArray(existingData.students)) {
+          existingData.students.forEach(st => {
+            existingStudentsMap[st.id] = st;
+          });
+        }
+
+        // स्मार्ट पॅच: ज्याचे गुण चालू स्क्रीनवर टाईप केले आहेत तेच अद्ययावत होतील, बाकीचे पूर्वीचे गुण तसेच राहतील
+        let mergedStudentsList = currentStudentsList.map(st => {
+          const currentInput = currentScreenInputs[st.id];
+          const previousSaved = existingStudentsMap[st.id];
+
+          let finalMarks = '';
+          if (currentInput && currentInput.marks !== '') {
+            finalMarks = currentInput.marks; // चालू शिक्षकाने भरलेले गुण
+          } else if (previousSaved && previousSaved.marks !== undefined && previousSaved.marks !== '') {
+            finalMarks = previousSaved.marks; // आधी दुसऱ्या शिक्षकाने भरलेले गुण कायम राहतील!
+          }
+
+          return {
+            id: st.id,
+            name: st.name,
+            gender: st.gender,
+            marks: finalMarks
+          };
+        });
+
+        const payload = {
+          taluka: selectedSchoolObj.t || 'बीड',
+          kendra: selectedSchoolObj.k || selectedSchoolObj.t || 'बीड',
+          school: selectedSchoolObj.n,
+          udise: selectedSchoolObj.c,
+          students: mergedStudentsList,
+          maxMarks: maxLimit,
+          updatedAt: new Date().toISOString()
+        };
+
+        targetDbRef.set(payload).then(() => {
+          showToast('सर्व गुण सुरक्षित सेव्ह झाले!');
+          loadStudentMarksForSelectedTest(); // स्क्रीनवर सर्व विलीन झालेले गुण तात्काळ रिफ्रेश होतील
+        }).catch(err => {
+          showCustomAlert('त्रुटी: ' + err.message);
+        });
+      });
+    }
+
+    /* ================= शाळेच्या रेकॉर्डसाठी Aparajita Font A4 PDF डाऊनलोड ================= */
+    function downloadSchoolRecordPDF() {
+      if (!selectedSchoolObj) {
+        showCustomAlert('कृपया प्रथम शाळा निवडा!');
+        return;
+      }
+
+      const testNo = document.getElementById('entry-test-no').value;
+      const maxLimit = getMaxMarksForTest(currentEntryCategory, parseInt(testNo, 10));
+
+      const examNames = {
+        'navodaya': 'नवोदय प्रवेश पात्रता सराव परीक्षा',
+        '4th': 'इयत्ता चौथी शिष्यवृत्ती सराव परीक्षा',
+        '7th': 'इयत्ता सातवी शिष्यवृत्ती सराव परीक्षा',
+        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा'
       };
 
-      db.ref(`results/${currentEntryCategory}/test_${testNo}/${key}`).set(payload).then(() => {
-        showToast('सर्व गुण सुरक्षित सेव्ह झाले!');
-      }).catch(err => {
-        showCustomAlert('त्रुटी: ' + err.message);
+      document.getElementById('print-school-exam-title').innerText = examNames[currentEntryCategory] || 'सराव परीक्षा';
+      document.getElementById('print-school-name').innerText = selectedSchoolObj.n;
+      document.getElementById('print-school-udise').innerText = selectedSchoolObj.c;
+      document.getElementById('print-school-taluka').innerText = selectedSchoolObj.t || '-';
+      document.getElementById('print-test-info-badge').innerText = `चाचणी क्रमांक: ${testNo} | एकूण कमाल गुण: ${maxLimit}`;
+
+      const tableEl = document.getElementById('school-record-render-table');
+      let tableHtml = `
+        <thead>
+          <tr>
+            <th style="width:50px;">अ.क्र.</th>
+            <th>विद्यार्थ्याचे संपूर्ण नाव</th>
+            <th style="width:80px;">लिंग</th>
+            <th style="width:110px;">हजेरी स्थिती</th>
+            <th style="width:110px;">प्राप्त गुण (/${maxLimit})</th>
+          </tr>
+        </thead>
+        <tbody>
+      `;
+
+      let presentCount = 0, absentCount = 0;
+
+      currentStudentsList.forEach((st, idx) => {
+        const inp = document.getElementById(`marks-input-${st.id}`);
+        const val = inp ? inp.value.trim() : '';
+        let status = 'कोरे';
+        let marksDisplay = '-';
+
+        if (val.toUpperCase() === 'AB') {
+          status = '<span style="color:#b91c1c; font-weight:800;">गैरहजर (AB)</span>';
+          marksDisplay = 'AB';
+          absentCount++;
+        } else if (val !== '') {
+          status = '<span style="color:#15803d; font-weight:800;">उपस्थित</span>';
+          marksDisplay = val;
+          presentCount++;
+        }
+
+        tableHtml += `
+          <tr style="text-align:center;">
+            <td>${idx + 1}</td>
+            <td style="text-align:left; font-weight:700;">${st.name}</td>
+            <td>${st.gender}</td>
+            <td>${status}</td>
+            <td style="font-weight:800; font-family:'Poppins', sans-serif;">${marksDisplay}</td>
+          </tr>
+        `;
+      });
+
+      tableHtml += `
+        <tr style="background:#f8fafc; font-weight:800; text-align:center;">
+          <td colspan="3" style="text-align:right;">एकूण: ${currentStudentsList.length} विद्यार्थी</td>
+          <td colspan="2">उपस्थित: ${presentCount} | गैरहजर: ${absentCount}</td>
+        </tr>
+        </tbody>
+      `;
+
+      tableEl.innerHTML = tableHtml;
+
+      showToast('शाळेची PDF यादी तयार होत आहे...');
+      const printBox = document.getElementById('school-record-print-render');
+
+      html2canvas(printBox, { scale: 2, useCORS: true }).then(canvas => {
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pageWidth = 210, pageHeight = 297, margin = 8;
+        const maxW = pageWidth - (margin * 2);
+        const printH = (canvas.height * maxW) / canvas.width;
+
+        pdf.addImage(imgData, 'JPEG', margin, margin, maxW, printH);
+        
+        const cleanSchoolName = selectedSchoolObj.n.replace(/\s+/g, '_');
+        pdf.save(`${cleanSchoolName}_चाचणी_${testNo}_गुण_यादी.pdf`);
+        showToast('शाळेची अधिकृत गुण यादी PDF डाऊनलोड झाली!');
       });
     }
 
