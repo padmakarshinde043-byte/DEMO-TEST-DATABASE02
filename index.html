@@ -1193,9 +1193,21 @@
           </div>
         </div>
 
-        <button class="app-btn btn-primary" onclick="saveVisualTemplatesToFirebase()">
-          <i class="fa-solid fa-floppy-disk"></i> हे डिझाईन व लेआउट Firebase वर सेव्ह करा
-        </button>
+        <!-- ॲडमिनसाठी सेव्ह व नमुना डाऊनलोड ॲक्शन्स -->
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <button class="app-btn btn-primary" onclick="saveVisualTemplatesToFirebase()">
+            <i class="fa-solid fa-floppy-disk"></i> हे डिझाईन व लेआउट Firebase वर सेव्ह करा
+          </button>
+          
+          <div class="grid-2">
+            <button class="app-btn btn-success" onclick="downloadAdminSampleCertificatePDF()">
+              <i class="fa-solid fa-file-pdf"></i> 📄 नमुना प्रमाणपत्र PDF
+            </button>
+            <button class="app-btn btn-gold" onclick="downloadAdminSampleBannerPDF()">
+              <i class="fa-solid fa-download"></i> 🏆 नमुना बॅनर PDF
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- १. चाचणीनिहाय एकूण गुण सेट करा -->
@@ -1494,9 +1506,7 @@
 
   <!-- ८. शाळेच्या रेकॉर्डसाठी Multi-page प्रिंट कंटेनर -->
   <div style="position:absolute; left:-9999px; top:-9999px;">
-    <div id="school-record-print-pages-container">
-      <!-- जावास्क्रिप्टद्वारे मल्टीपल A4 पाने तयार होतील -->
-    </div>
+    <div id="school-record-print-pages-container"></div>
   </div>
 
   <div class="toast" id="toastMsg">माहिती सेव्ह झाली!</div>
@@ -1840,6 +1850,147 @@
         showToast('व्हिज्युअल लेआउट Firebase वर सेव्ह झाले!');
         showCustomAlert('अभिनंदन! प्रमाणपत्र व बॅनरचे ड्रॅग केलेले लेआउट, फॉन्ट साईज व पार्श्वभूमी यशस्वीरित्या सेव्ह झाली आहे.');
       });
+    }
+
+    /* ॲडमिन पॅनलमधून थेट नमुना प्रमाणपत्र PDF डाऊनलोड करणे */
+    function downloadAdminSampleCertificatePDF() {
+      const card = document.getElementById('admin-live-cert-designer');
+      showToast('नमुना प्रमाणपत्र PDF तयार होत आहे...');
+      const { jsPDF } = window.jspdf;
+
+      html2canvas(card, { scale: 1.8, useCORS: true, letterRendering: true }).then(canvas => {
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        const pageWidth = 297, pageHeight = 210, margin = 8;
+        const maxW = pageWidth - (margin * 2);
+        const maxH = pageHeight - (margin * 2);
+
+        const imgRatio = canvas.width / canvas.height;
+        let printW = maxW;
+        let printH = printW / imgRatio;
+        if (printH > maxH) {
+          printH = maxH;
+          printW = printH * imgRatio;
+        }
+
+        const posX = (pageWidth - printW) / 2;
+        const posY = (pageHeight - printH) / 2;
+
+        pdf.addImage(imgData, 'JPEG', posX, posY, printW, printH);
+        pdf.save(`नमुना_गुणवत्ता_प्रमाणपत्र_बीड.pdf`);
+        showToast('नमुना प्रमाणपत्र PDF डाऊनलोड झाली!');
+      });
+    }
+
+    /* ॲडमिन पॅनलमधून थेट नमुना बॅनर PDF डाऊनलोड करणे */
+    function downloadAdminSampleBannerPDF() {
+      const card = document.getElementById('admin-live-banner-designer');
+      showToast('नमुना बॅनर PDF तयार होत आहे...');
+      const { jsPDF } = window.jspdf;
+
+      // तात्पुरते डिस्प्ले ब्लॉक करून रेंडर करणे
+      card.style.display = 'block';
+
+      html2canvas(card, { scale: 2, useCORS: true }).then(canvas => {
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pageWidth = 210, pageHeight = 297, margin = 10;
+        const maxW = pageWidth - (margin * 2);
+        const maxH = pageHeight - (margin * 2);
+
+        const imgRatio = canvas.width / canvas.height;
+        let printW = maxW;
+        let printH = printW / imgRatio;
+        if (printH > maxH) {
+          printH = maxH;
+          printW = printH * imgRatio;
+        }
+
+        const posX = (pageWidth - printW) / 2;
+        const posY = (pageHeight - printH) / 2;
+
+        pdf.addImage(imgData, 'JPEG', posX, posY, printW, printH);
+        pdf.save(`नमुना_टॉपर्स_गौरव_बॅनर_बीड.pdf`);
+        showToast('नमुना बॅनर PDF डाऊनलोड झाली!');
+
+        // चालू टॅबनुसार पूर्ववत करणे
+        const isCertActive = document.getElementById('btn-des-tab-cert').classList.contains('active');
+        if (isCertActive) card.style.display = 'none';
+      });
+    }
+
+    function runGlobalOneTimeMergeDistrict() {
+      const migrationFlagKey = 'beed_district_merged_v3';
+      if (localStorage.getItem(migrationFlagKey)) return;
+
+      const categories = ['navodaya', '4th', '7th', 'nmms'];
+
+      categories.forEach(cat => {
+        const baseActiveTest = (cat === 'navodaya') ? 6 : 8;
+        const targetRefPath = `results/${cat}/test_${baseActiveTest}`;
+
+        let promises = [];
+        promises.push(db.ref(targetRefPath).once('value'));
+
+        let futureTests = (cat === 'navodaya') ? [7, 8, 9, 10] : [9, 10];
+        futureTests.forEach(tNum => {
+          promises.push(db.ref(`results/${cat}/test_${tNum}`).once('value'));
+        });
+
+        Promise.all(promises).then(snapshots => {
+          let baseData = snapshots[0].val() || {};
+          let hasMergedData = false;
+
+          for (let i = 1; i < snapshots.length; i++) {
+            const fTestData = snapshots[i].val();
+            const futureTestNumber = futureTests[i - 1];
+
+            if (fTestData) {
+              Object.keys(fTestData).forEach(schoolKey => {
+                const fEntry = fTestData[schoolKey];
+                if (fEntry && fEntry.students && Array.isArray(fEntry.students)) {
+                  hasMergedData = true;
+
+                  if (!baseData[schoolKey]) {
+                    baseData[schoolKey] = fEntry;
+                  } else {
+                    fEntry.students.forEach(stFuture => {
+                      if (stFuture.marks !== undefined && stFuture.marks !== '') {
+                        const existingStudent = baseData[schoolKey].students.find(s => s.id === stFuture.id || s.name.trim() === stFuture.name.trim());
+                        
+                        if (existingStudent) {
+                          const mBaseStr = String(existingStudent.marks || '').toUpperCase();
+                          const mFutStr = String(stFuture.marks || '').toUpperCase();
+
+                          if (mBaseStr === '' || mBaseStr === 'AB') {
+                            existingStudent.marks = stFuture.marks;
+                          } else if (mFutStr !== '' && mFutStr !== 'AB') {
+                            const valBase = parseFloat(existingStudent.marks) || 0;
+                            const valFut = parseFloat(stFuture.marks) || 0;
+                            if (valFut > valBase) {
+                              existingStudent.marks = stFuture.marks;
+                            }
+                          }
+                        } else {
+                          baseData[schoolKey].students.push(stFuture);
+                        }
+                      }
+                    });
+                  }
+                }
+              });
+
+              db.ref(`results/${cat}/test_${futureTestNumber}`).remove();
+            }
+          }
+
+          if (hasMergedData) {
+            db.ref(targetRefPath).set(baseData);
+          }
+        });
+      });
+
+      localStorage.setItem(migrationFlagKey, 'true');
     }
 
     function initPortal() {
@@ -2727,7 +2878,6 @@
       });
     }
 
-    /* ================= शाळेच्या रेकॉर्डसाठी Multi-page PDF डाऊनलोड (सर्व विद्यार्थ्यांसाठी) ================= */
     function downloadSchoolRecordPDF() {
       if (!selectedSchoolObj) {
         showCustomAlert('कृपया प्रथम शाळा निवडा!');
@@ -2773,7 +2923,7 @@
 
         const students = savedData.students;
         const totalStudents = students.length;
-        const STUDENTS_PER_PAGE = 26; // एका पानावर सुटसुटीत २६ विद्यार्थी
+        const STUDENTS_PER_PAGE = 26;
         const totalPages = Math.ceil(totalStudents / STUDENTS_PER_PAGE);
 
         const pagesContainer = document.getElementById('school-record-print-pages-container');
