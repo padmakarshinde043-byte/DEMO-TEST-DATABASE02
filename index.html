@@ -692,7 +692,7 @@
       background: transparent !important;
     }
 
-    /* गोल्डन बॅजेस व रिबन */
+    /* गोल्डन बॅजेस */
     .gold-capsule-badge {
       display: inline-flex;
       align-items: center;
@@ -713,18 +713,19 @@
       font-size: 1.15rem;
     }
 
+    /* पूर्णपणे पारदर्शक व ठळक पांढऱ्या रंगातील अभिनंदन ओळ */
     .cert-congrats-ribbon {
-      background: #f0fdf4;
-      border: 1.5px dashed #86efac;
-      border-radius: 12px;
-      padding: 8px 18px;
-      font-size: 0.96rem;
-      font-weight: 700;
-      color: #166534;
+      background: transparent !important;
+      border: none !important;
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #ffffff !important;
       text-align: center;
       display: inline-block;
-      width: 90%;
+      width: 100%;
       margin: 0 auto;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.85), 0 0 8px rgba(0,0,0,0.5);
+      letter-spacing: 0.5px;
     }
 
     /* बॅनर रेंडरिंग बॉक्स */
@@ -1191,18 +1192,18 @@
             <div class="draggable-element" id="drag-cert-name" style="top:142px; left:55px; width:710px; text-align:center; font-family:'Yatra One', cursive; font-size:1.75rem; color:#991b1b; text-decoration:underline;">
               Puja Pravin Patil
             </div>
-            <div class="draggable-element" id="drag-cert-body" style="top:198px; left:55px; width:710px; text-align:center; font-size:1.02rem; line-height:1.85; color:#1e293b; font-weight:500;">
+            <div class="draggable-element" id="drag-cert-body" style="top:198px; left:55px; width:710px; text-align:center; font-size:1.02rem; line-height:1.85; color:#1e293b; font-weight:500; word-spacing: 2px;">
               गौरवपूर्वक प्रमाणित करण्यात येते की, विद्यार्थी / विद्यार्थिनी <strong>Puja Pravin Patil</strong> (इयत्ता 5 वी (नवोदय)), शाळा: <strong>ZPPS BHIM NAGAR KITTI ADGAON</strong> (UDISE: 27270710302), तालुका: <strong>माजलगाव</strong> या विद्यार्थिनीने पंचायत समिती माजलगाव अंतर्गत आयोजित नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा अंतर्गत चाचणी क्र. <strong>6</strong> मध्ये उल्लेखनीय गुणवत्ता सिद्ध करून खालीलप्रमाणे घवघवीत यश संपादन केले आहे.
             </div>
             <div class="draggable-element" id="drag-cert-badges" style="top:332px; left:55px; width:710px; display:flex; justify-content:center; gap:20px;">
               <div class="gold-capsule-badge">
                 <i class="fa-solid fa-star"></i> प्राप्त गुण: 99 / 100
               </div>
-              <div class="gold-capsule-badge">
+              <div class="gold-capsule-badge" id="admin-sample-rank-badge">
                 <i class="fa-solid fa-trophy"></i> सावरगाव केंद्रात क्रमांक #1
               </div>
             </div>
-            <div class="draggable-element" id="drag-cert-ribbon" style="top:396px; left:55px; width:710px; text-align:center;">
+            <div class="draggable-element" id="drag-cert-ribbon" style="top:405px; left:55px; width:710px; text-align:center;">
               <div class="cert-congrats-ribbon">
                 ✨ आपण मिळवलेल्या या यशाबद्दल आपले हार्दिक अभिनंदन आणि उज्ज्वल भविष्याकरिता मन:पूर्वक शुभेच्छा! ✨
               </div>
@@ -1475,7 +1476,7 @@
           <div class="draggable-element" id="render-cert-name-pos" style="width:710px; text-align:center; font-family:'Yatra One', cursive; font-size:1.75rem; color:#991b1b; text-decoration:underline;">
             <span id="cert-std-name">Puja Pravin Patil</span>
           </div>
-          <div class="draggable-element" id="render-cert-body-pos" style="width:710px; text-align:center; font-size:1.02rem; line-height:1.85; color:#1e293b; font-weight:500;">
+          <div class="draggable-element" id="render-cert-body-pos" style="width:710px; text-align:center; font-size:1.02rem; line-height:1.85; color:#1e293b; font-weight:500; word-spacing: 2px;">
             <div id="cert-render-body"></div>
           </div>
           <div class="draggable-element" id="render-cert-badges-pos" style="width:710px; display:flex; justify-content:center; gap:20px;">
@@ -1638,7 +1639,7 @@
     let flashTimer = null;
     let BEED_ALL_SCHOOLS = [];
 
-    /* ================= 'केंद्र' काढलेला आणि तंतोतंत जुळणारा मजकूर ================= */
+    /* ================= केंद्र वगळलेला व सुटसुटीत शब्द रचना असलेला मजकूर ================= */
     let TEMPLATE_CONFIG = {
       certTitle: "गुणवत्ता सन्मान प्रमाणपत्र",
       certBody: "गौरवपूर्वक प्रमाणित करण्यात येते की, विद्यार्थी / विद्यार्थिनी <strong>{NAME}</strong> ({CLASS}), शाळा: <strong>{SCHOOL}</strong> (UDISE: {UDISE}), तालुका: <strong>{TALUKA}</strong> {PRONOUN} जिल्हा परिषद, बीड अंतर्गत आयोजित <strong>{EXAM}</strong> अंतर्गत चाचणी क्र. <strong>{TEST}</strong> मध्ये उल्लेखनीय गुणवत्ता सिद्ध करून खालीलप्रमाणे घवघवीत यश संपादन केले आहे.",
@@ -1653,7 +1654,7 @@
         name: { top: 142, left: 55 },
         body: { top: 198, left: 55 },
         badges: { top: 332, left: 55 },
-        ribbon: { top: 396, left: 55 },
+        ribbon: { top: 405, left: 55 },
         sign: { top: 470, left: 510 }
       },
       bannerPositions: {
@@ -1828,7 +1829,7 @@
         setElementPos('drag-cert-name', 'render-cert-name-pos', cp.name);
         setElementPos('drag-cert-body', 'render-cert-body-pos', cp.body);
         setElementPos('drag-cert-badges', 'render-cert-badges-pos', cp.badges);
-        setElementPos('drag-cert-ribbon', 'render-cert-ribbon-pos', cp.ribbon || { top: 396, left: 55 });
+        setElementPos('drag-cert-ribbon', 'render-cert-ribbon-pos', cp.ribbon || { top: 405, left: 55 });
         setElementPos('drag-cert-sign', 'render-cert-sign-pos', cp.sign);
       }
 
@@ -2218,9 +2219,9 @@
         .then(data => {
           BEED_ALL_SCHOOLS = data.map(s => ({
             c: String(s.udise).trim(),
-            n: s.name,
-            t: s.taluka,
-            k: s.kendra || s.cluster || s.taluka,
+            n: s.name ? s.name.trim() : '',
+            t: s.taluka ? s.taluka.trim() : '',
+            k: (s.kendra || s.cluster || s.taluka || '').trim(),
             l: parseInt(s.lowest_class, 10) || 1,
             h: parseInt(s.highest_class, 10) || 7
           }));
@@ -2930,6 +2931,7 @@
 
         const payload = {
           taluka: selectedSchoolObj.t || 'बीड',
+          kendra: selectedSchoolObj.k || selectedSchoolObj.t || 'बीड',
           school: selectedSchoolObj.n,
           udise: selectedSchoolObj.c,
           students: mergedStudentsList,
@@ -2946,7 +2948,7 @@
       });
     }
 
-    /* ================= शाळेच्या रेकॉर्डसाठी Multi-page PDF (आकडे तंतोतंत जुळवून) ================= */
+    /* Multi-page A4 PDF यादी (आकडे तंतोतंत जुळवून) */
     function downloadSchoolRecordPDF() {
       if (!selectedSchoolObj) {
         showCustomAlert('कृपया प्रथम शाळा निवडा!');
@@ -2962,7 +2964,6 @@
       const testNo = document.getElementById('entry-test-no').value;
       const maxLimit = getMaxMarksForTest(currentEntryCategory, parseInt(testNo, 10));
 
-      // डेटाबेसमध्ये गुण सेव्ह आहेत का तपासणे
       db.ref(`results/${currentEntryCategory}/test_${testNo}/${key}`).once('value', (snapshot) => {
         const savedData = snapshot.val();
 
@@ -2971,7 +2972,6 @@
           return;
         }
 
-        // चालू स्क्रीनवरील विद्यार्थ्यांची मॅप तयार करणे
         let savedStudentsMap = {};
         savedData.students.forEach(s => {
           savedStudentsMap[s.id] = s;
@@ -3002,7 +3002,6 @@
         };
         const examTitle = examNames[currentEntryCategory] || 'सराव परीक्षा';
 
-        // **दुरुस्ती:** विद्यार्थी यादी थेट पोर्टलवरील चालू 'currentStudentsList' वरूनच घेतली जाईल, जेणेकरून आकडा तंतोतंत जुळेल
         const students = currentStudentsList.map(st => {
           const saved = savedStudentsMap[st.id] || savedData.students.find(s => s.name.trim() === st.name.trim());
           return {
@@ -3066,7 +3065,7 @@
             <div style="text-align:center; border-bottom:2px solid #0f172a; padding-bottom:8px; margin-bottom:8px;">
               <h2 style="font-size:1.35rem; color:#0f2b5c; font-weight:800; margin-bottom:2px;">जिल्हा परिषद बीड - शिक्षण विभाग</h2>
               <h3 style="font-size:1.15rem; color:#b45309; font-weight:700;">${examTitle} - विद्यार्थी गुण नोंद तक्ता</h3>
-              <p style="font-size:0.95rem; font-weight:600; color:#334155; margin-top:3px;">
+              <p style="font-size:0.95rem; font-weight:600; color:#334155; margin-top:3px; word-spacing: 2px;">
                 शाळा: <strong>${selectedSchoolObj.n}</strong> | UDISE: <strong>${selectedSchoolObj.c}</strong> | तालुका: <strong>${selectedSchoolObj.t || '-'}</strong>
               </p>
               <div style="display:flex; justify-content:space-between; font-size:0.88rem; font-weight:700; color:#0369a1; margin-top:3px;">
@@ -3179,6 +3178,7 @@
       });
     }
 
+    /* ================= अधिकृत निकाल रेंडरिंग ================= */
     function renderDeclaredResultsOnDashboard() {
       const cont = document.getElementById('dashboard-toppers-container');
       if (!cont) return;
@@ -3274,6 +3274,7 @@
     function renderStudentsCards(list, maxM, rankPrefix) {
       const cont = document.getElementById('dashboard-toppers-container');
       list.forEach((st, idx) => {
+        const fullRankText = `${rankPrefix} #${idx + 1}`;
         cont.innerHTML += `
           <div class="topper-card">
             <div class="topper-rank">#${idx + 1}</div>
@@ -3284,7 +3285,7 @@
             <div class="topper-score">
               <span class="topper-score-badge">${st.marks}/${maxM} गुण</span>
               <button class="app-btn btn-outline" style="width:auto; height:26px; font-size:0.7rem; padding:0 8px; margin-top:4px;" 
-                onclick="openCertificateModal('${st.name}', '${st.school}', '${st.udise}', '${st.taluka}', ${st.marks}, '${rankPrefix} #${idx + 1}', '${st.gender || ''}', ${maxM})">
+                onclick="openCertificateModal('${st.name}', '${st.school}', '${st.udise}', '${st.taluka}', ${st.marks}, '${fullRankText}', '${st.gender || ''}', ${maxM})">
                 <i class="fa-solid fa-award"></i> प्रमाणपत्र
               </button>
             </div>
@@ -3514,7 +3515,7 @@
 
     let currentCertStudentName = 'Student';
 
-    /* प्रमाणपत्र उघडणे (केंद्र वगळलेला सुटसुटीत मजकूर) */
+    /* प्रमाणपत्र उघडणे (डायनॅमिक रँक व केंद्र वगळलेला अचूक मजकूर) */
     function openCertificateModal(name, school, udise, taluka, marks, rankText, gender, maxMarks) {
       currentCertStudentName = name.trim();
       document.getElementById('cert-std-name').innerText = name;
