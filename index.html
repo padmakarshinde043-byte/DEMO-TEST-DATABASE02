@@ -622,7 +622,7 @@
       margin-bottom: 20px;
     }
 
-    /* प्रमाणपत्र रेंडरिंग बॉक्स (Drag & Drop सपोर्टसह) */
+    /* प्रमाणपत्र रेंडरिंग बॉक्स */
     .cert-scroll-wrapper {
       width: 100%;
       overflow-x: auto;
@@ -654,7 +654,6 @@
       cursor: move;
       touch-action: none;
     }
-    /* केवळ ॲडमिन डिझायनर बॉक्समध्येच डॅश बॉर्डर्स दिसतील */
     .designer-active-box .draggable-element {
       border: 1.5px dashed #0284c7;
       padding: 2px 4px;
@@ -687,7 +686,6 @@
       font-size: 1.15rem;
     }
 
-    /* पारदर्शक व ठळक पांढऱ्या रंगातील अभिनंदन ओळ */
     .cert-congrats-ribbon {
       background: transparent !important;
       border: none !important;
@@ -702,55 +700,145 @@
       letter-spacing: 0.5px;
     }
 
-    /* बॅनर रेंडरिंग बॉक्स */
+    /* ================= अतिशय देखणे, संतुलित व प्रीमियम टॉपर्स बॅनर ================= */
     .banner-preview-box {
-      width: 600px;
-      min-width: 600px;
-      height: 780px;
-      min-height: 780px;
-      background: #fffdfa;
-      border: 4px solid #d97706;
-      border-radius: 12px;
-      padding: 16px 20px;
-      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.15);
+      width: 720px;
+      min-width: 720px;
+      height: 1020px;
+      min-height: 1020px;
+      background: #ffffff;
+      border: 6px solid #d97706;
+      border-radius: 16px;
+      padding: 24px 28px;
+      box-shadow: 0 12px 35px rgba(217, 119, 6, 0.2);
       position: relative;
       margin: 0 auto;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
     }
-    .banner-top-badge {
+
+    .banner-top-header {
+      text-align: center;
+      border-bottom: 2.5px double #d97706;
+      padding-bottom: 12px;
+      margin-bottom: 10px;
+    }
+    .banner-dept-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f2b5c;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .banner-exam-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      padding: 4px 18px;
+      border-radius: 20px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      box-shadow: 0 3px 8px rgba(2, 132, 199, 0.25);
+    }
+    .banner-heading-main {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #991b1b;
+      line-height: 1.25;
+      margin-bottom: 2px;
+    }
+    .banner-subheading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #b45309;
+    }
+
+    .banner-congrats-tag {
       background: linear-gradient(135deg, #b45309 0%, #d97706 100%);
       color: white;
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
+      padding: 6px 20px;
+      border-radius: 25px;
+      font-size: 0.95rem;
       font-weight: 800;
       display: inline-block;
+      margin-top: 6px;
+      box-shadow: 0 3px 10px rgba(217, 119, 6, 0.3);
     }
-    .banner-heading-main { font-size: 1.35rem; font-weight: 800; color: #0f172a; line-height: 1.3; }
-    .banner-subheading { font-size: 0.9rem; font-weight: 600; color: #475569; }
-    .banner-topper-grid { display: grid; gap: 5px; text-align: left; width: 100%; }
+
+    /* टॉपर्स यादी कार्ड्स */
+    .banner-topper-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      margin: 10px 0;
+      flex: 1;
+      justify-content: center;
+    }
+
     .banner-row {
       background: #ffffff;
-      border: 1px solid #fed7aa;
-      border-radius: 6px;
-      padding: 6px 12px;
+      border: 1.5px solid #fed7aa;
+      border-radius: 10px;
+      padding: 8px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 1.02rem;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
-    .banner-row:nth-child(1) { background: #fef3c7; border-color: #fde68a; font-weight: 800; }
-    .banner-row:nth-child(2) { background: #f1f5f9; border-color: #e2e8f0; font-weight: 700; }
-    .banner-row:nth-child(3) { background: #ffedd5; border-color: #fed7aa; font-weight: 700; }
+    .banner-row .b-std-name {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .banner-row .b-sch-name {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #475569;
+      margin-left: 6px;
+    }
+    .banner-row .b-marks-badge {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #92400e;
+      background: #fef3c7;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      border: 1px solid #fde68a;
+      white-space: nowrap;
+    }
+
+    /* पहिले ३ रँक हायलाईट */
+    .banner-row:nth-child(1) {
+      background: linear-gradient(to right, #fffbeb, #fef3c7);
+      border: 2px solid #f59e0b;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+    }
+    .banner-row:nth-child(2) {
+      background: linear-gradient(to right, #f8fafc, #f1f5f9);
+      border: 2px solid #cbd5e1;
+    }
+    .banner-row:nth-child(3) {
+      background: linear-gradient(to right, #fff7ed, #ffedd5);
+      border: 2px solid #fdba74;
+    }
+
     .banner-footer-auth {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1.5px dashed #cbd5e1;
-      padding-top: 8px;
-      font-size: 0.82rem;
-      color: #0369a1;
+      border-top: 2px dashed #cbd5e1;
+      padding-top: 12px;
+      margin-top: 8px;
+      font-size: 0.95rem;
+      color: #0f2b5c;
       font-weight: 800;
       width: 100%;
     }
@@ -1177,7 +1265,6 @@
             </div>
           </div>
 
-          <!-- केवळ प्रमाणपत्र सेव्ह व ॲक्शन्स -->
           <div style="display:flex; flex-direction:column; gap:8px;">
             <button class="app-btn btn-primary" onclick="saveCertTemplateToFirebase()">
               <i class="fa-solid fa-floppy-disk"></i> 📄 प्रमाणपत्र डिझाईन सेव्ह करा (Save Certificate Only)
@@ -1211,48 +1298,85 @@
 
             <div class="slider-control-row">
               <label>मथळा फॉन्ट आकार:</label>
-              <input type="range" id="slider-banner-font" min="16" max="32" value="22" oninput="applyDesignerStyles()">
-              <span class="slider-val-badge" id="val-banner-font">22px</span>
+              <input type="range" id="slider-banner-font" min="18" max="34" value="26" oninput="applyDesignerStyles()">
+              <span class="slider-val-badge" id="val-banner-font">26px</span>
             </div>
             <div class="slider-control-row">
               <label>टॉपर्स यादीतील अंतर (Gap):</label>
-              <input type="range" id="slider-banner-gap" min="2" max="14" value="5" oninput="applyDesignerStyles()">
-              <span class="slider-val-badge" id="val-banner-gap">5px</span>
+              <input type="range" id="slider-banner-gap" min="3" max="14" value="6" oninput="applyDesignerStyles()">
+              <span class="slider-val-badge" id="val-banner-gap">6px</span>
             </div>
           </div>
 
           <p style="font-size:0.8rem; color:#b45309; font-weight:700; margin-bottom:8px;">
-            <i class="fa-solid fa-up-down-left-right"></i> सूचना: बॅनरमधील घटकांना बोटाने किंवा माउसने ड्रॅग करून हव्या त्या जागेवर सेट करा.
+            <i class="fa-solid fa-up-down-left-right"></i> बॅनर थेट मध्यभागी आणि सुटसुटीत A4 आकाराच्या प्रमाणात सेट केला आहे.
           </p>
 
-          <div style="background:#e2e8f0; padding:10px; border-radius:12px; overflow-x:auto; margin-bottom:12px;">
-            <div class="banner-preview-box designer-active-box" id="admin-live-banner-designer">
-              <div class="draggable-element" id="drag-banner-badge" style="top:16px; left:20px; width:560px; text-align:center;">
-                <span class="banner-top-badge" id="banner-designer-badge-txt">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
-              </div>
-              <div class="draggable-element" id="drag-banner-title" style="top:52px; left:20px; width:560px; text-align:center;">
-                <h2 class="banner-heading-main" id="banner-designer-title-txt">बीड जिल्हा सराव परीक्षा टॉपर्स</h2>
-                <p class="banner-subheading">चाचणी निकाल | गुणवत्ता यादी (Top 10)</p>
-              </div>
-              <div class="draggable-element" id="drag-banner-toppers" style="top:130px; left:20px; width:560px;">
-                <div class="banner-topper-grid" id="banner-designer-topper-grid">
-                  <div class="banner-row"><span>🥇 <strong>१. सार्थक सोळंके</strong> (जि.प.शाळा सावरगाव)</span><span style="color:#d97706; font-weight:800;">98/100</span></div>
-                  <div class="banner-row"><span>🥈 <strong>२. अनिकेत देशमुख</strong> (जि.प.शाळा माजलगाव)</span><span style="color:#d97706; font-weight:800;">96/100</span></div>
-                  <div class="banner-row"><span>🥉 <strong>३. वैष्णवी कदम</strong> (जि.प.शाळा गेवराई)</span><span style="color:#d97706; font-weight:800;">95/100</span></div>
-                  <div class="banner-row"><span>#4 <strong>४. राहुल पवार</strong> (जि.प.शाळा अंबाजोगाई)</span><span style="color:#d97706; font-weight:800;">94/100</span></div>
-                  <div class="banner-row"><span>#5 <strong>५. प्रणाली शिंदे</strong> (जि.प.शाळा पाटोदा)</span><span style="color:#d97706; font-weight:800;">93/100</span></div>
+          <div style="background:#e2e8f0; padding:12px; border-radius:12px; overflow-x:auto; margin-bottom:12px; display:flex; justify-content:center;">
+            <div class="banner-preview-box" id="admin-live-banner-designer">
+              <!-- बॅनर टॉप हेडर -->
+              <div class="banner-top-header">
+                <p class="banner-dept-title">जिल्हा परिषद, बीड — शिक्षण विभाग</p>
+                <div class="banner-exam-badge" id="banner-designer-exam-name">नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा</div>
+                <h2 class="banner-heading-main" id="banner-designer-title-txt">पाटोदा तालुका Top 10 गुणवत्ता यादी</h2>
+                <p class="banner-subheading">चाचणी क्र. 6 निकाल</p>
+                <div>
+                  <span class="banner-congrats-tag" id="banner-designer-badge-txt">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
                 </div>
               </div>
-              <div class="draggable-element" id="drag-banner-footer" style="bottom:15px; left:20px; width:560px;">
-                <div class="banner-footer-auth">
-                  <span id="banner-designer-footer-txt">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
-                  <span>🏆 जिल्हा परिषद बीड</span>
+
+              <!-- टॉपर्स यादी (सेंटर्ड व बॅलन्स्ड) -->
+              <div class="banner-topper-grid" id="banner-designer-topper-grid">
+                <div class="banner-row">
+                  <div>🥇 <span class="b-std-name">१. गणेश रामहरी उबाळे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                  <div class="b-marks-badge">95/100 गुण</div>
                 </div>
+                <div class="banner-row">
+                  <div>🥈 <span class="b-std-name">२. धनश्री संदीप आरसुळ</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                  <div class="b-marks-badge">95/100 गुण</div>
+                </div>
+                <div class="banner-row">
+                  <div>🥉 <span class="b-std-name">३. सिद्धेश संदिपराव वेदरे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                  <div class="b-marks-badge">92.5/100 गुण</div>
+                </div>
+                <div class="banner-row">
+                  <div>🎖️ <span class="b-std-name">४. शिवतेज रामेश्वर घोडके</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                  <div class="b-marks-badge">92.5/100 गुण</div>
+                </div>
+                <div class="banner-row">
+                  <div>🎖️ <span class="b-std-name">५. श्वेता हरी पन्हाळकर</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                  <div class="b-marks-badge">92.5/100 गुण</div>
+                </div>
+                <div class="banner-row">
+                  <div>🎖️ <span class="b-std-name">६. अथर्व भागीरथ नवले</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                  <div class="b-marks-badge">91.25/100 गुण</div>
+                </div>
+                <div class="banner-row">
+                  <div>🎖️ <span class="b-std-name">७. ओवी प्रवीण मुळे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                  <div class="b-marks-badge">91.25/100 गुण</div>
+                </div>
+                <div class="banner-row">
+                  <div>🎖️ <span class="b-std-name">८. श्रेया युवराज पवार</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                  <div class="b-marks-badge">91.25/100 गुण</div>
+                </div>
+                <div class="banner-row">
+                  <div>🎖️ <span class="b-std-name">९. तेजल अंगद जरे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                  <div class="b-marks-badge">91.25/100 गुण</div>
+                </div>
+                <div class="banner-row">
+                  <div>🎖️ <span class="b-std-name">१०. मनस्वी सोमीनाथ पन्हाळकर</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                  <div class="b-marks-badge">91.25/100 गुण</div>
+                </div>
+              </div>
+
+              <!-- बॅनर तळटीप -->
+              <div class="banner-footer-auth">
+                <span id="banner-designer-footer-txt">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
+                <span>🏆 जिल्हा परिषद बीड</span>
               </div>
             </div>
           </div>
 
-          <!-- केवळ बॅनर सेव्ह व ॲक्शन्स -->
           <div style="display:flex; flex-direction:column; gap:8px;">
             <button class="app-btn btn-primary" onclick="saveBannerTemplateToFirebase()">
               <i class="fa-solid fa-floppy-disk"></i> 🏆 बॅनर डिझाईन सेव्ह करा (Save Banner Only)
@@ -1438,31 +1562,34 @@
     </div>
   </div>
 
-  <!-- अभिनंदन गौरव बॅनर Modal -->
+  <!-- अभिनंदन गौरव बॅनर Modal (अधिक आकर्षक, ठळक व सेंटर्ड) -->
   <div class="modal" id="bannerModal">
-    <div class="modal-content">
+    <div class="modal-content" style="max-width:760px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
         <h3 style="color: #b45309; font-size: 1.1rem;"><i class="fa-solid fa-award"></i> अभिनंदन गौरव बॅनर</h3>
         <button onclick="closeModal('bannerModal')" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
       </div>
 
-      <div style="overflow-x:auto; background:#f1f5f9; padding:10px; border-radius:10px; display:flex; justify-content:center;">
+      <div style="overflow-x:auto; background:#f1f5f9; padding:12px; border-radius:10px; display:flex; justify-content:center;">
         <div class="banner-preview-box" id="banner-card-render">
-          <div style="position:absolute;" id="render-banner-badge-pos">
-            <span class="banner-top-badge" id="banner-render-badge">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
-          </div>
-          <div style="position:absolute;" id="render-banner-title-pos">
-            <h2 class="banner-heading-main" id="banner-heading-text">बीड जिल्हा सराव परीक्षा टॉपर्स</h2>
-            <p class="banner-subheading" id="banner-sub-text">चाचणी निकाल | गुणवत्ता यादी (Top 10)</p>
-          </div>
-          <div style="position:absolute;" id="render-banner-toppers-pos">
-            <div class="banner-topper-grid" id="banner-toppers-list"></div>
-          </div>
-          <div style="position:absolute;" id="render-banner-footer-pos">
-            <div class="banner-footer-auth">
-              <span id="banner-render-footer">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
-              <span>🏆 जिल्हा परिषद बीड</span>
+          <!-- बॅनर टॉप हेडर -->
+          <div class="banner-top-header">
+            <p class="banner-dept-title">जिल्हा परिषद, बीड — शिक्षण विभाग</p>
+            <div class="banner-exam-badge" id="banner-render-exam-name">सराव परीक्षा निकाल</div>
+            <h2 class="banner-heading-main" id="banner-heading-text">गुणवत्ता यादी Top 10</h2>
+            <p class="banner-subheading" id="banner-sub-text">चाचणी निकाल</p>
+            <div>
+              <span class="banner-congrats-tag" id="banner-render-badge">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
             </div>
+          </div>
+
+          <!-- टॉपर्स यादी -->
+          <div class="banner-topper-grid" id="banner-toppers-list"></div>
+
+          <!-- बॅनर तळटीप -->
+          <div class="banner-footer-auth">
+            <span id="banner-render-footer">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
+            <span>🏆 जिल्हा परिषद बीड</span>
           </div>
         </div>
       </div>
@@ -1474,7 +1601,7 @@
     </div>
   </div>
 
-  <!-- गुणवत्ता सन्मान प्रमाणपत्र Modal (Clean Render) -->
+  <!-- गुणवत्ता सन्मान प्रमाणपत्र Modal -->
   <div class="modal" id="certModal">
     <div class="modal-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -1656,7 +1783,6 @@
     let BEED_ALL_SCHOOLS = [];
     let PRE_LOCK_CALCULATED_DATA = null;
 
-    /* ================= स्वतंत्र पोझिशन्स व कॉन्फिगरेशन ================= */
     const DEFAULT_CERT_POSITIONS = {
       title: { top: 44, left: 130 },
       date: { top: 104, left: 660 },
@@ -1665,13 +1791,6 @@
       badges: { top: 332, left: 55 },
       ribbon: { top: 405, left: 55 },
       sign: { top: 470, left: 510 }
-    };
-
-    const DEFAULT_BANNER_POSITIONS = {
-      badge: { top: 16, left: 20 },
-      title: { top: 52, left: 20 },
-      toppers: { top: 130, left: 20 },
-      footer: { top: 710, left: 20 }
     };
 
     let CERT_CONFIG = {
@@ -1688,14 +1807,11 @@
       title: "बीड जिल्हा सराव परीक्षा टॉपर्स",
       badge: "💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐",
       footer: "🎯 शिक्षण विभाग, जिल्हा परिषद बीड",
-      fontSize: 22,
-      gap: 5,
-      positions: JSON.parse(JSON.stringify(DEFAULT_BANNER_POSITIONS))
+      fontSize: 26,
+      gap: 6
     };
 
-    /* Firebase मधून स्वतंत्र टेम्पलेट्स लोड करणे */
     function listenCustomTemplates() {
-      // प्रमाणपत्र स्वतंत्र लोड
       db.ref('custom_cert_template').on('value', (snap) => {
         const val = snap.val();
         if (val) {
@@ -1705,12 +1821,10 @@
         applyCertLayout();
       });
 
-      // बॅनर स्वतंत्र लोड
       db.ref('custom_banner_template').on('value', (snap) => {
         const val = snap.val();
         if (val) {
           BANNER_CONFIG = { ...BANNER_CONFIG, ...val };
-          if (val.positions) BANNER_CONFIG.positions = { ...DEFAULT_BANNER_POSITIONS, ...val.positions };
         }
         applyBannerLayout();
       });
@@ -1727,7 +1841,6 @@
       else applyBannerLayout();
     }
 
-    /* प्रमाणपत्र लेआउट लागू करणे */
     function applyCertLayout() {
       if (document.getElementById('tmpl-cert-title')) document.getElementById('tmpl-cert-title').value = CERT_CONFIG.title;
       if (document.getElementById('tmpl-cert-body')) document.getElementById('tmpl-cert-body').value = CERT_CONFIG.body;
@@ -1759,7 +1872,6 @@
       updateLiveDesigner();
     }
 
-    /* बॅनर लेआउट लागू करणे */
     function applyBannerLayout() {
       if (document.getElementById('tmpl-banner-title')) document.getElementById('tmpl-banner-title').value = BANNER_CONFIG.title;
       if (document.getElementById('tmpl-banner-badge')) document.getElementById('tmpl-banner-badge').value = BANNER_CONFIG.badge;
@@ -1768,12 +1880,6 @@
       if (document.getElementById('val-banner-font')) document.getElementById('val-banner-font').innerText = BANNER_CONFIG.fontSize + 'px';
       if (document.getElementById('slider-banner-gap')) document.getElementById('slider-banner-gap').value = BANNER_CONFIG.gap;
       if (document.getElementById('val-banner-gap')) document.getElementById('val-banner-gap').innerText = BANNER_CONFIG.gap + 'px';
-
-      const bp = BANNER_CONFIG.positions || DEFAULT_BANNER_POSITIONS;
-      setElementPos('drag-banner-badge', 'render-banner-badge-pos', bp.badge);
-      setElementPos('drag-banner-title', 'render-banner-title-pos', bp.title);
-      setElementPos('drag-banner-toppers', 'render-banner-toppers-pos', bp.toppers);
-      setElementPos('drag-banner-footer', 'render-banner-footer-pos', bp.footer);
 
       const bannerTitle = document.getElementById('banner-designer-title-txt');
       if (bannerTitle) bannerTitle.style.fontSize = BANNER_CONFIG.fontSize + 'px';
@@ -1900,7 +2006,6 @@
 
     function initAllDraggables() {
       const certBox = document.getElementById('admin-live-cert-designer');
-      const bannerBox = document.getElementById('admin-live-banner-designer');
 
       const certKeys = {
         'drag-cert-title': 'title',
@@ -1921,26 +2026,8 @@
           });
         }
       });
-
-      const bannerKeys = {
-        'drag-banner-badge': 'badge',
-        'drag-banner-title': 'title',
-        'drag-banner-toppers': 'toppers',
-        'drag-banner-footer': 'footer'
-      };
-
-      Object.keys(bannerKeys).forEach(id => {
-        const el = document.getElementById(id);
-        const k = bannerKeys[id];
-        if (el) {
-          makeElementDraggable(el, bannerBox, (left, top) => {
-            BANNER_CONFIG.positions[k] = { top, left };
-          });
-        }
-      });
     }
 
-    /* केवळ प्रमाणपत्र सेव्ह करणे (बॅनरला धक्का न लावता) */
     function saveCertTemplateToFirebase() {
       const cfg = {
         title: document.getElementById('tmpl-cert-title').value.trim() || CERT_CONFIG.title,
@@ -1959,15 +2046,13 @@
       });
     }
 
-    /* केवळ बॅनर सेव्ह करणे (प्रमाणपत्राला धक्का न लावता) */
     function saveBannerTemplateToFirebase() {
       const cfg = {
         title: document.getElementById('tmpl-banner-title').value.trim() || BANNER_CONFIG.title,
         badge: document.getElementById('tmpl-banner-badge').value.trim() || BANNER_CONFIG.badge,
         footer: document.getElementById('tmpl-banner-footer').value.trim() || BANNER_CONFIG.footer,
         fontSize: parseInt(document.getElementById('slider-banner-font').value, 10),
-        gap: parseInt(document.getElementById('slider-banner-gap').value, 10),
-        positions: BANNER_CONFIG.positions
+        gap: parseInt(document.getElementById('slider-banner-gap').value, 10)
       };
 
       db.ref('custom_banner_template').set(cfg).then(() => {
@@ -1977,7 +2062,6 @@
       });
     }
 
-    /* प्रमाणपत्राचा लेआउट पूर्ववत करणे */
     function resetCertLayoutToDefault() {
       showCustomConfirm("आपणास प्रमाणपत्राची रचना व जागा मूळ स्वरूपात पूर्ववत करायची आहे का?", () => {
         CERT_CONFIG.positions = JSON.parse(JSON.stringify(DEFAULT_CERT_POSITIONS));
@@ -1989,12 +2073,10 @@
       });
     }
 
-    /* बॅनरचा लेआउट पूर्ववत करणे */
     function resetBannerLayoutToDefault() {
       showCustomConfirm("आपणास बॅनरची रचना व जागा मूळ स्वरूपात पूर्ववत करायची आहे का?", () => {
-        BANNER_CONFIG.positions = JSON.parse(JSON.stringify(DEFAULT_BANNER_POSITIONS));
-        BANNER_CONFIG.fontSize = 22;
-        BANNER_CONFIG.gap = 5;
+        BANNER_CONFIG.fontSize = 26;
+        BANNER_CONFIG.gap = 6;
         saveBannerTemplateToFirebase();
         applyBannerLayout();
         showToast('बॅनर लेआउट पूर्ववत झाले!');
@@ -2045,16 +2127,10 @@
       showToast('नमुना बॅनर PDF तयार होत आहे...');
       const { jsPDF } = window.jspdf;
 
-      card.classList.remove('designer-active-box');
-      card.classList.add('clean-certificate-render');
-
       html2canvas(card, { scale: 2, useCORS: true }).then(canvas => {
-        card.classList.remove('clean-certificate-render');
-        card.classList.add('designer-active-box');
-
         const imgData = canvas.toDataURL('image/jpeg', 0.9);
         const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-        const pageWidth = 210, pageHeight = 297, margin = 10;
+        const pageWidth = 210, pageHeight = 297, margin = 8;
         const maxW = pageWidth - (margin * 2);
         const maxH = pageHeight - (margin * 2);
 
@@ -2073,8 +2149,6 @@
         pdf.save(`नमुना_टॉपर्स_गौरव_बॅनर_बीड.pdf`);
         showToast('नमुना बॅनर PDF डाऊनलोड झाली!');
       }).catch(err => {
-        card.classList.remove('clean-certificate-render');
-        card.classList.add('designer-active-box');
         showCustomAlert("त्रुटी: " + err.message);
       });
     }
@@ -2986,7 +3060,7 @@
       });
     }
 
-    /* Multi-page A4 PDF यादी (आकडे तंतोतंत जुळवून) */
+    /* Multi-page A4 PDF यादी */
     function downloadSchoolRecordPDF() {
       if (!selectedSchoolObj) {
         showCustomAlert('कृपया प्रथम शाळा निवडा!');
@@ -3315,6 +3389,7 @@
       });
     }
 
+    /* बॅनर उघडणे (परीक्षेच्या अचूक नावासाठी मॅपिंग व सेंटरिंग) */
     function openDeclaredBanner(testNum, type, scopeName) {
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
@@ -3325,11 +3400,19 @@
 
       const maxM = getMaxMarksForTest(currentSelectedCategory, testNum);
 
+      const examNames = {
+        'navodaya': 'नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा',
+        '4th': 'इयत्ता चौथी शिष्यवृत्ती सराव परीक्षा',
+        '7th': 'इयत्ता सातवी शिष्यवृत्ती सराव परीक्षा',
+        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा'
+      };
+      const examTitle = examNames[currentSelectedCategory] || 'सराव परीक्षा';
+
       let titleText = "";
       let toppersList = [];
 
       if (type === 'district') {
-        titleText = BANNER_CONFIG.title || `बीड जिल्हा Top 10 गुणवत्ता यादी`;
+        titleText = `बीड जिल्हा Top 10 गुणवत्ता यादी`;
         toppersList = testData.districtToppers || [];
       } else if (type === 'taluka') {
         const selTaluka = scopeName || selectedTopperTaluka || TALUKA_LIST[0];
@@ -3337,17 +3420,18 @@
         toppersList = (testData.talukaToppers && testData.talukaToppers[selTaluka]) ? testData.talukaToppers[selTaluka] : [];
       }
 
+      document.getElementById('banner-render-exam-name').innerText = examTitle;
       document.getElementById('banner-heading-text').innerText = titleText;
-      document.getElementById('banner-sub-text').innerText = `चाचणी क्र. ${testNum} निकाल`;
-      document.getElementById('banner-render-badge').innerText = BANNER_CONFIG.badge || "💐 हार्दिक अभिनंदन ! 💐";
+      document.getElementById('banner-sub-text').innerText = `चाचणी क्र. ${testNum} अधिकृत निकाल`;
+      document.getElementById('banner-render-badge').innerText = BANNER_CONFIG.badge || "💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐";
       document.getElementById('banner-render-footer').innerText = BANNER_CONFIG.footer || "🎯 शिक्षण विभाग, जिल्हा परिषद बीड";
 
       toppersList.forEach((st, idx) => {
-        const medal = (idx === 0) ? '🥇 ' : (idx === 1) ? '🥈 ' : (idx === 2) ? '🥉 ' : `#${idx+1} `;
+        const medal = (idx === 0) ? '🥇 ' : (idx === 1) ? '🥈 ' : (idx === 2) ? '🥉 ' : `🎖️ #${idx+1} `;
         listEl.innerHTML += `
           <div class="banner-row">
-            <span>${medal} <strong>${st.name}</strong> (${st.school})</span>
-            <span style="color:#d97706; font-weight:800; font-family:'Poppins', sans-serif;">${st.marks}/${maxM} गुण</span>
+            <div>${medal} <span class="b-std-name">${idx + 1}. ${st.name}</span> <span class="b-sch-name">(${st.school})</span></div>
+            <div class="b-marks-badge">${st.marks}/${maxM} गुण</div>
           </div>
         `;
       });
@@ -3424,7 +3508,6 @@
       }
     }
 
-    /* निकाल पूर्व-तपासणी */
     function openPreLockReviewModal() {
       const cat = document.getElementById('admin-lock-category').value;
       const testNo = document.getElementById('admin-lock-test').value;
@@ -3539,7 +3622,6 @@
       });
     }
 
-    /* खात्री झाल्यानंतर अधिकृत निकाल लॉक करणे */
     function declareAndLockResults() {
       const cat = document.getElementById('admin-lock-category').value;
       const testNo = document.getElementById('admin-lock-test').value;
@@ -3611,7 +3693,7 @@
         const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
         const pageWidth = 210;
         const pageHeight = 297;
-        const margin = 10;
+        const margin = 8;
         const maxW = pageWidth - (margin * 2);
         const maxH = pageHeight - (margin * 2);
 
@@ -3635,7 +3717,6 @@
 
     let currentCertStudentName = 'Student';
 
-    /* प्रमाणपत्र उघडणे (डायनॅमिक रँक, केंद्र वगळलेला मजकूर) */
     function openCertificateModal(name, school, udise, taluka, marks, rankText, gender, maxMarks) {
       currentCertStudentName = name.trim();
       document.getElementById('cert-std-name').innerText = name;
