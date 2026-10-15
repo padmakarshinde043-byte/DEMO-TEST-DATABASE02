@@ -61,7 +61,7 @@
 
     .app-container { max-width: 650px; margin: 0 auto; padding: 12px; }
 
-    /* १० सेकंद टिकणारा ठळक फ्लोटिंग इशारा मेसेज */
+    /* १० सेकंद टिकणारा फ्लॅश मेसेज */
     .flash-notice-banner {
       display: none;
       background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
@@ -80,7 +80,7 @@
     }
     .flash-notice-content { display: flex; align-items: flex-start; gap: 10px; }
     .flash-notice-content i { font-size: 1.5rem; color: #fef08a; margin-top: 2px; }
-    .flash-notice-text h4 { font-size: 1rem; font-weight: 800; letter-spacing: 0.3px; color: #fef08a; margin-bottom: 3px; }
+    .flash-notice-text h4 { font-size: 1rem; font-weight: 800; color: #fef08a; margin-bottom: 3px; }
     .flash-notice-text p { font-size: 0.88rem; font-weight: 600; line-height: 1.4; color: #ffffff; }
     .flash-close-btn {
       position: absolute;
@@ -91,7 +91,6 @@
       color: white;
       font-size: 1.2rem;
       cursor: pointer;
-      opacity: 0.8;
     }
 
     .app-card {
@@ -389,7 +388,7 @@
     .reg-std-item strong { font-size: 0.95rem; color: #1e293b; }
     .reg-std-item span { font-size: 0.78rem; color: var(--text-muted); }
 
-    /* ================= अतिशय कॉम्पॅक्ट विद्यार्थी गुण नोंदणी कार्ड ================= */
+    /* कॉम्पॅक्ट विद्यार्थी गुण नोंदणी कार्ड */
     .student-entry-card {
       background: #ffffff;
       border: 1.2px solid #e2e8f0;
@@ -403,7 +402,6 @@
     }
     .student-entry-card:nth-child(even) { background: #fafcff; }
 
-    /* ओळ १: नाव आणि लिंग समोरच */
     .compact-name-row {
       display: flex;
       align-items: center;
@@ -432,7 +430,6 @@
     .compact-gender-tag.girl { background: #fdf2f8; color: #be185d; border-color: #fbcfe8; }
     .compact-gender-tag.boy { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
 
-    /* ओळ २: हजेरी + गुण + प्रगती आलेख */
     .compact-action-row {
       display: flex;
       align-items: center;
@@ -650,7 +647,7 @@
       margin-bottom: 20px;
     }
 
-    /* प्रमाणपत्र */
+    /* प्रमाणपत्र रेंडरिंग बॉक्स (Drag & Drop सपोर्टसह) */
     .cert-scroll-wrapper {
       width: 100%;
       overflow-x: auto;
@@ -675,78 +672,26 @@
       overflow: hidden;
       margin: auto;
     }
-    .cert-main-heading {
+
+    .draggable-element {
       position: absolute;
-      top: 48px;
-      left: 130px;
-      right: 130px;
-      text-align: center;
-      font-size: 1.95rem;
-      font-weight: 800;
-      color: #0f2b5c;
-      letter-spacing: 1px;
-      z-index: 5;
+      user-select: none;
+      cursor: move;
+      touch-action: none;
     }
-    .cert-date-badge {
-      position: absolute;
-      top: 104px;
-      right: 36px;
-      font-size: 0.86rem;
-      font-weight: 600;
-      color: #334155;
-      font-family: 'Poppins', sans-serif;
-      letter-spacing: 0.5px;
-    }
-    .cert-overlay-content {
-      position: absolute;
-      top: 132px;
-      left: 55px;
-      right: 55px;
-      text-align: center;
-    }
-    .cert-student-title {
-      font-family: 'Yatra One', cursive, sans-serif;
-      font-size: 1.7rem;
-      color: #991b1b;
-      margin-bottom: 8px;
-      text-decoration: underline;
-      letter-spacing: 0.6px;
-      word-spacing: 3px;
-    }
-    .cert-para {
-      font-size: 1.04rem;
-      line-height: 1.85;
-      color: #1e293b;
-      font-weight: 500;
-      margin-bottom: 8px;
-      word-spacing: 3px;
-      letter-spacing: 0.2px;
-    }
-    .cert-badges {
-      margin-top: 12px;
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-    }
-    .cert-badge-gold {
-      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
-      border: 2px solid #d97706;
-      color: #78350f;
-      font-weight: 800;
-      font-size: 1.05rem;
-      padding: 5px 22px;
-      border-radius: 30px;
-      box-shadow: 0 3px 8px rgba(217, 119, 6, 0.28);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'Poppins', sans-serif;
+    .designer-active-box .draggable-element {
+      border: 1.5px dashed #0284c7;
+      padding: 2px 4px;
+      background: rgba(224, 242, 254, 0.45);
+      border-radius: 4px;
     }
 
-    /* बॅनर */
+    /* बॅनर रेंडरिंग बॉक्स */
     .banner-preview-box {
       width: 600px;
       min-width: 600px;
+      height: 780px;
+      min-height: 780px;
       background: #fffdfa;
       border: 4px solid #d97706;
       border-radius: 12px;
@@ -754,6 +699,7 @@
       box-shadow: 0 8px 24px rgba(217, 119, 6, 0.15);
       position: relative;
       margin: 0 auto;
+      overflow: hidden;
     }
     .banner-top-badge {
       background: linear-gradient(135deg, #b45309 0%, #d97706 100%);
@@ -763,11 +709,10 @@
       font-size: 0.85rem;
       font-weight: 800;
       display: inline-block;
-      margin-bottom: 4px;
     }
-    .banner-heading-main { font-size: 1.35rem; font-weight: 800; color: #0f172a; line-height: 1.3; margin-bottom: 2px; }
-    .banner-subheading { font-size: 0.9rem; font-weight: 600; color: #475569; margin-bottom: 10px; }
-    .banner-topper-grid { display: grid; gap: 5px; margin-bottom: 12px; text-align: left; }
+    .banner-heading-main { font-size: 1.35rem; font-weight: 800; color: #0f172a; line-height: 1.3; }
+    .banner-subheading { font-size: 0.9rem; font-weight: 600; color: #475569; }
+    .banner-topper-grid { display: grid; gap: 5px; text-align: left; width: 100%; }
     .banner-row {
       background: #ffffff;
       border: 1px solid #fed7aa;
@@ -791,84 +736,72 @@
       font-size: 0.82rem;
       color: #0369a1;
       font-weight: 800;
-    }
-
-    /* प्रगती पुस्तक */
-    .report-card-container {
-      background: #ffffff;
-      border: 3px double #0284c7;
-      padding: 18px;
-      border-radius: 8px;
-      color: #1e293b;
-      margin: 10px 0;
-    }
-    .report-card-header {
-      text-align: center;
-      border-bottom: 2px solid #e0f2fe;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
-    }
-    .report-card-header h2 { font-size: 1.3rem; color: #0369a1; }
-    .report-meta-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      background: #f8fafc;
-      padding: 10px;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      font-size: 0.88rem;
-    }
-    .progress-bar-container {
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
-      height: 90px;
-      padding: 8px;
-      background: #f8fafc;
-      border-radius: 8px;
-      margin-top: 10px;
-      border: 1px solid #e2e8f0;
-    }
-    .progress-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100%;
-      justify-content: flex-end;
-    }
-    .progress-bar-fill {
       width: 100%;
-      background: #0284c7;
-      border-radius: 4px 4px 0 0;
-      min-height: 4px;
-      transition: height 0.3s;
     }
-    .progress-col-label { font-size: 0.7rem; margin-top: 4px; color: #64748b; font-family: 'Poppins', sans-serif; }
 
-    .table-responsive { overflow-x: auto; margin-top: 10px; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-    th, td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; }
-    th { background: #f8fafc; font-weight: 700; color: #475569; }
+    /* ॲडमिन कस्टमायझर टूलबार */
+    .designer-toolbar-card {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .designer-tabs-wrap {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1.5px solid #cbd5e1;
+      padding-bottom: 8px;
+    }
+    .des-tab-btn {
+      flex: 1;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: white;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      color: #475569;
+    }
+    .des-tab-btn.active {
+      background: var(--sky);
+      color: white;
+      border-color: var(--sky-dark);
+    }
+    .slider-control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .slider-control-row label { font-size: 0.82rem; font-weight: 700; color: #334155; min-width: 130px; }
+    .slider-control-row input[type="range"] { flex: 1; height: 6px; }
+    .slider-val-badge { font-size: 0.78rem; font-weight: 800; font-family:'Poppins', sans-serif; color: var(--sky-dark); min-width: 45px; text-align: right; }
 
-    /* शाळेच्या रेकॉर्डसाठी सुटसुटीत Aparajita स्टाईल प्रिंट टेबल */
-    .school-record-print-wrap {
+    /* शाळेच्या रेकॉर्डसाठी Multi-page A4 शीट */
+    .school-record-page {
       background: white;
       padding: 24px 28px;
       width: 800px;
+      min-height: 1100px;
       color: #0f172a;
       font-family: 'Aparajita', 'Mukta', sans-serif;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      position: relative;
     }
     .school-record-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 12px;
+      margin-top: 10px;
     }
     .school-record-table th, .school-record-table td {
       border: 1.5px solid #334155;
-      padding: 6px 10px;
-      font-size: 1rem;
+      padding: 5px 8px;
+      font-size: 0.98rem;
     }
     .school-record-table th {
       background: #f1f5f9;
@@ -895,7 +828,7 @@
 </head>
 <body>
 
-  <!-- Top App Bar -->
+  <!-- Top App Bar (३ वेळा लोगोवर क्लिक केल्यास ॲडमिन कक्ष उघडेल) -->
   <header class="app-header">
     <div class="brand-wrap" onclick="handleSecretAdminTrigger()">
       <img src="logo.jpeg" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
@@ -921,7 +854,7 @@
         <div class="test-pill-wrap" id="dash-test-pills"></div>
       </div>
 
-      <!-- Stats Grid (केवळ प्रविष्ट विद्यार्थी व गुण भरलेल्या शाळा) -->
+      <!-- Stats Grid -->
       <div class="stats-grid">
         <div class="stat-box stat-box-students">
           <p>प्रविष्ट विद्यार्थी</p>
@@ -957,7 +890,7 @@
           </button>
         </div>
 
-        <!-- १२ तालुक्यांची एका रांगेत ४ प्रमाणे ३ रांगा -->
+        <!-- १२ तालुक्यांची ग्रीड -->
         <div id="taluka-4col-grid-wrap" style="display:none; margin-bottom:14px;">
           <p style="font-size:0.85rem; font-weight:700; color:#475569; margin-bottom:8px;" id="taluka-grid-label">
             <i class="fa-solid fa-hand-pointer" style="color:var(--sky);"></i> तालुका निवडा:
@@ -965,7 +898,7 @@
           <div class="taluka-4col-grid" id="taluka-4col-container"></div>
         </div>
 
-        <!-- संबंधित तालुक्यातील केंद्रे -->
+        <!-- केंद्रांची ग्रीड -->
         <div id="kendra-grid-wrap" style="display:none; margin-bottom:14px; background:#fffbeb; padding:10px; border-radius:10px; border:1px solid #fed7aa;">
           <p style="font-size:0.85rem; font-weight:800; color:#92400e; margin-bottom:8px;" id="kendra-list-label">
             <i class="fa-solid fa-map-pin"></i> केंद्र निवडा:
@@ -982,7 +915,6 @@
     <!-- ================= 2. गुण नोंदणी स्क्रीन (शिक्षक पोर्टल) ================= -->
     <div id="screen-entry" style="display:none;">
 
-      <!-- १० सेकंद टिकणारा ठळक फ्लोटिंग इशारा मेसेज -->
       <div class="flash-notice-banner" id="flash-entry-notice">
         <button class="flash-close-btn" onclick="closeFlashNotice()">&times;</button>
         <div class="flash-notice-content">
@@ -1096,9 +1028,8 @@
         <div style="margin-top: 14px; display:flex; flex-direction:column; gap:10px;">
           <button class="app-btn btn-primary" onclick="submitMarksToFirebase()"><i class="fa-solid fa-cloud-arrow-up"></i> सर्व गुण सुरक्षित सेव्ह करा</button>
           
-          <!-- शाळेच्या स्वतःच्या रेकॉर्डसाठी Aparajita Font PDF यादी -->
           <button class="app-btn btn-success" style="background: linear-gradient(135deg, #047857 0%, #065f46 100%);" onclick="downloadSchoolRecordPDF()">
-            <i class="fa-solid fa-file-pdf"></i> 📄 शाळेची अधिकृत गुण यादी PDF डाऊनलोड करा
+            <i class="fa-solid fa-file-pdf"></i> 📄 शाळेची अधिकृत गुण यादी PDF डाऊनलोड करा (सर्व विद्यार्थी)
           </button>
         </div>
 
@@ -1109,7 +1040,7 @@
       </div>
     </div>
 
-    <!-- ================= 3. गुप्त शिक्षणाधिकारी प्रशासकीय कक्ष ================= -->
+    <!-- ================= 3. गुप्त शिक्षणाधिकारी प्रशासकीय कक्ष (केवळ ॲडमिनसाठी) ================= -->
     <div id="screen-admin-backend" style="display:none;">
       <div class="app-card" style="border: 2px solid var(--sky); background: #f0fdf4;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -1117,8 +1048,154 @@
           <button class="app-btn btn-outline" style="width:auto; height:30px; font-size:0.75rem; padding:0 8px;" onclick="switchTab('dashboard')">बंद करा</button>
         </div>
         <p style="font-size:0.82rem; color:#475569;">
-          येथून आपण चाचणीचे एकूण गुण निश्चित करू शकता, प्रमाणपत्र/बॅनर कस्टमाइज करू शकता व अधिकृत निकाल जाहीर करू शकता.
+          येथून आपण प्रमाणपत्र व बॅनरचा मजकूर, फॉन्ट साईज, ओळींमधील अंतर हाताने ड्रॅग करून सेट करू शकता, बॅकग्राउंड अपलोड करू शकता आणि चाचणीचे निकाल लॉक करू शकता.
         </p>
+      </div>
+
+      <!-- लाइव्ह ड्रॅग आणि ड्रॉप व्हिज्युअल डिझायनर -->
+      <div class="app-card" style="border-left: 5px solid #6366f1;">
+        <div class="app-card-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6366f1;"></i> 🎨 प्रमाणपत्र व बॅनर लाइव्ह व्हिज्युअल डिझायनर</div>
+
+        <!-- डिझायनर टॅब्स -->
+        <div class="designer-tabs-wrap">
+          <button class="des-tab-btn active" id="btn-des-tab-cert" onclick="switchDesignerTab('cert')">
+            <i class="fa-solid fa-certificate"></i> प्रमाणपत्र डिझायनर
+          </button>
+          <button class="des-tab-btn" id="btn-des-tab-banner" onclick="switchDesignerTab('banner')">
+            <i class="fa-solid fa-trophy"></i> बॅनर डिझायनर
+          </button>
+        </div>
+
+        <!-- डिझायनर टूलबार -->
+        <div class="designer-toolbar-card">
+          <!-- प्रमाणपत्र कंट्रोल्स -->
+          <div id="des-controls-cert">
+            <div class="form-group" style="margin-bottom:8px;">
+              <label>प्रमाणपत्र मुख्य शीर्षक:</label>
+              <input type="text" class="form-control" id="tmpl-cert-title" value="गुणवत्ता सन्मान प्रमाणपत्र" oninput="updateLiveDesigner()">
+            </div>
+            <div class="form-group" style="margin-bottom:8px;">
+              <label>प्रमाणपत्र वाक्यरचना (शरीर मजकूर):</label>
+              <textarea class="form-control" id="tmpl-cert-body" rows="3" style="height:auto; font-size:0.86rem;" oninput="updateLiveDesigner()"></textarea>
+              <span style="font-size:0.7rem; color:#64748b;">* व्हेरिएबल्स: {NAME}, {CLASS}, {SCHOOL}, {UDISE}, {TALUKA}, {EXAM}, {TEST}, {MARKS}, {TOTAL}, {RANK}</span>
+            </div>
+            <div class="form-group" style="margin-bottom:8px;">
+              <label>तळटीप स्वाक्षरी पदनाम:</label>
+              <input type="text" class="form-control" id="tmpl-cert-sign" value="शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड" oninput="updateLiveDesigner()">
+            </div>
+
+            <!-- स्लायडर्स -->
+            <div class="slider-control-row">
+              <label>मजकूर फॉन्ट आकार:</label>
+              <input type="range" id="slider-cert-font" min="12" max="24" value="16" oninput="applyDesignerStyles()">
+              <span class="slider-val-badge" id="val-cert-font">16px</span>
+            </div>
+            <div class="slider-control-row">
+              <label>ओळींमधील अंतर (Line-Height):</label>
+              <input type="range" id="slider-cert-lh" min="1.2" max="2.6" step="0.1" value="1.8" oninput="applyDesignerStyles()">
+              <span class="slider-val-badge" id="val-cert-lh">1.8</span>
+            </div>
+
+            <!-- बॅकग्राउंड अपलोड पर्याय -->
+            <div class="form-group" style="margin-top:10px;">
+              <label><i class="fa-solid fa-image" style="color:var(--sky);"></i> प्रमाणपत्र बॅकग्राउंड इमेज अपलोड करा (JPG/PNG):</label>
+              <input type="file" id="input-cert-bg-file" accept="image/*" class="form-control" style="padding-top:8px;" onchange="handleCertBgUpload(this)">
+            </div>
+          </div>
+
+          <!-- बॅनर कंट्रोल्स -->
+          <div id="des-controls-banner" style="display:none;">
+            <div class="form-group" style="margin-bottom:8px;">
+              <label>बॅनर मुख्य मथळा:</label>
+              <input type="text" class="form-control" id="tmpl-banner-title" value="बीड जिल्हा सराव परीक्षा टॉपर्स" oninput="updateLiveDesigner()">
+            </div>
+            <div class="form-group" style="margin-bottom:8px;">
+              <label>वरचा बॅज मजकूर:</label>
+              <input type="text" class="form-control" id="tmpl-banner-badge" value="💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐" oninput="updateLiveDesigner()">
+            </div>
+            <div class="form-group" style="margin-bottom:8px;">
+              <label>तळटीप सौजन्य (Footer):</label>
+              <input type="text" class="form-control" id="tmpl-banner-footer" value="🎯 शिक्षण विभाग, जिल्हा परिषद बीड" oninput="updateLiveDesigner()">
+            </div>
+
+            <!-- स्लायडर्स -->
+            <div class="slider-control-row">
+              <label>मथळा फॉन्ट आकार:</label>
+              <input type="range" id="slider-banner-font" min="16" max="32" value="22" oninput="applyDesignerStyles()">
+              <span class="slider-val-badge" id="val-banner-font">22px</span>
+            </div>
+            <div class="slider-control-row">
+              <label>टॉपर्स यादीतील अंतर (Gap):</label>
+              <input type="range" id="slider-banner-gap" min="2" max="14" value="5" oninput="applyDesignerStyles()">
+              <span class="slider-val-badge" id="val-banner-gap">5px</span>
+            </div>
+          </div>
+        </div>
+
+        <p style="font-size:0.8rem; color:#b45309; font-weight:700; margin-bottom:8px;">
+          <i class="fa-solid fa-up-down-left-right"></i> सूचना: खालील प्रिव्ह्यू मधील घटकांना बोटाने किंवा माउसने ड्रॅग करून (Drag & Drop) हव्या त्या जागेवर सेट करा.
+        </p>
+
+        <!-- थेट लाइव्ह प्रिव्ह्यू एरिया (Drag & Drop) -->
+        <div style="background:#e2e8f0; padding:10px; border-radius:12px; overflow-x:auto; margin-bottom:12px;">
+          
+          <!-- प्रमाणपत्र लाइव्ह डिझायनर बॉक्स -->
+          <div class="cert-container-box designer-active-box" id="admin-live-cert-designer">
+            <div class="draggable-element" id="drag-cert-title" style="top:48px; left:130px; text-align:center; width:560px; font-size:1.95rem; font-weight:800; color:#0f2b5c;">
+              गुणवत्ता सन्मान प्रमाणपत्र
+            </div>
+            <div class="draggable-element" id="drag-cert-date" style="top:104px; right:36px; font-size:0.86rem; font-weight:600; color:#334155; font-family:'Poppins', sans-serif;">
+              Date: 15/10/2026
+            </div>
+            <div class="draggable-element" id="drag-cert-name" style="top:150px; left:55px; width:710px; text-align:center; font-family:'Yatra One', cursive; font-size:1.7rem; color:#991b1b; text-decoration:underline;">
+              विद्यार्थ्याचे नाव येथे दिसेल
+            </div>
+            <div class="draggable-element" id="drag-cert-body" style="top:205px; left:55px; width:710px; text-align:center; font-size:1.04rem; line-height:1.85; color:#1e293b; font-weight:500;">
+              (Class 5th), शाळा: <strong>जि.प.प्रा.शाळा सावरगाव</strong> (UDISE: <span class="cert-udise-txt">27270709601</span>), तालुका: <strong>माजलगाव</strong> या विद्यार्थ्याने जिल्हा परिषद, बीड अंतर्गत आयोजित नवोदय सराव परीक्षेत उत्कृष्ट यश संपादन केले आहे.
+            </div>
+            <div class="draggable-element" id="drag-cert-badges" style="top:330px; left:55px; width:710px; display:flex; justify-content:center; gap:18px;">
+              <div class="cert-badge-gold" style="font-family:'Poppins', sans-serif;">
+                <i class="fa-solid fa-star" style="color:#d97706;"></i> प्राप्त गुण: 98 / 100
+              </div>
+              <div class="cert-badge-gold">
+                <i class="fa-solid fa-trophy" style="color:#d97706;"></i> क्रमांक #1
+              </div>
+            </div>
+            <div class="draggable-element" id="drag-cert-sign" style="top:470px; right:35px; text-align:right; font-size:0.88rem; font-weight:800; color:#0f2b5c;">
+              शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड
+            </div>
+          </div>
+
+          <!-- बॅनर लाइव्ह डिझायनर बॉक्स -->
+          <div class="banner-preview-box designer-active-box" id="admin-live-banner-designer" style="display:none;">
+            <div class="draggable-element" id="drag-banner-badge" style="top:16px; left:20px; width:560px; text-align:center;">
+              <span class="banner-top-badge" id="banner-designer-badge-txt">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
+            </div>
+            <div class="draggable-element" id="drag-banner-title" style="top:52px; left:20px; width:560px; text-align:center;">
+              <h2 class="banner-heading-main" id="banner-designer-title-txt">बीड जिल्हा सराव परीक्षा टॉपर्स</h2>
+              <p class="banner-subheading">चाचणी निकाल | गुणवत्ता यादी (Top 10)</p>
+            </div>
+            <div class="draggable-element" id="drag-banner-toppers" style="top:130px; left:20px; width:560px;">
+              <div class="banner-topper-grid" id="banner-designer-topper-grid">
+                <div class="banner-row"><span>🥇 <strong>१. सार्थक सोळंके</strong> (जि.प.शाळा सावरगाव)</span><span style="color:#d97706; font-weight:800;">98/100</span></div>
+                <div class="banner-row"><span>🥈 <strong>२. अनिकेत देशमुख</strong> (जि.प.शाळा माजलगाव)</span><span style="color:#d97706; font-weight:800;">96/100</span></div>
+                <div class="banner-row"><span>🥉 <strong>३. वैष्णवी कदम</strong> (जि.प.शाळा गेवराई)</span><span style="color:#d97706; font-weight:800;">95/100</span></div>
+                <div class="banner-row"><span>#4 <strong>४. राहुल पवार</strong> (जि.प.शाळा अंबाजोगाई)</span><span style="color:#d97706; font-weight:800;">94/100</span></div>
+                <div class="banner-row"><span>#5 <strong>५. प्रणाली शिंदे</strong> (जि.प.शाळा पाटोदा)</span><span style="color:#d97706; font-weight:800;">93/100</span></div>
+              </div>
+            </div>
+            <div class="draggable-element" id="drag-banner-footer" style="bottom:15px; left:20px; width:560px;">
+              <div class="banner-footer-auth">
+                <span id="banner-designer-footer-txt">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
+                <span>🏆 जिल्हा परिषद बीड</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="app-btn btn-primary" onclick="saveVisualTemplatesToFirebase()">
+          <i class="fa-solid fa-floppy-disk"></i> हे डिझाईन व लेआउट Firebase वर सेव्ह करा
+        </button>
       </div>
 
       <!-- १. चाचणीनिहाय एकूण गुण सेट करा -->
@@ -1295,21 +1372,21 @@
 
       <div style="overflow-x:auto; background:#f1f5f9; padding:10px; border-radius:10px; display:flex; justify-content:center;">
         <div class="banner-preview-box" id="banner-card-render">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-            <img src="logo.jpeg" alt="ZP Logo" style="width:48px; height:48px; object-fit:contain;" onerror="this.style.display='none'">
-            <div style="text-align:center; flex:1;">
-              <span class="banner-top-badge" id="banner-render-badge">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
-              <h2 class="banner-heading-main" id="banner-heading-text">बीड जिल्हा सराव परीक्षा टॉपर्स</h2>
-              <p class="banner-subheading" id="banner-sub-text">चाचणी निकाल | गुणवत्ता यादी (Top 10)</p>
-            </div>
-            <i class="fa-solid fa-graduation-cap" style="font-size:2rem; color:var(--gold);"></i>
+          <div style="position:absolute;" id="render-banner-badge-pos">
+            <span class="banner-top-badge" id="banner-render-badge">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
           </div>
-
-          <div class="banner-topper-grid" id="banner-toppers-list"></div>
-
-          <div class="banner-footer-auth">
-            <span id="banner-render-footer">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
-            <span>🏆 जिल्हा परिषद बीड</span>
+          <div style="position:absolute;" id="render-banner-title-pos">
+            <h2 class="banner-heading-main" id="banner-heading-text">बीड जिल्हा सराव परीक्षा टॉपर्स</h2>
+            <p class="banner-subheading" id="banner-sub-text">चाचणी निकाल | गुणवत्ता यादी (Top 10)</p>
+          </div>
+          <div style="position:absolute;" id="render-banner-toppers-pos">
+            <div class="banner-topper-grid" id="banner-toppers-list"></div>
+          </div>
+          <div style="position:absolute;" id="render-banner-footer-pos">
+            <div class="banner-footer-auth">
+              <span id="banner-render-footer">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
+              <span>🏆 जिल्हा परिषद बीड</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1331,25 +1408,28 @@
 
       <div class="cert-scroll-wrapper">
         <div class="cert-container-box" id="cert-card-render">
-          <div class="cert-main-heading" id="cert-render-title">गुणवत्ता सन्मान प्रमाणपत्र</div>
-          <div class="cert-date-badge" id="cert-date-text">Date: 14/10/2026</div>
-
-          <div class="cert-overlay-content">
-            <h2 class="cert-student-title" id="cert-std-name">---</h2>
-            <div class="cert-para" id="cert-render-body"></div>
-            
-            <div class="cert-badges">
-              <div class="cert-badge-gold" id="cert-marks">
-                <i class="fa-solid fa-star" style="color: #d97706;"></i> प्राप्त गुण: 98 / 100
-              </div>
-              <div class="cert-badge-gold" id="cert-rank-text">
-                <i class="fa-solid fa-trophy" style="color: #d97706;"></i> क्रमांक #1
-              </div>
+          <div class="draggable-element" id="render-cert-title-pos" style="text-align:center; width:560px; font-size:1.95rem; font-weight:800; color:#0f2b5c;">
+            <span id="cert-render-title">गुणवत्ता सन्मान प्रमाणपत्र</span>
+          </div>
+          <div class="draggable-element" id="render-cert-date-pos" style="font-size:0.86rem; font-weight:600; color:#334155; font-family:'Poppins', sans-serif;">
+            <span id="cert-date-text">Date: 15/10/2026</span>
+          </div>
+          <div class="draggable-element" id="render-cert-name-pos" style="width:710px; text-align:center; font-family:'Yatra One', cursive; font-size:1.7rem; color:#991b1b; text-decoration:underline;">
+            <span id="cert-std-name">---</span>
+          </div>
+          <div class="draggable-element" id="render-cert-body-pos" style="width:710px; text-align:center; font-size:1.04rem; line-height:1.85; color:#1e293b; font-weight:500;">
+            <div id="cert-render-body"></div>
+          </div>
+          <div class="draggable-element" id="render-cert-badges-pos" style="width:710px; display:flex; justify-content:center; gap:18px;">
+            <div class="cert-badge-gold" id="cert-marks">
+              <i class="fa-solid fa-star" style="color: #d97706;"></i> प्राप्त गुण: 98 / 100
             </div>
-
-            <div style="position:absolute; bottom:-140px; right:20px; text-align:right; font-size:0.88rem; font-weight:800; color:#0f2b5c;" id="cert-render-sign">
-              शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड
+            <div class="cert-badge-gold" id="cert-rank-text">
+              <i class="fa-solid fa-trophy" style="color: #d97706;"></i> क्रमांक #1
             </div>
+          </div>
+          <div class="draggable-element" id="render-cert-sign-pos" style="text-align:right; font-size:0.88rem; font-weight:800; color:#0f2b5c;">
+            <span id="cert-render-sign">शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड</span>
           </div>
         </div>
       </div>
@@ -1412,41 +1492,21 @@
     </div>
   </div>
 
-  <!-- ८. शाळेच्या रेकॉर्डसाठी लपलेला A4 प्रिंट तक्ता (Aparajita Style PDF साठी) -->
+  <!-- ८. शाळेच्या रेकॉर्डसाठी Multi-page प्रिंट कंटेनर -->
   <div style="position:absolute; left:-9999px; top:-9999px;">
-    <div id="school-record-print-render" class="school-record-print-wrap">
-      <div style="text-align:center; border-bottom:2px solid #0f172a; padding-bottom:8px; margin-bottom:10px;">
-        <h2 style="font-size:1.35rem; color:#0f2b5c; font-weight:800; margin-bottom:2px;">जिल्हा परिषद बीड - शिक्षण विभाग</h2>
-        <h3 style="font-size:1.15rem; color:#b45309; font-weight:700;" id="print-school-exam-title">सराव चाचणी विद्यार्थी गुण नोंद तक्ता</h3>
-        <p style="font-size:0.95rem; font-weight:600; color:#334155; margin-top:3px;">
-          शाळा: <strong><span id="print-school-name">-</span></strong> | UDISE: <strong><span id="print-school-udise">-</span></strong> | तालुका: <strong><span id="print-school-taluka">-</span></strong>
-        </p>
-        <p style="font-size:0.9rem; font-weight:700; color:#0369a1; margin-top:2px;" id="print-test-info-badge">
-          चाचणी क्रमांक: 6 | एकूण गुण: 100
-        </p>
-      </div>
-
-      <table class="school-record-table" id="school-record-render-table">
-        <!-- डायनॅमिक विद्यार्थी यादी लोड होईल -->
-      </table>
-
-      <div style="display:flex; justify-content:space-between; margin-top:35px; font-weight:700; font-size:0.95rem; padding:0 10px;">
-        <div>वर्गशिक्षक स्वाक्षरी: ________________</div>
-        <div>मुख्याध्यापक स्वाक्षरी व शिक्का: ________________</div>
-      </div>
+    <div id="school-record-print-pages-container">
+      <!-- जावास्क्रिप्टद्वारे मल्टीपल A4 पाने तयार होतील -->
     </div>
   </div>
 
   <div class="toast" id="toastMsg">माहिती सेव्ह झाली!</div>
 
   <script>
-    /* ================= १. १२ तालुक्यांची यादी ================= */
     const TALUKA_LIST = [
       "अंबाजोगाई", "आष्टी", "बीड ग्रामीण", "बीड शहर", "धारूर", 
       "गेवराई", "केज", "माजलगाव", "परळी", "पाटोदा", "शिरूर कासार", "वडवणी"
     ];
 
-    /* ================= २. FIREBASE CONFIG ================= */
     const firebaseConfig = {
       apiKey: "AIzaSyBrKGEMc9uxBoZ4VIcNfOXq7xt_IZmluDE",
       authDomain: "test-database-34c8a.firebaseapp.com",
@@ -1515,16 +1575,35 @@
     let selectedAdminTaluka = TALUKA_LIST[0];
 
     let flashTimer = null;
-
     let BEED_ALL_SCHOOLS = [];
 
+    /* व्हिज्युअल डिझाईन कॉन्फिगरेशन */
     let TEMPLATE_CONFIG = {
       certTitle: "गुणवत्ता सन्मान प्रमाणपत्र",
       certBody: "({CLASS}), शाळा: <strong>{SCHOOL}</strong> (UDISE: <span class=\"cert-udise-txt\">{UDISE}</span>), तालुका: <strong>{TALUKA}</strong> {PRONOUN} जिल्हा परिषद, बीड अंतर्गत आयोजित <strong>{EXAM}</strong> अंतर्गत चाचणी क्र. <strong style=\"font-size:1.15rem; color:#b45309; font-family:'Poppins', sans-serif;\">{TEST}</strong> मध्ये उत्कृष्ट यश संपादन केले आहे.",
       certSign: "शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड",
       bannerTitle: "बीड जिल्हा सराव परीक्षा टॉपर्स",
       bannerBadge: "💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐",
-      bannerFooter: "🎯 शिक्षण विभाग, जिल्हा परिषद बीड"
+      bannerFooter: "🎯 शिक्षण विभाग, जिल्हा परिषद बीड",
+      certBgUrl: "cert.jpeg",
+      certPositions: {
+        title: { top: 48, left: 130 },
+        date: { top: 104, left: 660 },
+        name: { top: 150, left: 55 },
+        body: { top: 205, left: 55 },
+        badges: { top: 330, left: 55 },
+        sign: { top: 470, left: 510 }
+      },
+      bannerPositions: {
+        badge: { top: 16, left: 20 },
+        title: { top: 52, left: 20 },
+        toppers: { top: 130, left: 20 },
+        footer: { top: 710, left: 20 }
+      },
+      certFontSize: 16,
+      certLineHeight: 1.85,
+      bannerFontSize: 22,
+      bannerGap: 5
     };
 
     function listenCustomTemplates() {
@@ -1532,109 +1611,235 @@
         const val = snap.val();
         if (val) {
           TEMPLATE_CONFIG = { ...TEMPLATE_CONFIG, ...val };
-          loadTemplatesIntoInputs();
+          applySavedVisualLayouts();
         }
       });
     }
 
-    function loadTemplatesIntoInputs() {
+    function switchDesignerTab(type) {
+      document.getElementById('btn-des-tab-cert').classList.toggle('active', type === 'cert');
+      document.getElementById('btn-des-tab-banner').classList.toggle('active', type === 'banner');
+      document.getElementById('des-controls-cert').style.display = (type === 'cert') ? 'block' : 'none';
+      document.getElementById('des-controls-banner').style.display = (type === 'banner') ? 'block' : 'none';
+
+      document.getElementById('admin-live-cert-designer').style.display = (type === 'cert') ? 'block' : 'none';
+      document.getElementById('admin-live-banner-designer').style.display = (type === 'banner') ? 'block' : 'none';
+    }
+
+    function updateLiveDesigner() {
+      const cTitle = document.getElementById('tmpl-cert-title').value.trim();
+      const cBody = document.getElementById('tmpl-cert-body').value.trim();
+      const cSign = document.getElementById('tmpl-cert-sign').value.trim();
+      const bTitle = document.getElementById('tmpl-banner-title').value.trim();
+      const bBadge = document.getElementById('tmpl-banner-badge').value.trim();
+      const bFooter = document.getElementById('tmpl-banner-footer').value.trim();
+
+      if (cTitle) document.getElementById('drag-cert-title').innerText = cTitle;
+      if (cBody) document.getElementById('drag-cert-body').innerHTML = cBody.replace(/{NAME}/g, 'सार्थक सोळंके').replace(/{CLASS}/g, 'Class 5th').replace(/{SCHOOL}/g, 'जि.प.शाळा सावरगाव').replace(/{UDISE}/g, '27270709601').replace(/{TALUKA}/g, 'माजलगाव').replace(/{PRONOUN}/g, 'या विद्यार्थ्याने').replace(/{EXAM}/g, 'नवोदय सराव परीक्षा').replace(/{TEST}/g, '6');
+      if (cSign) document.getElementById('drag-cert-sign').innerText = cSign;
+
+      if (bTitle) document.getElementById('banner-designer-title-txt').innerText = bTitle;
+      if (bBadge) document.getElementById('banner-designer-badge-txt').innerText = bBadge;
+      if (bFooter) document.getElementById('banner-designer-footer-txt').innerText = bFooter;
+    }
+
+    function applyDesignerStyles() {
+      const cFont = document.getElementById('slider-cert-font').value;
+      const cLh = document.getElementById('slider-cert-lh').value;
+      const bFont = document.getElementById('slider-banner-font').value;
+      const bGap = document.getElementById('slider-banner-gap').value;
+
+      document.getElementById('val-cert-font').innerText = cFont + 'px';
+      document.getElementById('val-cert-lh').innerText = cLh;
+      document.getElementById('val-banner-font').innerText = bFont + 'px';
+      document.getElementById('val-banner-gap').innerText = bGap + 'px';
+
+      const dragBody = document.getElementById('drag-cert-body');
+      dragBody.style.fontSize = cFont + 'px';
+      dragBody.style.lineHeight = cLh;
+
+      const bannerTitle = document.getElementById('banner-designer-title-txt');
+      bannerTitle.style.fontSize = bFont + 'px';
+
+      const bannerGrid = document.getElementById('banner-designer-topper-grid');
+      bannerGrid.style.gap = bGap + 'px';
+    }
+
+    function handleCertBgUpload(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const bgDataUrl = e.target.result;
+          TEMPLATE_CONFIG.certBgUrl = bgDataUrl;
+          document.getElementById('admin-live-cert-designer').style.backgroundImage = `url('${bgDataUrl}')`;
+          document.getElementById('cert-card-render').style.backgroundImage = `url('${bgDataUrl}')`;
+          showToast('पार्श्वभूमी इमेज यशस्वीपणे बदलली!');
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function makeElementDraggable(el, containerEl, onMoveEnd) {
+      let isDragging = false;
+      let startX, startY, initialLeft, initialTop;
+
+      function onStart(e) {
+        isDragging = true;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        startX = clientX;
+        startY = clientY;
+        initialLeft = el.offsetLeft;
+        initialTop = el.offsetTop;
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onEnd);
+        document.addEventListener('touchmove', onMove, { passive: false });
+        document.addEventListener('touchend', onEnd);
+      }
+
+      function onMove(e) {
+        if (!isDragging) return;
+        if (e.preventDefault) e.preventDefault();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const dx = clientX - startX;
+        const dy = clientY - startY;
+
+        let newLeft = initialLeft + dx;
+        let newTop = initialTop + dy;
+
+        if (newLeft < 0) newLeft = 0;
+        if (newTop < 0) newTop = 0;
+        if (newLeft + el.offsetWidth > containerEl.offsetWidth) newLeft = containerEl.offsetWidth - el.offsetWidth;
+        if (newTop + el.offsetHeight > containerEl.offsetHeight) newTop = containerEl.offsetHeight - el.offsetHeight;
+
+        el.style.left = newLeft + 'px';
+        el.style.top = newTop + 'px';
+      }
+
+      function onEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onEnd);
+        document.removeEventListener('touchmove', onMove);
+        document.removeEventListener('touchend', onEnd);
+        if (onMoveEnd) onMoveEnd(el.offsetLeft, el.offsetTop);
+      }
+
+      el.addEventListener('mousedown', onStart);
+      el.addEventListener('touchstart', onStart, { passive: false });
+    }
+
+    function initAllDraggables() {
+      const certBox = document.getElementById('admin-live-cert-designer');
+      const bannerBox = document.getElementById('admin-live-banner-designer');
+
+      ['drag-cert-title', 'drag-cert-date', 'drag-cert-name', 'drag-cert-body', 'drag-cert-badges', 'drag-cert-sign'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) makeElementDraggable(el, certBox);
+      });
+
+      ['drag-banner-badge', 'drag-banner-title', 'drag-banner-toppers', 'drag-banner-footer'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) makeElementDraggable(el, bannerBox);
+      });
+    }
+
+    function applySavedVisualLayouts() {
       if (document.getElementById('tmpl-cert-title')) document.getElementById('tmpl-cert-title').value = TEMPLATE_CONFIG.certTitle;
       if (document.getElementById('tmpl-cert-body')) document.getElementById('tmpl-cert-body').value = TEMPLATE_CONFIG.certBody;
       if (document.getElementById('tmpl-cert-sign')) document.getElementById('tmpl-cert-sign').value = TEMPLATE_CONFIG.certSign;
       if (document.getElementById('tmpl-banner-title')) document.getElementById('tmpl-banner-title').value = TEMPLATE_CONFIG.bannerTitle;
       if (document.getElementById('tmpl-banner-badge')) document.getElementById('tmpl-banner-badge').value = TEMPLATE_CONFIG.bannerBadge;
       if (document.getElementById('tmpl-banner-footer')) document.getElementById('tmpl-banner-footer').value = TEMPLATE_CONFIG.bannerFooter;
+
+      if (TEMPLATE_CONFIG.certBgUrl) {
+        document.getElementById('admin-live-cert-designer').style.backgroundImage = `url('${TEMPLATE_CONFIG.certBgUrl}')`;
+        document.getElementById('cert-card-render').style.backgroundImage = `url('${TEMPLATE_CONFIG.certBgUrl}')`;
+      }
+
+      const cp = TEMPLATE_CONFIG.certPositions;
+      if (cp) {
+        setElementPos('drag-cert-title', 'render-cert-title-pos', cp.title);
+        setElementPos('drag-cert-date', 'render-cert-date-pos', cp.date);
+        setElementPos('drag-cert-name', 'render-cert-name-pos', cp.name);
+        setElementPos('drag-cert-body', 'render-cert-body-pos', cp.body);
+        setElementPos('drag-cert-badges', 'render-cert-badges-pos', cp.badges);
+        setElementPos('drag-cert-sign', 'render-cert-sign-pos', cp.sign);
+      }
+
+      const bp = TEMPLATE_CONFIG.bannerPositions;
+      if (bp) {
+        setElementPos('drag-banner-badge', 'render-banner-badge-pos', bp.badge);
+        setElementPos('drag-banner-title', 'render-banner-title-pos', bp.title);
+        setElementPos('drag-banner-toppers', 'render-banner-toppers-pos', bp.toppers);
+        setElementPos('drag-banner-footer', 'render-banner-footer-pos', bp.footer);
+      }
+
+      if (TEMPLATE_CONFIG.certFontSize) {
+        document.getElementById('slider-cert-font').value = TEMPLATE_CONFIG.certFontSize;
+        document.getElementById('val-cert-font').innerText = TEMPLATE_CONFIG.certFontSize + 'px';
+      }
+      if (TEMPLATE_CONFIG.certLineHeight) {
+        document.getElementById('slider-cert-lh').value = TEMPLATE_CONFIG.certLineHeight;
+        document.getElementById('val-cert-lh').innerText = TEMPLATE_CONFIG.certLineHeight;
+      }
+      if (TEMPLATE_CONFIG.bannerFontSize) {
+        document.getElementById('slider-banner-font').value = TEMPLATE_CONFIG.bannerFontSize;
+        document.getElementById('val-banner-font').innerText = TEMPLATE_CONFIG.bannerFontSize + 'px';
+      }
+      if (TEMPLATE_CONFIG.bannerGap) {
+        document.getElementById('slider-banner-gap').value = TEMPLATE_CONFIG.bannerGap;
+        document.getElementById('val-banner-gap').innerText = TEMPLATE_CONFIG.bannerGap + 'px';
+      }
+
+      updateLiveDesigner();
+      applyDesignerStyles();
     }
 
-    function saveTemplatesToFirebase() {
+    function setElementPos(designerId, renderId, posObj) {
+      if (!posObj) return;
+      const desEl = document.getElementById(designerId);
+      const renEl = document.getElementById(renderId);
+      if (desEl) { desEl.style.top = posObj.top + 'px'; desEl.style.left = posObj.left + 'px'; }
+      if (renEl) { renEl.style.top = posObj.top + 'px'; renEl.style.left = posObj.left + 'px'; }
+    }
+
+    function saveVisualTemplatesToFirebase() {
       const cfg = {
         certTitle: document.getElementById('tmpl-cert-title').value.trim() || TEMPLATE_CONFIG.certTitle,
         certBody: document.getElementById('tmpl-cert-body').value.trim() || TEMPLATE_CONFIG.certBody,
         certSign: document.getElementById('tmpl-cert-sign').value.trim() || TEMPLATE_CONFIG.certSign,
         bannerTitle: document.getElementById('tmpl-banner-title').value.trim() || TEMPLATE_CONFIG.bannerTitle,
         bannerBadge: document.getElementById('tmpl-banner-badge').value.trim() || TEMPLATE_CONFIG.bannerBadge,
-        bannerFooter: document.getElementById('tmpl-banner-footer').value.trim() || TEMPLATE_CONFIG.bannerFooter
+        bannerFooter: document.getElementById('tmpl-banner-footer').value.trim() || TEMPLATE_CONFIG.bannerFooter,
+        certBgUrl: TEMPLATE_CONFIG.certBgUrl,
+        certFontSize: parseInt(document.getElementById('slider-cert-font').value, 10),
+        certLineHeight: parseFloat(document.getElementById('slider-cert-lh').value),
+        bannerFontSize: parseInt(document.getElementById('slider-banner-font').value, 10),
+        bannerGap: parseInt(document.getElementById('slider-banner-gap').value, 10),
+        certPositions: {
+          title: { top: document.getElementById('drag-cert-title').offsetTop, left: document.getElementById('drag-cert-title').offsetLeft },
+          date: { top: document.getElementById('drag-cert-date').offsetTop, left: document.getElementById('drag-cert-date').offsetLeft },
+          name: { top: document.getElementById('drag-cert-name').offsetTop, left: document.getElementById('drag-cert-name').offsetLeft },
+          body: { top: document.getElementById('drag-cert-body').offsetTop, left: document.getElementById('drag-cert-body').offsetLeft },
+          badges: { top: document.getElementById('drag-cert-badges').offsetTop, left: document.getElementById('drag-cert-badges').offsetLeft },
+          sign: { top: document.getElementById('drag-cert-sign').offsetTop, left: document.getElementById('drag-cert-sign').offsetLeft }
+        },
+        bannerPositions: {
+          badge: { top: document.getElementById('drag-banner-badge').offsetTop, left: document.getElementById('drag-banner-badge').offsetLeft },
+          title: { top: document.getElementById('drag-banner-title').offsetTop, left: document.getElementById('drag-banner-title').offsetLeft },
+          toppers: { top: document.getElementById('drag-banner-toppers').offsetTop, left: document.getElementById('drag-banner-toppers').offsetLeft },
+          footer: { top: document.getElementById('drag-banner-footer').offsetTop, left: document.getElementById('drag-banner-footer').offsetLeft }
+        }
       };
 
       db.ref('custom_templates').set(cfg).then(() => {
         TEMPLATE_CONFIG = cfg;
-        showToast('प्रमाणपत्र व बॅनर सेटिंग्ज सेव्ह झाल्या!');
-        showCustomAlert('अभिनंदन! प्रमाणपत्र व बॅनरचा मजकूर यशस्वीरित्या अद्ययावत झाला आहे.');
+        showToast('व्हिज्युअल लेआउट Firebase वर सेव्ह झाले!');
+        showCustomAlert('अभिनंदन! प्रमाणपत्र व बॅनरचे ड्रॅग केलेले लेआउट, फॉन्ट साईज व पार्श्वभूमी यशस्वीरित्या सेव्ह झाली आहे.');
       });
-    }
-
-    function runGlobalOneTimeMergeDistrict() {
-      const migrationFlagKey = 'beed_district_merged_v3';
-      if (localStorage.getItem(migrationFlagKey)) return;
-
-      const categories = ['navodaya', '4th', '7th', 'nmms'];
-
-      categories.forEach(cat => {
-        const baseActiveTest = (cat === 'navodaya') ? 6 : 8;
-        const targetRefPath = `results/${cat}/test_${baseActiveTest}`;
-
-        let promises = [];
-        promises.push(db.ref(targetRefPath).once('value'));
-
-        let futureTests = (cat === 'navodaya') ? [7, 8, 9, 10] : [9, 10];
-        futureTests.forEach(tNum => {
-          promises.push(db.ref(`results/${cat}/test_${tNum}`).once('value'));
-        });
-
-        Promise.all(promises).then(snapshots => {
-          let baseData = snapshots[0].val() || {};
-          let hasMergedData = false;
-
-          for (let i = 1; i < snapshots.length; i++) {
-            const fTestData = snapshots[i].val();
-            const futureTestNumber = futureTests[i - 1];
-
-            if (fTestData) {
-              Object.keys(fTestData).forEach(schoolKey => {
-                const fEntry = fTestData[schoolKey];
-                if (fEntry && fEntry.students && Array.isArray(fEntry.students)) {
-                  hasMergedData = true;
-
-                  if (!baseData[schoolKey]) {
-                    baseData[schoolKey] = fEntry;
-                  } else {
-                    fEntry.students.forEach(stFuture => {
-                      if (stFuture.marks !== undefined && stFuture.marks !== '') {
-                        const existingStudent = baseData[schoolKey].students.find(s => s.id === stFuture.id || s.name.trim() === stFuture.name.trim());
-                        
-                        if (existingStudent) {
-                          const mBaseStr = String(existingStudent.marks || '').toUpperCase();
-                          const mFutStr = String(stFuture.marks || '').toUpperCase();
-
-                          if (mBaseStr === '' || mBaseStr === 'AB') {
-                            existingStudent.marks = stFuture.marks;
-                          } else if (mFutStr !== '' && mFutStr !== 'AB') {
-                            const valBase = parseFloat(existingStudent.marks) || 0;
-                            const valFut = parseFloat(stFuture.marks) || 0;
-                            if (valFut > valBase) {
-                              existingStudent.marks = stFuture.marks;
-                            }
-                          }
-                        } else {
-                          baseData[schoolKey].students.push(stFuture);
-                        }
-                      }
-                    });
-                  }
-                }
-              });
-
-              db.ref(`results/${cat}/test_${futureTestNumber}`).remove();
-            }
-          }
-
-          if (hasMergedData) {
-            db.ref(targetRefPath).set(baseData);
-          }
-        });
-      });
-
-      localStorage.setItem(migrationFlagKey, 'true');
     }
 
     function initPortal() {
@@ -1648,7 +1853,7 @@
       listenCustomMaxMarks();
       listenCustomTemplates();
       initAdminPanelOptions();
-      
+      initAllDraggables();
       runGlobalOneTimeMergeDistrict();
 
       try { history.pushState({ page: 'home' }, ''); } catch(e) {}
@@ -1752,8 +1957,7 @@
           loadStudentMarksForSelectedTest();
         }
       } else if (view === 'admin') {
-        renderAdminParticipationDetails();
-        loadTemplatesIntoInputs();
+        applySavedVisualLayouts();
         updateAdminTestOptions();
         updateAdminLockTestOptions();
       }
@@ -2350,7 +2554,6 @@
       }
     }
 
-    /* ================= गुण लोड करणे ================= */
     function loadStudentMarksForSelectedTest() {
       const key = getSchoolDbKey();
       const testNo = document.getElementById('entry-test-no').value;
@@ -2383,7 +2586,6 @@
       }
     }
 
-    /* ================= अतिशय कॉम्पॅक्ट विद्यार्थी यादी रेंडरिंग ================= */
     function renderMobileStudentList(savedStudents) {
       const cont = document.getElementById('student-list-container');
       cont.innerHTML = '';
@@ -2412,13 +2614,11 @@
 
         cont.innerHTML += `
           <div class="student-entry-card">
-            <!-- ओळ १: अनुक्रमांक + नाव आणि समोरच लिंग -->
             <div class="compact-name-row">
               <span class="compact-name-text">${idx + 1}. ${st.name}</span>
               <span class="compact-gender-tag ${genderClass}">${st.gender}</span>
             </div>
             
-            <!-- ओळ २: हजेरी + गुण + प्रगती आलेख -->
             <div class="compact-action-row">
               <div class="compact-att-group">
                 <button type="button" class="compact-att-btn present ${!isAbsent ? 'active' : ''}" id="att-p-${st.id}" onclick="setAttendance(${st.id}, 'present')">उपस्थित</button>
@@ -2441,7 +2641,6 @@
       });
     }
 
-    /* ================= स्मार्ट ऑटो-मर्ज सेव्ह ================= */
     function submitMarksToFirebase() {
       const key = getSchoolDbKey();
       if (!key || !selectedSchoolObj) {
@@ -2528,7 +2727,7 @@
       });
     }
 
-    /* ================= शाळेच्या रेकॉर्डसाठी PDF डाऊनलोड (सेव्ह पडताळणीसह) ================= */
+    /* ================= शाळेच्या रेकॉर्डसाठी Multi-page PDF डाऊनलोड (सर्व विद्यार्थ्यांसाठी) ================= */
     function downloadSchoolRecordPDF() {
       if (!selectedSchoolObj) {
         showCustomAlert('कृपया प्रथम शाळा निवडा!');
@@ -2539,7 +2738,6 @@
       const testNo = document.getElementById('entry-test-no').value;
       const maxLimit = getMaxMarksForTest(currentEntryCategory, parseInt(testNo, 10));
 
-      // डेटाबेसमध्ये गुण सेव्ह आहेत का याची खात्री करणे
       db.ref(`results/${currentEntryCategory}/test_${testNo}/${key}`).once('value', (snapshot) => {
         const savedData = snapshot.val();
 
@@ -2548,7 +2746,6 @@
           return;
         }
 
-        // स्क्रीनवरील इनपुट्स आणि सेव्ह केलेल्या डेटाची जुळवणी
         let hasUnsavedChanges = false;
         currentStudentsList.forEach(st => {
           const inp = document.getElementById(`marks-input-${st.id}`);
@@ -2572,81 +2769,119 @@
           '7th': 'इयत्ता सातवी शिष्यवृत्ती सराव परीक्षा',
           'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा'
         };
+        const examTitle = examNames[currentEntryCategory] || 'सराव परीक्षा';
 
-        document.getElementById('print-school-exam-title').innerText = examNames[currentEntryCategory] || 'सराव परीक्षा';
-        document.getElementById('print-school-name').innerText = selectedSchoolObj.n;
-        document.getElementById('print-school-udise').innerText = selectedSchoolObj.c;
-        document.getElementById('print-school-taluka').innerText = selectedSchoolObj.t || '-';
-        document.getElementById('print-test-info-badge').innerText = `चाचणी क्रमांक: ${testNo} | एकूण कमाल गुण: ${maxLimit}`;
+        const students = savedData.students;
+        const totalStudents = students.length;
+        const STUDENTS_PER_PAGE = 26; // एका पानावर सुटसुटीत २६ विद्यार्थी
+        const totalPages = Math.ceil(totalStudents / STUDENTS_PER_PAGE);
 
-        const tableEl = document.getElementById('school-record-render-table');
-        let tableHtml = `
-          <thead>
-            <tr>
-              <th style="width:50px;">अ.क्र.</th>
-              <th>विद्यार्थ्याचे संपूर्ण नाव</th>
-              <th style="width:80px;">लिंग</th>
-              <th style="width:110px;">हजेरी स्थिती</th>
-              <th style="width:110px;">प्राप्त गुण (/${maxLimit})</th>
-            </tr>
-          </thead>
-          <tbody>
-        `;
+        const pagesContainer = document.getElementById('school-record-print-pages-container');
+        pagesContainer.innerHTML = '';
 
-        let presentCount = 0, absentCount = 0;
-
-        savedData.students.forEach((st, idx) => {
-          const val = st.marks !== undefined ? String(st.marks).trim() : '';
-          let status = 'कोरे';
-          let marksDisplay = '-';
-
-          if (val.toUpperCase() === 'AB') {
-            status = '<span style="color:#b91c1c; font-weight:800;">गैरहजर (AB)</span>';
-            marksDisplay = 'AB';
-            absentCount++;
-          } else if (val !== '') {
-            status = '<span style="color:#15803d; font-weight:800;">उपस्थित</span>';
-            marksDisplay = val;
-            presentCount++;
-          }
-
-          tableHtml += `
-            <tr style="text-align:center;">
-              <td>${idx + 1}</td>
-              <td style="text-align:left; font-weight:700;">${st.name}</td>
-              <td>${st.gender}</td>
-              <td>${status}</td>
-              <td style="font-weight:800; font-family:'Poppins', sans-serif;">${marksDisplay}</td>
-            </tr>
-          `;
+        let overallPresent = 0, overallAbsent = 0;
+        students.forEach(s => {
+          const v = String(s.marks || '').toUpperCase();
+          if (v === 'AB') overallAbsent++;
+          else if (v !== '') overallPresent++;
         });
 
-        tableHtml += `
-          <tr style="background:#f8fafc; font-weight:800; text-align:center;">
-            <td colspan="3" style="text-align:right;">एकूण: ${savedData.students.length} विद्यार्थी</td>
-            <td colspan="2">उपस्थित: ${presentCount} | गैरहजर: ${absentCount}</td>
-          </tr>
-          </tbody>
-        `;
+        for (let p = 0; p < totalPages; p++) {
+          const pageDiv = document.createElement('div');
+          pageDiv.className = 'school-record-page';
+          pageDiv.id = `school-print-page-${p}`;
 
-        tableEl.innerHTML = tableHtml;
+          const startIdx = p * STUDENTS_PER_PAGE;
+          const endIdx = Math.min(startIdx + STUDENTS_PER_PAGE, totalStudents);
+          const pageStudents = students.slice(startIdx, endIdx);
 
-        showToast('शाळेची PDF यादी तयार होत आहे...');
-        const printBox = document.getElementById('school-record-print-render');
+          let rowsHtml = '';
+          pageStudents.forEach((st, idx) => {
+            const actualIdx = startIdx + idx + 1;
+            const val = st.marks !== undefined ? String(st.marks).trim() : '';
+            let status = 'कोरे';
+            let marksDisplay = '-';
 
-        html2canvas(printBox, { scale: 2, useCORS: true }).then(canvas => {
-          const imgData = canvas.toDataURL('image/jpeg', 0.9);
-          const { jsPDF } = window.jspdf;
-          const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-          const pageWidth = 210, pageHeight = 297, margin = 8;
-          const maxW = pageWidth - (margin * 2);
-          const printH = (canvas.height * maxW) / canvas.width;
+            if (val.toUpperCase() === 'AB') {
+              status = '<span style="color:#b91c1c; font-weight:800;">गैरहजर (AB)</span>';
+              marksDisplay = 'AB';
+            } else if (val !== '') {
+              status = '<span style="color:#15803d; font-weight:800;">उपस्थित</span>';
+              marksDisplay = val;
+            }
 
-          pdf.addImage(imgData, 'JPEG', margin, margin, maxW, printH);
-          
+            rowsHtml += `
+              <tr style="text-align:center;">
+                <td style="font-family:'Poppins', sans-serif;">${actualIdx}</td>
+                <td style="text-align:left; font-weight:700;">${st.name}</td>
+                <td>${st.gender || '-'}</td>
+                <td>${status}</td>
+                <td style="font-weight:800; font-family:'Poppins', sans-serif;">${marksDisplay}</td>
+              </tr>
+            `;
+          });
+
+          pageDiv.innerHTML = `
+            <div style="text-align:center; border-bottom:2px solid #0f172a; padding-bottom:8px; margin-bottom:8px;">
+              <h2 style="font-size:1.35rem; color:#0f2b5c; font-weight:800; margin-bottom:2px;">जिल्हा परिषद बीड - शिक्षण विभाग</h2>
+              <h3 style="font-size:1.15rem; color:#b45309; font-weight:700;">${examTitle} - विद्यार्थी गुण नोंद तक्ता</h3>
+              <p style="font-size:0.95rem; font-weight:600; color:#334155; margin-top:3px;">
+                शाळा: <strong>${selectedSchoolObj.n}</strong> | UDISE: <strong>${selectedSchoolObj.c}</strong> | तालुका: <strong>${selectedSchoolObj.t || '-'}</strong>
+              </p>
+              <div style="display:flex; justify-content:space-between; font-size:0.88rem; font-weight:700; color:#0369a1; margin-top:3px;">
+                <span>चाचणी क्रमांक: ${testNo} (कमाल गुण: ${maxLimit})</span>
+                <span>एकूण विद्यार्थी: ${totalStudents} (उपस्थित: ${overallPresent} | गैरहजर: ${overallAbsent})</span>
+                <span>पृष्ठ: ${p + 1} / ${totalPages}</span>
+              </div>
+            </div>
+
+            <table class="school-record-table">
+              <thead>
+                <tr>
+                  <th style="width:50px;">अ.क्र.</th>
+                  <th>विद्यार्थ्याचे संपूर्ण नाव</th>
+                  <th style="width:80px;">लिंग</th>
+                  <th style="width:110px;">हजेरी स्थिती</th>
+                  <th style="width:110px;">प्राप्त गुण (/${maxLimit})</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rowsHtml}
+              </tbody>
+            </table>
+
+            <div style="display:flex; justify-content:space-between; margin-top:25px; font-weight:700; font-size:0.95rem; padding:0 10px;">
+              <div>वर्गशिक्षक स्वाक्षरी: ________________</div>
+              <div>मुख्याध्यापक स्वाक्षरी व शिक्का: ________________</div>
+            </div>
+          `;
+
+          pagesContainer.appendChild(pageDiv);
+        }
+
+        showToast(`शाळेची ${totalPages} पानांची PDF यादी तयार होत आहे...`);
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+        let renderPromises = [];
+        for (let p = 0; p < totalPages; p++) {
+          const pageElement = document.getElementById(`school-print-page-${p}`);
+          renderPromises.push(html2canvas(pageElement, { scale: 2, useCORS: true }));
+        }
+
+        Promise.all(renderPromises).then(canvases => {
+          canvases.forEach((canvas, idx) => {
+            if (idx > 0) pdf.addPage();
+            const imgData = canvas.toDataURL('image/jpeg', 0.9);
+            const pageWidth = 210, pageHeight = 297, margin = 8;
+            const maxW = pageWidth - (margin * 2);
+            const printH = (canvas.height * maxW) / canvas.width;
+            pdf.addImage(imgData, 'JPEG', margin, margin, maxW, Math.min(printH, pageHeight - (margin * 2)));
+          });
+
           const cleanSchoolName = selectedSchoolObj.n.replace(/\s+/g, '_');
-          pdf.save(`${cleanSchoolName}_चाचणी_${testNo}_गुण_यादी.pdf`);
-          showToast('शाळेची अधिकृत गुण यादी PDF डाऊनलोड झाली!');
+          pdf.save(`${cleanSchoolName}_चाचणी_${testNo}_सर्व_विद्यार्थी_गुण_यादी.pdf`);
+          showToast(`शाळेची संपूर्ण ${totalPages} पानांची PDF डाऊनलोड झाली!`);
         });
       });
     }
@@ -2866,7 +3101,6 @@
       updateAdminLockTestOptions();
       loadCurrentCustomMaxMarks();
       updateAdminMaxMarksInfo();
-      loadTemplatesIntoInputs();
     }
 
     function updateAdminTestOptions() {
@@ -3074,7 +3308,10 @@
                          .replace(/{TOTAL}/g, totalM)
                          .replace(/{RANK}/g, rankText);
 
-      document.getElementById('cert-render-body').innerHTML = bodyHtml;
+      const renderBody = document.getElementById('cert-render-body');
+      renderBody.innerHTML = bodyHtml;
+      renderBody.style.fontSize = (TEMPLATE_CONFIG.certFontSize || 16) + 'px';
+      renderBody.style.lineHeight = TEMPLATE_CONFIG.certLineHeight || 1.85;
 
       document.getElementById('cert-marks').innerHTML = `<i class="fa-solid fa-star" style="color:var(--gold);"></i> प्राप्त गुण: ${marks} / ${totalM}`;
       document.getElementById('cert-rank-text').innerHTML = `<i class="fa-solid fa-trophy" style="color:var(--gold);"></i> ${rankText}`;
