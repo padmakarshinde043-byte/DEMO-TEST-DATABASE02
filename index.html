@@ -389,129 +389,130 @@
     .reg-std-item strong { font-size: 0.95rem; color: #1e293b; }
     .reg-std-item span { font-size: 0.78rem; color: var(--text-muted); }
 
-    /* Student Entry Cards */
+    /* ================= अतिशय कॉम्पॅक्ट विद्यार्थी गुण नोंदणी कार्ड ================= */
     .student-entry-card {
       background: #ffffff;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
+      border: 1.2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      gap: 5px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
     }
-    .student-entry-header { display: flex; justify-content: space-between; align-items: center; }
-    .student-entry-info h4 { font-size: 1.05rem; font-weight: 800; color: #0f172a; }
-    .student-entry-info span { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+    .student-entry-card:nth-child(even) { background: #fafcff; }
 
-    .student-entry-bottom {
+    /* ओळ १: नाव आणि लिंग समोरच */
+    .compact-name-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      border-top: 1px dashed var(--border);
-      padding-top: 10px;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .compact-name-text {
+      font-size: 0.94rem;
+      font-weight: 800;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+    .compact-gender-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 10px;
+      background: #f1f5f9;
+      color: #475569;
+      white-space: nowrap;
+      border: 1px solid #e2e8f0;
+    }
+    .compact-gender-tag.girl { background: #fdf2f8; color: #be185d; border-color: #fbcfe8; }
+    .compact-gender-tag.boy { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+
+    /* ओळ २: हजेरी + गुण + प्रगती आलेख */
+    .compact-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
     }
 
-    .att-toggle-group {
+    .compact-att-group {
       display: flex;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
+      border: 1.2px solid #cbd5e1;
+      border-radius: 6px;
       overflow: hidden;
       background: white;
     }
-    .att-btn {
-      padding: 6px 14px;
-      font-size: 0.82rem;
-      font-weight: 700;
+    .compact-att-btn {
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
       border: none;
       background: transparent;
       cursor: pointer;
       color: #64748b;
-      transition: 0.2s;
+      transition: 0.15s;
     }
-    .att-btn.present.active { background: #dcfce7; color: #15803d; }
-    .att-btn.absent.active { background: #fee2e2; color: #b91c1c; }
+    .compact-att-btn.present.active { background: #dcfce7; color: #15803d; }
+    .compact-att-btn.absent.active { background: #fee2e2; color: #b91c1c; }
 
-    /* अंश व छेद स्वरूपात गुण नोंदणी बॉक्स */
-    .fraction-marks-wrap {
+    .compact-marks-wrap {
       display: inline-flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       background: white;
-      padding: 3px 6px;
-      border-radius: 10px;
-      border: 2px solid var(--border);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      padding: 1px 6px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      gap: 3px;
     }
-    .fraction-marks-wrap:focus-within {
+    .compact-marks-wrap:focus-within {
       border-color: var(--sky);
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
     }
-    .marks-input {
-      width: 74px;
-      height: 32px;
+    .compact-marks-input {
+      width: 50px;
+      height: 28px;
       text-align: center;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 800;
       border: none;
-      border-bottom: 2px solid #cbd5e1;
       outline: none;
       background: transparent;
       font-family: 'Poppins', sans-serif;
       color: #0f172a;
     }
-    .marks-input.is-absent {
+    .compact-marks-input.is-absent {
       color: var(--danger);
       font-weight: 800;
       background: #fef2f2;
     }
-    .fraction-denominator {
-      font-size: 0.78rem;
+    .compact-denominator {
+      font-size: 0.75rem;
       font-weight: 800;
       color: #64748b;
       font-family: 'Poppins', sans-serif;
-      margin-top: 2px;
-      letter-spacing: 0.5px;
     }
 
-    .btn-progress-chart {
-      width: 44px;
-      height: 48px;
-      border-radius: 10px;
-      border: 2px solid #0284c7;
+    .btn-compact-chart {
+      width: 32px;
+      height: 30px;
+      border-radius: 6px;
+      border: 1.5px solid #0284c7;
       background: #f0f9ff;
       color: #0284c7;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.3rem;
-      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.15);
-      transition: all 0.2s;
+      font-size: 0.95rem;
+      transition: 0.15s;
     }
-    .btn-progress-chart:active {
-      background: #0284c7;
-      color: white;
-      transform: scale(0.95);
-    }
-
-    .btn-icon-action {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 0.85rem;
-    }
-    .btn-delete { color: var(--danger); border-color: #fecaca; }
-    .btn-delete:active { background: #fee2e2; }
-    .btn-edit { color: var(--sky); border-color: #bae6fd; }
+    .btn-compact-chart:active { background: #0284c7; color: white; }
 
     /* Leaderboard Cards */
     .topper-card {
@@ -956,7 +957,7 @@
           </button>
         </div>
 
-        <!-- १२ तालुक्यांची एका रांगेत ४ प्रमाणे ३ रांगा (तालुका व केंद्र निवडण्यासाठी) -->
+        <!-- १२ तालुक्यांची एका रांगेत ४ प्रमाणे ३ रांगा -->
         <div id="taluka-4col-grid-wrap" style="display:none; margin-bottom:14px;">
           <p style="font-size:0.85rem; font-weight:700; color:#475569; margin-bottom:8px;" id="taluka-grid-label">
             <i class="fa-solid fa-hand-pointer" style="color:var(--sky);"></i> तालुका निवडा:
@@ -964,7 +965,7 @@
           <div class="taluka-4col-grid" id="taluka-4col-container"></div>
         </div>
 
-        <!-- संबंधित तालुक्यातील केंद्रे (केंद्र Toppers निवडल्यावर) -->
+        <!-- संबंधित तालुक्यातील केंद्रे -->
         <div id="kendra-grid-wrap" style="display:none; margin-bottom:14px; background:#fffbeb; padding:10px; border-radius:10px; border:1px solid #fed7aa;">
           <p style="font-size:0.85rem; font-weight:800; color:#92400e; margin-bottom:8px;" id="kendra-list-label">
             <i class="fa-solid fa-map-pin"></i> केंद्र निवडा:
@@ -2109,7 +2110,7 @@
           showToast('पिन पडताळणी यशस्वी!');
           proceedWithSchoolSelection(pendingSchoolToLock);
         } else {
-          showCustomAlert('चुकीचा सुरक्षा पिन! जर पिन विसरला असाल तर खालील "पिन विसरलात का?" पर्यायावर क्लिक करून मुख्याध्यापकांच्या नंबरद्वारे रिसेट करा.');
+          showCustomAlert('चुकीचा सुरक्षा पिन!');
         }
       }
     }
@@ -2349,7 +2350,7 @@
       }
     }
 
-    /* ================= गुण लोड करणे (लाइव्ह डेटा सिंकसह) ================= */
+    /* ================= गुण लोड करणे ================= */
     function loadStudentMarksForSelectedTest() {
       const key = getSchoolDbKey();
       const testNo = document.getElementById('entry-test-no').value;
@@ -2382,6 +2383,7 @@
       }
     }
 
+    /* ================= अतिशय कॉम्पॅक्ट विद्यार्थी यादी रेंडरिंग ================= */
     function renderMobileStudentList(savedStudents) {
       const cont = document.getElementById('student-list-container');
       cont.innerHTML = '';
@@ -2405,40 +2407,41 @@
           }
         }
 
+        const isGirl = (st.gender === "मुलगी" || st.gender === "girl");
+        const genderClass = isGirl ? "girl" : "boy";
+
         cont.innerHTML += `
           <div class="student-entry-card">
-            <div class="student-entry-header">
-              <div class="student-entry-info">
-                <h4>${idx + 1}. ${st.name}</h4>
-                <span>लिंग: ${st.gender}</span>
-              </div>
+            <!-- ओळ १: अनुक्रमांक + नाव आणि समोरच लिंग -->
+            <div class="compact-name-row">
+              <span class="compact-name-text">${idx + 1}. ${st.name}</span>
+              <span class="compact-gender-tag ${genderClass}">${st.gender}</span>
             </div>
             
-            <div class="student-entry-bottom">
-              <div class="att-toggle-group">
-                <button type="button" class="att-btn present ${!isAbsent ? 'active' : ''}" id="att-p-${st.id}" onclick="setAttendance(${st.id}, 'present')">उपस्थित</button>
-                <button type="button" class="att-btn absent ${isAbsent ? 'active' : ''}" id="att-a-${st.id}" onclick="setAttendance(${st.id}, 'absent')">गैरहजर (AB)</button>
+            <!-- ओळ २: हजेरी + गुण + प्रगती आलेख -->
+            <div class="compact-action-row">
+              <div class="compact-att-group">
+                <button type="button" class="compact-att-btn present ${!isAbsent ? 'active' : ''}" id="att-p-${st.id}" onclick="setAttendance(${st.id}, 'present')">उपस्थित</button>
+                <button type="button" class="compact-att-btn absent ${isAbsent ? 'active' : ''}" id="att-a-${st.id}" onclick="setAttendance(${st.id}, 'absent')">गैरहजर</button>
               </div>
 
-              <div style="display:flex; align-items:center; gap:8px;">
-                <div class="fraction-marks-wrap">
-                  <input type="text" inputmode="numeric" pattern="[0-9]*" class="marks-input ${isAbsent ? 'is-absent' : ''}" 
-                    id="marks-input-${st.id}" value="${marks}" placeholder="गुण" ${isAbsent ? 'readonly' : ''}
-                    onchange="validateMarksInput(this, ${maxLimit}, '${st.name}')">
-                  <span class="fraction-denominator">/ ${maxLimit}</span>
-                </div>
-                
-                <button class="btn-progress-chart" onclick="openReportCardModal(${st.id}, '${st.name}')" title="विद्यार्थी प्रगती आलेख">
-                  <i class="fa-solid fa-chart-column"></i>
-                </button>
+              <div class="compact-marks-wrap">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" class="compact-marks-input ${isAbsent ? 'is-absent' : ''}" 
+                  id="marks-input-${st.id}" value="${marks}" placeholder="गुण" ${isAbsent ? 'readonly' : ''}
+                  onchange="validateMarksInput(this, ${maxLimit}, '${st.name}')">
+                <span class="compact-denominator">/ ${maxLimit}</span>
               </div>
+              
+              <button class="btn-compact-chart" onclick="openReportCardModal(${st.id}, '${st.name}')" title="विद्यार्थी प्रगती आलेख">
+                <i class="fa-solid fa-chart-column"></i>
+              </button>
             </div>
           </div>
         `;
       });
     }
 
-    /* ================= स्मार्ट ऑटो-मर्ज सेव्ह (Smart Non-Destructive Update) ================= */
+    /* ================= स्मार्ट ऑटो-मर्ज सेव्ह ================= */
     function submitMarksToFirebase() {
       const key = getSchoolDbKey();
       if (!key || !selectedSchoolObj) {
@@ -2450,7 +2453,6 @@
       const maxLimit = getMaxMarksForTest(currentEntryCategory, parseInt(testNo, 10));
       let hasError = false;
 
-      // चालू स्क्रीनवरील भरलेले गुण गोळा करणे
       let currentScreenInputs = {};
       currentStudentsList.forEach(st => {
         const inp = document.getElementById(`marks-input-${st.id}`);
@@ -2476,7 +2478,6 @@
 
       if (hasError) return;
 
-      // आधी डेटाबेसमध्ये असलेले मागील गुण आणून स्मार्ट मर्ज करणे
       const targetDbRef = db.ref(`results/${currentEntryCategory}/test_${testNo}/${key}`);
 
       targetDbRef.once('value', (snapshot) => {
@@ -2489,16 +2490,15 @@
           });
         }
 
-        // स्मार्ट पॅच: ज्याचे गुण चालू स्क्रीनवर टाईप केले आहेत तेच अद्ययावत होतील, बाकीचे पूर्वीचे गुण तसेच राहतील
         let mergedStudentsList = currentStudentsList.map(st => {
           const currentInput = currentScreenInputs[st.id];
           const previousSaved = existingStudentsMap[st.id];
 
           let finalMarks = '';
           if (currentInput && currentInput.marks !== '') {
-            finalMarks = currentInput.marks; // चालू शिक्षकाने भरलेले गुण
+            finalMarks = currentInput.marks;
           } else if (previousSaved && previousSaved.marks !== undefined && previousSaved.marks !== '') {
-            finalMarks = previousSaved.marks; // आधी दुसऱ्या शिक्षकाने भरलेले गुण कायम राहतील!
+            finalMarks = previousSaved.marks;
           }
 
           return {
@@ -2521,105 +2521,133 @@
 
         targetDbRef.set(payload).then(() => {
           showToast('सर्व गुण सुरक्षित सेव्ह झाले!');
-          loadStudentMarksForSelectedTest(); // स्क्रीनवर सर्व विलीन झालेले गुण तात्काळ रिफ्रेश होतील
+          loadStudentMarksForSelectedTest();
         }).catch(err => {
           showCustomAlert('त्रुटी: ' + err.message);
         });
       });
     }
 
-    /* ================= शाळेच्या रेकॉर्डसाठी Aparajita Font A4 PDF डाऊनलोड ================= */
+    /* ================= शाळेच्या रेकॉर्डसाठी PDF डाऊनलोड (सेव्ह पडताळणीसह) ================= */
     function downloadSchoolRecordPDF() {
       if (!selectedSchoolObj) {
         showCustomAlert('कृपया प्रथम शाळा निवडा!');
         return;
       }
 
+      const key = getSchoolDbKey();
       const testNo = document.getElementById('entry-test-no').value;
       const maxLimit = getMaxMarksForTest(currentEntryCategory, parseInt(testNo, 10));
 
-      const examNames = {
-        'navodaya': 'नवोदय प्रवेश पात्रता सराव परीक्षा',
-        '4th': 'इयत्ता चौथी शिष्यवृत्ती सराव परीक्षा',
-        '7th': 'इयत्ता सातवी शिष्यवृत्ती सराव परीक्षा',
-        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा'
-      };
+      // डेटाबेसमध्ये गुण सेव्ह आहेत का याची खात्री करणे
+      db.ref(`results/${currentEntryCategory}/test_${testNo}/${key}`).once('value', (snapshot) => {
+        const savedData = snapshot.val();
 
-      document.getElementById('print-school-exam-title').innerText = examNames[currentEntryCategory] || 'सराव परीक्षा';
-      document.getElementById('print-school-name').innerText = selectedSchoolObj.n;
-      document.getElementById('print-school-udise').innerText = selectedSchoolObj.c;
-      document.getElementById('print-school-taluka').innerText = selectedSchoolObj.t || '-';
-      document.getElementById('print-test-info-badge').innerText = `चाचणी क्रमांक: ${testNo} | एकूण कमाल गुण: ${maxLimit}`;
-
-      const tableEl = document.getElementById('school-record-render-table');
-      let tableHtml = `
-        <thead>
-          <tr>
-            <th style="width:50px;">अ.क्र.</th>
-            <th>विद्यार्थ्याचे संपूर्ण नाव</th>
-            <th style="width:80px;">लिंग</th>
-            <th style="width:110px;">हजेरी स्थिती</th>
-            <th style="width:110px;">प्राप्त गुण (/${maxLimit})</th>
-          </tr>
-        </thead>
-        <tbody>
-      `;
-
-      let presentCount = 0, absentCount = 0;
-
-      currentStudentsList.forEach((st, idx) => {
-        const inp = document.getElementById(`marks-input-${st.id}`);
-        const val = inp ? inp.value.trim() : '';
-        let status = 'कोरे';
-        let marksDisplay = '-';
-
-        if (val.toUpperCase() === 'AB') {
-          status = '<span style="color:#b91c1c; font-weight:800;">गैरहजर (AB)</span>';
-          marksDisplay = 'AB';
-          absentCount++;
-        } else if (val !== '') {
-          status = '<span style="color:#15803d; font-weight:800;">उपस्थित</span>';
-          marksDisplay = val;
-          presentCount++;
+        if (!savedData || !savedData.students || savedData.students.length === 0) {
+          showCustomAlert("कृपया अगोदर 'सर्व गुण सुरक्षित सेव्ह करा' बटणावर क्लिक करून गुण सेव्ह करा, त्यानंतरच अधिकृत PDF डाऊनलोड करा!");
+          return;
         }
 
-        tableHtml += `
-          <tr style="text-align:center;">
-            <td>${idx + 1}</td>
-            <td style="text-align:left; font-weight:700;">${st.name}</td>
-            <td>${st.gender}</td>
-            <td>${status}</td>
-            <td style="font-weight:800; font-family:'Poppins', sans-serif;">${marksDisplay}</td>
-          </tr>
+        // स्क्रीनवरील इनपुट्स आणि सेव्ह केलेल्या डेटाची जुळवणी
+        let hasUnsavedChanges = false;
+        currentStudentsList.forEach(st => {
+          const inp = document.getElementById(`marks-input-${st.id}`);
+          const screenVal = inp ? inp.value.trim() : '';
+          const savedRecord = savedData.students.find(s => s.id === st.id || s.name.trim() === st.name.trim());
+          const savedVal = savedRecord && savedRecord.marks !== undefined ? String(savedRecord.marks).trim() : '';
+
+          if (screenVal !== savedVal) {
+            hasUnsavedChanges = true;
+          }
+        });
+
+        if (hasUnsavedChanges) {
+          showCustomAlert("आपण काही विद्यार्थ्यांचे गुण बदलले आहेत किंवा नवीन भरले आहेत. कृपया अगोदर 'सर्व गुण सुरक्षित सेव्ह करा' बटण दाबा, नंतर PDF डाऊनलोड करा!");
+          return;
+        }
+
+        const examNames = {
+          'navodaya': 'नवोदय प्रवेश पात्रता सराव परीक्षा',
+          '4th': 'इयत्ता चौथी शिष्यवृत्ती सराव परीक्षा',
+          '7th': 'इयत्ता सातवी शिष्यवृत्ती सराव परीक्षा',
+          'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा'
+        };
+
+        document.getElementById('print-school-exam-title').innerText = examNames[currentEntryCategory] || 'सराव परीक्षा';
+        document.getElementById('print-school-name').innerText = selectedSchoolObj.n;
+        document.getElementById('print-school-udise').innerText = selectedSchoolObj.c;
+        document.getElementById('print-school-taluka').innerText = selectedSchoolObj.t || '-';
+        document.getElementById('print-test-info-badge').innerText = `चाचणी क्रमांक: ${testNo} | एकूण कमाल गुण: ${maxLimit}`;
+
+        const tableEl = document.getElementById('school-record-render-table');
+        let tableHtml = `
+          <thead>
+            <tr>
+              <th style="width:50px;">अ.क्र.</th>
+              <th>विद्यार्थ्याचे संपूर्ण नाव</th>
+              <th style="width:80px;">लिंग</th>
+              <th style="width:110px;">हजेरी स्थिती</th>
+              <th style="width:110px;">प्राप्त गुण (/${maxLimit})</th>
+            </tr>
+          </thead>
+          <tbody>
         `;
-      });
 
-      tableHtml += `
-        <tr style="background:#f8fafc; font-weight:800; text-align:center;">
-          <td colspan="3" style="text-align:right;">एकूण: ${currentStudentsList.length} विद्यार्थी</td>
-          <td colspan="2">उपस्थित: ${presentCount} | गैरहजर: ${absentCount}</td>
-        </tr>
-        </tbody>
-      `;
+        let presentCount = 0, absentCount = 0;
 
-      tableEl.innerHTML = tableHtml;
+        savedData.students.forEach((st, idx) => {
+          const val = st.marks !== undefined ? String(st.marks).trim() : '';
+          let status = 'कोरे';
+          let marksDisplay = '-';
 
-      showToast('शाळेची PDF यादी तयार होत आहे...');
-      const printBox = document.getElementById('school-record-print-render');
+          if (val.toUpperCase() === 'AB') {
+            status = '<span style="color:#b91c1c; font-weight:800;">गैरहजर (AB)</span>';
+            marksDisplay = 'AB';
+            absentCount++;
+          } else if (val !== '') {
+            status = '<span style="color:#15803d; font-weight:800;">उपस्थित</span>';
+            marksDisplay = val;
+            presentCount++;
+          }
 
-      html2canvas(printBox, { scale: 2, useCORS: true }).then(canvas => {
-        const imgData = canvas.toDataURL('image/jpeg', 0.9);
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-        const pageWidth = 210, pageHeight = 297, margin = 8;
-        const maxW = pageWidth - (margin * 2);
-        const printH = (canvas.height * maxW) / canvas.width;
+          tableHtml += `
+            <tr style="text-align:center;">
+              <td>${idx + 1}</td>
+              <td style="text-align:left; font-weight:700;">${st.name}</td>
+              <td>${st.gender}</td>
+              <td>${status}</td>
+              <td style="font-weight:800; font-family:'Poppins', sans-serif;">${marksDisplay}</td>
+            </tr>
+          `;
+        });
 
-        pdf.addImage(imgData, 'JPEG', margin, margin, maxW, printH);
-        
-        const cleanSchoolName = selectedSchoolObj.n.replace(/\s+/g, '_');
-        pdf.save(`${cleanSchoolName}_चाचणी_${testNo}_गुण_यादी.pdf`);
-        showToast('शाळेची अधिकृत गुण यादी PDF डाऊनलोड झाली!');
+        tableHtml += `
+          <tr style="background:#f8fafc; font-weight:800; text-align:center;">
+            <td colspan="3" style="text-align:right;">एकूण: ${savedData.students.length} विद्यार्थी</td>
+            <td colspan="2">उपस्थित: ${presentCount} | गैरहजर: ${absentCount}</td>
+          </tr>
+          </tbody>
+        `;
+
+        tableEl.innerHTML = tableHtml;
+
+        showToast('शाळेची PDF यादी तयार होत आहे...');
+        const printBox = document.getElementById('school-record-print-render');
+
+        html2canvas(printBox, { scale: 2, useCORS: true }).then(canvas => {
+          const imgData = canvas.toDataURL('image/jpeg', 0.9);
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+          const pageWidth = 210, pageHeight = 297, margin = 8;
+          const maxW = pageWidth - (margin * 2);
+          const printH = (canvas.height * maxW) / canvas.width;
+
+          pdf.addImage(imgData, 'JPEG', margin, margin, maxW, printH);
+          
+          const cleanSchoolName = selectedSchoolObj.n.replace(/\s+/g, '_');
+          pdf.save(`${cleanSchoolName}_चाचणी_${testNo}_गुण_यादी.pdf`);
+          showToast('शाळेची अधिकृत गुण यादी PDF डाऊनलोड झाली!');
+        });
       });
     }
 
@@ -2675,7 +2703,6 @@
       });
     }
 
-    /* ================= गुणवत्ता यादी रेंडरिंग ================= */
     function renderDeclaredResultsOnDashboard() {
       const cont = document.getElementById('dashboard-toppers-container');
       if (!cont) return;
@@ -2698,7 +2725,6 @@
 
       const testData = declaredCat[testKey];
 
-      // १. जिल्हा Toppers यादी
       if (currentTriTab === 'district') {
         const list = testData.districtToppers || [];
         if (list.length === 0) {
@@ -2717,7 +2743,6 @@
 
         renderStudentsCards(list, maxM, 'जिल्ह्यात क्रमांक');
       } 
-      // २. तालुका Toppers यादी
       else if (currentTriTab === 'taluka') {
         const selTaluka = selectedTopperTaluka || TALUKA_LIST[0];
         const tToppers = (testData.talukaToppers && testData.talukaToppers[selTaluka]) ? testData.talukaToppers[selTaluka] : [];
@@ -2738,7 +2763,6 @@
 
         renderStudentsCards(tToppers, maxM, `${selTaluka} तालुक्यात क्रमांक`);
       } 
-      // ३. केंद्र Toppers यादी
       else if (currentTriTab === 'kendra') {
         if (!selectedTopperKendra) {
           cont.innerHTML = `<p style="text-align:center; color:#64748b; padding:15px;">कृपया वरील यादीतून केंद्र निवडा.</p>`;
@@ -2867,27 +2891,6 @@
       for (let i = startTest; i <= 10; i++) {
         admLockTest.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
       }
-    }
-
-    function buildAdminTalukaPills() {
-      const wrap = document.getElementById('admin-cluster-pills');
-      if (!wrap) return;
-      wrap.innerHTML = '';
-      TALUKA_LIST.forEach((tName, idx) => {
-        wrap.innerHTML += `
-          <button class="admin-c-tab ${idx === 0 ? 'active' : ''}" onclick="selectAdminTalukaTab('${tName}', this)">
-            ${tName}
-          </button>
-        `;
-      });
-      selectedAdminTaluka = TALUKA_LIST[0];
-    }
-
-    function selectAdminTalukaTab(tName, btn) {
-      document.querySelectorAll('.admin-c-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedAdminTaluka = tName;
-      renderAdminParticipationDetails();
     }
 
     function loadCurrentCustomMaxMarks() {
@@ -3043,7 +3046,7 @@
       const classMap = { 'navodaya': 'Class 5th', '4th': 'Class 4th', '7th': 'Class 7th', 'nmms': 'Class 8th' };
       const className = classMap[currentSelectedCategory] || 'Class 5th';
 
-      const isGirl = (gender === "मुलगी" || gender === "girl" || gender === "Female");
+      const isGirl = (gender === "मुलगी" || gender === "girl");
       const pronoun = isGirl ? "या विद्यार्थिनीने" : "या विद्यार्थ्याने";
 
       const examNames = {
