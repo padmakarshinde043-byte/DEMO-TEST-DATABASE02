@@ -61,8 +61,22 @@
 
     .app-container { max-width: 650px; margin: 0 auto; padding: 12px; }
 
-    /* ५ सेकंद टिकणारा हिरव्या रंगाचा फ्लॅश मेसेज */
-    .flash-notice-banner {
+    /* डॅशबोर्डवरील केसरी फ्लॅश मेसेज (५ सेकंद) */
+    .flash-notice-dash {
+      display: none;
+      background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+      color: white;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(234, 88, 12, 0.35);
+      border: 2px solid #fdba74;
+      animation: slideDownNotice 0.3s ease-out forwards;
+      position: relative;
+    }
+
+    /* गुण भरा टॅबवरील हिरवा फ्लॅश मेसेज (७ सेकंद) */
+    .flash-notice-entry {
       display: none;
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
       color: white;
@@ -74,6 +88,7 @@
       animation: slideDownNotice 0.3s ease-out forwards;
       position: relative;
     }
+
     @keyframes slideDownNotice {
       from { transform: translateY(-15px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
@@ -700,7 +715,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* ================= बॅनर प्रिव्ह्यू कंटेनर (झूम आउट व योग्य जागा वाटप) ================= */
+    /* बॅनर प्रिव्ह्यू कंटेनर */
     .banner-fit-wrapper {
       width: 100%;
       display: flex;
@@ -781,7 +796,6 @@
       box-shadow: 0 3px 10px rgba(217, 119, 6, 0.3);
     }
 
-    /* टॉपर्स यादी कार्ड्स (जागा भरून काढण्यासाठी योग्य पॅडिंग) */
     .banner-topper-grid {
       display: flex;
       flex-direction: column;
@@ -816,7 +830,6 @@
       margin-left: 6px;
     }
 
-    /* गुणांचा ठळक व उठावदार बॅज (High Contrast Distinct Color) */
     .banner-row .b-marks-badge {
       font-size: 1.08rem;
       font-weight: 800;
@@ -831,7 +844,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* पहिले ३ रँक हायलाईट */
     .banner-row:nth-child(1) {
       background: linear-gradient(to right, #fffdf2, #fef3c7);
       border: 2px solid #f59e0b;
@@ -859,7 +871,6 @@
       width: 100%;
     }
 
-    /* ॲडमिन कस्टमायझर टूलबार */
     .designer-toolbar-card {
       background: #f8fafc;
       border: 2px solid #cbd5e1;
@@ -901,7 +912,6 @@
     .slider-control-row input[type="range"] { flex: 1; height: 6px; }
     .slider-val-badge { font-size: 0.78rem; font-weight: 800; font-family:'Poppins', sans-serif; color: var(--sky-dark); min-width: 45px; text-align: right; }
 
-    /* शाळेच्या रेकॉर्डसाठी Multi-page A4 शीट */
     .school-record-page {
       background: white;
       padding: 24px 28px;
@@ -963,6 +973,19 @@
 
     <!-- ================= 1. डॅशबोर्ड स्क्रीन ================= -->
     <div id="screen-dashboard">
+
+      <!-- ५ सेकंदांचा केसरी फ्लॅश मेसेज (डॅशबोर्डवर उघडताच दिसेल) -->
+      <div class="flash-notice-dash" id="flash-dash-notice">
+        <button class="flash-close-btn" onclick="closeDashFlashNotice()">&times;</button>
+        <div class="flash-notice-content">
+          <i class="fa-solid fa-bullhorn"></i>
+          <div class="flash-notice-text">
+            <h4 id="dash-flash-heading">📢 महत्त्वाची घोषणा</h4>
+            <p id="dash-flash-para">सराव चाचणी निकाल व गुणवत्ता याद्या डॅशबोर्डवर उपलब्ध आहेत.</p>
+          </div>
+        </div>
+      </div>
+
       <div class="chip-scroll">
         <button class="category-chip active cat-navodaya" onclick="selectDashboardCategory('navodaya', this)"><i class="fa-solid fa-school-flag"></i> नवोदय (5 वी)</button>
         <button class="category-chip cat-4th" onclick="selectDashboardCategory('4th', this)"><i class="fa-solid fa-book-open"></i> 4 थी शिष्यवृत्ती</button>
@@ -1027,14 +1050,14 @@
     <!-- ================= 2. गुण नोंदणी स्क्रीन (शिक्षक पोर्टल) ================= -->
     <div id="screen-entry" style="display:none;">
 
-      <!-- ५ सेकंदांचा हिरवा फ्लॅश मेसेज -->
-      <div class="flash-notice-banner" id="flash-entry-notice">
-        <button class="flash-close-btn" onclick="closeFlashNotice()">&times;</button>
+      <!-- ७ सेकंदांचा हिरवा फ्लॅश मेसेज -->
+      <div class="flash-notice-entry" id="flash-entry-notice">
+        <button class="flash-close-btn" onclick="closeEntryFlashNotice()">&times;</button>
         <div class="flash-notice-content">
           <i class="fa-solid fa-calendar-check"></i>
           <div class="flash-notice-text">
-            <h4>📢 अत्यंत महत्त्वाची सूचना</h4>
-            <p>शनिवारी होणाऱ्या चाचणीचे गुण <strong>पुढील गुरुवारपूर्वी</strong> भरण्यात यावेत. गुरुवारी सायंकाळी चाचणीचे निकाल आणि गुणवत्ता याद्या जाहीर करण्यात येतील.</p>
+            <h4 id="entry-flash-heading">📢 अत्यंत महत्त्वाची सूचना</h4>
+            <p id="entry-flash-para">शनिवारी होणाऱ्या चाचणीचे गुण पुढील गुरुवारपूर्वी भरण्यात यावेत. गुरुवारी सायंकाळी चाचणीचे निकाल आणि गुणवत्ता याद्या जाहीर करण्यात येतील.</p>
           </div>
         </div>
       </div>
@@ -1161,11 +1184,84 @@
           <button class="app-btn btn-outline" style="width:auto; height:30px; font-size:0.75rem; padding:0 8px;" onclick="switchTab('dashboard')">बंद करा</button>
         </div>
         <p style="font-size:0.82rem; color:#475569;">
-          येथून आपण चाचणी निकाल जाहीर व लॉक करण्यापूर्वी तात्पुरते जिल्हा व तालुका टॉपर्स तपासू शकता, प्रमाणपत्र/बॅनर लेआउट हाताने ड्रॅग करून सेट करू शकता आणि निकाल लॉक करू शकता.
+          येथून आपण चालू चाचणीचे गुण संकलन सुरू/बंद करू शकता, डॅशबोर्ड व गुण भरणे स्क्रीनवरील फ्लॅश मेसेज नियंत्रित करू शकता, गुणवत्ता यादी तपासून निकाल लॉक करू शकता.
         </p>
       </div>
 
-      <!-- १. निकाल तपासणे व लॉक करणे विभाग -->
+      <!-- नवीन: चाचणी गुण संकलन नियंत्रण (Auto + Manual Mode) -->
+      <div class="app-card" style="border-left: 5px solid #0284c7;">
+        <div class="app-card-title"><i class="fa-solid fa-toggle-on" style="color:var(--sky);"></i> चाचणी गुण संकलन नियंत्रण (Manual Selector)</div>
+        <p style="font-size:0.82rem; color:#64748b; margin-bottom:10px;">
+          * स्वयंचलित नियम: दर रविवारी सकाळी ५:०० वाजता मागील चाचणीचे गुण भरणे बंद होते. जर आपणास मॅन्युअली चाचणी क्रमांक बदलायचा असेल तर खाली निवडा:
+        </p>
+        <div class="grid-2">
+          <div class="form-group">
+            <label>परीक्षेचा प्रकार:</label>
+            <select class="form-control" id="admin-manual-category" onchange="updateAdminManualTestOptions()">
+              <option value="navodaya">नवोदय (5 वी)</option>
+              <option value="4th">4 थी शिष्यवृत्ती</option>
+              <option value="7th">7 वी शिष्यवृत्ती</option>
+              <option value="nmms">NMMS (8 वी)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>सक्रिय करायची चाचणी:</label>
+            <select class="form-control" id="admin-manual-test"></select>
+          </div>
+        </div>
+        <button class="app-btn btn-primary" onclick="setManualActiveTestForPortal()">
+          <i class="fa-solid fa-play"></i> या चाचणीसाठी गुण संकलन सुरू करा (Lock to This Test)
+        </button>
+      </div>
+
+      <!-- नवीन: फ्लॅश मेसेज सेटिंग्ज (डॅशबोर्ड व गुण भरा स्क्रीनसाठी ON/OFF व मजकूर) -->
+      <div class="app-card" style="border-left: 5px solid #ea580c;">
+        <div class="app-card-title"><i class="fa-solid fa-bullhorn" style="color:#ea580c;"></i> फ्लॅश मेसेज नियंत्रण व कस्टमायझेशन</div>
+        
+        <!-- १. डॅशबोर्ड केसरी मेसेज -->
+        <div style="background:#fff7ed; padding:12px; border-radius:10px; border:1px solid #fed7aa; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong style="color:#9a3412; font-size:0.95rem;">🟠 डॅशबोर्ड केसरी फ्लॅश मेसेज (5 सेकंद)</strong>
+            <select class="form-control" id="admin-dash-flash-status" style="width:110px; height:34px; font-weight:800;">
+              <option value="enabled">सुरू (ON)</option>
+              <option value="disabled">बंद (OFF)</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:6px;">
+            <label>शीर्षक:</label>
+            <input type="text" class="form-control" id="admin-dash-flash-heading" style="height:36px;" value="📢 महत्त्वाची घोषणा">
+          </div>
+          <div class="form-group">
+            <label>मजकूर:</label>
+            <textarea class="form-control" id="admin-dash-flash-para" rows="2" style="font-size:0.86rem;">सराव चाचणी निकाल व गुणवत्ता याद्या डॅशबोर्डवर उपलब्ध आहेत.</textarea>
+          </div>
+        </div>
+
+        <!-- २. गुण भरा हिरवा मेसेज -->
+        <div style="background:#f0fdf4; padding:12px; border-radius:10px; border:1px solid #bbf7d0; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong style="color:#166534; font-size:0.95rem;">🟢 'गुण भरा' हिरवा फ्लॅश मेसेज (7 सेकंद)</strong>
+            <select class="form-control" id="admin-entry-flash-status" style="width:110px; height:34px; font-weight:800;">
+              <option value="enabled">सुरू (ON)</option>
+              <option value="disabled">बंद (OFF)</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:6px;">
+            <label>शीर्षक:</label>
+            <input type="text" class="form-control" id="admin-entry-flash-heading" style="height:36px;" value="📢 अत्यंत महत्त्वाची सूचना">
+          </div>
+          <div class="form-group">
+            <label>मजकूर:</label>
+            <textarea class="form-control" id="admin-entry-flash-para" rows="2" style="font-size:0.86rem;">शनिवारी होणाऱ्या चाचणीचे गुण पुढील गुरुवारपूर्वी भरण्यात यावेत. गुरुवारी सायंकाळी चाचणीचे निकाल आणि गुणवत्ता याद्या जाहीर करण्यात येतील.</textarea>
+          </div>
+        </div>
+
+        <button class="app-btn btn-success" onclick="saveFlashNoticeSettingsToFirebase()">
+          <i class="fa-solid fa-floppy-disk"></i> फ्लॅश मेसेज सेटिंग्ज सेव्ह करा
+        </button>
+      </div>
+
+      <!-- निकाल तपासणे व लॉक करणे विभाग -->
       <div class="app-card" style="border-left: 5px solid #059669;">
         <div class="app-card-title"><i class="fa-solid fa-clipboard-check" style="color:#059669;"></i> गुणवत्ता यादी तपासणी व अधिकृत निकाल घोषणा</div>
         
@@ -1255,7 +1351,7 @@
                 गुणवत्ता सन्मान प्रमाणपत्र
               </div>
               <div class="draggable-element" id="drag-cert-date" style="top:104px; right:36px; font-size:0.86rem; font-weight:600; color:#334155; font-family:'Poppins', sans-serif;">
-                Date: 15/10/2026
+                Date: 16/10/2026
               </div>
               <div class="draggable-element" id="drag-cert-name" style="top:142px; left:55px; width:710px; text-align:center; font-family:'Yatra One', cursive; font-size:1.75rem; color:#991b1b; text-decoration:underline;">
                 Puja Pravin Patil
@@ -1337,7 +1433,6 @@
                 </div>
               </div>
 
-              <!-- १ ते १० पर्यंत केवळ एकदाच अनुक्रमांक आणि हाय-कॉन्ट्रास्ट गुण -->
               <div class="banner-topper-grid" id="banner-designer-topper-grid">
                 <div class="banner-row">
                   <div>🥇 <span class="b-std-name">१. गणेश रामहरी उबाळे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
@@ -1573,11 +1668,10 @@
     </div>
   </div>
 
-  <!-- ================= अभिनंदन गौरव बॅनर Modal ================= -->
+  <!-- अभिनंदन गौरव बॅनर Modal -->
   <div class="modal" id="bannerModal">
     <div class="modal-content" style="max-width:780px;">
       
-      <!-- वरच्या बाजूला हेडर व ठळक डाऊनलोड बटन -->
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1.5px solid var(--border); padding-bottom:8px; gap:8px;">
         <h3 style="color:#b45309; font-size:1.05rem; white-space:nowrap;"><i class="fa-solid fa-award"></i> टॉपर्स गौरव बॅनर</h3>
         
@@ -1589,10 +1683,8 @@
         </div>
       </div>
 
-      <!-- झूम आउट व ऑटो-फिट बॅनर बॉक्स -->
       <div class="banner-fit-wrapper" id="banner-fit-container">
         <div class="banner-preview-box" id="banner-card-render">
-          <!-- बॅनर टॉप हेडर -->
           <div class="banner-top-header">
             <p class="banner-dept-title">जिल्हा परिषद, बीड — शिक्षण विभाग</p>
             <div class="banner-exam-badge" id="banner-render-exam-name">सराव परीक्षा निकाल</div>
@@ -1603,10 +1695,8 @@
             </div>
           </div>
 
-          <!-- टॉपर्स यादी -->
           <div class="banner-topper-grid" id="banner-toppers-list"></div>
 
-          <!-- बॅनर तळटीप -->
           <div class="banner-footer-auth">
             <span id="banner-render-footer">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
             <span>🏆 जिल्हा परिषद बीड</span>
@@ -1631,7 +1721,7 @@
             <span id="cert-render-title">गुणवत्ता सन्मान प्रमाणपत्र</span>
           </div>
           <div class="draggable-element" id="render-cert-date-pos" style="font-size:0.86rem; font-weight:600; color:#334155; font-family:'Poppins', sans-serif;">
-            <span id="cert-date-text">Date: 15/10/2026</span>
+            <span id="cert-date-text">Date: 16/10/2026</span>
           </div>
           <div class="draggable-element" id="render-cert-name-pos" style="width:710px; text-align:center; font-family:'Yatra One', cursive; font-size:1.75rem; color:#991b1b; text-decoration:underline;">
             <span id="cert-std-name">Puja Pravin Patil</span>
@@ -1742,9 +1832,168 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
+    /* ================= १. ऑटो-शिफ्ट (रविवार सकाळी ५:००) + मॅन्युअल नियंत्रण ================= */
+    let MANUAL_OVERRIDE_TESTS = {};
+
+    function listenActiveTestControl() {
+      db.ref('active_test_control').on('value', (snap) => {
+        MANUAL_OVERRIDE_TESTS = snap.val() || {};
+        
+        currentSelectedTest = getAutoActiveTest(currentSelectedCategory);
+        buildDashboardTestPills();
+        buildEntryTestOptions();
+        listenLiveDashboardData();
+      });
+    }
+
     function getAutoActiveTest(category) {
-      if (category === 'navodaya') return 6;
-      return 8;
+      // मॅन्युअली ॲडमिनने सेट केलेले असल्यास ते प्रथम प्राधान्याने वापरणे
+      if (MANUAL_OVERRIDE_TESTS && MANUAL_OVERRIDE_TESTS[category]) {
+        return parseInt(MANUAL_OVERRIDE_TESTS[category], 10);
+      }
+
+      // स्वयंचलित नियम: रविवार सकाळी ५:०० नंतर पुढील चाचणी
+      const now = new Date();
+      const day = now.getDay(); // ० = रविवार
+      const hour = now.getHours();
+
+      let baseNavodaya = 6;
+      let baseOthers = 8;
+
+      // रविवार सकाळी ५ नंतर पुढील चाचणीवर शिफ्ट
+      if (day === 0 && hour >= 5) {
+        baseNavodaya = 7;
+        baseOthers = 9;
+      } else if (day > 0) {
+        // सोम-शनि पुढील चाचणी
+        baseNavodaya = 7;
+        baseOthers = 9;
+      }
+
+      return (category === 'navodaya') ? baseNavodaya : baseOthers;
+    }
+
+    /* ॲडमिन पॅनलमधून मॅन्युअल चाचणी लॉक करणे */
+    function setManualActiveTestForPortal() {
+      const cat = document.getElementById('admin-manual-category').value;
+      const testNo = parseInt(document.getElementById('admin-manual-test').value, 10);
+
+      db.ref(`active_test_control/${cat}`).set(testNo).then(() => {
+        showToast('चाचणी क्रमांक यशस्वीरित्या सक्रिय झाला!');
+        showCustomAlert(`यशस्वी! ${cat} या परीक्षेसाठी आता चाचणी क्रमांक ${testNo} चे गुण संकलन सुरू करण्यात आले आहे.`);
+      });
+    }
+
+    function updateAdminManualTestOptions() {
+      const selectEl = document.getElementById('admin-manual-test');
+      selectEl.innerHTML = '';
+      for (let i = 1; i <= 10; i++) {
+        selectEl.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
+      }
+      const cat = document.getElementById('admin-manual-category').value;
+      selectEl.value = getAutoActiveTest(cat);
+    }
+
+    /* ================= २. फ्लॅश मेसेज कस्टमायझेशन (डॅशबोर्ड व गुण भरा) ================= */
+    let FLASH_SETTINGS = {
+      dashStatus: 'enabled',
+      dashHeading: '📢 महत्त्वाची घोषणा',
+      dashPara: 'सराव चाचणी निकाल व गुणवत्ता याद्या डॅशबोर्डवर उपलब्ध आहेत.',
+      entryStatus: 'enabled',
+      entryHeading: '📢 अत्यंत महत्त्वाची सूचना',
+      entryPara: 'शनिवारी होणाऱ्या चाचणीचे गुण पुढील गुरुवारपूर्वी भरण्यात यावेत. गुरुवारी सायंकाळी चाचणीचे निकाल आणि गुणवत्ता याद्या जाहीर करण्यात येतील.'
+    };
+
+    let dashFlashTimer = null;
+    let entryFlashTimer = null;
+
+    function listenFlashSettings() {
+      db.ref('flash_settings').on('value', (snap) => {
+        const val = snap.val();
+        if (val) {
+          FLASH_SETTINGS = { ...FLASH_SETTINGS, ...val };
+          loadFlashSettingsIntoAdmin();
+          triggerDashFlashNotice();
+        }
+      });
+    }
+
+    function loadFlashSettingsIntoAdmin() {
+      if (document.getElementById('admin-dash-flash-status')) document.getElementById('admin-dash-flash-status').value = FLASH_SETTINGS.dashStatus;
+      if (document.getElementById('admin-dash-flash-heading')) document.getElementById('admin-dash-flash-heading').value = FLASH_SETTINGS.dashHeading;
+      if (document.getElementById('admin-dash-flash-para')) document.getElementById('admin-dash-flash-para').value = FLASH_SETTINGS.dashPara;
+      if (document.getElementById('admin-entry-flash-status')) document.getElementById('admin-entry-flash-status').value = FLASH_SETTINGS.entryStatus;
+      if (document.getElementById('admin-entry-flash-heading')) document.getElementById('admin-entry-flash-heading').value = FLASH_SETTINGS.entryHeading;
+      if (document.getElementById('admin-entry-flash-para')) document.getElementById('admin-entry-flash-para').value = FLASH_SETTINGS.entryPara;
+    }
+
+    function saveFlashNoticeSettingsToFirebase() {
+      const cfg = {
+        dashStatus: document.getElementById('admin-dash-flash-status').value,
+        dashHeading: document.getElementById('admin-dash-flash-heading').value.trim() || '📢 महत्त्वाची घोषणा',
+        dashPara: document.getElementById('admin-dash-flash-para').value.trim() || 'सराव चाचणी निकाल डॅशबोर्डवर उपलब्ध आहेत.',
+        entryStatus: document.getElementById('admin-entry-flash-status').value,
+        entryHeading: document.getElementById('admin-entry-flash-heading').value.trim() || '📢 अत्यंत महत्त्वाची सूचना',
+        entryPara: document.getElementById('admin-entry-flash-para').value.trim() || 'शनिवारी होणाऱ्या चाचणीचे गुण पुढील गुरुवारपूर्वी भरण्यात यावेत.'
+      };
+
+      db.ref('flash_settings').set(cfg).then(() => {
+        FLASH_SETTINGS = cfg;
+        showToast('फ्लॅश मेसेज सेटिंग्ज सेव्ह झाल्या!');
+        showCustomAlert('फ्लॅश मेसेज आणि चालू/बंद पर्याय यशस्वीरित्या अद्ययावत झाले आहेत.');
+      });
+    }
+
+    /* डॅशबोर्ड केसरी मेसेज (५ सेकंद) */
+    function triggerDashFlashNotice() {
+      const banner = document.getElementById('flash-dash-notice');
+      if (!banner) return;
+
+      if (FLASH_SETTINGS.dashStatus === 'disabled') {
+        banner.style.display = 'none';
+        return;
+      }
+
+      document.getElementById('dash-flash-heading').innerText = FLASH_SETTINGS.dashHeading;
+      document.getElementById('dash-flash-para').innerText = FLASH_SETTINGS.dashPara;
+      banner.style.display = 'block';
+
+      clearTimeout(dashFlashTimer);
+      dashFlashTimer = setTimeout(() => {
+        closeDashFlashNotice();
+      }, 5000); // ५ सेकंद
+    }
+
+    function closeDashFlashNotice() {
+      const banner = document.getElementById('flash-dash-notice');
+      if (banner) banner.style.display = 'none';
+      clearTimeout(dashFlashTimer);
+    }
+
+    /* गुण भरा हिरवा मेसेज (७ सेकंद) */
+    function triggerEntryFlashNotice() {
+      const banner = document.getElementById('flash-entry-notice');
+      if (!banner) return;
+
+      if (FLASH_SETTINGS.entryStatus === 'disabled') {
+        banner.style.display = 'none';
+        return;
+      }
+
+      document.getElementById('entry-flash-heading').innerText = FLASH_SETTINGS.entryHeading;
+      document.getElementById('entry-flash-para').innerText = FLASH_SETTINGS.entryPara;
+      banner.style.display = 'block';
+
+      clearTimeout(entryFlashTimer);
+      entryFlashTimer = setTimeout(() => {
+        closeEntryFlashNotice();
+      }, 7000); // ७ सेकंद
+    }
+
+    function closeEntryFlashNotice() {
+      const banner = document.getElementById('flash-entry-notice');
+      if (banner) banner.style.display = 'none';
+      clearTimeout(entryFlashTimer);
     }
 
     let CUSTOM_MAX_MARKS_STORE = {};
@@ -1795,24 +2044,8 @@
     let fetchedSchoolHmMobile = null;
     let selectedAdminTaluka = TALUKA_LIST[0];
 
-    let flashTimer = null;
     let BEED_ALL_SCHOOLS = [];
     let PRE_LOCK_CALCULATED_DATA = null;
-
-    let isMarathiAlertOpen = false;
-    function enforceMarathiText(inputEl) {
-      const original = inputEl.value;
-      const hasEnglish = /[a-zA-Z]/.test(original);
-
-      if (hasEnglish) {
-        inputEl.value = original.replace(/[a-zA-Z]/g, '');
-        if (!isMarathiAlertOpen) {
-          isMarathiAlertOpen = true;
-          showCustomAlert("📢 कृपया विद्यार्थ्यांचे नाव फक्त मराठीत (देवनागरी लिपीत) टाईप करा! इंग्रजीत नाव स्वीकारले जाणार नाही.");
-          setTimeout(() => { isMarathiAlertOpen = false; }, 1500);
-        }
-      }
-    }
 
     const DEFAULT_CERT_POSITIONS = {
       title: { top: 44, left: 130 },
@@ -2268,6 +2501,8 @@
       listenDeclaredResults();
       listenCustomMaxMarks();
       listenCustomTemplates();
+      listenActiveTestControl();
+      listenFlashSettings();
       initAdminPanelOptions();
       initAllDraggables();
       runGlobalOneTimeMergeDistrict();
@@ -2340,22 +2575,6 @@
       setTimeout(() => { t.style.display = 'none'; }, 2500);
     }
 
-    function triggerFlashNotice() {
-      const banner = document.getElementById('flash-entry-notice');
-      if (!banner) return;
-      banner.style.display = 'block';
-      clearTimeout(flashTimer);
-      flashTimer = setTimeout(() => {
-        closeFlashNotice();
-      }, 5000);
-    }
-
-    function closeFlashNotice() {
-      const banner = document.getElementById('flash-entry-notice');
-      if (banner) banner.style.display = 'none';
-      clearTimeout(flashTimer);
-    }
-
     function switchTab(view) {
       document.getElementById('screen-dashboard').style.display = (view === 'dashboard') ? 'block' : 'none';
       document.getElementById('screen-entry').style.display = (view === 'entry') ? 'block' : 'none';
@@ -2364,8 +2583,10 @@
       document.getElementById('nav-btn-dash').classList.toggle('active', view === 'dashboard');
       document.getElementById('nav-btn-entry').classList.toggle('active', view === 'entry');
       
-      if (view === 'entry') {
-        triggerFlashNotice();
+      if (view === 'dashboard') {
+        triggerDashFlashNotice();
+      } else if (view === 'entry') {
+        triggerEntryFlashNotice();
         const autoTest = getAutoActiveTest(currentEntryCategory);
         document.getElementById('entry-test-no').value = autoTest;
         updateEntryNotice(autoTest);
@@ -2376,6 +2597,8 @@
         applyCertLayout();
         updateAdminTestOptions();
         updateAdminLockTestOptions();
+        updateAdminManualTestOptions();
+        loadFlashSettingsIntoAdmin();
       }
       window.scrollTo(0, 0);
     }
@@ -3103,7 +3326,6 @@
       });
     }
 
-    /* Multi-page A4 PDF यादी */
     function downloadSchoolRecordPDF() {
       if (!selectedSchoolObj) {
         showCustomAlert('कृपया प्रथम शाळा निवडा!');
@@ -3431,7 +3653,6 @@
       });
     }
 
-    /* बॅनर उघडणे (अनुक्रमांक एकदाच येणे + ठळक गुण + सेंटरिंग) */
     function openDeclaredBanner(testNum, type, scopeName) {
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
@@ -3460,10 +3681,6 @@
         const selTaluka = scopeName || selectedTopperTaluka || TALUKA_LIST[0];
         titleText = `${selTaluka} तालुका Top 10 गुणवत्ता यादी`;
         toppersList = (testData.talukaToppers && testData.talukaToppers[selTaluka]) ? testData.talukaToppers[selTaluka] : [];
-      } else if (type === 'kendra') {
-        const selKendra = scopeName || "केंद्र";
-        titleText = `${selKendra} केंद्र Top 10 गुणवत्ता यादी`;
-        toppersList = (testData.kendraToppers && testData.kendraToppers[selKendra]) ? testData.kendraToppers[selKendra] : [];
       }
 
       document.getElementById('banner-render-exam-name').innerText = examTitle;
