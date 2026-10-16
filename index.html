@@ -61,16 +61,16 @@
 
     .app-container { max-width: 650px; margin: 0 auto; padding: 12px; }
 
-    /* १० सेकंद टिकणारा फ्लॅश मेसेज */
+    /* ५ सेकंद टिकणारा हिरव्या रंगाचा फ्लॅश मेसेज */
     .flash-notice-banner {
       display: none;
-      background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
       color: white;
       padding: 14px 16px;
       border-radius: 12px;
       margin-bottom: 14px;
-      box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
-      border: 2px solid #fecaca;
+      box-shadow: 0 8px 20px rgba(5, 150, 105, 0.35);
+      border: 2px solid #a7f3d0;
       animation: slideDownNotice 0.3s ease-out forwards;
       position: relative;
     }
@@ -79,9 +79,9 @@
       to { transform: translateY(0); opacity: 1; }
     }
     .flash-notice-content { display: flex; align-items: flex-start; gap: 10px; }
-    .flash-notice-content i { font-size: 1.5rem; color: #fef08a; margin-top: 2px; }
+    .flash-notice-content i { font-size: 1.6rem; color: #fef08a; margin-top: 2px; }
     .flash-notice-text h4 { font-size: 1rem; font-weight: 800; color: #fef08a; margin-bottom: 3px; }
-    .flash-notice-text p { font-size: 0.88rem; font-weight: 600; line-height: 1.4; color: #ffffff; }
+    .flash-notice-text p { font-size: 0.88rem; font-weight: 600; line-height: 1.45; color: #ffffff; }
     .flash-close-btn {
       position: absolute;
       top: 10px;
@@ -700,7 +700,18 @@
       letter-spacing: 0.5px;
     }
 
-    /* ================= अतिशय देखणे, संतुलित व प्रीमियम टॉपर्स बॅनर ================= */
+    /* ================= बॅनर प्रिव्ह्यू कंटेनर (झूम आउट व ऑटो-फिट सपोर्टसह) ================= */
+    .banner-fit-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: hidden;
+      background: #f1f5f9;
+      padding: 10px 0;
+      border-radius: 12px;
+    }
+
     .banner-preview-box {
       width: 720px;
       min-width: 720px;
@@ -718,6 +729,7 @@
       flex-direction: column;
       justify-content: space-between;
       box-sizing: border-box;
+      transform-origin: top center;
     }
 
     .banner-top-header {
@@ -1011,13 +1023,14 @@
     <!-- ================= 2. गुण नोंदणी स्क्रीन (शिक्षक पोर्टल) ================= -->
     <div id="screen-entry" style="display:none;">
 
+      <!-- ५ सेकंदांचा हिरवा फ्लॅश मेसेज -->
       <div class="flash-notice-banner" id="flash-entry-notice">
         <button class="flash-close-btn" onclick="closeFlashNotice()">&times;</button>
         <div class="flash-notice-content">
-          <i class="fa-solid fa-triangle-exclamation"></i>
+          <i class="fa-solid fa-calendar-check"></i>
           <div class="flash-notice-text">
             <h4>📢 अत्यंत महत्त्वाची सूचना</h4>
-            <p>यामागे झालेल्या चाचण्यांचे गुण भरायचे नाहीत. सध्या <strong>फक्त चालू असलेली चाचणी आणि यापुढील</strong> चाचण्यांचेच गुण भरायचे आहेत!</p>
+            <p>शनिवारी होणाऱ्या चाचणीचे गुण <strong>पुढील गुरुवारपूर्वी</strong> भरण्यात यावेत. गुरुवारी सायंकाळी चाचणीचे निकाल आणि गुणवत्ता याद्या जाहीर करण्यात येतील.</p>
           </div>
         </div>
       </div>
@@ -1056,26 +1069,26 @@
         </div>
       </div>
 
-      <!-- २. नवीन विद्यार्थी वाढवा / जोडा -->
+      <!-- २. नवीन विद्यार्थी वाढवा / जोडा (फक्त मराठीत नाव स्वीकारणे) -->
       <div class="app-card" id="card-student-add-section" style="opacity:0.5; pointer-events:none;">
         <div class="app-card-title"><i class="fa-solid fa-user-plus" style="color:var(--accent-green);"></i> 2. नवीन विद्यार्थी वाढवा / जोडा</div>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">
-          * सूचना: एकदा जोडलेले नाव पुढील सर्व चाचण्यांसाठी कायमस्वरूपी उपलब्ध राहील.
+        <p style="font-size:0.84rem; color:#b45309; font-weight:800; margin-bottom:10px;">
+          <i class="fa-solid fa-circle-exclamation"></i> सूचना: विद्यार्थ्यांचे नाव फक्त मराठीतच (देवनागरी) टाईप करावे.
         </p>
         <div class="grid-2">
           <div class="form-group">
-            <label>प्रथम नाव</label>
-            <input type="text" class="form-control" id="std-fname" placeholder="उदा. सार्थक">
+            <label>प्रथम नाव (मराठीत):</label>
+            <input type="text" class="form-control" id="std-fname" placeholder="उदा. सार्थक" oninput="enforceMarathiText(this)">
           </div>
           <div class="form-group">
-            <label>वडिलांचे नाव</label>
-            <input type="text" class="form-control" id="std-mname" placeholder="उदा. रामराव">
+            <label>वडिलांचे नाव (मराठीत):</label>
+            <input type="text" class="form-control" id="std-mname" placeholder="उदा. रामराव" oninput="enforceMarathiText(this)">
           </div>
         </div>
         <div class="grid-2">
           <div class="form-group">
-            <label>आडनाव</label>
-            <input type="text" class="form-control" id="std-lname" placeholder="उदा. सोळंके">
+            <label>आडनाव (मराठीत):</label>
+            <input type="text" class="form-control" id="std-lname" placeholder="उदा. सोळंके" oninput="enforceMarathiText(this)">
           </div>
           <div class="form-group">
             <label>लिंग</label>
@@ -1136,7 +1149,7 @@
       </div>
     </div>
 
-    <!-- ================= 3. गुप्त शिक्षणाधिकारी प्रशासकीय कक्ष (केवळ ॲडमिनसाठी) ================= -->
+    <!-- ================= 3. गुप्त शिक्षणाधिकारी प्रशासकीय कक्ष ================= -->
     <div id="screen-admin-backend" style="display:none;">
       <div class="app-card" style="border: 2px solid var(--sky); background: #f0fdf4;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -1181,7 +1194,7 @@
         </button>
       </div>
 
-      <!-- २. लाइव्ह ड्रॅग आणि ड्रॉप व्हिज्युअल डिझायनर (प्रमाणपत्र व बॅनर पूर्णपणे स्वतंत्र) -->
+      <!-- २. लाइव्ह ड्रॅग आणि ड्रॉप व्हिज्युअल डिझायनर -->
       <div class="app-card" style="border-left: 5px solid #6366f1;">
         <div class="app-card-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6366f1;"></i> 🎨 प्रमाणपत्र व बॅनर लाइव्ह व्हिज्युअल डिझायनर</div>
 
@@ -1194,7 +1207,7 @@
           </button>
         </div>
 
-        <!-- ================= विभाग अ: केवळ प्रमाणपत्र सेटिंग्ज ================= -->
+        <!-- विभाग अ: केवळ प्रमाणपत्र सेटिंग्ज -->
         <div id="section-designer-cert">
           <div class="designer-toolbar-card">
             <div class="form-group" style="margin-bottom:8px;">
@@ -1267,7 +1280,7 @@
 
           <div style="display:flex; flex-direction:column; gap:8px;">
             <button class="app-btn btn-primary" onclick="saveCertTemplateToFirebase()">
-              <i class="fa-solid fa-floppy-disk"></i> 📄 प्रमाणपत्र डिझाईन सेव्ह करा (Save Certificate Only)
+              <i class="fa-solid fa-floppy-disk"></i> 📄 प्रमाणपत्र डिझाईन सेव्ह करा
             </button>
             <div class="grid-2">
               <button class="app-btn btn-outline" style="border-color:#ef4444; color:#ef4444;" onclick="resetCertLayoutToDefault()">
@@ -1280,7 +1293,7 @@
           </div>
         </div>
 
-        <!-- ================= विभाग ब: केवळ बॅनर सेटिंग्ज ================= -->
+        <!-- विभाग ब: केवळ बॅनर सेटिंग्ज -->
         <div id="section-designer-banner" style="display:none;">
           <div class="designer-toolbar-card">
             <div class="form-group" style="margin-bottom:8px;">
@@ -1308,13 +1321,8 @@
             </div>
           </div>
 
-          <p style="font-size:0.8rem; color:#b45309; font-weight:700; margin-bottom:8px;">
-            <i class="fa-solid fa-up-down-left-right"></i> बॅनर थेट मध्यभागी आणि सुटसुटीत A4 आकाराच्या प्रमाणात सेट केला आहे.
-          </p>
-
           <div style="background:#e2e8f0; padding:12px; border-radius:12px; overflow-x:auto; margin-bottom:12px; display:flex; justify-content:center;">
             <div class="banner-preview-box" id="admin-live-banner-designer">
-              <!-- बॅनर टॉप हेडर -->
               <div class="banner-top-header">
                 <p class="banner-dept-title">जिल्हा परिषद, बीड — शिक्षण विभाग</p>
                 <div class="banner-exam-badge" id="banner-designer-exam-name">नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा</div>
@@ -1325,7 +1333,6 @@
                 </div>
               </div>
 
-              <!-- टॉपर्स यादी (सेंटर्ड व बॅलन्स्ड) -->
               <div class="banner-topper-grid" id="banner-designer-topper-grid">
                 <div class="banner-row">
                   <div>🥇 <span class="b-std-name">१. गणेश रामहरी उबाळे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
@@ -1369,7 +1376,6 @@
                 </div>
               </div>
 
-              <!-- बॅनर तळटीप -->
               <div class="banner-footer-auth">
                 <span id="banner-designer-footer-txt">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
                 <span>🏆 जिल्हा परिषद बीड</span>
@@ -1379,7 +1385,7 @@
 
           <div style="display:flex; flex-direction:column; gap:8px;">
             <button class="app-btn btn-primary" onclick="saveBannerTemplateToFirebase()">
-              <i class="fa-solid fa-floppy-disk"></i> 🏆 बॅनर डिझाईन सेव्ह करा (Save Banner Only)
+              <i class="fa-solid fa-floppy-disk"></i> 🏆 बॅनर डिझाईन सेव्ह करा
             </button>
             <div class="grid-2">
               <button class="app-btn btn-outline" style="border-color:#ef4444; color:#ef4444;" onclick="resetBannerLayoutToDefault()">
@@ -1539,14 +1545,14 @@
     </div>
   </div>
 
-  <!-- विद्यार्थी नाव बदल Modal -->
+  <!-- विद्यार्थी नाव बदल Modal (फक्त मराठीत नाव स्वीकारणे) -->
   <div class="modal" id="editStudentModal">
     <div class="modal-content" style="max-width:380px;">
       <h3 style="margin-bottom:12px; font-size:1.1rem; color:#334155;"><i class="fa-solid fa-pen-to-square" style="color:var(--sky);"></i> विद्यार्थ्याचे नाव बदला</h3>
       <input type="hidden" id="edit-std-id">
       <div class="form-group">
-        <label>विद्यार्थ्याचे संपूर्ण नाव</label>
-        <input type="text" id="edit-std-name" class="form-control">
+        <label>विद्यार्थ्याचे संपूर्ण नाव (फक्त मराठीत):</label>
+        <input type="text" id="edit-std-name" class="form-control" oninput="enforceMarathiText(this)">
       </div>
       <div class="form-group">
         <label>लिंग</label>
@@ -1562,15 +1568,25 @@
     </div>
   </div>
 
-  <!-- अभिनंदन गौरव बॅनर Modal (अधिक आकर्षक, ठळक व सेंटर्ड) -->
+  <!-- ================= अभिनंदन गौरव बॅनर Modal (वरती डाऊनलोड बटन व ऑटो झूम आउट) ================= -->
   <div class="modal" id="bannerModal">
-    <div class="modal-content" style="max-width:760px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <h3 style="color: #b45309; font-size: 1.1rem;"><i class="fa-solid fa-award"></i> अभिनंदन गौरव बॅनर</h3>
-        <button onclick="closeModal('bannerModal')" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
+    <div class="modal-content" style="max-width:780px;">
+      
+      <!-- वरच्या बाजूला हेडर व ठळक डाऊनलोड बटन -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1.5px solid var(--border); padding-bottom:8px; gap:8px;">
+        <h3 style="color:#b45309; font-size:1.05rem; white-space:nowrap;"><i class="fa-solid fa-award"></i> टॉपर्स गौरव बॅनर</h3>
+        
+        <div style="display:flex; gap:8px; align-items:center;">
+          <!-- वरती दिलेले PDF डाऊनलोड बटन -->
+          <button class="app-btn btn-gold" style="height:36px; padding:0 14px; font-size:0.85rem; width:auto;" onclick="downloadBannerPDF()">
+            <i class="fa-solid fa-download"></i> बॅनर PDF डाऊनलोड
+          </button>
+          <button onclick="closeModal('bannerModal')" style="border:none; background:#f1f5f9; width:36px; height:36px; border-radius:8px; font-size:1.3rem; cursor:pointer; color:#64748b;">&times;</button>
+        </div>
       </div>
 
-      <div style="overflow-x:auto; background:#f1f5f9; padding:12px; border-radius:10px; display:flex; justify-content:center;">
+      <!-- झूम आउट व ऑटो-फिट बॅनर बॉक्स -->
+      <div class="banner-fit-wrapper" id="banner-fit-container">
         <div class="banner-preview-box" id="banner-card-render">
           <!-- बॅनर टॉप हेडर -->
           <div class="banner-top-header">
@@ -1594,10 +1610,6 @@
         </div>
       </div>
 
-      <div class="grid-2" style="margin-top:14px;">
-        <button class="app-btn btn-outline" onclick="closeModal('bannerModal')">बंद करा</button>
-        <button class="app-btn btn-gold" onclick="downloadBannerPDF()"><i class="fa-solid fa-download"></i> बॅनर PDF डाऊनलोड (A4 उभा)</button>
-      </div>
     </div>
   </div>
 
@@ -1782,6 +1794,25 @@
     let flashTimer = null;
     let BEED_ALL_SCHOOLS = [];
     let PRE_LOCK_CALCULATED_DATA = null;
+
+    /* ================= १. केवळ मराठीत नाव व्हॅलिडेशन ================= */
+    let isMarathiAlertOpen = false;
+    function enforceMarathiText(inputEl) {
+      const original = inputEl.value;
+      // इंग्रजी अक्षरे तपासणे
+      const hasEnglish = /[a-zA-Z]/.test(original);
+
+      if (hasEnglish) {
+        // इंग्रजी अक्षरे त्वरित काढून टाकणे
+        inputEl.value = original.replace(/[a-zA-Z]/g, '');
+        
+        if (!isMarathiAlertOpen) {
+          isMarathiAlertOpen = true;
+          showCustomAlert("📢 कृपया विद्यार्थ्यांचे नाव फक्त मराठीत (देवनागरी लिपीत) टाईप करा! इंग्रजीत नाव स्वीकारले जाणार नाही.");
+          setTimeout(() => { isMarathiAlertOpen = false; }, 1500);
+        }
+      }
+    }
 
     const DEFAULT_CERT_POSITIONS = {
       title: { top: 44, left: 130 },
@@ -2309,6 +2340,7 @@
       setTimeout(() => { t.style.display = 'none'; }, 2500);
     }
 
+    /* ५ सेकंदांचा टाइमर */
     function triggerFlashNotice() {
       const banner = document.getElementById('flash-entry-notice');
       if (!banner) return;
@@ -2316,7 +2348,7 @@
       clearTimeout(flashTimer);
       flashTimer = setTimeout(() => {
         closeFlashNotice();
-      }, 10000);
+      }, 5000); // अचूक ५ सेकंद टिकेल
     }
 
     function closeFlashNotice() {
@@ -2820,6 +2852,13 @@
         showCustomAlert('कृपया विद्यार्थ्याचे नाव व आडनाव भरा!');
         return;
       }
+
+      // इंग्रजी अक्षरे असल्यास अडवणे
+      if (/[a-zA-Z]/.test(fname) || /[a-zA-Z]/.test(mname) || /[a-zA-Z]/.test(lname)) {
+        showCustomAlert('कृपया विद्यार्थ्याचे नाव फक्त मराठीत (देवनागरी लिपीत) भरा! इंग्रजी अक्षरे चालणार नाहीत.');
+        return;
+      }
+
       const key = getSchoolDbKey();
       if (!key) {
         showCustomAlert('आधी भाग 1 मधून आपली शाळा निवडा!');
@@ -2872,6 +2911,12 @@
         showCustomAlert('नाव रिकामे असू शकत नाही!');
         return;
       }
+
+      if (/[a-zA-Z]/.test(newName)) {
+        showCustomAlert('कृपया नाव फक्त मराठीत टाईप करा!');
+        return;
+      }
+
       const key = getSchoolDbKey();
       if (!key) return;
 
@@ -3060,7 +3105,6 @@
       });
     }
 
-    /* Multi-page A4 PDF यादी */
     function downloadSchoolRecordPDF() {
       if (!selectedSchoolObj) {
         showCustomAlert('कृपया प्रथम शाळा निवडा!');
@@ -3389,7 +3433,7 @@
       });
     }
 
-    /* बॅनर उघडणे (परीक्षेच्या अचूक नावासाठी मॅपिंग व सेंटरिंग) */
+    /* बॅनर उघडणे (परीक्षेचे नाव, ऑटो झूम आउट व सेंटर्ड) */
     function openDeclaredBanner(testNum, type, scopeName) {
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
@@ -3437,6 +3481,24 @@
       });
 
       document.getElementById('bannerModal').style.display = 'flex';
+
+      // ================= स्क्रीननुसार संपूर्ण बॅनर ऑटो झूम आउट (Fit to Viewport) =================
+      setTimeout(() => {
+        const container = document.getElementById('banner-fit-container');
+        const bannerCard = document.getElementById('banner-card-render');
+        if (container && bannerCard) {
+          const availWidth = container.clientWidth - 20;
+          const cardWidth = 720;
+          if (availWidth < cardWidth) {
+            const scaleRatio = availWidth / cardWidth;
+            bannerCard.style.transform = `scale(${scaleRatio})`;
+            container.style.height = `${1020 * scaleRatio + 20}px`;
+          } else {
+            bannerCard.style.transform = 'scale(1)';
+            container.style.height = 'auto';
+          }
+        }
+      }, 50);
     }
 
     function initAdminPanelOptions() {
@@ -3688,7 +3750,14 @@
       const card = document.getElementById('banner-card-render');
       showToast('बॅनर PDF तयार होत आहे...');
 
+      // PDF जनरेट करताना तात्पुरते ओरिजिनल स्केल (scale 1) करणे
+      const prevTransform = card.style.transform;
+      card.style.transform = 'scale(1)';
+
       html2canvas(card, { scale: 2, useCORS: true }).then(canvas => {
+        // पूर्ववत करणे
+        card.style.transform = prevTransform;
+
         const imgData = canvas.toDataURL('image/jpeg', 0.9);
         const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
         const pageWidth = 210;
@@ -3712,6 +3781,9 @@
         pdf.addImage(imgData, 'JPEG', posX, posY, printW, printH);
         pdf.save(`Banner_Beed_Test_${currentSelectedTest}.pdf`);
         showToast('बॅनर PDF डाऊनलोड झाले!');
+      }).catch(err => {
+        card.style.transform = prevTransform;
+        showCustomAlert("त्रुटी: " + err.message);
       });
     }
 
