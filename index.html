@@ -700,15 +700,15 @@
       letter-spacing: 0.5px;
     }
 
-    /* ================= बॅनर प्रिव्ह्यू कंटेनर (झूम आउट व ऑटो-फिट सपोर्टसह) ================= */
+    /* ================= बॅनर प्रिव्ह्यू कंटेनर (झूम आउट व योग्य जागा वाटप) ================= */
     .banner-fit-wrapper {
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       overflow: hidden;
-      background: #f1f5f9;
-      padding: 10px 0;
+      background: #f8fafc;
+      padding: 8px 0;
       border-radius: 12px;
     }
 
@@ -718,10 +718,10 @@
       height: 1020px;
       min-height: 1020px;
       background: #ffffff;
-      border: 6px solid #d97706;
+      border: 5px solid #d97706;
       border-radius: 16px;
-      padding: 24px 28px;
-      box-shadow: 0 12px 35px rgba(217, 119, 6, 0.2);
+      padding: 20px 24px;
+      box-shadow: 0 10px 30px rgba(217, 119, 6, 0.18);
       position: relative;
       margin: 0 auto;
       overflow: hidden;
@@ -734,12 +734,12 @@
 
     .banner-top-header {
       text-align: center;
-      border-bottom: 2.5px double #d97706;
-      padding-bottom: 12px;
-      margin-bottom: 10px;
+      border-bottom: 2px double #d97706;
+      padding-bottom: 10px;
+      margin-bottom: 8px;
     }
     .banner-dept-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: #0f2b5c;
       letter-spacing: 0.5px;
@@ -753,11 +753,11 @@
       border-radius: 20px;
       font-size: 0.98rem;
       font-weight: 800;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       box-shadow: 0 3px 8px rgba(2, 132, 199, 0.25);
     }
     .banner-heading-main {
-      font-size: 1.7rem;
+      font-size: 1.65rem;
       font-weight: 800;
       color: #991b1b;
       line-height: 1.25;
@@ -772,7 +772,7 @@
     .banner-congrats-tag {
       background: linear-gradient(135deg, #b45309 0%, #d97706 100%);
       color: white;
-      padding: 6px 20px;
+      padding: 5px 22px;
       border-radius: 25px;
       font-size: 0.95rem;
       font-weight: 800;
@@ -781,22 +781,22 @@
       box-shadow: 0 3px 10px rgba(217, 119, 6, 0.3);
     }
 
-    /* टॉपर्स यादी कार्ड्स */
+    /* टॉपर्स यादी कार्ड्स (जागा भरून काढण्यासाठी योग्य पॅडिंग) */
     .banner-topper-grid {
       display: flex;
       flex-direction: column;
       gap: 6px;
       width: 100%;
-      margin: 10px 0;
+      margin: 8px 0;
       flex: 1;
-      justify-content: center;
+      justify-content: space-evenly;
     }
 
     .banner-row {
       background: #ffffff;
       border: 1.5px solid #fed7aa;
       border-radius: 10px;
-      padding: 8px 16px;
+      padding: 10px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -805,41 +805,45 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
     .banner-row .b-std-name {
-      font-size: 1.08rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: #0f172a;
     }
     .banner-row .b-sch-name {
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       font-weight: 600;
       color: #475569;
       margin-left: 6px;
     }
+
+    /* गुणांचा ठळक व उठावदार बॅज (High Contrast Distinct Color) */
     .banner-row .b-marks-badge {
-      font-size: 1.05rem;
+      font-size: 1.08rem;
       font-weight: 800;
-      color: #92400e;
-      background: #fef3c7;
-      padding: 4px 12px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      padding: 5px 14px;
       border-radius: 8px;
       font-family: 'Poppins', sans-serif;
-      border: 1px solid #fde68a;
+      border: 1.5px solid #fbbf24;
       white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(30, 27, 75, 0.35);
+      letter-spacing: 0.5px;
     }
 
     /* पहिले ३ रँक हायलाईट */
     .banner-row:nth-child(1) {
-      background: linear-gradient(to right, #fffbeb, #fef3c7);
+      background: linear-gradient(to right, #fffdf2, #fef3c7);
       border: 2px solid #f59e0b;
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.22);
     }
     .banner-row:nth-child(2) {
-      background: linear-gradient(to right, #f8fafc, #f1f5f9);
-      border: 2px solid #cbd5e1;
+      background: linear-gradient(to right, #fbfcfe, #f1f5f9);
+      border: 2px solid #94a3b8;
     }
     .banner-row:nth-child(3) {
-      background: linear-gradient(to right, #fff7ed, #ffedd5);
-      border: 2px solid #fdba74;
+      background: linear-gradient(to right, #fffaf5, #ffedd5);
+      border: 2px solid #fb923c;
     }
 
     .banner-footer-auth {
@@ -847,8 +851,8 @@
       justify-content: space-between;
       align-items: center;
       border-top: 2px dashed #cbd5e1;
-      padding-top: 12px;
-      margin-top: 8px;
+      padding-top: 10px;
+      margin-top: 6px;
       font-size: 0.95rem;
       color: #0f2b5c;
       font-weight: 800;
@@ -1333,6 +1337,7 @@
                 </div>
               </div>
 
+              <!-- १ ते १० पर्यंत केवळ एकदाच अनुक्रमांक आणि हाय-कॉन्ट्रास्ट गुण -->
               <div class="banner-topper-grid" id="banner-designer-topper-grid">
                 <div class="banner-row">
                   <div>🥇 <span class="b-std-name">१. गणेश रामहरी उबाळे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
@@ -1545,7 +1550,7 @@
     </div>
   </div>
 
-  <!-- विद्यार्थी नाव बदल Modal (फक्त मराठीत नाव स्वीकारणे) -->
+  <!-- विद्यार्थी नाव बदल Modal -->
   <div class="modal" id="editStudentModal">
     <div class="modal-content" style="max-width:380px;">
       <h3 style="margin-bottom:12px; font-size:1.1rem; color:#334155;"><i class="fa-solid fa-pen-to-square" style="color:var(--sky);"></i> विद्यार्थ्याचे नाव बदला</h3>
@@ -1568,7 +1573,7 @@
     </div>
   </div>
 
-  <!-- ================= अभिनंदन गौरव बॅनर Modal (वरती डाऊनलोड बटन व ऑटो झूम आउट) ================= -->
+  <!-- ================= अभिनंदन गौरव बॅनर Modal ================= -->
   <div class="modal" id="bannerModal">
     <div class="modal-content" style="max-width:780px;">
       
@@ -1577,7 +1582,6 @@
         <h3 style="color:#b45309; font-size:1.05rem; white-space:nowrap;"><i class="fa-solid fa-award"></i> टॉपर्स गौरव बॅनर</h3>
         
         <div style="display:flex; gap:8px; align-items:center;">
-          <!-- वरती दिलेले PDF डाऊनलोड बटन -->
           <button class="app-btn btn-gold" style="height:36px; padding:0 14px; font-size:0.85rem; width:auto;" onclick="downloadBannerPDF()">
             <i class="fa-solid fa-download"></i> बॅनर PDF डाऊनलोड
           </button>
@@ -1795,17 +1799,13 @@
     let BEED_ALL_SCHOOLS = [];
     let PRE_LOCK_CALCULATED_DATA = null;
 
-    /* ================= १. केवळ मराठीत नाव व्हॅलिडेशन ================= */
     let isMarathiAlertOpen = false;
     function enforceMarathiText(inputEl) {
       const original = inputEl.value;
-      // इंग्रजी अक्षरे तपासणे
       const hasEnglish = /[a-zA-Z]/.test(original);
 
       if (hasEnglish) {
-        // इंग्रजी अक्षरे त्वरित काढून टाकणे
         inputEl.value = original.replace(/[a-zA-Z]/g, '');
-        
         if (!isMarathiAlertOpen) {
           isMarathiAlertOpen = true;
           showCustomAlert("📢 कृपया विद्यार्थ्यांचे नाव फक्त मराठीत (देवनागरी लिपीत) टाईप करा! इंग्रजीत नाव स्वीकारले जाणार नाही.");
@@ -2340,7 +2340,6 @@
       setTimeout(() => { t.style.display = 'none'; }, 2500);
     }
 
-    /* ५ सेकंदांचा टाइमर */
     function triggerFlashNotice() {
       const banner = document.getElementById('flash-entry-notice');
       if (!banner) return;
@@ -2348,7 +2347,7 @@
       clearTimeout(flashTimer);
       flashTimer = setTimeout(() => {
         closeFlashNotice();
-      }, 5000); // अचूक ५ सेकंद टिकेल
+      }, 5000);
     }
 
     function closeFlashNotice() {
@@ -2853,7 +2852,6 @@
         return;
       }
 
-      // इंग्रजी अक्षरे असल्यास अडवणे
       if (/[a-zA-Z]/.test(fname) || /[a-zA-Z]/.test(mname) || /[a-zA-Z]/.test(lname)) {
         showCustomAlert('कृपया विद्यार्थ्याचे नाव फक्त मराठीत (देवनागरी लिपीत) भरा! इंग्रजी अक्षरे चालणार नाहीत.');
         return;
@@ -3105,6 +3103,7 @@
       });
     }
 
+    /* Multi-page A4 PDF यादी */
     function downloadSchoolRecordPDF() {
       if (!selectedSchoolObj) {
         showCustomAlert('कृपया प्रथम शाळा निवडा!');
@@ -3333,7 +3332,6 @@
       });
     }
 
-    /* डॅशबोर्डवर गुणवत्ता यादी रेंडरिंग */
     function renderDeclaredResultsOnDashboard() {
       const cont = document.getElementById('dashboard-toppers-container');
       if (!cont) return;
@@ -3433,7 +3431,7 @@
       });
     }
 
-    /* बॅनर उघडणे (परीक्षेचे नाव, ऑटो झूम आउट व सेंटर्ड) */
+    /* बॅनर उघडणे (अनुक्रमांक एकदाच येणे + ठळक गुण + सेंटरिंग) */
     function openDeclaredBanner(testNum, type, scopeName) {
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
@@ -3462,6 +3460,10 @@
         const selTaluka = scopeName || selectedTopperTaluka || TALUKA_LIST[0];
         titleText = `${selTaluka} तालुका Top 10 गुणवत्ता यादी`;
         toppersList = (testData.talukaToppers && testData.talukaToppers[selTaluka]) ? testData.talukaToppers[selTaluka] : [];
+      } else if (type === 'kendra') {
+        const selKendra = scopeName || "केंद्र";
+        titleText = `${selKendra} केंद्र Top 10 गुणवत्ता यादी`;
+        toppersList = (testData.kendraToppers && testData.kendraToppers[selKendra]) ? testData.kendraToppers[selKendra] : [];
       }
 
       document.getElementById('banner-render-exam-name').innerText = examTitle;
@@ -3471,7 +3473,7 @@
       document.getElementById('banner-render-footer').innerText = BANNER_CONFIG.footer || "🎯 शिक्षण विभाग, जिल्हा परिषद बीड";
 
       toppersList.forEach((st, idx) => {
-        const medal = (idx === 0) ? '🥇 ' : (idx === 1) ? '🥈 ' : (idx === 2) ? '🥉 ' : `🎖️ #${idx+1} `;
+        const medal = (idx === 0) ? '🥇 ' : (idx === 1) ? '🥈 ' : (idx === 2) ? '🥉 ' : '🎖️ ';
         listEl.innerHTML += `
           <div class="banner-row">
             <div>${medal} <span class="b-std-name">${idx + 1}. ${st.name}</span> <span class="b-sch-name">(${st.school})</span></div>
@@ -3482,7 +3484,6 @@
 
       document.getElementById('bannerModal').style.display = 'flex';
 
-      // ================= स्क्रीननुसार संपूर्ण बॅनर ऑटो झूम आउट (Fit to Viewport) =================
       setTimeout(() => {
         const container = document.getElementById('banner-fit-container');
         const bannerCard = document.getElementById('banner-card-render');
@@ -3492,7 +3493,7 @@
           if (availWidth < cardWidth) {
             const scaleRatio = availWidth / cardWidth;
             bannerCard.style.transform = `scale(${scaleRatio})`;
-            container.style.height = `${1020 * scaleRatio + 20}px`;
+            container.style.height = `${1020 * scaleRatio + 15}px`;
           } else {
             bannerCard.style.transform = 'scale(1)';
             container.style.height = 'auto';
@@ -3750,12 +3751,10 @@
       const card = document.getElementById('banner-card-render');
       showToast('बॅनर PDF तयार होत आहे...');
 
-      // PDF जनरेट करताना तात्पुरते ओरिजिनल स्केल (scale 1) करणे
       const prevTransform = card.style.transform;
       card.style.transform = 'scale(1)';
 
       html2canvas(card, { scale: 2, useCORS: true }).then(canvas => {
-        // पूर्ववत करणे
         card.style.transform = prevTransform;
 
         const imgData = canvas.toDataURL('image/jpeg', 0.9);
