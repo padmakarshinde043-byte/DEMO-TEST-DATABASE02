@@ -1519,9 +1519,15 @@
         <span>सुरक्षा पिन रिसेट</span>
       </div>
 
-      <p style="font-size:0.84rem; color:#475569; margin-bottom:12px; line-height:1.4;">
+      <p style="font-size:0.84rem; color:#475569; margin-bottom:10px; line-height:1.4;">
         पिन रिसेट करण्यासाठी शाळेच्या नोंदणीकृत <strong>मुख्याध्यापकांचा अधिकृत WhatsApp नंबर</strong> टाका:
       </p>
+
+      <!-- मोबाईल नंबर हिंट दाखवणारा बॅज -->
+      <div id="hmMobileHintBox" style="background:#ecfdf5; border:1.5px dashed #059669; padding:8px 12px; border-radius:8px; margin-bottom:12px; font-size:0.86rem; color:#065f46; font-weight:700;">
+        <i class="fa-solid fa-lightbulb" style="color:#d97706;"></i> नोंदणीकृत नंबर हिंट: 
+        <span id="txtHmMobileMasked" style="font-family:'Poppins', sans-serif; font-size:1rem; letter-spacing:1.5px; color:#047857;">******----</span>
+      </div>
 
       <div class="form-group" style="margin-bottom:10px;">
         <input type="tel" id="inputVerifyHmMobile" maxlength="10" class="form-control" placeholder="नोंदणीकृत 10-अंकी मोबाईल नंबर" style="text-align:center; font-size:1.05rem; font-weight:800; font-family:'Poppins', sans-serif;">
@@ -2695,6 +2701,16 @@
       closeModal('schoolPinModal');
       document.getElementById('inputVerifyHmMobile').value = '';
       document.getElementById('inputResetNewPin').value = '';
+
+      // मुख्याध्यापकांच्या नंबरचे शेवटचे ४ अंक हिंट म्हणून दाखवणे
+      const hintEl = document.getElementById('txtHmMobileMasked');
+      if (fetchedSchoolHmMobile && String(fetchedSchoolHmMobile).length === 10) {
+        const lastDigits = String(fetchedSchoolHmMobile).slice(-4);
+        hintEl.innerText = `******${lastDigits}`;
+      } else {
+        hintEl.innerText = `उपलब्ध नाही`;
+      }
+
       document.getElementById('forgotPinModal').style.display = 'flex';
       setTimeout(() => document.getElementById('inputVerifyHmMobile').focus(), 150);
     }
