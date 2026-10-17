@@ -700,7 +700,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* ================= बॅनर प्रिव्ह्यू कंटेनर (झूम आउट व योग्य जागा वाटप) ================= */
+    /* ================= बॅनर प्रिव्ह्यू कंटेनर ================= */
     .banner-fit-wrapper {
       width: 100%;
       display: flex;
@@ -781,7 +781,7 @@
       box-shadow: 0 3px 10px rgba(217, 119, 6, 0.3);
     }
 
-    /* टॉपर्स यादी कार्ड्स (जागा भरून काढण्यासाठी योग्य पॅडिंग) */
+    /* टॉपर्स यादी कार्ड्स */
     .banner-topper-grid {
       display: flex;
       flex-direction: column;
@@ -816,7 +816,6 @@
       margin-left: 6px;
     }
 
-    /* गुणांचा ठळक व उठावदार बॅज (High Contrast Distinct Color) */
     .banner-row .b-marks-badge {
       font-size: 1.08rem;
       font-weight: 800;
@@ -831,7 +830,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* पहिले ३ रँक हायलाईट */
     .banner-row:nth-child(1) {
       background: linear-gradient(to right, #fffdf2, #fef3c7);
       border: 2px solid #f59e0b;
@@ -1165,17 +1163,17 @@
         </p>
       </div>
 
-      <!-- ०. नवीन विभाग: चाचणी व्यवस्थापन (चालू चाचणी सेट करणे, नवीन चाचण्या जोडणे व नावे बदलणे) -->
+      <!-- ०. चाचणी व्यवस्थापन (Active Test व नवीन चाचण्या) -->
       <div class="app-card" style="border-left: 5px solid #0284c7;">
         <div class="app-card-title"><i class="fa-solid fa-list-check" style="color:var(--sky);"></i> ⚙️ चाचणी व्यवस्थापन (Active Test व नवीन चाचण्या)</div>
         
         <div class="form-group" style="margin-bottom:12px;">
           <label>परीक्षेचा प्रकार निवडा:</label>
           <select class="form-control" id="admin-tmanage-category" onchange="onAdminTManageCategoryChange()">
-            <option value="navodaya">नवोदय (5 वी)</option>
-            <option value="4th">4 थी शिष्यवृत्ती</option>
-            <option value="7th">7 वी शिष्यवृत्ती</option>
-            <option value="nmms">NMMS (8 वी)</option>
+            <option value="navodaya">नवोदय (5 वी) [चाचणी 6 व पुढील]</option>
+            <option value="4th">4 थी शिष्यवृत्ती [चाचणी 8 व पुढील]</option>
+            <option value="7th">7 वी शिष्यवृत्ती [चाचणी 8 व पुढील]</option>
+            <option value="nmms">NMMS (8 वी) [चाचणी 8 व पुढील]</option>
           </select>
         </div>
 
@@ -1215,7 +1213,7 @@
           </button>
         </div>
 
-        <!-- क. नवीन चाचणी जोडणे (चाचणी ११, १२... नावासह) -->
+        <!-- क. नवीन चाचणी जोडणे -->
         <div style="background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:10px; padding:12px;">
           <div style="font-weight:800; font-size:0.92rem; color:#166534; margin-bottom:6px;">
             <i class="fa-solid fa-plus-circle"></i> ३. नवीन चाचणी जोडा (पुढील क्रमांक व सानुकूल नाव)
@@ -1402,13 +1400,13 @@
                 <p class="banner-dept-title">जिल्हा परिषद, बीड — शिक्षण विभाग</p>
                 <div class="banner-exam-badge" id="banner-designer-exam-name">नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा</div>
                 <h2 class="banner-heading-main" id="banner-designer-title-txt">पाटोदा तालुका Top 10 गुणवत्ता यादी</h2>
-                <p class="banner-subheading">चाचणी क्र. 6 निकाल</p>
+                <p class="banner-subheading">चाचणी निकाल</p>
                 <div>
                   <span class="banner-congrats-tag" id="banner-designer-badge-txt">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
                 </div>
               </div>
 
-              <!-- १ ते १० पर्यंत केवळ एकदाच अनुक्रमांक आणि हाय-कॉन्ट्रास्ट गुण -->
+              <!-- १ ते १० पर्यंत टॉपर्स यादी -->
               <div class="banner-topper-grid" id="banner-designer-topper-grid">
                 <div class="banner-row">
                   <div>🥇 <span class="b-std-name">१. गणेश रामहरी उबाळे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
@@ -1594,7 +1592,6 @@
         पिन रिसेट करण्यासाठी शाळेच्या नोंदणीकृत <strong>मुख्याध्यापकांचा अधिकृत WhatsApp नंबर</strong> टाका:
       </p>
 
-      <!-- मोबाईल नंबर हिंट दाखवणारा बॅज -->
       <div id="hmMobileHintBox" style="background:#ecfdf5; border:1.5px dashed #059669; padding:8px 12px; border-radius:8px; margin-bottom:12px; font-size:0.86rem; color:#065f46; font-weight:700;">
         <i class="fa-solid fa-lightbulb" style="color:#d97706;"></i> नोंदणीकृत नंबर हिंट: 
         <span id="txtHmMobileMasked" style="font-family:'Poppins', sans-serif; font-size:1rem; letter-spacing:1.5px; color:#047857;">******----</span>
@@ -1654,7 +1651,6 @@
   <div class="modal" id="bannerModal">
     <div class="modal-content" style="max-width:780px;">
       
-      <!-- वरच्या बाजूला हेडर व ठळक डाऊनलोड बटन -->
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1.5px solid var(--border); padding-bottom:8px; gap:8px;">
         <h3 style="color:#b45309; font-size:1.05rem; white-space:nowrap;"><i class="fa-solid fa-award"></i> टॉपर्स गौरव बॅनर</h3>
         
@@ -1666,10 +1662,8 @@
         </div>
       </div>
 
-      <!-- झूम आउट व ऑटो-फिट बॅनर बॉक्स -->
       <div class="banner-fit-wrapper" id="banner-fit-container">
         <div class="banner-preview-box" id="banner-card-render">
-          <!-- बॅनर टॉप हेडर -->
           <div class="banner-top-header">
             <p class="banner-dept-title">जिल्हा परिषद, बीड — शिक्षण विभाग</p>
             <div class="banner-exam-badge" id="banner-render-exam-name">सराव परीक्षा निकाल</div>
@@ -1680,10 +1674,8 @@
             </div>
           </div>
 
-          <!-- टॉपर्स यादी -->
           <div class="banner-topper-grid" id="banner-toppers-list"></div>
 
-          <!-- बॅनर तळटीप -->
           <div class="banner-footer-auth">
             <span id="banner-render-footer">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
             <span>🏆 जिल्हा परिषद बीड</span>
@@ -1742,7 +1734,7 @@
     </div>
   </div>
 
-  <!-- प्रगती पुस्तक Modal -->
+  <!-- प्रगती पुस्तक Modal (केवळ वैध चाचण्यांचीच नोंद) -->
   <div class="modal" id="reportCardModal">
     <div class="modal-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:10px;">
@@ -1751,12 +1743,12 @@
       </div>
 
       <div class="report-card-container" id="report-card-render">
-        <div class="report-card-header">
-          <h2>जिल्हा परिषद बीड - शिक्षण विभाग</h2>
-          <p style="font-weight:600; font-size:0.95rem; color:#334155;">सराव चाचणी संकलित प्रगती पुस्तक (चाचणी 1 ते 10)</p>
+        <div class="report-card-header" style="text-align:center; border-bottom:2px solid var(--sky); padding-bottom:8px; margin-bottom:10px;">
+          <h2 style="font-size:1.2rem; color:var(--sky-dark); font-weight:800;">जिल्हा परिषद बीड - शिक्षण विभाग</h2>
+          <p style="font-weight:700; font-size:0.92rem; color:#334155;" id="rc-header-desc">सराव चाचणी संकलित प्रगती पुस्तक</p>
         </div>
 
-        <div class="report-meta-grid">
+        <div class="report-meta-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:0.88rem; margin-bottom:12px; background:#f8fafc; padding:8px 12px; border-radius:8px; border:1px solid #e2e8f0;">
           <div>विद्यार्थी: <strong id="rc-student-name">---</strong></div>
           <div>शाळा: <strong id="rc-school-name">---</strong></div>
           <div>तालुका: <strong id="rc-taluka-name">---</strong></div>
@@ -1764,22 +1756,19 @@
           <div>UDISE: <strong id="rc-udise" style="font-family:'Poppins', sans-serif;">---</strong></div>
         </div>
 
-        <div class="table-responsive">
-          <table>
+        <div class="table-responsive" style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; margin-bottom:10px;">
             <thead>
-              <tr style="font-family:'Poppins', sans-serif;">
-                <th>T1</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>T8</th><th>T9</th><th>T10</th>
-                <th>Avg</th>
-              </tr>
+              <tr id="rc-thead-row" style="background:#f1f5f9; font-size:0.82rem; font-family:'Poppins', sans-serif; text-align:center;"></tr>
             </thead>
             <tbody>
-              <tr id="rc-marks-row" style="text-align:center; font-weight:700; font-family:'Poppins', sans-serif;"></tr>
+              <tr id="rc-marks-row" style="text-align:center; font-weight:700; font-family:'Poppins', sans-serif; font-size:0.9rem;"></tr>
             </tbody>
           </table>
         </div>
 
         <p style="font-weight:700; font-size:0.82rem; color:#475569; margin-top:10px;">📈 प्रगती आलेख (Trend Graph):</p>
-        <div class="progress-bar-container" id="rc-graph-bars"></div>
+        <div class="progress-bar-container" id="rc-graph-bars" style="display:flex; gap:8px; align-items:flex-end; height:120px; border-bottom:2px solid #cbd5e1; padding-bottom:4px; margin-top:8px;"></div>
 
         <div style="margin-top:12px; padding:8px 12px; background:#f0fdf4; border-radius:6px; border:1px solid #bbf7d0; font-size:0.88rem;">
           अंतिम शेरा: <strong id="rc-remark-text" style="color:#166534;">उत्कृष्ट कामगिरी!</strong>
@@ -1819,21 +1808,29 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    /* ================= चाचणी व्याख्या व ॲक्टिव्ह टेस्ट स्टोरेज ================= */
+    /* ================= किमान चाचणी क्रमांक निश्चित करणे ================= */
+    function getMinAllowedTestNo(category) {
+      return (category === 'navodaya') ? 6 : 8;
+    }
+
     let TEST_DEFINITIONS_STORE = {};
     let ACTIVE_TESTS_STORE = {};
 
     function getDefaultTests(category) {
+      const minStart = getMinAllowedTestNo(category);
       let list = [];
-      for (let i = 1; i <= 10; i++) {
+      for (let i = minStart; i <= 10; i++) {
         list.push({ no: i, name: `चाचणी ${i}` });
       }
       return list;
     }
 
     function getTestsListForCategory(category) {
-      if (TEST_DEFINITIONS_STORE && TEST_DEFINITIONS_STORE[category] && Array.isArray(TEST_DEFINITIONS_STORE[category]) && TEST_DEFINITIONS_STORE[category].length > 0) {
-        return TEST_DEFINITIONS_STORE[category];
+      const minStart = getMinAllowedTestNo(category);
+      if (TEST_DEFINITIONS_STORE && TEST_DEFINITIONS_STORE[category] && Array.isArray(TEST_DEFINITIONS_STORE[category])) {
+        // केवळ परवानगी असलेल्या चाचण्याच (नवोदय: 6+, इतर: 8+) घेणे
+        const filtered = TEST_DEFINITIONS_STORE[category].filter(t => t.no >= minStart);
+        if (filtered.length > 0) return filtered;
       }
       return getDefaultTests(category);
     }
@@ -1845,11 +1842,12 @@
     }
 
     function getAutoActiveTest(category) {
+      const minStart = getMinAllowedTestNo(category);
       if (ACTIVE_TESTS_STORE && ACTIVE_TESTS_STORE[category]) {
-        return parseInt(ACTIVE_TESTS_STORE[category], 10);
+        const val = parseInt(ACTIVE_TESTS_STORE[category], 10);
+        if (val >= minStart) return val;
       }
-      if (category === 'navodaya') return 6;
-      return 8;
+      return minStart;
     }
 
     function listenTestDefinitionsAndActive() {
@@ -2311,80 +2309,6 @@
       });
     }
 
-    function runGlobalOneTimeMergeDistrict() {
-      const migrationFlagKey = 'beed_district_merged_v3';
-      if (localStorage.getItem(migrationFlagKey)) return;
-
-      const categories = ['navodaya', '4th', '7th', 'nmms'];
-
-      categories.forEach(cat => {
-        const baseActiveTest = (cat === 'navodaya') ? 6 : 8;
-        const targetRefPath = `results/${cat}/test_${baseActiveTest}`;
-
-        let promises = [];
-        promises.push(db.ref(targetRefPath).once('value'));
-
-        let futureTests = (cat === 'navodaya') ? [7, 8, 9, 10] : [9, 10];
-        futureTests.forEach(tNum => {
-          promises.push(db.ref(`results/${cat}/test_${tNum}`).once('value'));
-        });
-
-        Promise.all(promises).then(snapshots => {
-          let baseData = snapshots[0].val() || {};
-          let hasMergedData = false;
-
-          for (let i = 1; i < snapshots.length; i++) {
-            const fTestData = snapshots[i].val();
-            const futureTestNumber = futureTests[i - 1];
-
-            if (fTestData) {
-              Object.keys(fTestData).forEach(schoolKey => {
-                const fEntry = fTestData[schoolKey];
-                if (fEntry && fEntry.students && Array.isArray(fEntry.students)) {
-                  hasMergedData = true;
-
-                  if (!baseData[schoolKey]) {
-                    baseData[schoolKey] = fEntry;
-                  } else {
-                    fEntry.students.forEach(stFuture => {
-                      if (stFuture.marks !== undefined && stFuture.marks !== '') {
-                        const existingStudent = baseData[schoolKey].students.find(s => s.id === stFuture.id || s.name.trim() === stFuture.name.trim());
-                        
-                        if (existingStudent) {
-                          const mBaseStr = String(existingStudent.marks || '').toUpperCase();
-                          const mFutStr = String(stFuture.marks || '').toUpperCase();
-
-                          if (mBaseStr === '' || mBaseStr === 'AB') {
-                            existingStudent.marks = stFuture.marks;
-                          } else if (mFutStr !== '' && mFutStr !== 'AB') {
-                            const valBase = parseFloat(existingStudent.marks) || 0;
-                            const valFut = parseFloat(stFuture.marks) || 0;
-                            if (valFut > valBase) {
-                              existingStudent.marks = stFuture.marks;
-                            }
-                          }
-                        } else {
-                          baseData[schoolKey].students.push(stFuture);
-                        }
-                      }
-                    });
-                  }
-                }
-              });
-
-              db.ref(`results/${cat}/test_${futureTestNumber}`).remove();
-            }
-          }
-
-          if (hasMergedData) {
-            db.ref(targetRefPath).set(baseData);
-          }
-        });
-      });
-
-      localStorage.setItem(migrationFlagKey, 'true');
-    }
-
     function initPortal() {
       loadSchoolsData();
       initTalukaDropdowns();
@@ -2398,7 +2322,6 @@
       listenCustomTemplates();
       initAdminPanelOptions();
       initAllDraggables();
-      runGlobalOneTimeMergeDistrict();
 
       try { history.pushState({ page: 'home' }, ''); } catch(e) {}
     }
@@ -2577,7 +2500,7 @@
       
       const tests = getTestsListForCategory(currentSelectedCategory);
       if (!tests.find(t => t.no === currentSelectedTest)) {
-        currentSelectedTest = tests[0] ? tests[0].no : 1;
+        currentSelectedTest = tests[0] ? tests[0].no : getMinAllowedTestNo(currentSelectedCategory);
       }
 
       tests.forEach(t => {
@@ -2827,7 +2750,6 @@
       document.getElementById('inputVerifyHmMobile').value = '';
       document.getElementById('inputResetNewPin').value = '';
 
-      // मुख्याध्यापकांच्या नंबरचे शेवटचे ४ अंक हिंट म्हणून दाखवणे
       const hintEl = document.getElementById('txtHmMobileMasked');
       if (fetchedSchoolHmMobile && String(fetchedSchoolHmMobile).length === 10) {
         const lastDigits = String(fetchedSchoolHmMobile).slice(-4);
@@ -3113,7 +3035,7 @@
         return;
       }
 
-      const testNo = parseInt(document.getElementById('entry-test-no').value, 10) || 1;
+      const testNo = parseInt(document.getElementById('entry-test-no').value, 10) || getMinAllowedTestNo(currentEntryCategory);
       const maxLimit = getMaxMarksForTest(currentEntryCategory, testNo);
 
       currentStudentsList.forEach((st, idx) => {
@@ -3573,7 +3495,7 @@
       });
     }
 
-    /* बॅनर उघडणे (अनुक्रमांक एकदाच येणे + ठळक गुण + सेंटरिंग) */
+    /* बॅनर उघडणे */
     function openDeclaredBanner(testNum, type, scopeName) {
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
@@ -3655,7 +3577,6 @@
       const tests = getTestsListForCategory(cat);
       const activeTest = getAutoActiveTest(cat);
 
-      // १. ॲक्टिव्ह चाचणी ड्रॉपडाऊन भरणे
       const actSelect = document.getElementById('admin-active-test-select');
       if (actSelect) {
         actSelect.innerHTML = '';
@@ -3664,7 +3585,6 @@
         });
       }
 
-      // २. नाव बदलणे ड्रॉपडाऊन भरणे
       const renSelect = document.getElementById('admin-rename-test-select');
       if (renSelect) {
         renSelect.innerHTML = '';
@@ -3674,11 +3594,10 @@
         onAdminRenameTestSelectChange();
       }
 
-      // ३. पुढील चाचणी क्रमांक स्वयंचलित सेट करणे
       const addNoInp = document.getElementById('admin-add-test-no');
       if (addNoInp) {
-        const maxNo = tests.reduce((max, t) => Math.max(max, t.no), 0);
-        addNoInp.value = maxNo + 1;
+        const maxNo = tests.reduce((max, t) => Math.max(max, t.no), getMinAllowedTestNo(cat) - 1);
+        addNoInp.value = Math.max(maxNo + 1, getMinAllowedTestNo(cat));
       }
     }
 
@@ -4148,6 +4067,7 @@
       });
     }
 
+    /* प्रगती पुस्तक Modal (केवळ नवोदय 6+ व इतर 8+ चाचण्या) */
     function openReportCardModal(studentId, studentName) {
       if (!selectedSchoolObj) return;
 
@@ -4158,24 +4078,33 @@
       const classMap = { 'navodaya': 'Class 5th', '4th': 'Class 4th', '7th': 'Class 7th', 'nmms': 'Class 8th' };
       document.getElementById('rc-class-name').innerText = classMap[currentEntryCategory] || '-';
 
+      const tests = getTestsListForCategory(currentEntryCategory);
       const key = getSchoolDbKey();
+      const theadRow = document.getElementById('rc-thead-row');
       const marksRow = document.getElementById('rc-marks-row');
       const graphBars = document.getElementById('rc-graph-bars');
+
+      theadRow.innerHTML = '';
       marksRow.innerHTML = '';
       graphBars.innerHTML = '';
 
-      let promises = [];
-      for (let t = 1; t <= 10; t++) {
-        promises.push(db.ref(`results/${currentEntryCategory}/test_${t}/${key}`).once('value'));
-      }
+      tests.forEach(t => {
+        theadRow.innerHTML += `<th style="border:1px solid #cbd5e1; padding:6px 4px;">T${t.no}</th>`;
+      });
+      theadRow.innerHTML += `<th style="border:1px solid #cbd5e1; padding:6px 4px; color:var(--sky-dark);">Avg %</th>`;
+
+      let promises = tests.map(t => db.ref(`results/${currentEntryCategory}/test_${t.no}/${key}`).once('value'));
 
       Promise.all(promises).then(snapshots => {
         let total = 0, count = 0, totalMaxSum = 0;
+
         snapshots.forEach((snap, idx) => {
-          const tNum = idx + 1;
+          const tItem = tests[idx];
+          const tNum = tItem.no;
           const maxLimit = getMaxMarksForTest(currentEntryCategory, tNum);
           const val = snap.val();
           let m = '-';
+
           if (val && val.students) {
             const found = val.students.find(s => s.id === studentId || s.name === studentName);
             if (found && found.marks !== '') {
@@ -4190,20 +4119,21 @@
               }
             }
           }
-          marksRow.innerHTML += `<td>${m}</td>`;
+
+          marksRow.innerHTML += `<td style="border:1px solid #cbd5e1; padding:6px 4px;">${m}</td>`;
 
           const heightPercent = (m !== '-' && m !== 'AB' && maxLimit > 0) ? ((m / maxLimit) * 100) : 0;
           graphBars.innerHTML += `
-            <div class="progress-col">
-              <span style="font-size:0.68rem; font-weight:700; font-family:'Poppins', sans-serif;">${m !== '-' ? m : ''}</span>
-              <div class="progress-bar-fill" style="height: ${heightPercent}%;"></div>
-              <span class="progress-col-label">T${tNum}</span>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
+              <span style="font-size:0.68rem; font-weight:800; font-family:'Poppins', sans-serif; color:#0f172a; margin-bottom:2px;">${m !== '-' ? m : ''}</span>
+              <div style="width:70%; max-width:24px; background:linear-gradient(to top, #0284c7, #38bdf8); border-radius:4px 4px 0 0; height:${heightPercent}%; min-height:${heightPercent > 0 ? 4 : 0}px;"></div>
+              <span style="font-size:0.7rem; font-weight:800; color:#64748b; font-family:'Poppins', sans-serif; margin-top:4px;">T${tNum}</span>
             </div>
           `;
         });
 
         const avgPercent = (totalMaxSum > 0) ? ((total / totalMaxSum) * 100).toFixed(1) : 0;
-        marksRow.innerHTML += `<td style="color:#0284c7;">${avgPercent}%</td>`;
+        marksRow.innerHTML += `<td style="border:1px solid #cbd5e1; padding:6px 4px; color:#0284c7; font-weight:800;">${avgPercent}%</td>`;
 
         let remark = "उत्कृष्ट कामगिरी व सातत्यपूर्ण प्रगती!";
         if (avgPercent < 50) remark = "विशेष मार्गदर्शनाची व सरावाची आवश्यकता आहे.";
