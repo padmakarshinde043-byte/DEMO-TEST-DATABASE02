@@ -781,7 +781,6 @@
       box-shadow: 0 3px 10px rgba(217, 119, 6, 0.3);
     }
 
-    /* टॉपर्स यादी कार्ड्स */
     .banner-topper-grid {
       display: flex;
       flex-direction: column;
@@ -1008,7 +1007,7 @@
           </button>
         </div>
 
-        <!-- १२ तालुक्यांची ग्रीड (तालुका टॉपरसाठी) -->
+        <!-- १२ तालुक्यांची ग्रीड -->
         <div id="taluka-4col-grid-wrap" style="display:none; margin-bottom:14px;">
           <p style="font-size:0.85rem; font-weight:700; color:#475569; margin-bottom:8px;" id="taluka-grid-label">
             <i class="fa-solid fa-hand-pointer" style="color:var(--sky);"></i> तालुका निवडा:
@@ -1071,25 +1070,23 @@
         </div>
       </div>
 
-      <!-- २. नवीन विद्यार्थी वाढवा / जोडा (फक्त मराठीत नाव स्वीकारणे) -->
+      <!-- २. नवीन विद्यार्थी वाढवा / जोडा -->
       <div class="app-card" id="card-student-add-section" style="opacity:0.5; pointer-events:none;">
         <div class="app-card-title"><i class="fa-solid fa-user-plus" style="color:var(--accent-green);"></i> 2. नवीन विद्यार्थी वाढवा / जोडा</div>
-        <p style="font-size:0.84rem; color:#b45309; font-weight:800; margin-bottom:10px;">
-          <i class="fa-solid fa-circle-exclamation"></i> सूचना: विद्यार्थ्यांचे नाव फक्त मराठीतच (देवनागरी) टाईप करावे.
-        </p>
+        
         <div class="grid-2">
           <div class="form-group">
-            <label>प्रथम नाव (मराठीत):</label>
+            <label>प्रथम नाव:</label>
             <input type="text" class="form-control" id="std-fname" placeholder="उदा. सार्थक" oninput="enforceMarathiText(this)">
           </div>
           <div class="form-group">
-            <label>वडिलांचे नाव (मराठीत):</label>
+            <label>वडिलांचे नाव:</label>
             <input type="text" class="form-control" id="std-mname" placeholder="उदा. रामराव" oninput="enforceMarathiText(this)">
           </div>
         </div>
         <div class="grid-2">
           <div class="form-group">
-            <label>आडनाव (मराठीत):</label>
+            <label>आडनाव:</label>
             <input type="text" class="form-control" id="std-lname" placeholder="उदा. सोळंके" oninput="enforceMarathiText(this)">
           </div>
           <div class="form-group">
@@ -1100,6 +1097,11 @@
             </select>
           </div>
         </div>
+
+        <p id="marathi-input-hint" style="display:none; font-size:0.8rem; color:#b45309; font-weight:700; margin-bottom:8px;">
+          <i class="fa-solid fa-circle-info"></i> सूचना: प्रमाणपत्रावर सुंदर दिसण्यासाठी नाव शक्यतो मराठीत टाईप करावे.
+        </p>
+
         <button class="app-btn btn-success" onclick="addStudentToList()"><i class="fa-solid fa-plus"></i> यादीत नवीन विद्यार्थी जोडा</button>
 
         <div class="registered-students-container" id="registered-students-box" style="display:none;">
@@ -1127,7 +1129,7 @@
             </span>
           </div>
           <p id="entry-locked-test-notice" style="font-size:0.82rem; color:#b45309; font-weight:800; margin-top:6px; background:#fef3c7; padding:6px 10px; border-radius:6px; border:1px solid #fde68a;">
-            <i class="fa-solid fa-circle-exclamation"></i> सूचना: सध्या फक्त चाचणी क्रमांक 6 चे गुण भरणे सुरू आहे. केवळ याच चाचणीचे गुण भरा.
+            <i class="fa-solid fa-circle-exclamation"></i> सूचना: सध्या फक्त याच चाचणीचे गुण भरणे सुरू आहे.
           </p>
           <input type="hidden" id="entry-test-no" value="6">
         </div>
@@ -1163,7 +1165,7 @@
         </p>
       </div>
 
-      <!-- ०. चाचणी व्यवस्थापन (Active Test व नवीन चाचण्या) -->
+      <!-- ०. चाचणी व्यवस्थापन -->
       <div class="app-card" style="border-left: 5px solid #0284c7;">
         <div class="app-card-title"><i class="fa-solid fa-list-check" style="color:var(--sky);"></i> ⚙️ चाचणी व्यवस्थापन (Active Test व नवीन चाचण्या)</div>
         
@@ -1177,7 +1179,7 @@
           </select>
         </div>
 
-        <!-- अ. चालू चाचणी निश्चित करणे (Active Test Selector) -->
+        <!-- अ. चालू चाचणी निश्चित करणे -->
         <div style="background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:10px; padding:12px; margin-bottom:14px;">
           <div style="font-weight:800; font-size:0.92rem; color:#0369a1; margin-bottom:6px;">
             <i class="fa-solid fa-toggle-on"></i> १. सध्या शाळांसाठी कोणती चाचणी सुरू ठेवायची?
@@ -1267,7 +1269,7 @@
         </button>
       </div>
 
-      <!-- २. लाइव्ह ड्रॅग आणि ड्रॉप व्हिज्युअल डिझायनर -->
+      <!-- २. डिझायनर कक्ष -->
       <div class="app-card" style="border-left: 5px solid #6366f1;">
         <div class="app-card-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6366f1;"></i> 🎨 प्रमाणपत्र व बॅनर लाइव्ह व्हिज्युअल डिझायनर</div>
 
@@ -1280,7 +1282,7 @@
           </button>
         </div>
 
-        <!-- विभाग अ: केवळ प्रमाणपत्र सेटिंग्ज -->
+        <!-- विभाग अ: प्रमाणपत्र सेटिंग्ज -->
         <div id="section-designer-cert">
           <div class="designer-toolbar-card">
             <div class="form-group" style="margin-bottom:8px;">
@@ -1314,10 +1316,6 @@
             </div>
           </div>
 
-          <p style="font-size:0.8rem; color:#b45309; font-weight:700; margin-bottom:8px;">
-            <i class="fa-solid fa-up-down-left-right"></i> सूचना: प्रमाणपत्रातील घटकांना बोटाने किंवा माउसने ड्रॅग करून हव्या त्या जागेवर सेट करा.
-          </p>
-
           <div style="background:#e2e8f0; padding:10px; border-radius:12px; overflow-x:auto; margin-bottom:12px;">
             <div class="cert-container-box designer-active-box" id="admin-live-cert-designer">
               <div class="draggable-element" id="drag-cert-title" style="top:44px; left:130px; text-align:center; width:560px; font-size:1.95rem; font-weight:800; color:#0f2b5c;">
@@ -1330,7 +1328,7 @@
                 Puja Pravin Patil
               </div>
               <div class="draggable-element" id="drag-cert-body" style="top:198px; left:55px; width:710px; text-align:center; font-size:1.02rem; line-height:1.85; color:#1e293b; font-weight:500; word-spacing: 2px;">
-                गौरवपूर्वक प्रमाणित करण्यात येते की, विद्यार्थी / विद्यार्थिनी <strong>Puja Pravin Patil</strong> (इयत्ता 5 वी (नवोदय)), शाळा: <strong>ZPPS BHIM NAGAR KITTI ADGAON</strong> (UDISE: 27270710302), तालुका: <strong>माजलगाव</strong> या विद्यार्थिनीने पंचायत समिती माजलगाव अंतर्गत आयोजित नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा अंतर्गत चाचणी क्र. <strong>6</strong> मध्ये उल्लेखनीय गुणवत्ता सिद्ध करून खालीलप्रमाणे घवघवीत यश संपादन केले आहे.
+                गौरवपूर्वक प्रमाणित करण्यात येते की, विद्यार्थी / विद्यार्थिनी <strong>Puja Pravin Patil</strong> (इयत्ता 5 वी (नवोदय)), शाळा: <strong>ZPPS BHIM NAGAR KITTI ADGAON</strong> (UDISE: 27270710302), तालुका: <strong>माजलगाव</strong> या विद्यार्थिनीने नवोदय सराव परीक्षेत घवघवीत यश संपादन केले आहे.
               </div>
               <div class="draggable-element" id="drag-cert-badges" style="top:332px; left:55px; width:710px; display:flex; justify-content:center; gap:20px;">
                 <div class="gold-capsule-badge">
@@ -1366,7 +1364,7 @@
           </div>
         </div>
 
-        <!-- विभाग ब: केवळ बॅनर सेटिंग्ज -->
+        <!-- विभाग ब: बॅनर सेटिंग्ज -->
         <div id="section-designer-banner" style="display:none;">
           <div class="designer-toolbar-card">
             <div class="form-group" style="margin-bottom:8px;">
@@ -1406,7 +1404,6 @@
                 </div>
               </div>
 
-              <!-- १ ते १० पर्यंत टॉपर्स यादी -->
               <div class="banner-topper-grid" id="banner-designer-topper-grid">
                 <div class="banner-row">
                   <div>🥇 <span class="b-std-name">१. गणेश रामहरी उबाळे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
@@ -1419,34 +1416,6 @@
                 <div class="banner-row">
                   <div>🥉 <span class="b-std-name">३. सिद्धेश संदिपराव वेदरे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
                   <div class="b-marks-badge">92.5/100 गुण</div>
-                </div>
-                <div class="banner-row">
-                  <div>🎖️ <span class="b-std-name">४. शिवतेज रामेश्वर घोडके</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
-                  <div class="b-marks-badge">92.5/100 गुण</div>
-                </div>
-                <div class="banner-row">
-                  <div>🎖️ <span class="b-std-name">५. श्वेता हरी पन्हाळकर</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
-                  <div class="b-marks-badge">92.5/100 गुण</div>
-                </div>
-                <div class="banner-row">
-                  <div>🎖️ <span class="b-std-name">६. अथर्व भागीरथ नवले</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
-                  <div class="b-marks-badge">91.25/100 गुण</div>
-                </div>
-                <div class="banner-row">
-                  <div>🎖️ <span class="b-std-name">७. ओवी प्रवीण मुळे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
-                  <div class="b-marks-badge">91.25/100 गुण</div>
-                </div>
-                <div class="banner-row">
-                  <div>🎖️ <span class="b-std-name">८. श्रेया युवराज पवार</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
-                  <div class="b-marks-badge">91.25/100 गुण</div>
-                </div>
-                <div class="banner-row">
-                  <div>🎖️ <span class="b-std-name">९. तेजल अंगद जरे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
-                  <div class="b-marks-badge">91.25/100 गुण</div>
-                </div>
-                <div class="banner-row">
-                  <div>🎖️ <span class="b-std-name">१०. मनस्वी सोमीनाथ पन्हाळकर</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
-                  <div class="b-marks-badge">91.25/100 गुण</div>
                 </div>
               </div>
 
@@ -1567,7 +1536,7 @@
       </div>
 
       <p id="pinNoticeReg" style="display:none; font-size:0.75rem; color:#b45309; margin-bottom:12px; line-height:1.3; text-align:left; background:#fffbeb; padding:6px 8px; border-radius:6px; border:1px solid #fde68a;">
-        * सूचना: भविष्यात पिन विसरल्यास तो रिसेट करण्यासाठी हाच अधिकृत WhatsApp नंबर लागणार आहे.
+        * सूचना: एका शाळेसाठी (UDISE) हाच पिन सर्व परीक्षांकरिता लागू राहील.
       </p>
 
       <div style="display:flex; flex-direction:column; gap:8px;">
@@ -1630,7 +1599,7 @@
       <h3 style="margin-bottom:12px; font-size:1.1rem; color:#334155;"><i class="fa-solid fa-pen-to-square" style="color:var(--sky);"></i> विद्यार्थ्याचे नाव बदला</h3>
       <input type="hidden" id="edit-std-id">
       <div class="form-group">
-        <label>विद्यार्थ्याचे संपूर्ण नाव (फक्त मराठीत):</label>
+        <label>विद्यार्थ्याचे संपूर्ण नाव:</label>
         <input type="text" id="edit-std-name" class="form-control" oninput="enforceMarathiText(this)">
       </div>
       <div class="form-group">
@@ -1647,13 +1616,11 @@
     </div>
   </div>
 
-  <!-- ================= अभिनंदन गौरव बॅनर Modal ================= -->
+  <!-- बॅनर Modal -->
   <div class="modal" id="bannerModal">
     <div class="modal-content" style="max-width:780px;">
-      
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1.5px solid var(--border); padding-bottom:8px; gap:8px;">
         <h3 style="color:#b45309; font-size:1.05rem; white-space:nowrap;"><i class="fa-solid fa-award"></i> टॉपर्स गौरव बॅनर</h3>
-        
         <div style="display:flex; gap:8px; align-items:center;">
           <button class="app-btn btn-gold" style="height:36px; padding:0 14px; font-size:0.85rem; width:auto;" onclick="downloadBannerPDF()">
             <i class="fa-solid fa-download"></i> बॅनर PDF डाऊनलोड
@@ -1673,20 +1640,17 @@
               <span class="banner-congrats-tag" id="banner-render-badge">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
             </div>
           </div>
-
           <div class="banner-topper-grid" id="banner-toppers-list"></div>
-
           <div class="banner-footer-auth">
             <span id="banner-render-footer">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
             <span>🏆 जिल्हा परिषद बीड</span>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- गुणवत्ता सन्मान प्रमाणपत्र Modal -->
+  <!-- प्रमाणपत्र Modal -->
   <div class="modal" id="certModal">
     <div class="modal-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -1734,7 +1698,7 @@
     </div>
   </div>
 
-  <!-- प्रगती पुस्तक Modal (केवळ वैध चाचण्यांचीच नोंद) -->
+  <!-- प्रगती पुस्तक Modal -->
   <div class="modal" id="reportCardModal">
     <div class="modal-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:10px;">
@@ -1782,7 +1746,7 @@
     </div>
   </div>
 
-  <!-- शाळेच्या रेकॉर्डसाठी Multi-page प्रिंट कंटेनर -->
+  <!-- प्रिंट कंटेनर -->
   <div style="position:absolute; left:-9999px; top:-9999px;">
     <div id="school-record-print-pages-container"></div>
   </div>
@@ -1828,7 +1792,6 @@
     function getTestsListForCategory(category) {
       const minStart = getMinAllowedTestNo(category);
       if (TEST_DEFINITIONS_STORE && TEST_DEFINITIONS_STORE[category] && Array.isArray(TEST_DEFINITIONS_STORE[category])) {
-        // केवळ परवानगी असलेल्या चाचण्याच (नवोदय: 6+, इतर: 8+) घेणे
         const filtered = TEST_DEFINITIONS_STORE[category].filter(t => t.no >= minStart);
         if (filtered.length > 0) return filtered;
       }
@@ -1924,18 +1887,14 @@
     let BEED_ALL_SCHOOLS = [];
     let PRE_LOCK_CALCULATED_DATA = null;
 
-    let isMarathiAlertOpen = false;
+    /* इंग्रजी अक्षरे नष्ट न करता फक्त सौम्य सूचना देणे */
     function enforceMarathiText(inputEl) {
-      const original = inputEl.value;
-      const hasEnglish = /[a-zA-Z]/.test(original);
-
-      if (hasEnglish) {
-        inputEl.value = original.replace(/[a-zA-Z]/g, '');
-        if (!isMarathiAlertOpen) {
-          isMarathiAlertOpen = true;
-          showCustomAlert("📢 कृपया विद्यार्थ्यांचे नाव फक्त मराठीत (देवनागरी लिपीत) टाईप करा! इंग्रजीत नाव स्वीकारले जाणार नाही.");
-          setTimeout(() => { isMarathiAlertOpen = false; }, 1500);
-        }
+      const val = inputEl.value;
+      const hint = document.getElementById('marathi-input-hint');
+      if (/[a-zA-Z]/.test(val)) {
+        if (hint) hint.style.display = 'block';
+      } else {
+        if (hint) hint.style.display = 'none';
       }
     }
 
@@ -2198,7 +2157,7 @@
       db.ref('custom_cert_template').set(cfg).then(() => {
         CERT_CONFIG = cfg;
         showToast('प्रमाणपत्र डिझाईन सुरक्षित सेव्ह झाले!');
-        showCustomAlert('यशस्वी! प्रमाणपत्राचा मजकूर, फॉन्ट व जागा सुरक्षित सेव्ह झाल्या आहेत. याचा बॅनरवर कोणताही परिणाम झालेला नाही.');
+        showCustomAlert('यशस्वी! प्रमाणपत्राचा मजकूर, फॉन्ट व जागा सुरक्षित सेव्ह झाल्या आहेत.');
       });
     }
 
@@ -2214,7 +2173,7 @@
       db.ref('custom_banner_template').set(cfg).then(() => {
         BANNER_CONFIG = cfg;
         showToast('बॅनर डिझाईन सुरक्षित सेव्ह झाले!');
-        showCustomAlert('यशस्वी! बॅनरचा मजकूर व मांडणी सुरक्षित सेव्ह झाली आहे. प्रमाणपत्राची रचना अबाधित आहे.');
+        showCustomAlert('यशस्वी! बॅनरचा मजकूर व मांडणी सुरक्षित सेव्ह झाली आहे.');
       });
     }
 
@@ -2638,6 +2597,7 @@
       handleSchoolSelectionWithSecurity();
     }
 
+    /* बदल: एकाच UDISE सोबत एकच पिन कोड व मोबाईल क्रमांक */
     function handleSchoolSelectionWithSecurity() {
       const udise = document.getElementById('entry-school').value;
       if (!udise) return;
@@ -2657,7 +2617,7 @@
           isReRegistrationNeeded = false;
 
           document.getElementById('pinModalTitle').innerText = "शाळा सुरक्षा पिन पडताळणी";
-          document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\nया शाळेचे विद्यार्थी व गुण पाहण्यासाठी / भरण्यासाठी आपला 4-अंकी सुरक्षा पिन टाका:`;
+          document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\n(UDISE: ${pendingSchoolToLock.c})\nआपला 4-अंकी सुरक्षा पिन टाका:`;
           document.getElementById('groupHmMobileReg').style.display = 'none';
           document.getElementById('pinNoticeReg').style.display = 'none';
           document.getElementById('labelSchoolPin').style.display = 'none';
@@ -2674,12 +2634,12 @@
               isCurrentSchoolPinNew = true;
               isReRegistrationNeeded = false;
               document.getElementById('pinModalTitle').innerText = "शाळा सुरक्षा पिन सेट करा";
-              document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\nसुरक्षिततेसाठी मुख्याध्यापकांचा अधिकृत WhatsApp नंबर व नवीन 4-अंकी पिन तयार करा:`;
+              document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\n(UDISE: ${pendingSchoolToLock.c})\nमुख्याध्यापकांचा अधिकृत WhatsApp नंबर व नवीन 4-अंकी पिन तयार करा (हाच पिन सर्व परीक्षांसाठी राहील):`;
             } else {
               isCurrentSchoolPinNew = false;
               isReRegistrationNeeded = true;
               document.getElementById('pinModalTitle').innerText = "सुरक्षा अद्ययावत करा";
-              document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\nआपल्या शाळेची सुरक्षा अद्ययावत करण्यासाठी मुख्याध्यापकांचा अधिकृत WhatsApp नंबर नोंदवून नवीन पिन तयार करा:`;
+              document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\nमुख्याध्यापकांचा अधिकृत WhatsApp नंबर नोंदवून नवीन पिन तयार करा:`;
             }
 
             document.getElementById('groupHmMobileReg').style.display = 'block';
@@ -2792,7 +2752,7 @@
         db.ref(`school_pins/${schoolKey}`).set(newPin);
         fetchedSchoolSecurityPin = newPin;
         closeModal('forgotPinModal');
-        showCustomAlert("शाळा सुरक्षा पिन यशस्वीरीत्या रिसेट झाला आहे! आता आपण गुण भरू शकता.");
+        showCustomAlert("शाळा सुरक्षा पिन यशस्वीरीत्या रिसेट झाला आहे! हाच पिन सर्व परीक्षांसाठी राहील.");
         proceedWithSchoolSelection(pendingSchoolToLock);
       }).catch(err => {
         showCustomAlert("त्रुटी: " + err.message);
@@ -2915,11 +2875,6 @@
         return;
       }
 
-      if (/[a-zA-Z]/.test(fname) || /[a-zA-Z]/.test(mname) || /[a-zA-Z]/.test(lname)) {
-        showCustomAlert('कृपया विद्यार्थ्याचे नाव फक्त मराठीत (देवनागरी लिपीत) भरा! इंग्रजी अक्षरे चालणार नाहीत.');
-        return;
-      }
-
       const key = getSchoolDbKey();
       if (!key) {
         showCustomAlert('आधी भाग 1 मधून आपली शाळा निवडा!');
@@ -2936,6 +2891,8 @@
         document.getElementById('std-fname').value = '';
         document.getElementById('std-mname').value = '';
         document.getElementById('std-lname').value = '';
+        const hint = document.getElementById('marathi-input-hint');
+        if (hint) hint.style.display = 'none';
         renderRegisteredStudentsManager();
         loadStudentMarksForSelectedTest();
         showToast('विद्यार्थी जोडला गेला!');
@@ -2970,11 +2927,6 @@
 
       if (!newName) {
         showCustomAlert('नाव रिकामे असू शकत नाही!');
-        return;
-      }
-
-      if (/[a-zA-Z]/.test(newName)) {
-        showCustomAlert('कृपया नाव फक्त मराठीत टाईप करा!');
         return;
       }
 
@@ -3166,7 +3118,6 @@
       });
     }
 
-    /* Multi-page A4 PDF यादी */
     function downloadSchoolRecordPDF() {
       if (!selectedSchoolObj) {
         showCustomAlert('कृपया प्रथम शाळा निवडा!');
@@ -3495,7 +3446,6 @@
       });
     }
 
-    /* बॅनर उघडणे */
     function openDeclaredBanner(testNum, type, scopeName) {
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
@@ -3567,7 +3517,6 @@
       }, 50);
     }
 
-    /* ================= ॲडमिन पॅनल: चाचणी व्यवस्थापन फंक्शन्स ================= */
     function onAdminTManageCategoryChange() {
       refreshAdminTestManagerUI();
     }
@@ -4067,7 +4016,7 @@
       });
     }
 
-    /* प्रगती पुस्तक Modal (केवळ नवोदय 6+ व इतर 8+ चाचण्या) */
+    /* प्रगती पुस्तक Modal */
     function openReportCardModal(studentId, studentName) {
       if (!selectedSchoolObj) return;
 
