@@ -1161,8 +1161,79 @@
           <button class="app-btn btn-outline" style="width:auto; height:30px; font-size:0.75rem; padding:0 8px;" onclick="switchTab('dashboard')">बंद करा</button>
         </div>
         <p style="font-size:0.82rem; color:#475569;">
-          येथून आपण चाचणी निकाल जाहीर व लॉक करण्यापूर्वी तात्पुरते जिल्हा व तालुका टॉपर्स तपासू शकता, प्रमाणपत्र/बॅनर लेआउट हाताने ड्रॅग करून सेट करू शकता आणि निकाल लॉक करू शकता.
+          येथून आपण चाचणी निकाल जाहीर व लॉक करण्यापूर्वी तात्पुरते जिल्हा व तालुका टॉपर्स तपासू शकता, प्रमाणपत्र/बॅनर लेआउट हाताने ड्रॅग करून सेट करू शकता, तसेच चालू चाचणी ठरवणे, नवीन चाचण्या जोडणे व त्यांची नावे बदलू शकता.
         </p>
+      </div>
+
+      <!-- ०. नवीन विभाग: चाचणी व्यवस्थापन (चालू चाचणी सेट करणे, नवीन चाचण्या जोडणे व नावे बदलणे) -->
+      <div class="app-card" style="border-left: 5px solid #0284c7;">
+        <div class="app-card-title"><i class="fa-solid fa-list-check" style="color:var(--sky);"></i> ⚙️ चाचणी व्यवस्थापन (Active Test व नवीन चाचण्या)</div>
+        
+        <div class="form-group" style="margin-bottom:12px;">
+          <label>परीक्षेचा प्रकार निवडा:</label>
+          <select class="form-control" id="admin-tmanage-category" onchange="onAdminTManageCategoryChange()">
+            <option value="navodaya">नवोदय (5 वी)</option>
+            <option value="4th">4 थी शिष्यवृत्ती</option>
+            <option value="7th">7 वी शिष्यवृत्ती</option>
+            <option value="nmms">NMMS (8 वी)</option>
+          </select>
+        </div>
+
+        <!-- अ. चालू चाचणी निश्चित करणे (Active Test Selector) -->
+        <div style="background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:10px; padding:12px; margin-bottom:14px;">
+          <div style="font-weight:800; font-size:0.92rem; color:#0369a1; margin-bottom:6px;">
+            <i class="fa-solid fa-toggle-on"></i> १. सध्या शाळांसाठी कोणती चाचणी सुरू ठेवायची?
+          </div>
+          <p style="font-size:0.78rem; color:#475569; margin-bottom:8px;">
+            येथून निवडलेली चाचणी सर्व शाळांच्या 'गुण भरा' स्क्रीनवर थेट सक्रिय होईल.
+          </p>
+          <div class="grid-2">
+            <select class="form-control" id="admin-active-test-select"></select>
+            <button class="app-btn btn-primary" onclick="saveAdminActiveTest()">
+              <i class="fa-solid fa-circle-check"></i> ही चाचणी सुरू करा
+            </button>
+          </div>
+        </div>
+
+        <!-- ब. सध्याच्या चाचणीचे नाव बदलणे -->
+        <div style="background:#fffbeb; border:1.5px solid #fde68a; border-radius:10px; padding:12px; margin-bottom:14px;">
+          <div style="font-weight:800; font-size:0.92rem; color:#92400e; margin-bottom:6px;">
+            <i class="fa-solid fa-pen"></i> २. चाचणीचे नाव बदला (उदा. महारिव्हिजन चाचणी)
+          </div>
+          <div class="grid-2" style="margin-bottom:8px;">
+            <div>
+              <label style="font-size:0.8rem; font-weight:700;">चाचणी निवडा:</label>
+              <select class="form-control" id="admin-rename-test-select" onchange="onAdminRenameTestSelectChange()"></select>
+            </div>
+            <div>
+              <label style="font-size:0.8rem; font-weight:700;">नवीन नाव द्या:</label>
+              <input type="text" class="form-control" id="admin-rename-test-input" placeholder="उदा. महारिव्हिजन चाचणी 1">
+            </div>
+          </div>
+          <button class="app-btn btn-gold" onclick="saveTestRenaming()">
+            <i class="fa-solid fa-floppy-disk"></i> चाचणीचे नाव जतन करा
+          </button>
+        </div>
+
+        <!-- क. नवीन चाचणी जोडणे (चाचणी ११, १२... नावासह) -->
+        <div style="background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:10px; padding:12px;">
+          <div style="font-weight:800; font-size:0.92rem; color:#166534; margin-bottom:6px;">
+            <i class="fa-solid fa-plus-circle"></i> ३. नवीन चाचणी जोडा (पुढील क्रमांक व सानुकूल नाव)
+          </div>
+          <div class="grid-2" style="margin-bottom:8px;">
+            <div>
+              <label style="font-size:0.8rem; font-weight:700;">चाचणी क्रमांक (Auto):</label>
+              <input type="number" class="form-control locked" id="admin-add-test-no" readonly>
+            </div>
+            <div>
+              <label style="font-size:0.8rem; font-weight:700;">चाचणीचे नाव:</label>
+              <input type="text" class="form-control" id="admin-add-test-name" placeholder="उदा. महारिव्हिजन चाचणी">
+            </div>
+          </div>
+          <button class="app-btn btn-success" onclick="addNewTestDefinition()">
+            <i class="fa-solid fa-plus"></i> नवीन चाचणी यादीत जोडा
+          </button>
+        </div>
       </div>
 
       <!-- १. निकाल तपासणे व लॉक करणे विभाग -->
@@ -1405,7 +1476,7 @@
 
       </div>
 
-      <!-- ३. चाचणीनिहाय एकूण गुण सेट करा -->
+      <!-- ४. चाचणीनिहाय एकूण गुण सेट करा -->
       <div class="app-card" style="border-left: 5px solid var(--gold);">
         <div class="app-card-title"><i class="fa-solid fa-sliders" style="color:var(--gold);"></i> चाचणीनिहाय एकूण गुण (Max Marks) सेट करा</div>
         <div class="grid-2">
@@ -1748,9 +1819,59 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
+    /* ================= चाचणी व्याख्या व ॲक्टिव्ह टेस्ट स्टोरेज ================= */
+    let TEST_DEFINITIONS_STORE = {};
+    let ACTIVE_TESTS_STORE = {};
+
+    function getDefaultTests(category) {
+      let list = [];
+      for (let i = 1; i <= 10; i++) {
+        list.push({ no: i, name: `चाचणी ${i}` });
+      }
+      return list;
+    }
+
+    function getTestsListForCategory(category) {
+      if (TEST_DEFINITIONS_STORE && TEST_DEFINITIONS_STORE[category] && Array.isArray(TEST_DEFINITIONS_STORE[category]) && TEST_DEFINITIONS_STORE[category].length > 0) {
+        return TEST_DEFINITIONS_STORE[category];
+      }
+      return getDefaultTests(category);
+    }
+
+    function getTestDisplayName(category, testNo) {
+      const list = getTestsListForCategory(category);
+      const found = list.find(t => t.no === parseInt(testNo, 10));
+      return found ? found.name : `चाचणी क्रमांक ${testNo}`;
+    }
+
     function getAutoActiveTest(category) {
+      if (ACTIVE_TESTS_STORE && ACTIVE_TESTS_STORE[category]) {
+        return parseInt(ACTIVE_TESTS_STORE[category], 10);
+      }
       if (category === 'navodaya') return 6;
       return 8;
+    }
+
+    function listenTestDefinitionsAndActive() {
+      db.ref('test_definitions').on('value', (snap) => {
+        TEST_DEFINITIONS_STORE = snap.val() || {};
+        buildDashboardTestPills();
+        updateAdminTestOptions();
+        updateAdminLockTestOptions();
+        refreshAdminTestManagerUI();
+      });
+
+      db.ref('active_tests').on('value', (snap) => {
+        ACTIVE_TESTS_STORE = snap.val() || {};
+        if (currentEntryCategory) {
+          const aTest = getAutoActiveTest(currentEntryCategory);
+          const inp = document.getElementById('entry-test-no');
+          if (inp) inp.value = aTest;
+          updateEntryNotice(aTest);
+        }
+        buildDashboardTestPills();
+        refreshAdminTestManagerUI();
+      });
     }
 
     let CUSTOM_MAX_MARKS_STORE = {};
@@ -2268,6 +2389,7 @@
       loadSchoolsData();
       initTalukaDropdowns();
       build12Taluka4ColGrid();
+      listenTestDefinitionsAndActive();
       buildDashboardTestPills();
       buildEntryTestOptions();
       listenLiveDashboardData();
@@ -2380,6 +2502,7 @@
         }
       } else if (view === 'admin') {
         applyCertLayout();
+        refreshAdminTestManagerUI();
         updateAdminTestOptions();
         updateAdminLockTestOptions();
       }
@@ -2391,9 +2514,10 @@
       const notice = document.getElementById('entry-locked-test-notice');
       const badge = document.getElementById('entry-total-marks-badge');
       const maxM = getMaxMarksForTest(currentEntryCategory, testNo);
+      const testName = getTestDisplayName(currentEntryCategory, testNo);
 
-      if (disp) disp.innerText = `चाचणी क्रमांक ${testNo}`;
-      if (notice) notice.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> सूचना: सध्या फक्त चाचणी क्रमांक ${testNo} चे गुण भरणे सुरू आहे. केवळ याच चाचणीचे गुण भरा.`;
+      if (disp) disp.innerText = `${testName} (क्र. ${testNo})`;
+      if (notice) notice.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> सूचना: सध्या फक्त <strong>${testName}</strong> चे गुण भरणे सुरू आहे. केवळ याच चाचणीचे गुण भरा.`;
       if (badge) badge.innerText = `${maxM} पैकी गुण`;
     }
 
@@ -2451,14 +2575,15 @@
       if (!cont) return;
       cont.innerHTML = '';
       
-      const startTest = getAutoActiveTest(currentSelectedCategory);
-      if (currentSelectedTest < startTest) {
-        currentSelectedTest = startTest;
+      const tests = getTestsListForCategory(currentSelectedCategory);
+      if (!tests.find(t => t.no === currentSelectedTest)) {
+        currentSelectedTest = tests[0] ? tests[0].no : 1;
       }
 
-      for (let i = startTest; i <= 10; i++) {
-        cont.innerHTML += `<button id="pill-test-${i}" class="test-chip ${i === currentSelectedTest ? 'active' : ''}" onclick="selectTest(${i}, this)">चाचणी ${i}</button>`;
-      }
+      tests.forEach(t => {
+        cont.innerHTML += `<button id="pill-test-${t.no}" class="test-chip ${t.no === currentSelectedTest ? 'active' : ''}" onclick="selectTest(${t.no}, this)">${t.name}</button>`;
+      });
+
       setTimeout(() => {
         const activeBtn = document.getElementById(`pill-test-${currentSelectedTest}`);
         if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
@@ -3172,6 +3297,7 @@
           'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा'
         };
         const examTitle = examNames[currentEntryCategory] || 'सराव परीक्षा';
+        const testName = getTestDisplayName(currentEntryCategory, testNo);
 
         const students = currentStudentsList.map(st => {
           const saved = savedStudentsMap[st.id] || savedData.students.find(s => s.name.trim() === st.name.trim());
@@ -3240,7 +3366,7 @@
                 शाळा: <strong>${selectedSchoolObj.n}</strong> | UDISE: <strong>${selectedSchoolObj.c}</strong> | तालुका: <strong>${selectedSchoolObj.t || '-'}</strong>
               </p>
               <div style="display:flex; justify-content:space-between; font-size:0.88rem; font-weight:700; color:#0369a1; margin-top:3px;">
-                <span>चाचणी क्रमांक: ${testNo} (कमाल गुण: ${maxLimit})</span>
+                <span>${testName} (क्र. ${testNo}) | कमाल गुण: ${maxLimit}</span>
                 <span>एकूण विद्यार्थी: ${totalStudents} (उपस्थित: ${overallPresent} | गैरहजर: ${overallAbsent})</span>
                 <span>पृष्ठ: ${p + 1} / ${totalPages}</span>
               </div>
@@ -3465,6 +3591,7 @@
         'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा'
       };
       const examTitle = examNames[currentSelectedCategory] || 'सराव परीक्षा';
+      const testDisplayName = getTestDisplayName(currentSelectedCategory, testNum);
 
       let titleText = "";
       let toppersList = [];
@@ -3484,7 +3611,7 @@
 
       document.getElementById('banner-render-exam-name').innerText = examTitle;
       document.getElementById('banner-heading-text').innerText = titleText;
-      document.getElementById('banner-sub-text').innerText = `चाचणी क्र. ${testNum} अधिकृत निकाल`;
+      document.getElementById('banner-sub-text').innerText = `${testDisplayName} (क्र. ${testNum}) अधिकृत निकाल`;
       document.getElementById('banner-render-badge').innerText = BANNER_CONFIG.badge || "💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐";
       document.getElementById('banner-render-footer').innerText = BANNER_CONFIG.footer || "🎯 शिक्षण विभाग, जिल्हा परिषद बीड";
 
@@ -3518,7 +3645,138 @@
       }, 50);
     }
 
+    /* ================= ॲडमिन पॅनल: चाचणी व्यवस्थापन फंक्शन्स ================= */
+    function onAdminTManageCategoryChange() {
+      refreshAdminTestManagerUI();
+    }
+
+    function refreshAdminTestManagerUI() {
+      const cat = document.getElementById('admin-tmanage-category') ? document.getElementById('admin-tmanage-category').value : 'navodaya';
+      const tests = getTestsListForCategory(cat);
+      const activeTest = getAutoActiveTest(cat);
+
+      // १. ॲक्टिव्ह चाचणी ड्रॉपडाऊन भरणे
+      const actSelect = document.getElementById('admin-active-test-select');
+      if (actSelect) {
+        actSelect.innerHTML = '';
+        tests.forEach(t => {
+          actSelect.innerHTML += `<option value="${t.no}" ${t.no === activeTest ? 'selected' : ''}>${t.name} (क्र. ${t.no})</option>`;
+        });
+      }
+
+      // २. नाव बदलणे ड्रॉपडाऊन भरणे
+      const renSelect = document.getElementById('admin-rename-test-select');
+      if (renSelect) {
+        renSelect.innerHTML = '';
+        tests.forEach(t => {
+          renSelect.innerHTML += `<option value="${t.no}">${t.name} (क्र. ${t.no})</option>`;
+        });
+        onAdminRenameTestSelectChange();
+      }
+
+      // ३. पुढील चाचणी क्रमांक स्वयंचलित सेट करणे
+      const addNoInp = document.getElementById('admin-add-test-no');
+      if (addNoInp) {
+        const maxNo = tests.reduce((max, t) => Math.max(max, t.no), 0);
+        addNoInp.value = maxNo + 1;
+      }
+    }
+
+    function onAdminRenameTestSelectChange() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const tNo = parseInt(document.getElementById('admin-rename-test-select').value, 10);
+      const tests = getTestsListForCategory(cat);
+      const found = tests.find(t => t.no === tNo);
+      const inp = document.getElementById('admin-rename-test-input');
+      if (inp && found) {
+        inp.value = found.name;
+      }
+    }
+
+    function saveAdminActiveTest() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const testNo = parseInt(document.getElementById('admin-active-test-select').value, 10);
+
+      db.ref(`active_tests/${cat}`).set(testNo).then(() => {
+        ACTIVE_TESTS_STORE[cat] = testNo;
+        showToast(`चाचणी क्रमांक ${testNo} सर्व शाळांसाठी चालू केली!`);
+        showCustomAlert(`यशस्वी! आता सर्व शाळांना ${getTestDisplayName(cat, testNo)} (क्र. ${testNo}) चे गुण भरणे सुरू झाले आहे.`);
+        if (currentEntryCategory === cat) {
+          buildEntryTestOptions();
+        }
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    function saveTestRenaming() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const tNo = parseInt(document.getElementById('admin-rename-test-select').value, 10);
+      const newName = document.getElementById('admin-rename-test-input').value.trim();
+
+      if (!newName) {
+        showCustomAlert('कृपया चाचणीचे नाव भरा!');
+        return;
+      }
+
+      let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
+      const idx = tests.findIndex(t => t.no === tNo);
+      if (idx !== -1) {
+        tests[idx].name = newName;
+      } else {
+        tests.push({ no: tNo, name: newName });
+      }
+
+      db.ref(`test_definitions/${cat}`).set(tests).then(() => {
+        TEST_DEFINITIONS_STORE[cat] = tests;
+        showToast('चाचणीचे नाव यशस्वीरीत्या बदलले!');
+        showCustomAlert(`यशस्वी! चाचणी क्रमांक ${tNo} चे नाव बदलून "${newName}" केले आहे.`);
+        refreshAdminTestManagerUI();
+        buildDashboardTestPills();
+        updateAdminTestOptions();
+        updateAdminLockTestOptions();
+        if (currentEntryCategory === cat) {
+          updateEntryNotice(document.getElementById('entry-test-no').value);
+        }
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    function addNewTestDefinition() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const newNo = parseInt(document.getElementById('admin-add-test-no').value, 10);
+      const newName = document.getElementById('admin-add-test-name').value.trim();
+
+      if (!newName) {
+        showCustomAlert('कृपया नवीन चाचणीचे नाव भरा (उदा. महारिव्हिजन चाचणी 1)!');
+        return;
+      }
+
+      let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
+      if (tests.find(t => t.no === newNo)) {
+        showCustomAlert(`चाचणी क्रमांक ${newNo} आधीच अस्तित्वात आहे!`);
+        return;
+      }
+
+      tests.push({ no: newNo, name: newName });
+
+      db.ref(`test_definitions/${cat}`).set(tests).then(() => {
+        TEST_DEFINITIONS_STORE[cat] = tests;
+        document.getElementById('admin-add-test-name').value = '';
+        showToast(`चाचणी क्रमांक ${newNo} यशस्वीरित्या जोडली गेली!`);
+        showCustomAlert(`अभिनंदन! नवीन "${newName}" (क्र. ${newNo}) यशस्वीरित्या यादीत समाविष्ट केली गेली आहे.`);
+        refreshAdminTestManagerUI();
+        buildDashboardTestPills();
+        updateAdminTestOptions();
+        updateAdminLockTestOptions();
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
     function initAdminPanelOptions() {
+      refreshAdminTestManagerUI();
       updateAdminTestOptions();
       updateAdminLockTestOptions();
       loadCurrentCustomMaxMarks();
@@ -3530,11 +3788,11 @@
       const admMmTest = document.getElementById('admin-mm-test');
       if (!admMmTest) return;
 
-      const startTest = getAutoActiveTest(cat);
+      const tests = getTestsListForCategory(cat);
       admMmTest.innerHTML = '';
-      for (let i = startTest; i <= 10; i++) {
-        admMmTest.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
-      }
+      tests.forEach(t => {
+        admMmTest.innerHTML += `<option value="${t.no}">${t.name} (क्र. ${t.no})</option>`;
+      });
     }
 
     function updateAdminLockTestOptions() {
@@ -3542,11 +3800,11 @@
       const admLockTest = document.getElementById('admin-lock-test');
       if (!admLockTest) return;
 
-      const startTest = getAutoActiveTest(cat);
+      const tests = getTestsListForCategory(cat);
       admLockTest.innerHTML = '';
-      for (let i = startTest; i <= 10; i++) {
-        admLockTest.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
-      }
+      tests.forEach(t => {
+        admLockTest.innerHTML += `<option value="${t.no}">${t.name} (क्र. ${t.no})</option>`;
+      });
     }
 
     function loadCurrentCustomMaxMarks() {
@@ -3822,6 +4080,7 @@
       };
       const examTitle = examNames[currentSelectedCategory] || 'सराव परीक्षा';
       const totalM = maxMarks || getMaxMarksForTest(currentSelectedCategory, currentSelectedTest);
+      const testDisplayName = getTestDisplayName(currentSelectedCategory, currentSelectedTest);
 
       document.getElementById('cert-render-title').innerText = CERT_CONFIG.title || "गुणवत्ता सन्मान प्रमाणपत्र";
       document.getElementById('cert-render-sign').innerText = CERT_CONFIG.sign || "शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड";
@@ -3834,7 +4093,7 @@
                          .replace(/{TALUKA}/g, taluka)
                          .replace(/{PRONOUN}/g, pronoun)
                          .replace(/{EXAM}/g, examTitle)
-                         .replace(/{TEST}/g, currentSelectedTest)
+                         .replace(/{TEST}/g, `${testDisplayName} (क्र. ${currentSelectedTest})`)
                          .replace(/{MARKS}/g, marks)
                          .replace(/{TOTAL}/g, totalM)
                          .replace(/{RANK}/g, rankText);
