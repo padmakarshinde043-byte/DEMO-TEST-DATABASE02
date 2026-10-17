@@ -830,7 +830,6 @@
       margin-left: 6px;
     }
 
-    /* गुणांचा ठळक बॅज */
     .banner-row .b-marks-badge {
       font-size: 1.08rem;
       font-weight: 800;
@@ -1153,7 +1152,7 @@
             </span>
           </div>
           <p id="entry-locked-test-notice" style="font-size:0.82rem; color:#b45309; font-weight:800; margin-top:6px; background:#fef3c7; padding:6px 10px; border-radius:6px; border:1px solid #fde68a;">
-            <i class="fa-solid fa-circle-exclamation"></i> सूचना: सध्या फक्त चाचणी क्रमांक 6 चे गुण भरणे सुरू आहे. केवळ याच चाचणीचे गुण भरा.
+            <i class="fa-solid fa-circle-exclamation"></i> सूचना: सध्या फक्त चालू चाचणीचे गुण भरणे सुरू आहे. केवळ याच चाचणीचे गुण भरा.
           </p>
           <input type="hidden" id="entry-test-no" value="6">
         </div>
@@ -1607,7 +1606,7 @@
     </div>
   </div>
 
-  <!-- नवीन: पिन रिसेट मोडल (मुख्याध्यापक मोबाईलच्या शेवटच्या ४ अंकांसह Hint) -->
+  <!-- पिन रिसेट मोडल (शेवटच्या ४ अंकांसह Hint) -->
   <div class="modal" id="forgotPinModal">
     <div class="custom-dialog-box" style="max-width:360px;">
       <div class="custom-dialog-header" style="color:#059669;">
@@ -1619,7 +1618,6 @@
         पिन रिसेट करण्यासाठी शाळेच्या नोंदणीकृत मुख्याध्यापकांचा अधिकृत WhatsApp नंबर टाका:
       </p>
 
-      <!-- शेवटच्या ४ अंकांचा Hint बॉक्स -->
       <div id="hmMobileHintBox" style="background:#f0fdf4; border:1.5px dashed #86efac; border-radius:8px; padding:6px 10px; margin-bottom:12px; font-size:0.84rem; color:#166534; font-weight:800;">
         नोंदणीकृत नंबर हिंट: <span id="hmMobileHintText" style="font-family:'Poppins', sans-serif; letter-spacing:1px; color:#0f766e;">XXXXXX----</span>
       </div>
@@ -1821,11 +1819,682 @@
 
   <script>
     /* ================= सुरक्षित इनिशिएलायझेशन ================= */
-    function safeInitPortal() {
+    let currentSelectedCategory = 'navodaya';
+    let currentSelectedTest = 6;
+    let currentTriTab = 'district';
+    let selectedTopperTaluka = null;
+
+    let currentEntryCategory = 'navodaya';
+    let currentStudentsList = [];
+    let selectedSchoolObj = null;
+    let currentRawResults = {};
+
+    let DECLARED_DATA_STORE = {};
+    let adminClickCount = 0;
+    let adminClickTimer = null;
+
+    let pendingSchoolToLock = null;
+    let isCurrentSchoolPinNew = false;
+    let isReRegistrationNeeded = false;
+    let fetchedSchoolSecurityPin = null;
+    let fetchedSchoolHmMobile = null;
+    let selectedAdminTaluka = TALUKA_LIST[0];
+
+    let BEED_ALL_SCHOOLS = [];
+    let PRE_LOCK_CALCULATED_DATA = null;
+    let MANUAL_OVERRIDE_TESTS = {};
+
+    let isMarathiAlertOpen = false;
+    function enforceMarathiText(inputEl) {
+      const original = inputEl.value;
+      const hasEnglish = /[a-zA-Z]/.test(original);
+
+      if (hasEnglish) {
+        inputEl.value = original.replace(/[a-zA-Z]/g, '');
+        if (!isMarathiAlertOpen) {
+          isMarathiAlertOpen = true;
+          showCustomAlert("📢 कृपया विद्यार्थ्यांचे नाव फक्त मराठीत (देवनागरी लिपीत) टाईप करा! इंग्रजीत नाव स्वीकारले जाणार नाही.");
+          setTimeout(() => { isMarathiAlertOpen = false; }, 1500);
+        }
+      }
+    }
+
+    function getAutoActiveTest(category) {
+      if (MANUAL_OVERRIDE_TESTS && MANUAL_OVERRIDE_TESTS[category]) {
+        return parseInt(MANUAL_OVERRIDE_TESTS[category], 10);
+      }
+
+      const now = new Date();
+      const day = now.getDay();
+      const hour = now.getHours();
+
+      let baseNavodaya = 6;
+      let baseOthers = 8;
+
+      if (day === 0 && hour >= 5) {
+        baseNavodaya = 7;
+        baseOthers = 9;
+      } else if (day > 0) {
+        baseNavodaya = 7;
+        baseOthers = 9;
+      }
+
+      return (category === 'navodaya') ? baseNavodaya : baseOthers;
+    }
+
+    function listenActiveTestControl() {
+      db.ref('active_test_control').on('value', (snap) => {
+        MANUAL_OVERRIDE_TESTS = snap.val() || {};
+        currentSelectedTest = getAutoActiveTest(currentSelectedCategory);
+        buildDashboardTestPills();
+        buildEntryTestOptions();
+        listenLiveDashboardData();
+      });
+    }
+
+    function setManualActiveTestForPortal() {
+      const cat = document.getElementById('admin-manual-category').value;
+      const testNo = parseInt(document.getElementById('admin-manual-test').value, 10);
+
+      db.ref(`active_test_control/${cat}`).set(testNo).then(() => {
+        showToast('चाचणी क्रमांक यशस्वीरित्या सक्रिय झाला!');
+        showCustomAlert(`यशस्वी! ${cat} या परीक्षेसाठी आता चाचणी क्रमांक ${testNo} चे गुण संकलन सुरू करण्यात आले आहे.`);
+      });
+    }
+
+    function updateAdminManualTestOptions() {
+      const selectEl = document.getElementById('admin-manual-test');
+      if (!selectEl) return;
+      selectEl.innerHTML = '';
+      for (let i = 1; i <= 10; i++) {
+        selectEl.innerHTML += `<option value="${i}">चाचणी क्रमांक ${i}</option>`;
+      }
+      const cat = document.getElementById('admin-manual-category').value;
+      selectEl.value = getAutoActiveTest(cat);
+    }
+
+    let FLASH_SETTINGS = {
+      dashStatus: 'enabled',
+      dashHeading: '📢 महत्त्वाची घोषणा',
+      dashPara: 'सराव चाचणी निकाल व गुणवत्ता याद्या डॅशबोर्डवर उपलब्ध आहेत.',
+      entryStatus: 'enabled',
+      entryHeading: '📢 अत्यंत महत्त्वाची सूचना',
+      entryPara: 'शनिवारी होणाऱ्या चाचणीचे गुण पुढील गुरुवारपूर्वी भरण्यात यावेत. गुरुवारी सायंकाळी चाचणीचे निकाल आणि गुणवत्ता याद्या जाहीर करण्यात येतील.'
+    };
+
+    let dashFlashTimer = null;
+    let entryFlashTimer = null;
+
+    function listenFlashSettings() {
+      db.ref('flash_settings').on('value', (snap) => {
+        const val = snap.val();
+        if (val) {
+          FLASH_SETTINGS = { ...FLASH_SETTINGS, ...val };
+          loadFlashSettingsIntoAdmin();
+          triggerDashFlashNotice();
+        }
+      });
+    }
+
+    function loadFlashSettingsIntoAdmin() {
+      if (document.getElementById('admin-dash-flash-status')) document.getElementById('admin-dash-flash-status').value = FLASH_SETTINGS.dashStatus;
+      if (document.getElementById('admin-dash-flash-heading')) document.getElementById('admin-dash-flash-heading').value = FLASH_SETTINGS.dashHeading;
+      if (document.getElementById('admin-dash-flash-para')) document.getElementById('admin-dash-flash-para').value = FLASH_SETTINGS.dashPara;
+      if (document.getElementById('admin-entry-flash-status')) document.getElementById('admin-entry-flash-status').value = FLASH_SETTINGS.entryStatus;
+      if (document.getElementById('admin-entry-flash-heading')) document.getElementById('admin-entry-flash-heading').value = FLASH_SETTINGS.entryHeading;
+      if (document.getElementById('admin-entry-flash-para')) document.getElementById('admin-entry-flash-para').value = FLASH_SETTINGS.entryPara;
+    }
+
+    function saveFlashNoticeSettingsToFirebase() {
+      const cfg = {
+        dashStatus: document.getElementById('admin-dash-flash-status').value,
+        dashHeading: document.getElementById('admin-dash-flash-heading').value.trim() || '📢 महत्त्वाची घोषणा',
+        dashPara: document.getElementById('admin-dash-flash-para').value.trim() || 'सराव चाचणी निकाल डॅशबोर्डवर उपलब्ध आहेत.',
+        entryStatus: document.getElementById('admin-entry-flash-status').value,
+        entryHeading: document.getElementById('admin-entry-flash-heading').value.trim() || '📢 अत्यंत महत्त्वाची सूचना',
+        entryPara: document.getElementById('admin-entry-flash-para').value.trim() || 'शनिवारी होणाऱ्या चाचणीचे गुण पुढील गुरुवारपूर्वी भरण्यात यावेत.'
+      };
+
+      db.ref('flash_settings').set(cfg).then(() => {
+        FLASH_SETTINGS = cfg;
+        showToast('फ्लॅश मेसेज सेटिंग्ज सेव्ह झाल्या!');
+        showCustomAlert('फ्लॅश मेसेज आणि चालू/बंद पर्याय यशस्वीरित्या अद्ययावत झाले आहेत.');
+      });
+    }
+
+    function triggerDashFlashNotice() {
+      const banner = document.getElementById('flash-dash-notice');
+      if (!banner) return;
+
+      if (FLASH_SETTINGS.dashStatus === 'disabled') {
+        banner.style.display = 'none';
+        return;
+      }
+
+      document.getElementById('dash-flash-heading').innerText = FLASH_SETTINGS.dashHeading;
+      document.getElementById('dash-flash-para').innerText = FLASH_SETTINGS.dashPara;
+      banner.style.display = 'block';
+
+      clearTimeout(dashFlashTimer);
+      dashFlashTimer = setTimeout(() => {
+        closeDashFlashNotice();
+      }, 5000);
+    }
+
+    function closeDashFlashNotice() {
+      const banner = document.getElementById('flash-dash-notice');
+      if (banner) banner.style.display = 'none';
+      clearTimeout(dashFlashTimer);
+    }
+
+    function triggerEntryFlashNotice() {
+      const banner = document.getElementById('flash-entry-notice');
+      if (!banner) return;
+
+      if (FLASH_SETTINGS.entryStatus === 'disabled') {
+        banner.style.display = 'none';
+        return;
+      }
+
+      document.getElementById('entry-flash-heading').innerText = FLASH_SETTINGS.entryHeading;
+      document.getElementById('entry-flash-para').innerText = FLASH_SETTINGS.entryPara;
+      banner.style.display = 'block';
+
+      clearTimeout(entryFlashTimer);
+      entryFlashTimer = setTimeout(() => {
+        closeEntryFlashNotice();
+      }, 7000);
+    }
+
+    function closeEntryFlashNotice() {
+      const banner = document.getElementById('flash-entry-notice');
+      if (banner) banner.style.display = 'none';
+      clearTimeout(entryFlashTimer);
+    }
+
+    let CUSTOM_MAX_MARKS_STORE = {};
+
+    function listenCustomMaxMarks() {
+      db.ref('custom_max_marks').on('value', (snap) => {
+        CUSTOM_MAX_MARKS_STORE = snap.val() || {};
+        listenLiveDashboardData();
+      });
+    }
+
+    function getMaxMarksForTest(category, testNo) {
+      const key = `${category}_test_${testNo}`;
+      if (CUSTOM_MAX_MARKS_STORE && CUSTOM_MAX_MARKS_STORE[key]) {
+        return parseInt(CUSTOM_MAX_MARKS_STORE[key], 10);
+      }
+      return (category === 'navodaya') ? 100 : 50;
+    }
+
+    function isSchoolEligible(school, examType) {
+      let target = (examType === '4th') ? 4 : (examType === 'navodaya') ? 5 : (examType === '7th') ? 7 : 8;
+      return school.l <= target && school.h >= target;
+    }
+
+    function getTotalEligibleSchoolsForCategory(category) {
+      if (!BEED_ALL_SCHOOLS || BEED_ALL_SCHOOLS.length === 0) return 0;
+      return BEED_ALL_SCHOOLS.filter(s => isSchoolEligible(s, category)).length;
+    }
+
+    const DEFAULT_CERT_POSITIONS = {
+      title: { top: 44, left: 130 },
+      date: { top: 104, left: 660 },
+      name: { top: 142, left: 55 },
+      body: { top: 198, left: 55 },
+      badges: { top: 332, left: 55 },
+      ribbon: { top: 405, left: 55 },
+      sign: { top: 470, left: 510 }
+    };
+
+    let CERT_CONFIG = {
+      title: "गुणवत्ता सन्मान प्रमाणपत्र",
+      body: "गौरवपूर्वक प्रमाणित करण्यात येते की, विद्यार्थी / विद्यार्थिनी <strong>{NAME}</strong> ({CLASS}), शाळा: <strong>{SCHOOL}</strong> (UDISE: {UDISE}), तालुका: <strong>{TALUKA}</strong> {PRONOUN} जिल्हा परिषद, बीड अंतर्गत आयोजित <strong>{EXAM}</strong> अंतर्गत चाचणी क्र. <strong>{TEST}</strong> मध्ये उल्लेखनीय गुणवत्ता सिद्ध करून खालीलप्रमाणे घवघवीत यश संपादन केले आहे.",
+      sign: "शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड",
+      bgUrl: "cert.jpeg",
+      fontSize: 16,
+      lineHeight: 1.85,
+      positions: JSON.parse(JSON.stringify(DEFAULT_CERT_POSITIONS))
+    };
+
+    let BANNER_CONFIG = {
+      title: "बीड जिल्हा सराव परीक्षा टॉपर्स",
+      badge: "💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐",
+      footer: "🎯 शिक्षण विभाग, जिल्हा परिषद बीड",
+      fontSize: 26,
+      gap: 6
+    };
+
+    function listenCustomTemplates() {
+      db.ref('custom_cert_template').on('value', (snap) => {
+        const val = snap.val();
+        if (val) {
+          CERT_CONFIG = { ...CERT_CONFIG, ...val };
+          if (val.positions) CERT_CONFIG.positions = { ...DEFAULT_CERT_POSITIONS, ...val.positions };
+        }
+        applyCertLayout();
+      });
+
+      db.ref('custom_banner_template').on('value', (snap) => {
+        const val = snap.val();
+        if (val) {
+          BANNER_CONFIG = { ...BANNER_CONFIG, ...val };
+        }
+        applyBannerLayout();
+      });
+    }
+
+    function switchDesignerTab(type) {
+      document.getElementById('btn-des-tab-cert').classList.toggle('active', type === 'cert');
+      document.getElementById('btn-des-tab-banner').classList.toggle('active', type === 'banner');
+      
+      document.getElementById('section-designer-cert').style.display = (type === 'cert') ? 'block' : 'none';
+      document.getElementById('section-designer-banner').style.display = (type === 'banner') ? 'block' : 'none';
+
+      if (type === 'cert') applyCertLayout();
+      else applyBannerLayout();
+    }
+
+    function applyCertLayout() {
+      if (document.getElementById('tmpl-cert-title')) document.getElementById('tmpl-cert-title').value = CERT_CONFIG.title;
+      if (document.getElementById('tmpl-cert-body')) document.getElementById('tmpl-cert-body').value = CERT_CONFIG.body;
+      if (document.getElementById('tmpl-cert-sign')) document.getElementById('tmpl-cert-sign').value = CERT_CONFIG.sign;
+      if (document.getElementById('slider-cert-font')) document.getElementById('slider-cert-font').value = CERT_CONFIG.fontSize;
+      if (document.getElementById('val-cert-font')) document.getElementById('val-cert-font').innerText = CERT_CONFIG.fontSize + 'px';
+      if (document.getElementById('slider-cert-lh')) document.getElementById('slider-cert-lh').value = CERT_CONFIG.lineHeight;
+      if (document.getElementById('val-cert-lh')) document.getElementById('val-cert-lh').innerText = CERT_CONFIG.lineHeight;
+
+      if (CERT_CONFIG.bgUrl) {
+        document.getElementById('admin-live-cert-designer').style.backgroundImage = `url('${CERT_CONFIG.bgUrl}')`;
+        document.getElementById('cert-card-render').style.backgroundImage = `url('${CERT_CONFIG.bgUrl}')`;
+      }
+
+      const cp = CERT_CONFIG.positions || DEFAULT_CERT_POSITIONS;
+      setElementPos('drag-cert-title', 'render-cert-title-pos', cp.title);
+      setElementPos('drag-cert-date', 'render-cert-date-pos', cp.date);
+      setElementPos('drag-cert-name', 'render-cert-name-pos', cp.name);
+      setElementPos('drag-cert-body', 'render-cert-body-pos', cp.body);
+      setElementPos('drag-cert-badges', 'render-cert-badges-pos', cp.badges);
+      setElementPos('drag-cert-ribbon', 'render-cert-ribbon-pos', cp.ribbon);
+      setElementPos('drag-cert-sign', 'render-cert-sign-pos', cp.sign);
+
+      const dragBody = document.getElementById('drag-cert-body');
+      if (dragBody) {
+        dragBody.style.fontSize = CERT_CONFIG.fontSize + 'px';
+        dragBody.style.lineHeight = CERT_CONFIG.lineHeight;
+      }
+      updateLiveDesigner();
+    }
+
+    function applyBannerLayout() {
+      if (document.getElementById('tmpl-banner-title')) document.getElementById('tmpl-banner-title').value = BANNER_CONFIG.title;
+      if (document.getElementById('tmpl-banner-badge')) document.getElementById('tmpl-banner-badge').value = BANNER_CONFIG.badge;
+      if (document.getElementById('tmpl-banner-footer')) document.getElementById('tmpl-banner-footer').value = BANNER_CONFIG.footer;
+      if (document.getElementById('slider-banner-font')) document.getElementById('slider-banner-font').value = BANNER_CONFIG.fontSize;
+      if (document.getElementById('val-banner-font')) document.getElementById('val-banner-font').innerText = BANNER_CONFIG.fontSize + 'px';
+      if (document.getElementById('slider-banner-gap')) document.getElementById('slider-banner-gap').value = BANNER_CONFIG.gap;
+      if (document.getElementById('val-banner-gap')) document.getElementById('val-banner-gap').innerText = BANNER_CONFIG.gap + 'px';
+
+      const bannerTitle = document.getElementById('banner-designer-title-txt');
+      if (bannerTitle) bannerTitle.style.fontSize = BANNER_CONFIG.fontSize + 'px';
+
+      const bannerGrid = document.getElementById('banner-designer-topper-grid');
+      if (bannerGrid) bannerGrid.style.gap = BANNER_CONFIG.gap + 'px';
+
+      updateLiveDesigner();
+    }
+
+    function setElementPos(designerId, renderId, posObj) {
+      if (!posObj) return;
+      const desEl = document.getElementById(designerId);
+      const renEl = document.getElementById(renderId);
+      if (desEl) { desEl.style.top = posObj.top + 'px'; desEl.style.left = posObj.left + 'px'; }
+      if (renEl) { renEl.style.top = posObj.top + 'px'; renEl.style.left = posObj.left + 'px'; }
+    }
+
+    function updateLiveDesigner() {
+      const cTitle = document.getElementById('tmpl-cert-title').value.trim();
+      const cBody = document.getElementById('tmpl-cert-body').value.trim();
+      const cSign = document.getElementById('tmpl-cert-sign').value.trim();
+      const bTitle = document.getElementById('tmpl-banner-title').value.trim();
+      const bBadge = document.getElementById('tmpl-banner-badge').value.trim();
+      const bFooter = document.getElementById('tmpl-banner-footer').value.trim();
+
+      if (cTitle) document.getElementById('drag-cert-title').innerText = cTitle;
+      if (cBody) document.getElementById('drag-cert-body').innerHTML = cBody.replace(/{NAME}/g, 'Puja Pravin Patil').replace(/{CLASS}/g, 'इयत्ता 5 वी (नवोदय)').replace(/{SCHOOL}/g, 'ZPPS BHIM NAGAR KITTI ADGAON').replace(/{UDISE}/g, '27270710302').replace(/{TALUKA}/g, 'माजलगाव').replace(/{PRONOUN}/g, 'या विद्यार्थिनीने').replace(/{EXAM}/g, 'नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा').replace(/{TEST}/g, '6');
+      if (cSign) document.getElementById('drag-cert-sign').innerText = cSign;
+
+      if (bTitle) document.getElementById('banner-designer-title-txt').innerText = bTitle;
+      if (bBadge) document.getElementById('banner-designer-badge-txt').innerText = bBadge;
+      if (bFooter) document.getElementById('banner-designer-footer-txt').innerText = bFooter;
+    }
+
+    function applyDesignerStyles() {
+      const cFont = document.getElementById('slider-cert-font').value;
+      const cLh = document.getElementById('slider-cert-lh').value;
+      const bFont = document.getElementById('slider-banner-font').value;
+      const bGap = document.getElementById('slider-banner-gap').value;
+
+      document.getElementById('val-cert-font').innerText = cFont + 'px';
+      document.getElementById('val-cert-lh').innerText = cLh;
+      document.getElementById('val-banner-font').innerText = bFont + 'px';
+      document.getElementById('val-banner-gap').innerText = bGap + 'px';
+
+      const dragBody = document.getElementById('drag-cert-body');
+      if (dragBody) {
+        dragBody.style.fontSize = cFont + 'px';
+        dragBody.style.lineHeight = cLh;
+      }
+      const bannerTitle = document.getElementById('banner-designer-title-txt');
+      if (bannerTitle) bannerTitle.style.fontSize = bFont + 'px';
+
+      const bannerGrid = document.getElementById('banner-designer-topper-grid');
+      if (bannerGrid) bannerGrid.style.gap = bGap + 'px';
+    }
+
+    function handleCertBgUpload(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const bgDataUrl = e.target.result;
+          CERT_CONFIG.bgUrl = bgDataUrl;
+          document.getElementById('admin-live-cert-designer').style.backgroundImage = `url('${bgDataUrl}')`;
+          document.getElementById('cert-card-render').style.backgroundImage = `url('${bgDataUrl}')`;
+          showToast('प्रमाणपत्र पार्श्वभूमी यशस्वीपणे बदलली!');
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function makeElementDraggable(el, containerEl, onMoveEnd) {
+      let isDragging = false;
+      let startX, startY, initialLeft, initialTop;
+
+      function onStart(e) {
+        isDragging = true;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        startX = clientX;
+        startY = clientY;
+        initialLeft = el.offsetLeft;
+        initialTop = el.offsetTop;
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onEnd);
+        document.addEventListener('touchmove', onMove, { passive: false });
+        document.addEventListener('touchend', onEnd);
+      }
+
+      function onMove(e) {
+        if (!isDragging) return;
+        if (e.preventDefault) e.preventDefault();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const dx = clientX - startX;
+        const dy = clientY - startY;
+
+        let newLeft = initialLeft + dx;
+        let newTop = initialTop + dy;
+
+        if (newLeft < 0) newLeft = 0;
+        if (newTop < 0) newTop = 0;
+        if (newLeft + el.offsetWidth > containerEl.offsetWidth) newLeft = containerEl.offsetWidth - el.offsetWidth;
+        if (newTop + el.offsetHeight > containerEl.offsetHeight) newTop = containerEl.offsetHeight - el.offsetHeight;
+
+        el.style.left = newLeft + 'px';
+        el.style.top = newTop + 'px';
+      }
+
+      function onEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onEnd);
+        document.removeEventListener('touchmove', onMove);
+        document.removeEventListener('touchend', onEnd);
+        if (onMoveEnd) onMoveEnd(el.offsetLeft, el.offsetTop);
+      }
+
+      el.addEventListener('mousedown', onStart);
+      el.addEventListener('touchstart', onStart, { passive: false });
+    }
+
+    function initAllDraggables() {
+      const certBox = document.getElementById('admin-live-cert-designer');
+
+      const certKeys = {
+        'drag-cert-title': 'title',
+        'drag-cert-date': 'date',
+        'drag-cert-name': 'name',
+        'drag-cert-body': 'body',
+        'drag-cert-badges': 'badges',
+        'drag-cert-ribbon': 'ribbon',
+        'drag-cert-sign': 'sign'
+      };
+
+      Object.keys(certKeys).forEach(id => {
+        const el = document.getElementById(id);
+        const k = certKeys[id];
+        if (el && certBox) {
+          makeElementDraggable(el, certBox, (left, top) => {
+            CERT_CONFIG.positions[k] = { top, left };
+          });
+        }
+      });
+    }
+
+    function saveCertTemplateToFirebase() {
+      const cfg = {
+        title: document.getElementById('tmpl-cert-title').value.trim() || CERT_CONFIG.title,
+        body: document.getElementById('tmpl-cert-body').value.trim() || CERT_CONFIG.body,
+        sign: document.getElementById('tmpl-cert-sign').value.trim() || CERT_CONFIG.sign,
+        bgUrl: CERT_CONFIG.bgUrl,
+        fontSize: parseInt(document.getElementById('slider-cert-font').value, 10),
+        lineHeight: parseFloat(document.getElementById('slider-cert-lh').value),
+        positions: CERT_CONFIG.positions
+      };
+
+      db.ref('custom_cert_template').set(cfg).then(() => {
+        CERT_CONFIG = cfg;
+        showToast('प्रमाणपत्र डिझाईन सुरक्षित सेव्ह झाले!');
+        showCustomAlert('यशस्वी! प्रमाणपत्राचा मजकूर, फॉन्ट व जागा सुरक्षित सेव्ह झाल्या आहेत. याचा बॅनरवर कोणताही परिणाम झालेला नाही.');
+      });
+    }
+
+    function saveBannerTemplateToFirebase() {
+      const cfg = {
+        title: document.getElementById('tmpl-banner-title').value.trim() || BANNER_CONFIG.title,
+        badge: document.getElementById('tmpl-banner-badge').value.trim() || BANNER_CONFIG.badge,
+        footer: document.getElementById('tmpl-banner-footer').value.trim() || BANNER_CONFIG.footer,
+        fontSize: parseInt(document.getElementById('slider-banner-font').value, 10),
+        gap: parseInt(document.getElementById('slider-banner-gap').value, 10)
+      };
+
+      db.ref('custom_banner_template').set(cfg).then(() => {
+        BANNER_CONFIG = cfg;
+        showToast('बॅनर डिझाईन सुरक्षित सेव्ह झाले!');
+        showCustomAlert('यशस्वी! बॅनरचा मजकूर व मांडणी सुरक्षित सेव्ह झाली आहे. प्रमाणपत्राची रचना अबाधित आहे.');
+      });
+    }
+
+    function resetCertLayoutToDefault() {
+      showCustomConfirm("आपणास प्रमाणपत्राची रचना व जागा मूळ स्वरूपात पूर्ववत करायची आहे का?", () => {
+        CERT_CONFIG.positions = JSON.parse(JSON.stringify(DEFAULT_CERT_POSITIONS));
+        CERT_CONFIG.fontSize = 16;
+        CERT_CONFIG.lineHeight = 1.85;
+        saveCertTemplateToFirebase();
+        applyCertLayout();
+        showToast('प्रमाणपत्र लेआउट पूर्ववत झाले!');
+      });
+    }
+
+    function resetBannerLayoutToDefault() {
+      showCustomConfirm("आपणास बॅनरची रचना व जागा मूळ स्वरूपात पूर्ववत करायची आहे का?", () => {
+        BANNER_CONFIG.fontSize = 26;
+        BANNER_CONFIG.gap = 6;
+        saveBannerTemplateToFirebase();
+        applyBannerLayout();
+        showToast('बॅनर लेआउट पूर्ववत झाले!');
+      });
+    }
+
+    function downloadAdminSampleCertificatePDF() {
+      const card = document.getElementById('admin-live-cert-designer');
+      showToast('नमुना प्रमाणपत्र PDF तयार होत आहे...');
+      const { jsPDF } = window.jspdf;
+
+      card.classList.remove('designer-active-box');
+      card.classList.add('clean-certificate-render');
+
+      html2canvas(card, { scale: 1.8, useCORS: true, letterRendering: true }).then(canvas => {
+        card.classList.remove('clean-certificate-render');
+        card.classList.add('designer-active-box');
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        const pageWidth = 297, pageHeight = 210, margin = 8;
+        const maxW = pageWidth - (margin * 2);
+        const maxH = pageHeight - (margin * 2);
+
+        const imgRatio = canvas.width / canvas.height;
+        let printW = maxW;
+        let printH = printW / imgRatio;
+        if (printH > maxH) {
+          printH = maxH;
+          printW = printH * imgRatio;
+        }
+
+        const posX = (pageWidth - printW) / 2;
+        const posY = (pageHeight - printH) / 2;
+
+        pdf.addImage(imgData, 'JPEG', posX, posY, printW, printH);
+        pdf.save(`नमुना_गुणवत्ता_प्रमाणपत्र_बीड.pdf`);
+        showToast('नमुना प्रमाणपत्र PDF डाऊनलोड झाली!');
+      }).catch(err => {
+        card.classList.remove('clean-certificate-render');
+        card.classList.add('designer-active-box');
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    function downloadAdminSampleBannerPDF() {
+      const card = document.getElementById('admin-live-banner-designer');
+      showToast('नमुना बॅनर PDF तयार होत आहे...');
+      const { jsPDF } = window.jspdf;
+
+      html2canvas(card, { scale: 2, useCORS: true }).then(canvas => {
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pageWidth = 210, pageHeight = 297, margin = 8;
+        const maxW = pageWidth - (margin * 2);
+        const maxH = pageHeight - (margin * 2);
+
+        const imgRatio = canvas.width / canvas.height;
+        let printW = maxW;
+        let printH = printW / imgRatio;
+        if (printH > maxH) {
+          printH = maxH;
+          printW = printH * imgRatio;
+        }
+
+        const posX = (pageWidth - printW) / 2;
+        const posY = (pageHeight - printH) / 2;
+
+        pdf.addImage(imgData, 'JPEG', posX, posY, printW, printH);
+        pdf.save(`नमुना_टॉपर्स_गौरव_बॅनर_बीड.pdf`);
+        showToast('नमुना बॅनर PDF डाऊनलोड झाली!');
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    function runGlobalOneTimeMergeDistrict() {
+      const migrationFlagKey = 'beed_district_merged_v3';
+      if (localStorage.getItem(migrationFlagKey)) return;
+
+      const categories = ['navodaya', '4th', '7th', 'nmms'];
+
+      categories.forEach(cat => {
+        const baseActiveTest = (cat === 'navodaya') ? 6 : 8;
+        const targetRefPath = `results/${cat}/test_${baseActiveTest}`;
+
+        let promises = [];
+        promises.push(db.ref(targetRefPath).once('value'));
+
+        let futureTests = (cat === 'navodaya') ? [7, 8, 9, 10] : [9, 10];
+        futureTests.forEach(tNum => {
+          promises.push(db.ref(`results/${cat}/test_${tNum}`).once('value'));
+        });
+
+        Promise.all(promises).then(snapshots => {
+          let baseData = snapshots[0].val() || {};
+          let hasMergedData = false;
+
+          for (let i = 1; i < snapshots.length; i++) {
+            const fTestData = snapshots[i].val();
+            const futureTestNumber = futureTests[i - 1];
+
+            if (fTestData) {
+              Object.keys(fTestData).forEach(schoolKey => {
+                const fEntry = fTestData[schoolKey];
+                if (fEntry && fEntry.students && Array.isArray(fEntry.students)) {
+                  hasMergedData = true;
+
+                  if (!baseData[schoolKey]) {
+                    baseData[schoolKey] = fEntry;
+                  } else {
+                    fEntry.students.forEach(stFuture => {
+                      if (stFuture.marks !== undefined && stFuture.marks !== '') {
+                        const existingStudent = baseData[schoolKey].students.find(s => s.id === stFuture.id || s.name.trim() === stFuture.name.trim());
+                        
+                        if (existingStudent) {
+                          const mBaseStr = String(existingStudent.marks || '').toUpperCase();
+                          const mFutStr = String(stFuture.marks || '').toUpperCase();
+
+                          if (mBaseStr === '' || mBaseStr === 'AB') {
+                            existingStudent.marks = stFuture.marks;
+                          } else if (mFutStr !== '' && mFutStr !== 'AB') {
+                            const valBase = parseFloat(existingStudent.marks) || 0;
+                            const valFut = parseFloat(stFuture.marks) || 0;
+                            if (valFut > valBase) {
+                              existingStudent.marks = stFuture.marks;
+                            }
+                          }
+                        } else {
+                          baseData[schoolKey].students.push(stFuture);
+                        }
+                      }
+                    });
+                  }
+                }
+              });
+
+              db.ref(`results/${cat}/test_${futureTestNumber}`).remove();
+            }
+          }
+
+          if (hasMergedData) {
+            db.ref(targetRefPath).set(baseData);
+          }
+        });
+      });
+
+      localStorage.setItem(migrationFlagKey, 'true');
+    }
+
+    /* तात्काळ इनिशिएलायझेशन (स्क्रीन फ्रीझिंग प्रतिबंधक) */
+    function initPortal() {
       try {
         loadSchoolsData();
         initTalukaDropdowns();
         build12Taluka4ColGrid();
+
+        // सुरुवातीलाच तात्काळ चाचणी व डॅशबोर्ड रेंडर करणे (Firebase ची वाट न पाहता)
+        currentSelectedTest = getAutoActiveTest(currentSelectedCategory);
+        buildDashboardTestPills();
+        buildEntryTestOptions();
+
         listenActiveTestControl();
         listenFlashSettings();
         listenCustomMaxMarks();
@@ -1837,14 +2506,14 @@
 
         try { history.pushState({ page: 'home' }, ''); } catch(e) {}
       } catch (err) {
-        console.error("Portal initialization error:", err);
+        console.error("Initialization warning:", err);
       }
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', safeInitPortal);
+      document.addEventListener('DOMContentLoaded', initPortal);
     } else {
-      safeInitPortal();
+      initPortal();
     }
 
     function showCustomAlert(message) {
@@ -2245,7 +2914,6 @@
       lockUIWithoutPin();
     }
 
-    /* नवीन: मुख्याध्यापक मोबाईलच्या शेवटच्या ४ अंकांसह Hint दाखवून पिन रिसेट उघडणे */
     function openForgotPinModal() {
       closeModal('schoolPinModal');
       document.getElementById('inputVerifyHmMobile').value = '';
@@ -3022,6 +3690,10 @@
         const selTaluka = scopeName || selectedTopperTaluka || TALUKA_LIST[0];
         titleText = `${selTaluka} तालुका Top 10 गुणवत्ता यादी`;
         toppersList = (testData.talukaToppers && testData.talukaToppers[selTaluka]) ? testData.talukaToppers[selTaluka] : [];
+      } else if (type === 'kendra') {
+        const selKendra = scopeName || "केंद्र";
+        titleText = `${selKendra} केंद्र Top 10 गुणवत्ता यादी`;
+        toppersList = (testData.kendraToppers && testData.kendraToppers[selKendra]) ? testData.kendraToppers[selKendra] : [];
       }
 
       document.getElementById('banner-render-exam-name').innerText = examTitle;
