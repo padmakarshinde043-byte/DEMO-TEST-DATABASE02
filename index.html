@@ -113,87 +113,70 @@
       padding-bottom: 6px;
     }
 
-    /* Category Chips */
-    .chip-scroll {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      margin-bottom: 14px;
-      scrollbar-width: none;
+    /* आकर्षक परीक्षा निवडक ड्रॉपडाऊन */
+    .dropdown-group {
+      margin-bottom: 16px;
     }
-    .chip-scroll::-webkit-scrollbar { display: none; }
-    .category-chip {
-      flex: 0 0 auto;
-      background: white;
-      border: 1.5px solid #cbd5e1;
-      padding: 8px 16px;
-      border-radius: 25px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      cursor: pointer;
+    .dropdown-label {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--sky-dark);
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       gap: 6px;
-      white-space: nowrap;
-      transition: all 0.2s;
-      color: #334155;
     }
-    .category-chip.active.cat-navodaya {
-      background: linear-gradient(135deg, #0284c7 0%, #0f766e 100%);
-      color: white;
-      border-color: #0f766e;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+    .luxury-dropdown {
+      width: 100%;
+      height: 52px;
+      border-radius: 12px;
+      border: 2px solid var(--sky);
+      background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 16px center;
+      background-size: 24px;
+      padding: 0 45px 0 16px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      cursor: pointer;
+      outline: none;
+      appearance: none;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+      transition: all 0.2s ease;
     }
-    .category-chip.active.cat-4th {
-      background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
-      color: white;
-      border-color: #c2410c;
-      box-shadow: 0 3px 10px rgba(249, 115, 22, 0.35);
-    }
-    .category-chip.active.cat-7th {
-      background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
-      color: white;
-      border-color: #4338ca;
-      box-shadow: 0 3px 10px rgba(99, 102, 241, 0.35);
-    }
-    .category-chip.active.cat-nmms {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      color: white;
-      border-color: #047857;
-      box-shadow: 0 3px 10px rgba(5, 150, 105, 0.35);
+    .luxury-dropdown:focus {
+      border-color: var(--kesari);
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.15);
     }
 
-    /* Test Pills */
-    .test-pill-wrap {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 4px 2px;
-      scrollbar-width: none;
-      scroll-behavior: smooth;
-      min-height: 48px;
-      align-items: center;
+    /* २ कॉलम कॅप्सूल ग्रीड चाचण्या टॅब्स */
+    .test-capsule-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 4px;
     }
-    .test-pill-wrap::-webkit-scrollbar { display: none; }
-    .test-chip {
-      flex: 0 0 auto;
-      background: white;
+    .test-capsule-chip {
+      background: #f8fafc;
       border: 1.5px solid #cbd5e1;
-      padding: 8px 18px;
-      border-radius: 22px;
-      font-size: 0.9rem;
-      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 20px;
+      font-size: 0.92rem;
+      font-weight: 800;
       cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
+      text-align: center;
+      transition: all 0.2s ease;
       color: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
-    .test-chip.active {
+    .test-capsule-chip.active {
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
       color: white;
       border-color: #047857;
-      box-shadow: 0 3px 10px rgba(5, 150, 105, 0.3);
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
     }
 
     /* Form Controls */
@@ -700,7 +683,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* ================= बॅनर प्रिव्ह्यू कंटेनर ================= */
+    /* बॅनर प्रिव्ह्यू कंटेनर */
     .banner-fit-wrapper {
       width: 100%;
       display: flex;
@@ -960,15 +943,22 @@
 
     <!-- ================= 1. डॅशबोर्ड स्क्रीन ================= -->
     <div id="screen-dashboard">
-      <div class="chip-scroll">
-        <button class="category-chip active cat-navodaya" onclick="selectDashboardCategory('navodaya', this)"><i class="fa-solid fa-school-flag"></i> नवोदय (5 वी)</button>
-        <button class="category-chip cat-4th" onclick="selectDashboardCategory('4th', this)"><i class="fa-solid fa-book-open"></i> 4 थी शिष्यवृत्ती</button>
-        <button class="category-chip cat-7th" onclick="selectDashboardCategory('7th', this)"><i class="fa-solid fa-award"></i> 7 वी शिष्यवृत्ती</button>
-        <button class="category-chip cat-nmms" onclick="selectDashboardCategory('nmms', this)"><i class="fa-solid fa-medal"></i> NMMS (8 वी)</button>
+      
+      <!-- आकर्षक परीक्षा निवडक ड्रॉपडाऊन -->
+      <div class="dropdown-group">
+        <label class="dropdown-label"><i class="fa-solid fa-school-flag"></i> परीक्षा निवडा:</label>
+        <select class="luxury-dropdown" id="dashboard-category-select" onchange="selectDashboardCategoryBySelect(this.value)">
+          <option value="navodaya">नवोदय प्रवेश पात्रता परीक्षा (इयत्ता 5 वी)</option>
+          <option value="4th">चौथी शिष्यवृत्ती सराव परीक्षा (इयत्ता 4 थी)</option>
+          <option value="7th">सातवी शिष्यवृत्ती सराव परीक्षा (इयत्ता 7 वी)</option>
+          <option value="nmms">NMMS शिष्यवृत्ती सराव परीक्षा (इयत्ता 8 वी)</option>
+        </select>
       </div>
 
-      <div class="app-card" style="padding: 10px 14px;">
-        <div class="test-pill-wrap" id="dash-test-pills"></div>
+      <!-- २ Column कॅप्सूल ग्रीड चाचण्या टॅब्स -->
+      <div class="app-card" style="padding: 12px 14px;">
+        <p class="dropdown-label" style="font-size: 0.88rem; margin-bottom: 8px;"><i class="fa-solid fa-file-invoice"></i> चाचणी क्रमांक निवडा:</p>
+        <div class="test-capsule-grid" id="dash-test-pills"></div>
       </div>
 
       <!-- Stats Grid -->
@@ -1036,11 +1026,15 @@
         </div>
       </div>
 
-      <div class="chip-scroll">
-        <button class="category-chip active cat-navodaya" id="entry-chip-navodaya" onclick="selectEntryCategory('navodaya')">नवोदय (5 वी)</button>
-        <button class="category-chip cat-4th" id="entry-chip-4th" onclick="selectEntryCategory('4th')">4 थी शिष्यवृत्ती</button>
-        <button class="category-chip cat-7th" id="entry-chip-7th" onclick="selectEntryCategory('7th')">7 वी शिष्यवृत्ती</button>
-        <button class="category-chip cat-nmms" id="entry-chip-nmms" onclick="selectEntryCategory('nmms')">NMMS (8 वी)</button>
+      <!-- 'गुण भरा' टॅबमध्येही सगळ्यात वरती परीक्षा निवडक ड्रॉपडाऊन -->
+      <div class="dropdown-group">
+        <label class="dropdown-label"><i class="fa-solid fa-pen-to-square"></i> परीक्षा निवडा (गुण भरण्यासाठी):</label>
+        <select class="luxury-dropdown" id="entry-category-select" onchange="selectEntryCategory(this.value)">
+          <option value="navodaya">नवोदय प्रवेश पात्रता परीक्षा (इयत्ता 5 वी)</option>
+          <option value="4th">चौथी शिष्यवृत्ती सराव परीक्षा (इयत्ता 4 थी)</option>
+          <option value="7th">सातवी शिष्यवृत्ती सराव परीक्षा (इयत्ता 7 वी)</option>
+          <option value="nmms">NMMS शिष्यवृत्ती सराव परीक्षा (इयत्ता 8 वी)</option>
+        </select>
       </div>
 
       <!-- १. शाळा निवडा -->
@@ -1386,7 +1380,7 @@
               <span class="slider-val-badge" id="val-banner-font">26px</span>
             </div>
             <div class="slider-control-row">
-              <label>टॉपर्स यादीतील अंतर (Gap):</label>
+              <label>बॅनर मधील अंतर (Gap):</label>
               <input type="range" id="slider-banner-gap" min="3" max="14" value="6" oninput="applyDesignerStyles()">
               <span class="slider-val-badge" id="val-banner-gap">6px</span>
             </div>
@@ -1428,7 +1422,7 @@
 
           <div style="display:flex; flex-direction:column; gap:8px;">
             <button class="app-btn btn-primary" onclick="saveBannerTemplateToFirebase()">
-              <i class="fa-solid fa-floppy-disk"></i> 🏆 बॅनर डिझाईन सेव्ह करा
+              <i class="fa-solid fa-trophy"></i> 🏆 बॅनर डिझाईन सेव्ह करा
             </button>
             <div class="grid-2">
               <button class="app-btn btn-outline" style="border-color:#ef4444; color:#ef4444;" onclick="resetBannerLayoutToDefault()">
@@ -1497,9 +1491,9 @@
       </div>
 
       <div style="margin-bottom:12px; display:flex; gap:8px; overflow-x:auto;">
-        <button class="app-btn btn-primary" style="height:36px; font-size:0.85rem;" onclick="renderPreLockDistrictReview()">बीड जिल्हा Top 10</button>
+        <button class="app-btn btn-primary" style="height:36px; font-size:0.85rem;" onclick="renderPreLockDistrictReview()">बीड जिल्हा Toppers</button>
         <select class="form-control" id="pre-lock-taluka-select" style="height:36px; font-size:0.85rem; width:auto; font-weight:700;" onchange="renderPreLockTalukaReview(this.value)">
-          <option value="">-- तालुका Top 10 निवडा --</option>
+          <option value="">-- तालुका Toppers निवडा --</option>
         </select>
       </div>
 
@@ -1813,6 +1807,22 @@
       return minStart;
     }
 
+    /* डॅशबोर्डसाठी घोषित निकाल असलेली चाचणी शोधणे */
+    function getInitialDeclaredTestForDashboard(category) {
+      const declaredCat = DECLARED_DATA_STORE[category];
+      const minStart = getMinAllowedTestNo(category);
+
+      if (declaredCat) {
+        // मोठ्या चाचणी क्रमांकापासून उलट तपासणे (उदा. १०, ९, ८...)
+        for (let t = 20; t >= minStart; t--) {
+          if (declaredCat[`test_${t}`]) {
+            return t;
+          }
+        }
+      }
+      return minStart;
+    }
+
     function listenTestDefinitionsAndActive() {
       db.ref('test_definitions').on('value', (snap) => {
         TEST_DEFINITIONS_STORE = snap.val() || {};
@@ -1863,7 +1873,7 @@
     }
 
     let currentSelectedCategory = 'navodaya';
-    let currentSelectedTest = getAutoActiveTest('navodaya');
+    let currentSelectedTest = getMinAllowedTestNo('navodaya');
     let currentTriTab = 'district';
     let selectedTopperTaluka = null;
 
@@ -2272,11 +2282,11 @@
       loadSchoolsData();
       initTalukaDropdowns();
       build12Taluka4ColGrid();
+      listenDeclaredResults();
       listenTestDefinitionsAndActive();
       buildDashboardTestPills();
       buildEntryTestOptions();
       listenLiveDashboardData();
-      listenDeclaredResults();
       listenCustomMaxMarks();
       listenCustomTemplates();
       initAdminPanelOptions();
@@ -2444,7 +2454,7 @@
       const preLockTalSelect = document.getElementById('pre-lock-taluka-select');
 
       if (triTalSelect) triTalSelect.innerHTML = '';
-      if (preLockTalSelect) preLockTalSelect.innerHTML = '<option value="">-- तालुका Top 10 निवडा --</option>';
+      if (preLockTalSelect) preLockTalSelect.innerHTML = '<option value="">-- तालुका Toppers निवडा --</option>';
 
       TALUKA_LIST.forEach(t => {
         if (triTalSelect) triTalSelect.innerHTML += `<option value="${t}">${t} तालुका</option>`;
@@ -2452,6 +2462,7 @@
       });
     }
 
+    /* डॅशबोर्डवरील चाचणी पिल्स (२ कॉलम कॅप्सूल ग्रीड) */
     function buildDashboardTestPills() {
       const cont = document.getElementById('dash-test-pills');
       if (!cont) return;
@@ -2459,17 +2470,15 @@
       
       const tests = getTestsListForCategory(currentSelectedCategory);
       if (!tests.find(t => t.no === currentSelectedTest)) {
-        currentSelectedTest = tests[0] ? tests[0].no : getMinAllowedTestNo(currentSelectedCategory);
+        currentSelectedTest = getInitialDeclaredTestForDashboard(currentSelectedCategory);
       }
 
       tests.forEach(t => {
-        cont.innerHTML += `<button id="pill-test-${t.no}" class="test-chip ${t.no === currentSelectedTest ? 'active' : ''}" onclick="selectTest(${t.no}, this)">${t.name}</button>`;
+        cont.innerHTML += `
+          <button id="pill-test-${t.no}" class="test-capsule-chip ${t.no === currentSelectedTest ? 'active' : ''}" onclick="selectTest(${t.no}, this)">
+            <i class="fa-solid fa-medal"></i> ${t.name}
+          </button>`;
       });
-
-      setTimeout(() => {
-        const activeBtn = document.getElementById(`pill-test-${currentSelectedTest}`);
-        if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
-      }, 50);
     }
 
     function buildEntryTestOptions() {
@@ -2478,18 +2487,19 @@
       updateEntryNotice(autoTest);
     }
 
-    function selectDashboardCategory(cat, el) {
-      document.querySelectorAll('#screen-dashboard .category-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
+    /* डॅशबोर्ड ड्रॉपडाऊनद्वारे परीक्षा निवडणे */
+    function selectDashboardCategoryBySelect(cat) {
       currentSelectedCategory = cat;
-      currentSelectedTest = getAutoActiveTest(cat);
+      // नेहमी जाहीर झालेला निकाल प्रथम दाखवणे
+      currentSelectedTest = getInitialDeclaredTestForDashboard(cat);
       buildDashboardTestPills();
       listenLiveDashboardData();
     }
 
+    /* चाचणी क्रमांक निवडणे */
     function selectTest(no, el) {
-      document.querySelectorAll('#dash-test-pills .test-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
+      document.querySelectorAll('#dash-test-pills .test-capsule-chip').forEach(c => c.classList.remove('active'));
+      if (el) el.classList.add('active');
       currentSelectedTest = no;
       listenLiveDashboardData();
     }
@@ -2546,11 +2556,13 @@
       }
     }
 
+    /* 'गुण भरा' स्क्रीनवर ड्रॉपडाऊनने परीक्षा निवडणे */
     function selectEntryCategory(cat) {
       currentEntryCategory = cat;
-      document.querySelectorAll('#screen-entry .category-chip').forEach(c => c.classList.remove('active'));
-      document.getElementById(`entry-chip-${cat}`).classList.add('active');
+      const selectBox = document.getElementById('entry-category-select');
+      if (selectBox) selectBox.value = cat;
 
+      // शिक्षक पोर्टलवर चालू चाचणीच निवडणे
       const autoTest = getAutoActiveTest(cat);
       document.getElementById('entry-test-no').value = autoTest;
       updateEntryNotice(autoTest);
@@ -2597,7 +2609,7 @@
       handleSchoolSelectionWithSecurity();
     }
 
-    /* बदल: एकाच UDISE सोबत एकच पिन कोड व मोबाईल क्रमांक */
+    /* एकाच UDISE सोबत एकच पिन कोड व मोबाईल क्रमांक */
     function handleSchoolSelectionWithSecurity() {
       const udise = document.getElementById('entry-school').value;
       if (!udise) return;
