@@ -4,20 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>सराव चाचणी गुण संकलन व डॅशबोर्ड | जिल्हा परिषद बीड</title>
-
-  <!-- जुन्या व्हर्सेल लिंकवरून नवीन डोमेनवर ऑटोमॅटिक पाठवण्यासाठी स्क्रिप्ट -->
-  <script>
-    if (window.location.hostname.includes("vercel.app")) {
-      window.location.replace("https://savezpschools.in");
-    }
-  </script>
-
-  <!-- ब्राउझर टॅबमध्ये जिल्हा परिषद लोगो (Favicon) दाखवण्यासाठी ओळ -->
-  <link rel="icon" type="image/jpeg" href="logo.jpeg">
   
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Yatra+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -145,7 +134,7 @@
       background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 16px center;
       background-size: 22px;
       padding: 0 45px 0 14px;
-      font-size: 1.02rem;
+      font-size: 0.98rem;
       font-weight: 800;
       color: #0f172a;
       cursor: pointer;
@@ -159,7 +148,7 @@
       box-shadow: 0 3px 12px rgba(234, 88, 12, 0.15);
     }
 
-    /* कॉम्पॅक्ट व व्यावसायिक २-कॉलम कॅप्सूल ग्रीड */
+    /* २-कॉलम कॉम्पॅक्ट कॅप्सूल ग्रीड */
     .test-capsule-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -313,7 +302,7 @@
     .stat-box-schools { border-left: 4.5px solid #0284c7; background: linear-gradient(to right, #f0f9ff, #ffffff); }
     .stat-box-schools h2 { color: #075985; }
 
-    /* ३ कॉम्पॅक्ट आणि प्रोफेशनल टॉपर्स टॅब्स */
+    /* ३ टॉपर्स टॅब्स */
     .topper-tri-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
     .tri-tab-btn {
       flex: 1;
@@ -606,6 +595,23 @@
       color: #ffffff;
       border-color: #c2410c;
       box-shadow: 0 3px 10px rgba(234, 88, 12, 0.3);
+    }
+
+    /* Professional Website Footer */
+    .site-legal-footer {
+      text-align: center;
+      padding: 16px 8px 10px 8px;
+      font-size: 0.72rem;
+      color: #64748b;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 14px;
+    }
+    .site-legal-footer span {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: #334155;
     }
 
     /* Modals & Dialogs */
@@ -979,18 +985,18 @@
     <!-- ================= 1. डॅशबोर्ड स्क्रीन ================= -->
     <div id="screen-dashboard">
       
-      <!-- आकर्षक परीक्षा निवडक ड्रॉपडाऊन -->
+      <!-- आकर्षक परीक्षा निवडक ड्रॉपडाऊन (एका ओळीत नीट बसणारी नावे) -->
       <div class="dropdown-group">
         <label class="dropdown-label"><i class="fa-solid fa-graduation-cap"></i> परीक्षा निवडा:</label>
         <select class="luxury-dropdown" id="dashboard-category-select" onchange="selectDashboardCategoryBySelect(this.value)">
-          <option value="navodaya">नवोदय प्रवेश पात्रता परीक्षा (इयत्ता 5 वी)</option>
-          <option value="4th">चौथी शिष्यवृत्ती सराव परीक्षा (इयत्ता 4 थी)</option>
-          <option value="7th">सातवी शिष्यवृत्ती सराव परीक्षा (इयत्ता 7 वी)</option>
-          <option value="nmms">NMMS शिष्यवृत्ती सराव परीक्षा (इयत्ता 8 वी)</option>
+          <option value="navodaya">नवोदय प्रवेश परीक्षा (5 वी)</option>
+          <option value="4th">4 थी शिष्यवृत्ती परीक्षा</option>
+          <option value="7th">7 वी शिष्यवृत्ती परीक्षा</option>
+          <option value="nmms">NMMS शिष्यवृत्ती परीक्षा (8 वी)</option>
         </select>
       </div>
 
-      <!-- २ Column कॅप्सूल ग्रीड चाचण्या टॅब्स (व्यावसायिक बॅजेससह) -->
+      <!-- २ Column कॅप्सूल ग्रीड चाचण्या टॅब्स -->
       <div class="app-card">
         <p class="dropdown-label" style="font-size: 0.86rem; margin-bottom: 6px;"><i class="fa-solid fa-file-signature"></i> चाचणी क्रमांक निवडा:</p>
         <div class="test-capsule-grid" id="dash-test-pills"></div>
@@ -1008,7 +1014,7 @@
         </div>
       </div>
 
-      <!-- अधिकृत गुणवत्ता यादी विभाग (३ मुख्य टॅब्स - व्यावसायिक बॅजेससह) -->
+      <!-- अधिकृत गुणवत्ता यादी विभाग -->
       <div class="app-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
           <h3 class="app-card-title" style="margin:0; border:none;">
@@ -1061,14 +1067,14 @@
         </div>
       </div>
 
-      <!-- 'गुण भरा' टॅबमध्येही सगळ्यात वरती परीक्षा निवडक ड्रॉपडाऊन -->
+      <!-- परीक्षा निवडक ड्रॉपडाऊन (एका ओळीत नीट बसणारी नावे) -->
       <div class="dropdown-group">
         <label class="dropdown-label"><i class="fa-solid fa-pen-to-square"></i> परीक्षा निवडा (गुण भरण्यासाठी):</label>
         <select class="luxury-dropdown" id="entry-category-select" onchange="selectEntryCategory(this.value)">
-          <option value="navodaya">नवोदय प्रवेश पात्रता परीक्षा (इयत्ता 5 वी)</option>
-          <option value="4th">चौथी शिष्यवृत्ती सराव परीक्षा (इयत्ता 4 थी)</option>
-          <option value="7th">सातवी शिष्यवृत्ती सराव परीक्षा (इयत्ता 7 वी)</option>
-          <option value="nmms">NMMS शिष्यवृत्ती सराव परीक्षा (इयत्ता 8 वी)</option>
+          <option value="navodaya">नवोदय प्रवेश परीक्षा (5 वी)</option>
+          <option value="4th">4 थी शिष्यवृत्ती परीक्षा</option>
+          <option value="7th">7 वी शिष्यवृत्ती परीक्षा</option>
+          <option value="nmms">NMMS शिष्यवृत्ती परीक्षा (8 वी)</option>
         </select>
       </div>
 
@@ -1150,8 +1156,8 @@
         <div class="form-group" style="background:#f0fdf4; padding:10px 12px; border-radius:10px; margin-bottom:12px; border:1.5px solid #86efac;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <div>
-              <span style="font-size:0.78rem; font-weight:700; color:#166534;"><i class="fa-solid fa-lock"></i> चालू चाचणी क्रमांक:</span>
-              <h4 id="entry-active-test-display" style="font-size:1.1rem; font-weight:800; color:#14532d; margin-top:2px;">चाचणी क्रमांक 6</h4>
+              <span style="font-size:0.78rem; font-weight:700; color:#166534;"><i class="fa-solid fa-lock"></i> चालू चाचणी:</span>
+              <h4 id="entry-active-test-display" style="font-size:1.05rem; font-weight:800; color:#14532d; margin-top:2px;">चाचणी ६</h4>
             </div>
             <span id="entry-total-marks-badge" style="background:#0284c7; color:white; padding:4px 10px; border-radius:10px; font-size:0.82rem; font-weight:800; font-family:'Poppins', sans-serif;">
               100 पैकी गुण
@@ -1170,8 +1176,9 @@
         <div style="margin-top: 12px; display:flex; flex-direction:column; gap:8px;">
           <button class="app-btn btn-primary" onclick="submitMarksToFirebase()"><i class="fa-solid fa-cloud-arrow-up"></i> सर्व गुण सुरक्षित सेव्ह करा</button>
           
+          <!-- बदल: विनंतीनुसार बटणाचे नाव अद्ययावत केले -->
           <button class="app-btn btn-success" style="background: linear-gradient(135deg, #047857 0%, #065f46 100%);" onclick="downloadSchoolRecordPDF()">
-            <i class="fa-solid fa-file-pdf"></i> 📄 शाळेची अधिकृत गुण यादी PDF डाऊनलोड करा (सर्व विद्यार्थी)
+            <i class="fa-solid fa-file-pdf"></i> 📄 गुण भरलेल्या विद्यार्थ्यांची यादी PDF
           </button>
         </div>
 
@@ -1201,10 +1208,10 @@
         <div class="form-group" style="margin-bottom:10px;">
           <label>परीक्षेचा प्रकार निवडा:</label>
           <select class="form-control" id="admin-tmanage-category" onchange="onAdminTManageCategoryChange()">
-            <option value="navodaya">नवोदय (5 वी) [चाचणी 6 व पुढील]</option>
-            <option value="4th">4 थी शिष्यवृत्ती [चाचणी 8 व पुढील]</option>
-            <option value="7th">7 वी शिष्यवृत्ती [चाचणी 8 व पुढील]</option>
-            <option value="nmms">NMMS (8 वी) [चाचणी 8 व पुढील]</option>
+            <option value="navodaya">नवोदय प्रवेश परीक्षा (5 वी)</option>
+            <option value="4th">4 थी शिष्यवृत्ती परीक्षा</option>
+            <option value="7th">7 वी शिष्यवृत्ती परीक्षा</option>
+            <option value="nmms">NMMS शिष्यवृत्ती परीक्षा (8 वी)</option>
           </select>
         </div>
 
@@ -1273,14 +1280,14 @@
           <div class="form-group">
             <label>परीक्षेचा प्रकार निवडा:</label>
             <select class="form-control" id="admin-lock-category" onchange="updateAdminLockTestOptions(); updateAdminMaxMarksInfo();">
-              <option value="navodaya">नवोदय प्रवेश पात्रता परीक्षा (5 वी)</option>
-              <option value="4th">4 थी शिष्यवृत्ती सराव परीक्षा</option>
-              <option value="7th">7 वी शिष्यवृत्ती सराव परीक्षा</option>
-              <option value="nmms">NMMS शिष्यवृत्ती सराव परीक्षा (8 वी)</option>
+              <option value="navodaya">नवोदय प्रवेश परीक्षा (5 वी)</option>
+              <option value="4th">4 थी शिष्यवृत्ती परीक्षा</option>
+              <option value="7th">7 वी शिष्यवृत्ती परीक्षा</option>
+              <option value="nmms">NMMS शिष्यवृत्ती परीक्षा (8 वी)</option>
             </select>
           </div>
           <div class="form-group">
-            <label>चाचणी क्रमांक निवडा:</label>
+            <label>चाचणी निवडा:</label>
             <select class="form-control" id="admin-lock-test" onchange="updateAdminMaxMarksInfo()"></select>
           </div>
         </div>
@@ -1479,14 +1486,14 @@
           <div class="form-group">
             <label>परीक्षेचा प्रकार:</label>
             <select class="form-control" id="admin-mm-category" onchange="updateAdminTestOptions(); loadCurrentCustomMaxMarks();">
-              <option value="navodaya">नवोदय (5 वी)</option>
-              <option value="4th">4 थी शिष्यवृत्ती</option>
-              <option value="7th">7 वी शिष्यवृत्ती</option>
-              <option value="nmms">NMMS (8 वी)</option>
+              <option value="navodaya">नवोदय प्रवेश परीक्षा (5 वी)</option>
+              <option value="4th">4 थी शिष्यवृत्ती परीक्षा</option>
+              <option value="7th">7 वी शिष्यवृत्ती परीक्षा</option>
+              <option value="nmms">NMMS शिष्यवृत्ती परीक्षा (8 वी)</option>
             </select>
           </div>
           <div class="form-group">
-            <label>चाचणी क्रमांक:</label>
+            <label>चाचणी निवडा:</label>
             <select class="form-control" id="admin-mm-test" onchange="loadCurrentCustomMaxMarks()"></select>
           </div>
         </div>
@@ -1499,6 +1506,12 @@
         </button>
       </div>
     </div>
+
+    <!-- व्यावसायिक वेबसाइट तळटीप (Copyright Footer) -->
+    <footer class="site-legal-footer">
+      © 2026 <span>SaveZPSchools.in</span> | सर्व हक्क वेबसाईट ॲडमिनकडे सुरक्षित.
+    </footer>
+
   </div>
 
   <!-- Bottom Navigation -->
@@ -1826,10 +1839,11 @@
       return getDefaultTests(category);
     }
 
+    /* बदल: चाचणीच्या नावापुढे कंसातील चाचणी क्रमांक न जोडता फक्त मूळ नाव परत करणे */
     function getTestDisplayName(category, testNo) {
       const list = getTestsListForCategory(category);
       const found = list.find(t => t.no === parseInt(testNo, 10));
-      return found ? found.name : `चाचणी क्रमांक ${testNo}`;
+      return found ? found.name : `चाचणी ${testNo}`;
     }
 
     function getAutoActiveTest(category) {
@@ -1951,7 +1965,7 @@
 
     let CERT_CONFIG = {
       title: "गुणवत्ता सन्मान प्रमाणपत्र",
-      body: "गौरवपूर्वक प्रमाणित करण्यात येते की, विद्यार्थी / विद्यार्थिनी <strong>{NAME}</strong> ({CLASS}), शाळा: <strong>{SCHOOL}</strong> (UDISE: {UDISE}), तालुका: <strong>{TALUKA}</strong> {PRONOUN} जिल्हा परिषद, बीड अंतर्गत आयोजित <strong>{EXAM}</strong> अंतर्गत चाचणी क्र. <strong>{TEST}</strong> मध्ये उल्लेखनीय गुणवत्ता सिद्ध करून खालीलप्रमाणे घवघवीत यश संपादन केले आहे.",
+      body: "गौरवपूर्वक प्रमाणित करण्यात येते की, विद्यार्थी / विद्यार्थिनी <strong>{NAME}</strong> ({CLASS}), शाळा: <strong>{SCHOOL}</strong> (UDISE: {UDISE}), तालुका: <strong>{TALUKA}</strong> {PRONOUN} जिल्हा परिषद, बीड अंतर्गत आयोजित <strong>{EXAM}</strong> अंतर्गत <strong>{TEST}</strong> मध्ये उल्लेखनीय गुणवत्ता सिद्ध करून खालीलप्रमाणे घवघवीत यश संपादन केले आहे.",
       sign: "शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड",
       bgUrl: "cert.jpeg",
       fontSize: 16,
@@ -2063,7 +2077,7 @@
       const bFooter = document.getElementById('tmpl-banner-footer').value.trim();
 
       if (cTitle) document.getElementById('drag-cert-title').innerText = cTitle;
-      if (cBody) document.getElementById('drag-cert-body').innerHTML = cBody.replace(/{NAME}/g, 'Puja Pravin Patil').replace(/{CLASS}/g, 'इयत्ता 5 वी (नवोदय)').replace(/{SCHOOL}/g, 'ZPPS BHIM NAGAR KITTI ADGAON').replace(/{UDISE}/g, '27270710302').replace(/{TALUKA}/g, 'माजलगाव').replace(/{PRONOUN}/g, 'या विद्यार्थिनीने').replace(/{EXAM}/g, 'नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा').replace(/{TEST}/g, '6');
+      if (cBody) document.getElementById('drag-cert-body').innerHTML = cBody.replace(/{NAME}/g, 'Puja Pravin Patil').replace(/{CLASS}/g, 'इयत्ता 5 वी (नवोदय)').replace(/{SCHOOL}/g, 'ZPPS BHIM NAGAR KITTI ADGAON').replace(/{UDISE}/g, '27270710302').replace(/{TALUKA}/g, 'माजलगाव').replace(/{PRONOUN}/g, 'या विद्यार्थिनीने').replace(/{EXAM}/g, 'नवोदय प्रवेश परीक्षा (5 वी)').replace(/{TEST}/g, 'चाचणी ६');
       if (cSign) document.getElementById('drag-cert-sign').innerText = cSign;
 
       if (bTitle) document.getElementById('banner-designer-title-txt').innerText = bTitle;
@@ -2432,6 +2446,7 @@
       window.scrollTo(0, 0);
     }
 
+    /* बदल: सूचनेमध्ये व शीर्षकात कंसातील क्रमांक काढून फक्त चाचणीचे नाव दाखवणे */
     function updateEntryNotice(testNo) {
       const disp = document.getElementById('entry-active-test-display');
       const notice = document.getElementById('entry-locked-test-notice');
@@ -2439,7 +2454,7 @@
       const maxM = getMaxMarksForTest(currentEntryCategory, testNo);
       const testName = getTestDisplayName(currentEntryCategory, testNo);
 
-      if (disp) disp.innerText = `${testName} (क्र. ${testNo})`;
+      if (disp) disp.innerText = testName;
       if (notice) notice.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> सूचना: सध्या फक्त <strong>${testName}</strong> चे गुण भरणे सुरू आहे. केवळ याच चाचणीचे गुण भरा.`;
       if (badge) badge.innerText = `${maxM} पैकी गुण`;
     }
@@ -2505,7 +2520,6 @@
       }
 
       tests.forEach(t => {
-        // नावात दिनांक असल्यास तो वेगळा करून व्यवस्थित दाखवणे
         let parts = t.name.split('दिनांक');
         let title = parts[0].trim();
         let datePart = parts[1] ? 'दि. ' + parts[1].trim() : `चाचणी क्र. ${t.no}`;
@@ -3212,10 +3226,10 @@
         }
 
         const examNames = {
-          'navodaya': 'नवोदय प्रवेश पात्रता सराव परीक्षा',
-          '4th': 'इयत्ता चौथी शिष्यवृत्ती सराव परीक्षा',
-          '7th': 'इयत्ता सातवी शिष्यवृत्ती सराव परीक्षा',
-          'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा'
+          'navodaya': 'नवोदय प्रवेश परीक्षा (5 वी)',
+          '4th': '4 थी शिष्यवृत्ती परीक्षा',
+          '7th': '7 वी शिष्यवृत्ती परीक्षा',
+          'nmms': 'NMMS शिष्यवृत्ती परीक्षा (8 वी)'
         };
         const examTitle = examNames[currentEntryCategory] || 'सराव परीक्षा';
         const testName = getTestDisplayName(currentEntryCategory, testNo);
@@ -3287,7 +3301,7 @@
                 शाळा: <strong>${selectedSchoolObj.n}</strong> | UDISE: <strong>${selectedSchoolObj.c}</strong> | तालुका: <strong>${selectedSchoolObj.t || '-'}</strong>
               </p>
               <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; color:#0369a1; margin-top:2px;">
-                <span>${testName} (क्र. ${testNo}) | कमाल गुण: ${maxLimit}</span>
+                <span>${testName} | कमाल गुण: ${maxLimit}</span>
                 <span>एकूण विद्यार्थी: ${totalStudents} (उपस्थित: ${overallPresent} | गैरहजर: ${overallAbsent})</span>
                 <span>पृष्ठ: ${p + 1} / ${totalPages}</span>
               </div>
@@ -3338,7 +3352,7 @@
           });
 
           const cleanSchoolName = selectedSchoolObj.n.replace(/\s+/g, '_');
-          pdf.save(`${cleanSchoolName}_चाचणी_${testNo}_सर्व_${totalStudents}_विद्यार्थी_गुण_यादी.pdf`);
+          pdf.save(`${cleanSchoolName}_${testName}_सर्व_${totalStudents}_विद्यार्थी_गुण_यादी.pdf`);
           showToast(`शाळेची संपूर्ण ${totalPages} पानांची PDF डाऊनलोड झाली!`);
         });
       });
@@ -3494,6 +3508,7 @@
       });
     }
 
+    /* बदल: बॅनरवर कंसातील क्रमांक काढून फक्त चाचणीचे नाव दाखवणे */
     function openDeclaredBanner(testNum, type, scopeName) {
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
@@ -3505,10 +3520,10 @@
       const maxM = getMaxMarksForTest(currentSelectedCategory, testNum);
 
       const examNames = {
-        'navodaya': 'नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा',
-        '4th': 'इयत्ता चौथी शिष्यवृत्ती सराव परीक्षा',
-        '7th': 'इयत्ता सातवी शिष्यवृत्ती सराव परीक्षा',
-        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा'
+        'navodaya': 'नवोदय प्रवेश परीक्षा (5 वी)',
+        '4th': '4 थी शिष्यवृत्ती परीक्षा',
+        '7th': '7 वी शिष्यवृत्ती परीक्षा',
+        'nmms': 'NMMS शिष्यवृत्ती परीक्षा (8 वी)'
       };
       const examTitle = examNames[currentSelectedCategory] || 'सराव परीक्षा';
       const testDisplayName = getTestDisplayName(currentSelectedCategory, testNum);
@@ -3531,7 +3546,7 @@
 
       document.getElementById('banner-render-exam-name').innerText = examTitle;
       document.getElementById('banner-heading-text').innerText = titleText;
-      document.getElementById('banner-sub-text').innerText = `${testDisplayName} (क्र. ${testNum}) अधिकृत निकाल`;
+      document.getElementById('banner-sub-text').innerText = `${testDisplayName} अधिकृत निकाल`;
       document.getElementById('banner-render-badge').innerText = BANNER_CONFIG.badge || "💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐";
       document.getElementById('banner-render-footer').innerText = BANNER_CONFIG.footer || "🎯 शिक्षण विभाग, जिल्हा परिषद बीड";
 
@@ -3569,6 +3584,7 @@
       refreshAdminTestManagerUI();
     }
 
+    /* बदल: ॲडमिन पॅनल ड्रॉपडाऊनमधून कंसातील (क्र. ६) काढून फक्त नाव दाखवणे */
     function refreshAdminTestManagerUI() {
       const cat = document.getElementById('admin-tmanage-category') ? document.getElementById('admin-tmanage-category').value : 'navodaya';
       const tests = getTestsListForCategory(cat);
@@ -3578,7 +3594,7 @@
       if (actSelect) {
         actSelect.innerHTML = '';
         tests.forEach(t => {
-          actSelect.innerHTML += `<option value="${t.no}" ${t.no === activeTest ? 'selected' : ''}>${t.name} (क्र. ${t.no})</option>`;
+          actSelect.innerHTML += `<option value="${t.no}" ${t.no === activeTest ? 'selected' : ''}>${t.name}</option>`;
         });
       }
 
@@ -3586,7 +3602,7 @@
       if (renSelect) {
         renSelect.innerHTML = '';
         tests.forEach(t => {
-          renSelect.innerHTML += `<option value="${t.no}">${t.name} (क्र. ${t.no})</option>`;
+          renSelect.innerHTML += `<option value="${t.no}">${t.name}</option>`;
         });
         onAdminRenameTestSelectChange();
       }
@@ -3615,8 +3631,8 @@
 
       db.ref(`active_tests/${cat}`).set(testNo).then(() => {
         ACTIVE_TESTS_STORE[cat] = testNo;
-        showToast(`चाचणी क्रमांक ${testNo} सर्व शाळांसाठी चालू केली!`);
-        showCustomAlert(`यशस्वी! आता सर्व शाळांना ${getTestDisplayName(cat, testNo)} (क्र. ${testNo}) चे गुण भरणे सुरू झाले आहे.`);
+        showToast(`सध्या ${getTestDisplayName(cat, testNo)} सुरू केली!`);
+        showCustomAlert(`यशस्वी! आता सर्व शाळांना ${getTestDisplayName(cat, testNo)} चे गुण भरणे सुरू झाले आहे.`);
         if (currentEntryCategory === cat) {
           buildEntryTestOptions();
         }
@@ -3646,7 +3662,7 @@
       db.ref(`test_definitions/${cat}`).set(tests).then(() => {
         TEST_DEFINITIONS_STORE[cat] = tests;
         showToast('चाचणीचे नाव यशस्वीरीत्या बदलले!');
-        showCustomAlert(`यशस्वी! चाचणी क्रमांक ${tNo} चे नाव बदलून "${newName}" केले आहे.`);
+        showCustomAlert(`यशस्वी! चाचणीचे नाव बदलून "${newName}" केले आहे.`);
         refreshAdminTestManagerUI();
         buildDashboardTestPills();
         updateAdminTestOptions();
@@ -3680,8 +3696,8 @@
       db.ref(`test_definitions/${cat}`).set(tests).then(() => {
         TEST_DEFINITIONS_STORE[cat] = tests;
         document.getElementById('admin-add-test-name').value = '';
-        showToast(`चाचणी क्रमांक ${newNo} यशस्वीरित्या जोडली गेली!`);
-        showCustomAlert(`अभिनंदन! नवीन "${newName}" (क्र. ${newNo}) यशस्वीरित्या यादीत समाविष्ट केली गेली आहे.`);
+        showToast(`नवीन चाचणी यशस्वीरित्या जोडली गेली!`);
+        showCustomAlert(`अभिनंदन! नवीन "${newName}" यशस्वीरित्या यादीत समाविष्ट केली गेली आहे.`);
         refreshAdminTestManagerUI();
         buildDashboardTestPills();
         updateAdminTestOptions();
@@ -3707,7 +3723,7 @@
       const tests = getTestsListForCategory(cat);
       admMmTest.innerHTML = '';
       tests.forEach(t => {
-        admMmTest.innerHTML += `<option value="${t.no}">${t.name} (क्र. ${t.no})</option>`;
+        admMmTest.innerHTML += `<option value="${t.no}">${t.name}</option>`;
       });
     }
 
@@ -3719,7 +3735,7 @@
       const tests = getTestsListForCategory(cat);
       admLockTest.innerHTML = '';
       tests.forEach(t => {
-        admLockTest.innerHTML += `<option value="${t.no}">${t.name} (क्र. ${t.no})</option>`;
+        admLockTest.innerHTML += `<option value="${t.no}">${t.name}</option>`;
       });
     }
 
@@ -3744,7 +3760,7 @@
       const key = `${cat}_test_${testNo}`;
       db.ref(`custom_max_marks/${key}`).set(val).then(() => {
         showToast('या चाचणीचे एकूण गुण सुरक्षित सेव्ह झाले!');
-        showCustomAlert(`यशस्वी! चाचणी क्रमांक ${testNo} चे एकूण गुण ${val} निश्चित केले आहेत.`);
+        showCustomAlert(`यशस्वी! ${getTestDisplayName(cat, testNo)} चे एकूण गुण ${val} निश्चित केले आहेत.`);
         updateAdminMaxMarksInfo();
       }).catch(err => {
         showCustomAlert('त्रुटी: ' + err.message);
@@ -3880,7 +3896,7 @@
       const testNo = document.getElementById('admin-lock-test').value;
       const maxM = getMaxMarksForTest(cat, parseInt(testNo, 10));
 
-      showCustomConfirm(`तुम्ही सर्व जिल्हा व तालुका टॉपर्स तपासले आहेत का? चाचणी क्र. ${testNo} चे निकाल लॉक केल्यास ते अधिकृत म्हणून सर्व पोर्टलवर जाहीर होतील!`, () => {
+      showCustomConfirm(`तुम्ही सर्व जिल्हा व तालुका टॉपर्स तपासले आहेत का? निकाल लॉक केल्यास ते अधिकृत म्हणून सर्व पोर्टलवर जाहीर होतील!`, () => {
         showToast('गुणांची गणना व अधिकृत लॉकिंग सुरू आहे...');
 
         db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
@@ -3927,7 +3943,7 @@
           };
 
           db.ref(`declared_toppers/${cat}/test_${testNo}`).set(payload).then(() => {
-            showCustomAlert(`अभिनंदन! चाचणी क्र. ${testNo} चे अधिकृत निकाल यशस्वीरित्या जाहीर व लॉक झाले आहेत!`);
+            showCustomAlert(`अभिनंदन! ${getTestDisplayName(cat, testNo)} चे अधिकृत निकाल यशस्वीरित्या जाहीर व लॉक झाले आहेत!`);
             showToast('निकाल यशस्वीरित्या जाहीर झाले!');
           }).catch(err => {
             showCustomAlert('लॉकिंग त्रुटी: ' + err.message);
@@ -3968,7 +3984,7 @@
         const posY = (pageHeight - printH) / 2;
 
         pdf.addImage(imgData, 'JPEG', posX, posY, printW, printH);
-        pdf.save(`Banner_Beed_Test_${currentSelectedTest}.pdf`);
+        pdf.save(`Banner_Beed_${currentSelectedTest}.pdf`);
         showToast('बॅनर PDF डाऊनलोड झाले!');
       }).catch(err => {
         card.style.transform = prevTransform;
@@ -3978,21 +3994,27 @@
 
     let currentCertStudentName = 'Student';
 
+    /* बदल: प्रमाणपत्रावर कंसातील (क्र. ६) काढून फक्त चाचणीचे मूळ नाव दाखवणे */
     function openCertificateModal(name, school, udise, taluka, marks, rankText, gender, maxMarks) {
       currentCertStudentName = name.trim();
       document.getElementById('cert-std-name').innerText = name;
       
-      const classMap = { 'navodaya': 'इयत्ता 5 वी (नवोदय)', '4th': 'इयत्ता चौथी शिष्यवृत्ती', '7th': 'इयत्ता सातवी शिष्यवृत्ती', 'nmms': 'NMMS (8 वी)' };
+      const classMap = { 
+        'navodaya': 'इयत्ता 5 वी (नवोदय)', 
+        '4th': 'इयत्ता चौथी शिष्यवृत्ती', 
+        '7th': 'इयत्ता सातवी शिष्यवृत्ती', 
+        'nmms': 'NMMS (8 वी)' 
+      };
       const className = classMap[currentSelectedCategory] || 'इयत्ता 5 वी (नवोदय)';
 
       const isGirl = (gender === "मुलगी" || gender === "girl");
       const pronoun = isGirl ? "या विद्यार्थिनीने" : "या विद्यार्थ्याने";
 
       const examNames = {
-        'navodaya': 'नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा',
-        '4th': 'इयत्ता चौथी शिष्यवृत्ती सराव परीक्षा',
-        '7th': 'इयत्ता सातवी शिष्यवृत्ती सराव परीक्षा',
-        'nmms': 'NMMS शिष्यवृत्ती सराव परीक्षा'
+        'navodaya': 'नवोदय प्रवेश परीक्षा (5 वी)',
+        '4th': '4 थी शिष्यवृत्ती परीक्षा',
+        '7th': '7 वी शिष्यवृत्ती परीक्षा',
+        'nmms': 'NMMS शिष्यवृत्ती परीक्षा (8 वी)'
       };
       const examTitle = examNames[currentSelectedCategory] || 'सराव परीक्षा';
       const totalM = maxMarks || getMaxMarksForTest(currentSelectedCategory, currentSelectedTest);
@@ -4009,7 +4031,7 @@
                          .replace(/{TALUKA}/g, taluka)
                          .replace(/{PRONOUN}/g, pronoun)
                          .replace(/{EXAM}/g, examTitle)
-                         .replace(/{TEST}/g, `${testDisplayName} (क्र. ${currentSelectedTest})`)
+                         .replace(/{TEST}/g, testDisplayName)
                          .replace(/{MARKS}/g, marks)
                          .replace(/{TOTAL}/g, totalM)
                          .replace(/{RANK}/g, rankText);
