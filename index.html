@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>सराव चाचणी गुण संकलन व डॅशबोर्ड | जिल्हा परिषद बीड</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Yatra+One&display=swap" rel="stylesheet">
+  <!-- आवश्यक सर्व कॅलिग्राफी व डिझायनर देवनागरी गुगल फॉन्ट्स -->
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Yatra+One&family=Rozha+One&family=Kalam:wght@700&family=Gotu&family=Modak&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -985,7 +986,7 @@
     <!-- ================= 1. डॅशबोर्ड स्क्रीन ================= -->
     <div id="screen-dashboard">
       
-      <!-- आकर्षक परीक्षा निवडक ड्रॉपडाऊन (एका ओळीत नीट बसणारी नावे) -->
+      <!-- आकर्षक परीक्षा निवडक ड्रॉपडाऊन -->
       <div class="dropdown-group">
         <label class="dropdown-label"><i class="fa-solid fa-graduation-cap"></i> परीक्षा निवडा:</label>
         <select class="luxury-dropdown" id="dashboard-category-select" onchange="selectDashboardCategoryBySelect(this.value)">
@@ -1067,7 +1068,7 @@
         </div>
       </div>
 
-      <!-- परीक्षा निवडक ड्रॉपडाऊन (एका ओळीत नीट बसणारी नावे) -->
+      <!-- परीक्षा निवडक ड्रॉपडाऊन -->
       <div class="dropdown-group">
         <label class="dropdown-label"><i class="fa-solid fa-pen-to-square"></i> परीक्षा निवडा (गुण भरण्यासाठी):</label>
         <select class="luxury-dropdown" id="entry-category-select" onchange="selectEntryCategory(this.value)">
@@ -1176,7 +1177,6 @@
         <div style="margin-top: 12px; display:flex; flex-direction:column; gap:8px;">
           <button class="app-btn btn-primary" onclick="submitMarksToFirebase()"><i class="fa-solid fa-cloud-arrow-up"></i> सर्व गुण सुरक्षित सेव्ह करा</button>
           
-          <!-- बदल: विनंतीनुसार बटणाचे नाव अद्ययावत केले -->
           <button class="app-btn btn-success" style="background: linear-gradient(135deg, #047857 0%, #065f46 100%);" onclick="downloadSchoolRecordPDF()">
             <i class="fa-solid fa-file-pdf"></i> 📄 गुण भरलेल्या विद्यार्थ्यांची यादी PDF
           </button>
@@ -1305,7 +1305,7 @@
         </button>
       </div>
 
-      <!-- २. डिझायनर कक्ष -->
+      <!-- २. डिझायनर कक्ष (कॅलिग्राफी फॉन्ट निवडीसह) -->
       <div class="app-card" style="border-left: 5px solid #6366f1;">
         <div class="app-card-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6366f1;"></i> 🎨 प्रमाणपत्र व बॅनर लाइव्ह व्हिज्युअल डिझायनर</div>
 
@@ -1321,10 +1321,36 @@
         <!-- विभाग अ: प्रमाणपत्र सेटिंग्ज -->
         <div id="section-designer-cert">
           <div class="designer-toolbar-card">
-            <div class="form-group" style="margin-bottom:6px;">
+            
+            <!-- नवीन बदल: प्रमाणपत्र मुख्य शीर्षक व त्याचा स्वतंत्र कॅलिग्राफी फॉन्ट -->
+            <div class="form-group" style="margin-bottom:8px;">
               <label>प्रमाणपत्र मुख्य शीर्षक:</label>
               <input type="text" class="form-control" id="tmpl-cert-title" value="गुणवत्ता सन्मान प्रमाणपत्र" oninput="updateLiveDesigner()">
             </div>
+            
+            <div class="grid-2" style="margin-bottom:8px;">
+              <div>
+                <label style="font-size:0.8rem; font-weight:700; color:#4338ca;"><i class="fa-solid fa-font"></i> मुख्य शीर्षक फॉन्ट (कॅलिग्राफी):</label>
+                <select class="form-control" id="tmpl-cert-title-font" onchange="updateLiveDesigner()">
+                  <option value="'Mukta', sans-serif">मुक्ता (Mukta - आधुनिक व स्वच्छ)</option>
+                  <option value="'Rozha One', serif" selected>रोझा वन (Rozha One - शाही ठळक)</option>
+                  <option value="'Yatra One', cursive">यात्रा वन (Yatra One - पारंपरिक कॅलिग्राफी)</option>
+                  <option value="'Gotu', sans-serif">गोटू (Gotu - कोरीव व भव्य)</option>
+                  <option value="'Modak', cursive">मोदक (Modak - अत्यंत उठावदार)</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size:0.8rem; font-weight:700; color:#991b1b;"><i class="fa-solid fa-signature"></i> विद्यार्थ्याचे नाव फॉन्ट:</label>
+                <select class="form-control" id="tmpl-cert-name-font" onchange="updateLiveDesigner()">
+                  <option value="'Yatra One', cursive" selected>यात्रा वन (Yatra One - सुंदर वळणदार)</option>
+                  <option value="'Kalam', cursive">कलम (Kalam - हस्ताक्षरासारखे नैसर्गिक)</option>
+                  <option value="'Rozha One', serif">रोझा वन (Rozha One - शाही)</option>
+                  <option value="'Gotu', sans-serif">गोटू (Gotu - स्वच्छ)</option>
+                  <option value="'Mukta', sans-serif">मुक्ता (Mukta - साधे)</option>
+                </select>
+              </div>
+            </div>
+
             <div class="form-group" style="margin-bottom:6px;">
               <label>प्रमाणपत्र वाक्यरचना (शरीर मजकूर):</label>
               <textarea class="form-control" id="tmpl-cert-body" rows="3" style="height:auto; font-size:0.85rem;" oninput="updateLiveDesigner()"></textarea>
@@ -1839,7 +1865,6 @@
       return getDefaultTests(category);
     }
 
-    /* बदल: चाचणीच्या नावापुढे कंसातील चाचणी क्रमांक न जोडता फक्त मूळ नाव परत करणे */
     function getTestDisplayName(category, testNo) {
       const list = getTestsListForCategory(category);
       const found = list.find(t => t.no === parseInt(testNo, 10));
@@ -1965,6 +1990,8 @@
 
     let CERT_CONFIG = {
       title: "गुणवत्ता सन्मान प्रमाणपत्र",
+      titleFont: "'Rozha One', serif",
+      nameFont: "'Yatra One', cursive",
       body: "गौरवपूर्वक प्रमाणित करण्यात येते की, विद्यार्थी / विद्यार्थिनी <strong>{NAME}</strong> ({CLASS}), शाळा: <strong>{SCHOOL}</strong> (UDISE: {UDISE}), तालुका: <strong>{TALUKA}</strong> {PRONOUN} जिल्हा परिषद, बीड अंतर्गत आयोजित <strong>{EXAM}</strong> अंतर्गत <strong>{TEST}</strong> मध्ये उल्लेखनीय गुणवत्ता सिद्ध करून खालीलप्रमाणे घवघवीत यश संपादन केले आहे.",
       sign: "शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड",
       bgUrl: "cert.jpeg",
@@ -2013,6 +2040,8 @@
 
     function applyCertLayout() {
       if (document.getElementById('tmpl-cert-title')) document.getElementById('tmpl-cert-title').value = CERT_CONFIG.title;
+      if (document.getElementById('tmpl-cert-title-font')) document.getElementById('tmpl-cert-title-font').value = CERT_CONFIG.titleFont || "'Rozha One', serif";
+      if (document.getElementById('tmpl-cert-name-font')) document.getElementById('tmpl-cert-name-font').value = CERT_CONFIG.nameFont || "'Yatra One', cursive";
       if (document.getElementById('tmpl-cert-body')) document.getElementById('tmpl-cert-body').value = CERT_CONFIG.body;
       if (document.getElementById('tmpl-cert-sign')) document.getElementById('tmpl-cert-sign').value = CERT_CONFIG.sign;
       if (document.getElementById('slider-cert-font')) document.getElementById('slider-cert-font').value = CERT_CONFIG.fontSize;
@@ -2069,20 +2098,38 @@
     }
 
     function updateLiveDesigner() {
-      const cTitle = document.getElementById('tmpl-cert-title').value.trim();
-      const cBody = document.getElementById('tmpl-cert-body').value.trim();
-      const cSign = document.getElementById('tmpl-cert-sign').value.trim();
-      const bTitle = document.getElementById('tmpl-banner-title').value.trim();
-      const bBadge = document.getElementById('tmpl-banner-badge').value.trim();
-      const bFooter = document.getElementById('tmpl-banner-footer').value.trim();
+      const cTitle = document.getElementById('tmpl-cert-title') ? document.getElementById('tmpl-cert-title').value.trim() : CERT_CONFIG.title;
+      const tFont = document.getElementById('tmpl-cert-title-font') ? document.getElementById('tmpl-cert-title-font').value : (CERT_CONFIG.titleFont || "'Rozha One', serif");
+      const nFont = document.getElementById('tmpl-cert-name-font') ? document.getElementById('tmpl-cert-name-font').value : (CERT_CONFIG.nameFont || "'Yatra One', cursive");
+      const cBody = document.getElementById('tmpl-cert-body') ? document.getElementById('tmpl-cert-body').value.trim() : CERT_CONFIG.body;
+      const cSign = document.getElementById('tmpl-cert-sign') ? document.getElementById('tmpl-cert-sign').value.trim() : CERT_CONFIG.sign;
+      
+      const bTitle = document.getElementById('tmpl-banner-title') ? document.getElementById('tmpl-banner-title').value.trim() : BANNER_CONFIG.title;
+      const bBadge = document.getElementById('tmpl-banner-badge') ? document.getElementById('tmpl-banner-badge').value.trim() : BANNER_CONFIG.badge;
+      const bFooter = document.getElementById('tmpl-banner-footer') ? document.getElementById('tmpl-banner-footer').value.trim() : BANNER_CONFIG.footer;
 
-      if (cTitle) document.getElementById('drag-cert-title').innerText = cTitle;
-      if (cBody) document.getElementById('drag-cert-body').innerHTML = cBody.replace(/{NAME}/g, 'Puja Pravin Patil').replace(/{CLASS}/g, 'इयत्ता 5 वी (नवोदय)').replace(/{SCHOOL}/g, 'ZPPS BHIM NAGAR KITTI ADGAON').replace(/{UDISE}/g, '27270710302').replace(/{TALUKA}/g, 'माजलगाव').replace(/{PRONOUN}/g, 'या विद्यार्थिनीने').replace(/{EXAM}/g, 'नवोदय प्रवेश परीक्षा (5 वी)').replace(/{TEST}/g, 'चाचणी ६');
-      if (cSign) document.getElementById('drag-cert-sign').innerText = cSign;
+      // डिझायनर प्रमाणपत्रावरील फॉन्ट व मजकूर अपडेट
+      const dTitle = document.getElementById('drag-cert-title');
+      if (dTitle) {
+        if (cTitle) dTitle.innerText = cTitle;
+        dTitle.style.fontFamily = tFont;
+      }
 
-      if (bTitle) document.getElementById('banner-designer-title-txt').innerText = bTitle;
-      if (bBadge) document.getElementById('banner-designer-badge-txt').innerText = bBadge;
-      if (bFooter) document.getElementById('banner-designer-footer-txt').innerText = bFooter;
+      const dName = document.getElementById('drag-cert-name');
+      if (dName) {
+        dName.style.fontFamily = nFont;
+      }
+
+      const dBody = document.getElementById('drag-cert-body');
+      if (dBody && cBody) {
+        dBody.innerHTML = cBody.replace(/{NAME}/g, 'Puja Pravin Patil').replace(/{CLASS}/g, 'इयत्ता 5 वी (नवोदय)').replace(/{SCHOOL}/g, 'ZPPS BHIM NAGAR KITTI ADGAON').replace(/{UDISE}/g, '27270710302').replace(/{TALUKA}/g, 'माजलगाव').replace(/{PRONOUN}/g, 'या विद्यार्थिनीने').replace(/{EXAM}/g, 'नवोदय प्रवेश परीक्षा (5 वी)').replace(/{TEST}/g, 'चाचणी ६');
+      }
+
+      if (cSign && document.getElementById('drag-cert-sign')) document.getElementById('drag-cert-sign').innerText = cSign;
+
+      if (bTitle && document.getElementById('banner-designer-title-txt')) document.getElementById('banner-designer-title-txt').innerText = bTitle;
+      if (bBadge && document.getElementById('banner-designer-badge-txt')) document.getElementById('banner-designer-badge-txt').innerText = bBadge;
+      if (bFooter && document.getElementById('banner-designer-footer-txt')) document.getElementById('banner-designer-footer-txt').innerText = bFooter;
     }
 
     function applyDesignerStyles() {
@@ -2198,9 +2245,12 @@
       });
     }
 
+    /* बदल: फॉन्ट सेटिंग्जसह प्रमाणपत्र डिझाईन सेव्ह करणे */
     function saveCertTemplateToFirebase() {
       const cfg = {
         title: document.getElementById('tmpl-cert-title').value.trim() || CERT_CONFIG.title,
+        titleFont: document.getElementById('tmpl-cert-title-font') ? document.getElementById('tmpl-cert-title-font').value : CERT_CONFIG.titleFont,
+        nameFont: document.getElementById('tmpl-cert-name-font') ? document.getElementById('tmpl-cert-name-font').value : CERT_CONFIG.nameFont,
         body: document.getElementById('tmpl-cert-body').value.trim() || CERT_CONFIG.body,
         sign: document.getElementById('tmpl-cert-sign').value.trim() || CERT_CONFIG.sign,
         bgUrl: CERT_CONFIG.bgUrl,
@@ -2211,8 +2261,8 @@
 
       db.ref('custom_cert_template').set(cfg).then(() => {
         CERT_CONFIG = cfg;
-        showToast('प्रमाणपत्र डिझाईन सुरक्षित सेव्ह झाले!');
-        showCustomAlert('यशस्वी! प्रमाणपत्राचा मजकूर, फॉन्ट व जागा सुरक्षित सेव्ह झाल्या आहेत.');
+        showToast('प्रमाणपत्र डिझाईन व फॉन्ट्स सुरक्षित सेव्ह झाले!');
+        showCustomAlert('यशस्वी! प्रमाणपत्राचे शीर्षक व विद्यार्थ्याच्या नावाचे कॅलिग्राफी फॉन्ट्स सुरक्षित सेव्ह झाले आहेत.');
       });
     }
 
@@ -2237,6 +2287,8 @@
         CERT_CONFIG.positions = JSON.parse(JSON.stringify(DEFAULT_CERT_POSITIONS));
         CERT_CONFIG.fontSize = 16;
         CERT_CONFIG.lineHeight = 1.85;
+        CERT_CONFIG.titleFont = "'Rozha One', serif";
+        CERT_CONFIG.nameFont = "'Yatra One', cursive";
         saveCertTemplateToFirebase();
         applyCertLayout();
         showToast('प्रमाणपत्र लेआउट पूर्ववत झाले!');
@@ -2446,7 +2498,6 @@
       window.scrollTo(0, 0);
     }
 
-    /* बदल: सूचनेमध्ये व शीर्षकात कंसातील क्रमांक काढून फक्त चाचणीचे नाव दाखवणे */
     function updateEntryNotice(testNo) {
       const disp = document.getElementById('entry-active-test-display');
       const notice = document.getElementById('entry-locked-test-notice');
@@ -2508,7 +2559,6 @@
       });
     }
 
-    /* डॅशबोर्डवरील चाचणी पिल्स (२-कॉलम कॉम्पॅक्ट व व्यावसायिक डिझाईन) */
     function buildDashboardTestPills() {
       const cont = document.getElementById('dash-test-pills');
       if (!cont) return;
@@ -3508,7 +3558,6 @@
       });
     }
 
-    /* बदल: बॅनरवर कंसातील क्रमांक काढून फक्त चाचणीचे नाव दाखवणे */
     function openDeclaredBanner(testNum, type, scopeName) {
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
@@ -3584,7 +3633,6 @@
       refreshAdminTestManagerUI();
     }
 
-    /* बदल: ॲडमिन पॅनल ड्रॉपडाऊनमधून कंसातील (क्र. ६) काढून फक्त नाव दाखवणे */
     function refreshAdminTestManagerUI() {
       const cat = document.getElementById('admin-tmanage-category') ? document.getElementById('admin-tmanage-category').value : 'navodaya';
       const tests = getTestsListForCategory(cat);
@@ -3994,10 +4042,15 @@
 
     let currentCertStudentName = 'Student';
 
-    /* बदल: प्रमाणपत्रावर कंसातील (क्र. ६) काढून फक्त चाचणीचे मूळ नाव दाखवणे */
+    /* बदल: प्रमाणपत्रावर निवडलेला कॅलिग्राफी फॉन्ट लागू करणे */
     function openCertificateModal(name, school, udise, taluka, marks, rankText, gender, maxMarks) {
       currentCertStudentName = name.trim();
-      document.getElementById('cert-std-name').innerText = name;
+      
+      const stdNameEl = document.getElementById('cert-std-name');
+      if (stdNameEl) {
+        stdNameEl.innerText = name;
+        stdNameEl.style.fontFamily = CERT_CONFIG.nameFont || "'Yatra One', cursive";
+      }
       
       const classMap = { 
         'navodaya': 'इयत्ता 5 वी (नवोदय)', 
@@ -4020,7 +4073,12 @@
       const totalM = maxMarks || getMaxMarksForTest(currentSelectedCategory, currentSelectedTest);
       const testDisplayName = getTestDisplayName(currentSelectedCategory, currentSelectedTest);
 
-      document.getElementById('cert-render-title').innerText = CERT_CONFIG.title || "गुणवत्ता सन्मान प्रमाणपत्र";
+      const titleEl = document.getElementById('cert-render-title');
+      if (titleEl) {
+        titleEl.innerText = CERT_CONFIG.title || "गुणवत्ता सन्मान प्रमाणपत्र";
+        titleEl.style.fontFamily = CERT_CONFIG.titleFont || "'Rozha One', serif";
+      }
+
       document.getElementById('cert-render-sign').innerText = CERT_CONFIG.sign || "शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड";
 
       let bodyHtml = CERT_CONFIG.body || "";
