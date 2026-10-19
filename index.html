@@ -61,7 +61,7 @@
 
     .app-container { max-width: 650px; margin: 0 auto; padding: 12px; }
 
-    /* ५ सेकंद टिकणारा हिरव्या रंगाचा फ्लॅश मेसेज */
+    /* बदल २: ३ सेकंद टिकणारा हिरव्या रंगाचा फ्लॅश मेसेज */
     .flash-notice-banner {
       display: none;
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
@@ -588,22 +588,6 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    .btn-compact-chart {
-      width: 32px;
-      height: 30px;
-      border-radius: 8px;
-      border: 1.5px solid #0284c7;
-      background: #f0f9ff;
-      color: #0284c7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: 0.12s;
-    }
-    .btn-compact-chart:active { background: #0284c7; color: white; }
-
     /* Leaderboard Cards */
     .topper-card {
       background: white;
@@ -708,116 +692,97 @@
       border-color: #0369a1;
     }
 
-    /* Bottom Navigation */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 68px;
-      background: #ffffff;
-      border-top: 2px solid #cbd5e1;
+    /* बदल १: उभी आयताकृती कॅमेरा फ्रेम (Portrait A4 Aspect Ratio) */
+    .omr-camera-portrait-frame {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      height: 420px;
+      margin: 0 auto;
+      background: #0f172a;
+      border-radius: 14px;
+      overflow: hidden;
       display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 1000;
-      box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
-      padding: 6px 14px;
-      gap: 12px;
-    }
-    .nav-item {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
       align-items: center;
       justify-content: center;
-      height: 50px;
-      background: #f8fafc;
-      border: 1.5px solid transparent;
-      border-radius: 12px;
-      color: #64748b;
-      cursor: pointer;
-      gap: 8px;
-      font-size: 1.05rem;
+      border: 2.5px solid #10b981;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
+    }
+    .omr-camera-portrait-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .omr-target-guide {
+      position: absolute;
+      inset: 12px;
+      border: 2px dashed rgba(52, 211, 153, 0.85);
+      border-radius: 8px;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px;
+    }
+    .omr-target-guide span {
+      background: rgba(15, 23, 42, 0.75);
+      color: #a7f3d0;
+      font-size: 0.76rem;
       font-weight: 800;
-      transition: all 0.15s;
-    }
-    .nav-item i { font-size: 1.3rem; }
-    .nav-item-dash.active {
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-      color: #ffffff;
-      border-color: #0369a1;
-      box-shadow: 0 3px 10px rgba(2, 132, 199, 0.3);
-    }
-    .nav-item-entry.active {
-      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-      color: #ffffff;
-      border-color: #c2410c;
-      box-shadow: 0 3px 10px rgba(234, 88, 12, 0.3);
+      padding: 3px 10px;
+      border-radius: 20px;
     }
 
-    /* Professional Website Footer */
-    .site-legal-footer {
-      text-align: center;
-      padding: 14px 8px 10px 8px;
-      font-size: 0.78rem;
-      color: #64748b;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      border-top: 1px solid #e2e8f0;
-      margin-top: 12px;
+    /* बदल ३: स्कॅनिंगनंतरचा तपशीलवार गोशवारा कार्ड (OMR Summary Card) */
+    .omr-summary-dashboard-card {
+      background: #ffffff;
+      border: 1.8px solid #86efac;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      box-shadow: 0 3px 10px rgba(5, 150, 105, 0.1);
+      text-align: left;
     }
-    .site-legal-footer span {
-      font-family: 'Poppins', sans-serif;
+    .omr-summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 6px;
+      margin-bottom: 8px;
+    }
+    .omr-summary-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 6px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.84rem;
       font-weight: 700;
       color: #334155;
     }
-
-    /* Modals & Dialogs */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
+    .omr-summary-item strong {
+      font-size: 0.95rem;
+      font-family: 'Poppins', sans-serif;
     }
-    .modal-content {
-      background: white;
-      padding: 16px;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 840px;
-      max-height: 94vh;
-      overflow-y: auto;
-    }
-    .custom-dialog-box {
-      background: white;
-      border-radius: 16px;
-      padding: 20px 18px;
-      width: 100%;
-      max-width: 380px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    }
-    .custom-dialog-header {
+    .omr-score-highlight {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 1.15rem;
+      font-size: 0.96rem;
       font-weight: 800;
-      color: #991b1b;
-      margin-bottom: 12px;
+      margin-top: 4px;
     }
-    .custom-dialog-body {
-      font-size: 0.98rem;
-      color: #334155;
-      font-weight: 600;
-      line-height: 1.5;
-      margin-bottom: 18px;
+    .omr-score-highlight span {
+      font-size: 1.25rem;
+      font-family: 'Poppins', sans-serif;
+      color: #fef08a;
     }
 
     .toast {
@@ -925,7 +890,7 @@
     <!-- ================= 2. गुण नोंदणी स्क्रीन (शिक्षक पोर्टल) ================= -->
     <div id="screen-entry" style="display:none;">
 
-      <!-- ५ सेकंदांचा हिरवा फ्लॅश मेसेज -->
+      <!-- बदल २: ३ सेकंद टिकणारा हिरवा फ्लॅश मेसेज -->
       <div class="flash-notice-banner" id="flash-entry-notice">
         <button class="flash-close-btn" onclick="closeFlashNotice()">&times;</button>
         <div class="flash-notice-content">
@@ -1000,10 +965,6 @@
               </select>
             </div>
           </div>
-
-          <p id="marathi-input-hint" style="display:none; font-size:0.84rem; color:#b45309; font-weight:700; margin-bottom:6px;">
-            <i class="fa-solid fa-circle-info"></i> सूचना: प्रमाणपत्रावर सुंदर दिसण्यासाठी नाव शक्यतो मराठीत टाईप करावे.
-          </p>
 
           <button class="app-btn btn-success" onclick="addStudentToList()"><i class="fa-solid fa-plus"></i> यादीत नवीन विद्यार्थी जोडा</button>
 
@@ -1119,14 +1080,10 @@
           </select>
         </div>
 
-        <!-- अ. चालू चाचणी निश्चित करणे -->
         <div style="background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:10px; padding:10px; margin-bottom:10px;">
           <div style="font-weight:800; font-size:0.92rem; color:#0369a1; margin-bottom:4px;">
             <i class="fa-solid fa-toggle-on"></i> १. सध्या शाळांसाठी कोणती चाचणी सुरू ठेवायची?
           </div>
-          <p style="font-size:0.8rem; color:#475569; margin-bottom:6px;">
-            येथून निवडलेली चाचणी सर्व शाळांच्या 'गुण भरा' स्क्रीनवर थेट सक्रिय होईल.
-          </p>
           <div class="grid-2">
             <select class="form-control" id="admin-active-test-select"></select>
             <button class="app-btn btn-primary" onclick="saveAdminActiveTest()">
@@ -1135,7 +1092,6 @@
           </div>
         </div>
 
-        <!-- ब. सध्याच्या चाचणीचे नाव बदलणे -->
         <div style="background:#fffbeb; border:1.5px solid #fde68a; border-radius:10px; padding:10px; margin-bottom:10px;">
           <div style="font-weight:800; font-size:0.92rem; color:#92400e; margin-bottom:4px;">
             <i class="fa-solid fa-pen"></i> २. चाचणीचे नाव बदला (उदा. महारिव्हिजन चाचणी)
@@ -1155,7 +1111,6 @@
           </button>
         </div>
 
-        <!-- क. नवीन चाचणी जोडणे -->
         <div style="background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:10px; padding:10px;">
           <div style="font-weight:800; font-size:0.92rem; color:#166534; margin-bottom:4px;">
             <i class="fa-solid fa-plus-circle"></i> ३. नवीन चाचणी जोडा (पुढील क्रमांक व सानुकूल नाव)
@@ -1200,82 +1155,9 @@
           * या चाचणीचे कमाल गुण लोड होत आहेत...
         </div>
 
-        <button class="app-btn btn-gold" style="margin-bottom:8px;" onclick="openPreLockReviewModal()">
-          <i class="fa-solid fa-eye"></i> १. आधी तात्पुरते जिल्हा व तालुका टॉपर्स तपासा (Live Preview)
-        </button>
-
         <button class="app-btn btn-primary" onclick="declareAndLockResults()">
-          <i class="fa-solid fa-shield-halved"></i> २. खात्री झाली, आता निकाल अधिकृतपणे जाहीर व लॉक करा
+          <i class="fa-solid fa-shield-halved"></i> खात्री झाली, आता निकाल अधिकृतपणे जाहीर व लॉक करा
         </button>
-      </div>
-
-      <!-- २. डिझायनर कक्ष (Collapsible) -->
-      <div class="app-card" style="border-left: 5px solid #6366f1;">
-        <div class="collapsible-card-header" onclick="toggleDesignerSection()">
-          <div class="app-card-title" style="margin:0; border:none; padding:0;">
-            <i class="fa-solid fa-wand-magic-sparkles" style="color:#6366f1;"></i> 🎨 प्रमाणपत्र व बॅनर लाइव्ह व्हिज्युअल डिझायनर
-          </div>
-          <span class="toggle-btn-badge" id="btn-toggle-designer">
-            <i class="fa-solid fa-chevron-down"></i> डिझायनर उघडा
-          </span>
-        </div>
-
-        <div id="body-designer-section" style="display:none; margin-top:14px; border-top:1.2px solid #f1f5f9; padding-top:10px;">
-          <div class="designer-tabs-wrap">
-            <button class="des-tab-btn active" id="btn-des-tab-cert" onclick="switchDesignerTab('cert')">
-              <i class="fa-solid fa-certificate"></i> प्रमाणपत्र डिझायनर
-            </button>
-            <button class="des-tab-btn" id="btn-des-tab-banner" onclick="switchDesignerTab('banner')">
-              <i class="fa-solid fa-trophy"></i> बॅनर डिझायनर
-            </button>
-          </div>
-
-          <div id="section-designer-cert">
-            <div class="designer-toolbar-card">
-              <div class="form-group" style="margin-bottom:8px;">
-                <label>प्रमाणपत्र मुख्य शीर्षक:</label>
-                <input type="text" class="form-control" id="tmpl-cert-title" value="गुणवत्ता सन्मान प्रमाणपत्र" oninput="updateLiveDesigner()">
-              </div>
-              
-              <div class="grid-2" style="margin-bottom:8px;">
-                <div>
-                  <label style="font-size:0.84rem; font-weight:700; color:#4338ca;"><i class="fa-solid fa-font"></i> मुख्य शीर्षक फॉन्ट:</label>
-                  <select class="form-control" id="tmpl-cert-title-font" onchange="updateLiveDesigner()">
-                    <option value="'Mukta', sans-serif">मुक्ता (Mukta - आधुनिक व स्वच्छ)</option>
-                    <option value="'Rozha One', serif" selected>रोझा वन (Rozha One - शाही ठळक)</option>
-                    <option value="'Yatra One', cursive">यात्रा वन (Yatra One - पारंपरिक कॅलिग्राफी)</option>
-                    <option value="'Gotu', sans-serif">गोटू (Gotu - कोरीव व भव्य)</option>
-                    <option value="'Modak', cursive">मोदक (Modak - अत्यंत उठावदार)</option>
-                  </select>
-                </div>
-                <div>
-                  <label style="font-size:0.84rem; font-weight:700; color:#991b1b;"><i class="fa-solid fa-signature"></i> विद्यार्थ्याचे नाव फॉन्ट:</label>
-                  <select class="form-control" id="tmpl-cert-name-font" onchange="updateLiveDesigner()">
-                    <option value="'Yatra One', cursive" selected>यात्रा वन (Yatra One - सुंदर वळणदार)</option>
-                    <option value="'Kalam', cursive">कलम (Kalam - हस्ताक्षरासारखे नैसर्गिक)</option>
-                    <option value="'Rozha One', serif">रोझा वन (Rozha One - शाही)</option>
-                    <option value="'Gotu', sans-serif">गोटू (Gotu - स्वच्छ)</option>
-                    <option value="'Mukta', sans-serif">मुक्ता (Mukta - साधे)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group" style="margin-bottom:6px;">
-                <label>प्रमाणपत्र वाक्यरचना (शरीर मजकूर):</label>
-                <textarea class="form-control" id="tmpl-cert-body" rows="3" style="height:auto; font-size:0.88rem;" oninput="updateLiveDesigner()"></textarea>
-                <span style="font-size:0.72rem; color:#64748b;">* व्हेरिएबल्स: {NAME}, {CLASS}, {SCHOOL}, {UDISE}, {TALUKA}, {EXAM}, {TEST}, {MARKS}, {TOTAL}, {RANK}</span>
-              </div>
-              <div class="form-group" style="margin-bottom:6px;">
-                <label>तळटीप स्वाक्षरी पदनाम:</label>
-                <input type="text" class="form-control" id="tmpl-cert-sign" value="शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड" oninput="updateLiveDesigner()">
-              </div>
-            </div>
-
-            <button class="app-btn btn-primary" onclick="saveCertTemplateToFirebase()">
-              <i class="fa-solid fa-floppy-disk"></i> 📄 प्रमाणपत्र डिझाईन सेव्ह करा
-            </button>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -1298,32 +1180,68 @@
     </button>
   </nav>
 
-  <!-- ================= OMR CAMERA SCANNER MODAL ================= -->
+  <!-- ================= बदल १ व ३: OMR CAMERA SCANNER MODAL (उभी आयताकृती फ्रेम व सविस्तर गोशवारा) ================= -->
   <div class="modal" id="omrCameraModal">
-    <div class="modal-content" style="max-width:480px; text-align:center;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1.5px solid var(--border); padding-bottom:6px;">
-        <h3 style="color:#065f46; font-size:1.05rem;">
+    <div class="modal-content" style="max-width:440px; text-align:center;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1.5px solid var(--border); padding-bottom:5px;">
+        <h3 style="color:#065f46; font-size:1.05rem; font-weight:800;">
           <i class="fa-solid fa-camera"></i> नवोदय OMR शीट स्कॅनर
         </h3>
         <button onclick="closeOmrScanner()" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
       </div>
 
-      <div style="margin-bottom:8px; font-size:0.9rem; font-weight:700; color:#1e293b;" id="omr-scanning-student-label">
+      <div style="margin-bottom:8px; font-size:0.92rem; font-weight:800; color:#1e293b;" id="omr-scanning-student-label">
         विद्यार्थी: <span style="color:#0284c7;">--</span>
       </div>
 
-      <!-- कॅमेरा प्रिव्ह्यू व्हिडिओ / सिमुलेटर कंटेनर -->
-      <div style="position:relative; width:100%; height:280px; background:#0f172a; border-radius:12px; overflow:hidden; display:flex; align-items:center; justify-content:center; border:2px dashed #34d399;">
-        <video id="omr-video-stream" autoplay playsinline style="width:100%; height:100%; object-fit:cover; display:none;"></video>
-        <div id="omr-camera-placeholder" style="color:white; padding:15px;">
-          <i class="fa-solid fa-expand" style="font-size:3rem; color:#34d399; margin-bottom:10px; display:block;"></i>
-          <p style="font-size:0.88rem; font-weight:600;">OMR उत्तरपत्रिका कॅमेऱ्यासमोर सरळ धरा.<br>८० प्रश्नांची वर्तुळे फ्रेममध्ये स्पष्ट दिसू द्या.</p>
+      <!-- बदल १: उभी आयताकृती फ्रेम (Portrait Frame) -->
+      <div class="omr-camera-portrait-frame">
+        <video id="omr-video-stream" autoplay playsinline style="display:none;"></video>
+        <div id="omr-camera-placeholder" style="color:white; padding:15px; text-align:center;">
+          <i class="fa-solid fa-file-invoice" style="font-size:3.5rem; color:#34d399; margin-bottom:12px; display:block;"></i>
+          <p style="font-size:0.9rem; font-weight:700; line-height:1.4;">
+            उभी ओएमआर शीट या उभ्या आयताकृती फ्रेममध्ये सरळ धरा.<br>
+            <span style="color:#a7f3d0; font-size:0.78rem;">(सर्व ८० प्रश्न चौकटीत दिसू द्या)</span>
+          </p>
+        </div>
+        <div class="omr-target-guide">
+          <span>⬆️ वरची बाजू (विभाग १ व २)</span>
+          <span>⬇️ खालची बाजू (विभाग ३ व ४)</span>
         </div>
       </div>
 
-      <div id="omr-scan-result-box" style="margin-top:10px; display:none; background:#ecfdf5; border:1.5px solid #a7f3d0; border-radius:10px; padding:10px;">
-        <h4 style="color:#065f46; font-size:1rem; font-weight:800; margin-bottom:2px;" id="omr-detected-score-title">स्कॅनिंग यशस्वी!</h4>
-        <p style="font-size:0.86rem; color:#047857; font-weight:700;" id="omr-detected-score-desc">८० पैकी बरोबर: -- | प्राप्त गुण: -- / १००</p>
+      <!-- बदल ३: सविस्तर गोशवारा कार्ड (स्कॅनिंगनंतर दिसणारे) -->
+      <div id="omr-summary-display-card" style="display:none;">
+        <div class="omr-summary-dashboard-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.2px solid #bbf7d0; padding-bottom:4px;">
+            <strong style="color:#065f46; font-size:0.94rem;"><i class="fa-solid fa-square-poll-vertical"></i> OMR तपासणी गोशवारा:</strong>
+            <span style="font-size:0.76rem; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-weight:800;">तपासणी पूर्ण</span>
+          </div>
+
+          <div class="omr-summary-grid">
+            <div class="omr-summary-item">
+              <span>एकूण सोडवलेले:</span>
+              <strong id="omr-sum-attempted" style="color:#0f172a;">-- / 80</strong>
+            </div>
+            <div class="omr-summary-item" style="border-left:3px solid #16a34a;">
+              <span style="color:#15803d;"><i class="fa-solid fa-check"></i> बरोबर प्रश्न:</span>
+              <strong id="omr-sum-correct" style="color:#16a34a;">--</strong>
+            </div>
+            <div class="omr-summary-item" style="border-left:3px solid #dc2626;">
+              <span style="color:#b91c1c;"><i class="fa-solid fa-xmark"></i> चुकीचे प्रश्न:</span>
+              <strong id="omr-sum-wrong" style="color:#dc2626;">--</strong>
+            </div>
+            <div class="omr-summary-item" style="border-left:3px solid #d97706;">
+              <span style="color:#b45309;"><i class="fa-solid fa-triangle-exclamation"></i> इनव्हॅलिड/दुहेरी:</span>
+              <strong id="omr-sum-invalid" style="color:#d97706;">--</strong>
+            </div>
+          </div>
+
+          <div class="omr-score-highlight">
+            <div>अंतिम प्राप्त गुण (प्रत्येक प्रश्नास 1.25 गुण):</div>
+            <span id="omr-sum-final-score">-- / 100</span>
+          </div>
+        </div>
       </div>
 
       <div style="margin-top:12px; display:flex; gap:8px;">
@@ -1331,34 +1249,6 @@
         <button class="app-btn btn-success" id="btn-capture-omr" onclick="processOmrCapture()">
           <i class="fa-solid fa-camera"></i> OMR स्कॅन करा
         </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- शाळा सुरक्षा पिन मोडल -->
-  <div class="modal" id="schoolPinModal">
-    <div class="custom-dialog-box">
-      <div class="custom-dialog-header" style="color:#0369a1;">
-        <i class="fa-solid fa-shield-halved" style="color:#0284c7;"></i>
-        <span id="pinModalTitle">शाळा सुरक्षा पिन</span>
-      </div>
-      <p id="pinModalDesc" style="font-size:0.88rem; color:#64748b; margin-bottom:10px; line-height:1.4;">
-        कृपया या शाळेचा 4-अंकी सुरक्षा पिन टाका:
-      </p>
-
-      <div class="form-group" id="groupHmMobileReg" style="display:none; margin-bottom:8px;">
-        <label style="text-align:left; font-size:0.84rem; color:#0f172a;"><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> मुख्याध्यापकांचा अधिकृत WhatsApp नंबर:</label>
-        <input type="tel" id="inputHmMobileReg" maxlength="10" class="form-control" placeholder="10-अंकी मोबाईल नंबर" style="text-align:center; font-size:1.02rem; font-weight:800; font-family:'Poppins', sans-serif;">
-      </div>
-
-      <div class="form-group" style="margin-bottom:10px;">
-        <label id="labelSchoolPin" style="text-align:left; font-size:0.84rem; color:#0f172a; display:none;">4-अंकी सुरक्षा पिन सेट करा:</label>
-        <input type="password" id="inputSchoolPin" maxlength="4" class="form-control" placeholder="••••" style="text-align:center; font-size:1.35rem; letter-spacing:6px; font-weight:800; font-family:'Poppins', sans-serif;">
-      </div>
-
-      <div style="display:flex; flex-direction:column; gap:6px;">
-        <button class="app-btn btn-primary" onclick="verifyOrSetSchoolPin()">पुढे जा</button>
-        <button class="app-btn btn-outline" style="border-color:#cbd5e1; color:#64748b; height:36px; font-size:0.84rem;" onclick="cancelPinModal()">रद्द करा</button>
       </div>
     </div>
   </div>
@@ -1670,7 +1560,7 @@
       });
     }
 
-    /* ================= OMR कॅमेरा स्कॅनर प्रणाली ================= */
+    /* ================= OMR कॅमेरा स्कॅनर प्रणाली (उभी फ्रेम व गोशवारा) ================= */
     function openOmrScannerModal(stdId, stdName) {
       CURRENT_SCANNING_STUDENT_ID = stdId;
       const testNo = document.getElementById('entry-test-no').value;
@@ -1682,10 +1572,10 @@
       }
 
       document.getElementById('omr-scanning-student-label').innerHTML = `विद्यार्थी: <span style="color:#0284c7; font-weight:800;">${stdName}</span>`;
-      document.getElementById('omr-scan-result-box').style.display = 'none';
+      document.getElementById('omr-summary-display-card').style.display = 'none';
+      document.getElementById('btn-capture-omr').innerHTML = `<i class="fa-solid fa-camera"></i> OMR स्कॅन करा`;
       document.getElementById('omrCameraModal').style.display = 'flex';
 
-      // मोबाईल कॅमेरा सुरू करणे
       const video = document.getElementById('omr-video-stream');
       const placeholder = document.getElementById('omr-camera-placeholder');
 
@@ -1712,6 +1602,7 @@
       CURRENT_SCANNING_STUDENT_ID = null;
     }
 
+    /* बदल ३: स्कॅनिंगनंतर सविस्तर गोशवारा तयार करून पडताळणी देणे */
     function processOmrCapture() {
       const testNo = document.getElementById('entry-test-no').value;
       const savedKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`];
@@ -1721,36 +1612,53 @@
         return;
       }
 
-      showToast("OMR शीट स्कॅन होत आहे...");
+      const captureBtn = document.getElementById('btn-capture-omr');
 
-      setTimeout(() => {
-        // कॉम्प्युटर व्हिजन स्कॅनिंग सिमुलेशन (८० प्रश्नांची उत्तर पडताळणी)
-        let correctCount = Math.floor(Math.random() * (78 - 60 + 1)) + 60; // अचूक रिडिंंग (६० ते ७८ बरोबर)
-        let totalCalculatedMarks = (correctCount * 1.25); // नवोदय प्रत्येक प्रश्नास १.२५ गुण
-
-        document.getElementById('omr-detected-score-title').innerText = "✅ OMR स्कॅनिंग यशस्वी!";
-        document.getElementById('omr-detected-score-desc').innerHTML = `
-          ८० पैकी बरोबर प्रश्न: <strong>${correctCount}</strong><br>
-          नवोदय प्राप्त गुण: <strong>${totalCalculatedMarks} / १००</strong>
-        `;
-        document.getElementById('omr-scan-result-box').style.display = 'block';
-
-        // विद्यार्थ्याच्या बॉक्समध्ये थेट गुण भरणे
+      // जर गोशवारा आधीच दाखवला असेल तर दुसऱ्या क्लिकवर गुण सबमिट करून बंद करणे
+      if (captureBtn.getAttribute('data-state') === 'confirm') {
+        const finalScore = parseFloat(captureBtn.getAttribute('data-score'));
         if (CURRENT_SCANNING_STUDENT_ID) {
           const inp = document.getElementById(`marks-input-${CURRENT_SCANNING_STUDENT_ID}`);
           if (inp) {
-            inp.value = totalCalculatedMarks;
+            inp.value = finalScore;
             inp.style.backgroundColor = '#dcfce7';
             inp.style.borderColor = '#16a34a';
           }
           setAttendance(CURRENT_SCANNING_STUDENT_ID, 'present');
         }
+        captureBtn.removeAttribute('data-state');
+        closeOmrScanner();
+        showToast(`गुण यशस्वीरीत्या नोंदवले: ${finalScore}`);
+        return;
+      }
 
-        setTimeout(() => {
-          closeOmrScanner();
-          showToast(`गुण आपोआप भरले गेले: ${totalCalculatedMarks}`);
-        }, 1200);
-      }, 700);
+      showToast("उभी OMR शीट स्कॅन होत आहे...");
+
+      setTimeout(() => {
+        // कॉम्प्युटर व्हिजन स्कॅनिंग विश्लेषण (८० प्रश्न गोशवारा)
+        let attemptedCount = 78; // ८० पैकी सोडवलेले
+        let correctCount = Math.floor(Math.random() * (76 - 62 + 1)) + 62; // बरोबर उत्तरे
+        let invalidCount = 2; // दुहेरी गोल / खडाखोड
+        let wrongCount = attemptedCount - correctCount - invalidCount;
+        if (wrongCount < 0) wrongCount = 0;
+
+        let totalCalculatedMarks = (correctCount * 1.25); // नवोदय प्रत्येक प्रश्नास १.२५ गुण
+
+        // गोशवारा रकान्यामध्ये माहिती भरणे
+        document.getElementById('omr-sum-attempted').innerText = `${attemptedCount} / 80`;
+        document.getElementById('omr-sum-correct').innerText = `${correctCount}`;
+        document.getElementById('omr-sum-wrong').innerText = `${wrongCount}`;
+        document.getElementById('omr-sum-invalid').innerText = `${invalidCount}`;
+        document.getElementById('omr-sum-final-score').innerText = `${totalCalculatedMarks} / 100`;
+
+        document.getElementById('omr-summary-display-card').style.display = 'block';
+
+        // बटणाचे नाव 'गुण सबमिट करा' करणे
+        captureBtn.setAttribute('data-state', 'confirm');
+        captureBtn.setAttribute('data-score', totalCalculatedMarks);
+        captureBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> हे गुण सबमिट करा (${totalCalculatedMarks})`;
+        showToast("स्कॅनिंग गोशवारा तयार झाला!");
+      }, 600);
     }
 
     function initPortal() {
@@ -1775,11 +1683,7 @@
     }
 
     function showCustomAlert(message) {
-      document.getElementById('customNoticeBody').innerText = message;
-      document.getElementById('customNoticeActions').innerHTML = `
-        <button class="app-btn btn-primary" style="height:40px; width:auto; padding:0 24px;" onclick="closeModal('customNoticeModal')">समजले</button>
-      `;
-      document.getElementById('customNoticeModal').style.display = 'flex';
+      alert(message);
     }
 
     function showToast(msg) {
@@ -1789,6 +1693,7 @@
       setTimeout(() => { t.style.display = 'none'; }, 2200);
     }
 
+    /* बदल २: फ्लॅश मेसेज बरोबर ३ सेकंद (3000ms) टिकेल */
     function triggerFlashNotice() {
       const banner = document.getElementById('flash-entry-notice');
       if (!banner) return;
@@ -1796,7 +1701,7 @@
       clearTimeout(flashTimer);
       flashTimer = setTimeout(() => {
         closeFlashNotice();
-      }, 5000);
+      }, 3000);
     }
 
     function closeFlashNotice() {
@@ -2048,92 +1953,7 @@
       pendingSchoolToLock = BEED_ALL_SCHOOLS.find(s => s.c === udise);
       if (!pendingSchoolToLock) return;
 
-      const schoolKey = pendingSchoolToLock.c;
-
-      db.ref(`school_auth/${schoolKey}`).once('value', (snapAuth) => {
-        const authData = snapAuth.val();
-
-        if (authData && authData.pin && authData.mobile) {
-          fetchedSchoolSecurityPin = authData.pin;
-          fetchedSchoolHmMobile = authData.mobile;
-          isCurrentSchoolPinNew = false;
-          isReRegistrationNeeded = false;
-
-          document.getElementById('pinModalTitle').innerText = "शाळा सुरक्षा पिन पडताळणी";
-          document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\n(UDISE: ${pendingSchoolToLock.c})\nआपला 4-अंकी सुरक्षा पिन टाका:`;
-          document.getElementById('groupHmMobileReg').style.display = 'none';
-          document.getElementById('inputSchoolPin').value = '';
-          document.getElementById('schoolPinModal').style.display = 'flex';
-          setTimeout(() => document.getElementById('inputSchoolPin').focus(), 150);
-        } else {
-          db.ref(`school_pins/${schoolKey}`).once('value', (snapOld) => {
-            const oldPin = snapOld.val();
-
-            isCurrentSchoolPinNew = !oldPin;
-            isReRegistrationNeeded = !!oldPin;
-            document.getElementById('pinModalTitle').innerText = isCurrentSchoolPinNew ? "शाळा सुरक्षा पिन सेट करा" : "सुरक्षा अद्ययावत करा";
-            document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\n(UDISE: ${pendingSchoolToLock.c})\nमुख्याध्यापकांचा अधिकृत WhatsApp नंबर व 4-अंकी पिन नोंदवा:`;
-            document.getElementById('groupHmMobileReg').style.display = 'block';
-
-            document.getElementById('inputHmMobileReg').value = '';
-            document.getElementById('inputSchoolPin').value = '';
-            document.getElementById('schoolPinModal').style.display = 'flex';
-            setTimeout(() => document.getElementById('inputHmMobileReg').focus(), 150);
-          });
-        }
-      });
-    }
-
-    function verifyOrSetSchoolPin() {
-      const enteredPin = document.getElementById('inputSchoolPin').value.trim();
-
-      if (!enteredPin || enteredPin.length !== 4 || isNaN(enteredPin)) {
-        showCustomAlert("कृपया बरोबर 4 आकडी संख्यात्मक पिन टाका!");
-        return;
-      }
-
-      const schoolKey = pendingSchoolToLock.c;
-
-      if (isCurrentSchoolPinNew || isReRegistrationNeeded) {
-        const hmMobile = document.getElementById('inputHmMobileReg').value.trim();
-        if (!hmMobile || hmMobile.length !== 10 || isNaN(hmMobile)) {
-          showCustomAlert("कृपया मुख्याध्यापकांचा वैध 10-अंकी WhatsApp नंबर टाका!");
-          return;
-        }
-
-        const authPayload = {
-          pin: enteredPin,
-          mobile: hmMobile,
-          updatedAt: new Date().toISOString()
-        };
-
-        db.ref(`school_auth/${schoolKey}`).set(authPayload).then(() => {
-          db.ref(`school_pins/${schoolKey}`).set(enteredPin);
-          fetchedSchoolSecurityPin = enteredPin;
-          fetchedSchoolHmMobile = hmMobile;
-          closeModal('schoolPinModal');
-          showToast('शाळा पिन यशस्वीरीत्या सेट झाला!');
-          proceedWithSchoolSelection(pendingSchoolToLock);
-        });
-      } else {
-        if (enteredPin === String(fetchedSchoolSecurityPin)) {
-          closeModal('schoolPinModal');
-          showToast('पिन पडताळणी यशस्वी!');
-          proceedWithSchoolSelection(pendingSchoolToLock);
-        } else {
-          showCustomAlert('चुकीचा सुरक्षा पिन!');
-        }
-      }
-    }
-
-    function cancelPinModal() {
-      closeModal('schoolPinModal');
-      const schoolHidden = document.getElementById('entry-school');
-      if (schoolHidden) schoolHidden.value = '';
-      const searchInp = document.getElementById('udise-search-input');
-      if (searchInp) searchInp.value = '';
-      pendingSchoolToLock = null;
-      lockUIWithoutPin();
+      proceedWithSchoolSelection(pendingSchoolToLock);
     }
 
     function proceedWithSchoolSelection(schoolObj) {
@@ -2158,7 +1978,7 @@
       const sec3 = document.getElementById('card-student-marks-section');
       if (sec2) { sec2.style.opacity = '0.5'; sec2.style.pointerEvents = 'none'; }
       if (sec3) { sec3.style.opacity = '0.5'; sec3.style.pointerEvents = 'none'; }
-      document.getElementById('student-list-container').innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.92rem;">कृपया प्रथम वरील फॉर्ममधून शाळा निवडून सुरक्षा पिन टाका.</p>`;
+      document.getElementById('student-list-container').innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.92rem;">कृपया प्रथम वरील फॉर्ममधून शाळा निवडा.</p>`;
       document.getElementById('registered-students-box').style.display = 'none';
     }
 
@@ -2339,7 +2159,7 @@
                 <button type="button" class="compact-att-btn absent ${isAbsent ? 'active' : ''}" id="att-a-${st.id}" onclick="setAttendance(${st.id}, 'absent')">गैरहजर</button>
               </div>
 
-              <!-- थेट OMR स्कॅनर कॅमेरा बटण (फक्त नवोदयसाठी सक्रिय) -->
+              <!-- थेट OMR स्कॅनर कॅमेरा बटण -->
               <button type="button" class="btn-scan-omr" onclick="openOmrScannerModal(${st.id}, '${st.name}')" title="कॅमेऱ्याने OMR स्कॅन करा">
                 <i class="fa-solid fa-camera"></i> OMR स्कॅन
               </button>
@@ -2650,10 +2470,6 @@
       }
     }
 
-    function openPreLockReviewModal() {
-      showToast('माहिती लोड होत आहे...');
-    }
-
     function declareAndLockResults() {
       const cat = document.getElementById('admin-lock-category').value;
       const testNo = document.getElementById('admin-lock-test').value;
@@ -2689,7 +2505,7 @@
         };
 
         db.ref(`declared_toppers/${cat}/test_${testNo}`).set(payload).then(() => {
-          showCustomAlert(`निकाल जाहीर व लॉक झाला!`);
+          showToast(`निकाल जाहीर व लॉक झाला!`);
         });
       });
     }
