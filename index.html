@@ -1030,11 +1030,11 @@
       <div class="stats-grid">
         <div class="stat-box stat-box-students">
           <p>प्रविष्ट विद्यार्थी</p>
-          <h2 id="stat-total-students">0</h2>
+          <h2 id="stat-total-students">...</h2>
         </div>
         <div class="stat-box stat-box-schools">
           <p>गुण भरलेल्या शाळा</p>
-          <h2 id="stat-active-schools">0/0</h2>
+          <h2 id="stat-active-schools">...</h2>
         </div>
       </div>
 
@@ -1129,7 +1129,7 @@
         </div>
       </div>
 
-      <!-- बदल २: नवीन विद्यार्थी वाढवा / जोडा हा भाग Collapsible (Minimize-Expand) केला आहे -->
+      <!-- २. नवीन विद्यार्थी वाढवा / जोडा (Collapsible - सुरुवातीला मिनिमाईज्ड) -->
       <div class="app-card" id="card-student-add-section" style="opacity:0.5; pointer-events:none;">
         <div class="collapsible-card-header" onclick="toggleStudentAddCard()">
           <div class="app-card-title" style="margin:0; border:none; padding:0;">
@@ -1140,7 +1140,6 @@
           </span>
         </div>
         
-        <!-- मिनिमाईज्ड बॉडी कंटेनर (सुरुवातीला बंद) -->
         <div id="body-student-add-section" style="display:none; margin-top:12px; border-top:1.2px solid #f1f5f9; padding-top:10px;">
           <div class="grid-2">
             <div class="form-group">
@@ -1198,7 +1197,7 @@
             </span>
           </div>
           <p id="entry-locked-test-notice" style="font-size:0.86rem; color:#b45309; font-weight:800; margin-top:4px; background:#fef3c7; padding:5px 8px; border-radius:6px; border:1px solid #fde68a;">
-            <i class="fa-solid fa-circle-exclamation"></i> सूचना: सध्या फक्त याच चाचणीचे गुण भरणे सुरू आहे.
+            <i class="fa-solid fa-circle-exclamation"></i> सूचना: सध्या फक्त याच चाचणीचे गुण भरणे सुरू आहे. केवळ याच चाचणीचे गुण भरा.
           </p>
           <input type="hidden" id="entry-test-no" value="6">
         </div>
@@ -1338,7 +1337,7 @@
         </button>
       </div>
 
-      <!-- बदल ३: डिझायनर कक्ष Collapsible (Minimize) केला आहे, जेणेकरून स्क्रोल करताना घटक हलणार नाहीत -->
+      <!-- २. डिझायनर कक्ष (Collapsible) -->
       <div class="app-card" style="border-left: 5px solid #6366f1;">
         <div class="collapsible-card-header" onclick="toggleDesignerSection()">
           <div class="app-card-title" style="margin:0; border:none; padding:0;">
@@ -1349,7 +1348,6 @@
           </span>
         </div>
 
-        <!-- मिनिमाईज्ड डिझायनर बॉडी (सुरुवातीला बंद) -->
         <div id="body-designer-section" style="display:none; margin-top:14px; border-top:1.2px solid #f1f5f9; padding-top:10px;">
           <div class="designer-tabs-wrap">
             <button class="des-tab-btn active" id="btn-des-tab-cert" onclick="switchDesignerTab('cert')">
@@ -1922,7 +1920,7 @@
       return minStart;
     }
 
-    /* बदल १: चारही परीक्षांसाठी ज्या चाचणीचा निकाल घोषित झालेला आहे ती चाचणी शोधणे */
+    /* चारही परीक्षांसाठी ज्या चाचणीचा निकाल घोषित झालेला आहे ती चाचणी शोधणे */
     function getInitialDeclaredTestForDashboard(category) {
       const declaredCat = DECLARED_DATA_STORE[category];
       const minStart = getMinAllowedTestNo(category);
@@ -2010,6 +2008,8 @@
     let flashTimer = null;
     let BEED_ALL_SCHOOLS = [];
     let PRE_LOCK_CALCULATED_DATA = null;
+
+    let currentActiveDashboardRef = null;
 
     /* मिनिमाईज - एक्स्पॅन्ड टॉगल फंक्शन्स */
     function toggleStudentAddCard() {
@@ -3483,15 +3483,46 @@
       });
     }
 
+    /* बदल: घोषित निकाल असल्यास ० सेकंदात थेट आकडे दाखवणे, ज्यामुळे लॅगिंग पूर्णपणे बंद होते */
     function listenLiveDashboardData() {
+      const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
+      const testKey = `test_${currentSelectedTest}`;
+      const totalEligibleSchools = getTotalEligibleSchoolsForCategory(currentSelectedCategory);
+
+      // १. जर चाचणीचा निकाल जाहीर असेल, तर आधीच सेव्ह केलेली अचूक आकडेवारी ० सेकंदात थेट दाखवा
+      if (declaredCat && declaredCat[testKey]) {
+        const declared = declaredCat[testKey];
+        if (currentActiveDashboardRef) {
+          currentActiveDashboardRef.off();
+          currentActiveDashboardRef = null;
+        }
+
+        const sCount = (declared.totalStudents !== undefined) ? declared.totalStudents : (declared.districtToppers ? declared.districtToppers.length : 0);
+        const schCount = (declared.activeSchools !== undefined) ? declared.activeSchools : '-';
+        const eligCount = declared.totalEligible || totalEligibleSchools;
+
+        document.getElementById('stat-total-students').innerText = sCount;
+        document.getElementById('stat-active-schools').innerText = `${schCount}/${eligCount}`;
+        renderDeclaredResultsOnDashboard();
+        return;
+      }
+
+      // २. जर चाचणी चालू असेल (निकाल जाहीर झालेला नसेल), तरच लाईव्ह डेटा मोजा
+      if (currentActiveDashboardRef) {
+        currentActiveDashboardRef.off();
+      }
+
+      document.getElementById('stat-total-students').innerText = '...';
+      document.getElementById('stat-active-schools').innerText = '...';
+
       const refPath = `results/${currentSelectedCategory}/test_${currentSelectedTest}`;
-      db.ref(refPath).on('value', (snapshot) => {
+      currentActiveDashboardRef = db.ref(refPath);
+
+      currentActiveDashboardRef.on('value', (snapshot) => {
         const data = snapshot.val();
         currentRawResults = data || {};
-        let allStudents = [];
+        let allStudentsCount = 0;
         let submittedSchoolsSet = new Set();
-
-        const totalEligibleSchools = getTotalEligibleSchoolsForCategory(currentSelectedCategory);
 
         if (data) {
           Object.values(data).forEach(entry => {
@@ -3502,14 +3533,7 @@
                   schoolHasMarks = true;
                   const mStr = String(st.marks).toUpperCase();
                   if (mStr !== 'AB') {
-                    allStudents.push({
-                      name: st.name,
-                      gender: st.gender,
-                      school: entry.school,
-                      udise: entry.udise || '-',
-                      taluka: entry.taluka || '-',
-                      marks: parseFloat(st.marks) || 0
-                    });
+                    allStudentsCount++;
                   }
                 }
               });
@@ -3520,19 +3544,17 @@
           });
         }
 
-        document.getElementById('stat-total-students').innerText = allStudents.length;
+        document.getElementById('stat-total-students').innerText = allStudentsCount;
         document.getElementById('stat-active-schools').innerText = `${submittedSchoolsSet.size}/${totalEligibleSchools}`;
 
         renderDeclaredResultsOnDashboard();
       });
     }
 
-    /* बदल १: निकाल लोड होताच चारही परीक्षांसाठी declared test शोधून थेट सेट करणे */
     function listenDeclaredResults() {
       db.ref('declared_toppers').on('value', (snap) => {
         DECLARED_DATA_STORE = snap.val() || {};
         
-        // वेबसाईट उघडताच नुकतीच निकाल लागलेली चाचणी आपोआप सिलेक्ट करणे
         currentSelectedTest = getInitialDeclaredTestForDashboard(currentSelectedCategory);
         buildDashboardTestPills();
         listenLiveDashboardData();
@@ -4020,10 +4042,12 @@
       });
     }
 
+    /* बदल: निकाल जाहीर करताना एकूण विद्यार्थी व शाळा संख्या कायमस्वरूपी सेव्ह करणे */
     function declareAndLockResults() {
       const cat = document.getElementById('admin-lock-category').value;
       const testNo = document.getElementById('admin-lock-test').value;
       const maxM = getMaxMarksForTest(cat, parseInt(testNo, 10));
+      const totalEligibleSchools = getTotalEligibleSchoolsForCategory(cat);
 
       showCustomConfirm(`तुम्ही सर्व जिल्हा व तालुका टॉपर्स तपासले आहेत का? निकाल लॉक केल्यास ते अधिकृत म्हणून सर्व पोर्टलवर जाहीर होतील!`, () => {
         showToast('गुणांची गणना व अधिकृत लॉकिंग सुरू आहे...');
@@ -4032,11 +4056,14 @@
           const data = snap.val() || {};
           let allStudents = [];
           let talukaWise = {};
+          let submittedSchoolsSet = new Set();
 
           Object.values(data).forEach(entry => {
+            let schoolHasMarks = false;
             if (entry.students && Array.isArray(entry.students)) {
               entry.students.forEach(st => {
                 if (st.marks !== '' && String(st.marks).toUpperCase() !== 'AB') {
+                  schoolHasMarks = true;
                   const marksNum = parseFloat(st.marks) || 0;
                   const rec = {
                     name: st.name,
@@ -4053,6 +4080,9 @@
                 }
               });
             }
+            if (schoolHasMarks && entry.udise) {
+              submittedSchoolsSet.add(entry.udise);
+            }
           });
 
           allStudents.sort((a,b) => b.marks - a.marks);
@@ -4067,12 +4097,15 @@
           const payload = {
             declaredAt: new Date().toISOString(),
             maxMarks: maxM,
+            totalStudents: allStudents.length,
+            activeSchools: submittedSchoolsSet.size,
+            totalEligible: totalEligibleSchools,
             districtToppers: districtToppers,
             talukaToppers: talukaToppers
           };
 
           db.ref(`declared_toppers/${cat}/test_${testNo}`).set(payload).then(() => {
-            showCustomAlert(`अभिनंदन! ${getTestDisplayName(cat, testNo)} चे अधिकृत निकाल यशस्वीरित्या जाहीर व लॉक झाले आहेत!`);
+            showCustomAlert(`अभिनंदन! ${getTestDisplayName(cat, testNo)} चे अधिकृत निकाल व आकडेवारी यशस्वीरित्या जाहीर व लॉक झाले आहेत!`);
             showToast('निकाल यशस्वीरित्या जाहीर झाले!');
           }).catch(err => {
             showCustomAlert('लॉकिंग त्रुटी: ' + err.message);
