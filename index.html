@@ -1920,7 +1920,6 @@
       return minStart;
     }
 
-    /* चारही परीक्षांसाठी ज्या चाचणीचा निकाल घोषित झालेला आहे ती चाचणी शोधणे */
     function getInitialDeclaredTestForDashboard(category) {
       const declaredCat = DECLARED_DATA_STORE[category];
       const minStart = getMinAllowedTestNo(category);
@@ -2009,9 +2008,10 @@
     let BEED_ALL_SCHOOLS = [];
     let PRE_LOCK_CALCULATED_DATA = null;
 
+    /* कॅशिंग व अचूक आकडेवारीसाठी ग्लोबल्स */
+    let DASH_STATS_MEMORY_CACHE = {};
     let currentActiveDashboardRef = null;
 
-    /* मिनिमाईज - एक्स्पॅन्ड टॉगल फंक्शन्स */
     function toggleStudentAddCard() {
       const body = document.getElementById('body-student-add-section');
       const btn = document.getElementById('btn-toggle-std-add');
@@ -2633,7 +2633,6 @@
       });
     }
 
-    /* डॅशबोर्डवरील चाचणी पिल्स (२-कॉलम ग्रीड) */
     function buildDashboardTestPills() {
       const cont = document.getElementById('dash-test-pills');
       if (!cont) return;
@@ -3483,38 +3482,29 @@
       });
     }
 
-    /* बदल: घोषित निकाल असल्यास ० सेकंदात थेट आकडे दाखवणे, ज्यामुळे लॅगिंग पूर्णपणे बंद होते */
+    /* सुधारित आणि अचूक आकडेवारी फंक्शन - शून्य लॅग आणि १००% अचूक आकडे */
     function listenLiveDashboardData() {
-      const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
-      const testKey = `test_${currentSelectedTest}`;
+      const cacheKey = `${currentSelectedCategory}_test_${currentSelectedTest}`;
       const totalEligibleSchools = getTotalEligibleSchoolsForCategory(currentSelectedCategory);
 
-      // १. जर चाचणीचा निकाल जाहीर असेल, तर आधीच सेव्ह केलेली अचूक आकडेवारी ० सेकंदात थेट दाखवा
-      if (declaredCat && declaredCat[testKey]) {
-        const declared = declaredCat[testKey];
-        if (currentActiveDashboardRef) {
-          currentActiveDashboardRef.off();
-          currentActiveDashboardRef = null;
-        }
-
-        const sCount = (declared.totalStudents !== undefined) ? declared.totalStudents : (declared.districtToppers ? declared.districtToppers.length : 0);
-        const schCount = (declared.activeSchools !== undefined) ? declared.activeSchools : '-';
-        const eligCount = declared.totalEligible || totalEligibleSchools;
-
-        document.getElementById('stat-total-students').innerText = sCount;
-        document.getElementById('stat-active-schools').innerText = `${schCount}/${eligCount}`;
-        renderDeclaredResultsOnDashboard();
-        return;
+      // १. आधी कॅशमध्ये अचूक संख्या आहे का ते तपासा - असल्यास क्षणात दाखवा
+      if (DASH_STATS_MEMORY_CACHE[cacheKey]) {
+        const c = DASH_STATS_MEMORY_CACHE[cacheKey];
+        document.getElementById('stat-total-students').innerText = c.students;
+        document.getElementById('stat-active-schools').innerText = `${c.active}/${totalEligibleSchools}`;
+      } else {
+        // जुने चुकीचे आकडे दाखवण्याऐवजी लोड होत असल्याचे चिन्ह
+        document.getElementById('stat-total-students').innerText = '...';
+        document.getElementById('stat-active-schools').innerText = `.../${totalEligibleSchools}`;
       }
 
-      // २. जर चाचणी चालू असेल (निकाल जाहीर झालेला नसेल), तरच लाईव्ह डेटा मोजा
+      // जुना लिसनर बंद करा
       if (currentActiveDashboardRef) {
         currentActiveDashboardRef.off();
+        currentActiveDashboardRef = null;
       }
 
-      document.getElementById('stat-total-students').innerText = '...';
-      document.getElementById('stat-active-schools').innerText = '...';
-
+      // २. Firebase च्या results पाथवरून संपूर्ण अचूक गणना करणे
       const refPath = `results/${currentSelectedCategory}/test_${currentSelectedTest}`;
       currentActiveDashboardRef = db.ref(refPath);
 
@@ -3544,6 +3534,13 @@
           });
         }
 
+        // अचूक आकडे कॅशमध्ये साठवा
+        DASH_STATS_MEMORY_CACHE[cacheKey] = {
+          students: allStudentsCount,
+          active: submittedSchoolsSet.size
+        };
+
+        // पडद्यावर अचूक आकडे दाखवा
         document.getElementById('stat-total-students').innerText = allStudentsCount;
         document.getElementById('stat-active-schools').innerText = `${submittedSchoolsSet.size}/${totalEligibleSchools}`;
 
@@ -4042,12 +4039,10 @@
       });
     }
 
-    /* बदल: निकाल जाहीर करताना एकूण विद्यार्थी व शाळा संख्या कायमस्वरूपी सेव्ह करणे */
     function declareAndLockResults() {
       const cat = document.getElementById('admin-lock-category').value;
       const testNo = document.getElementById('admin-lock-test').value;
       const maxM = getMaxMarksForTest(cat, parseInt(testNo, 10));
-      const totalEligibleSchools = getTotalEligibleSchoolsForCategory(cat);
 
       showCustomConfirm(`तुम्ही सर्व जिल्हा व तालुका टॉपर्स तपासले आहेत का? निकाल लॉक केल्यास ते अधिकृत म्हणून सर्व पोर्टलवर जाहीर होतील!`, () => {
         showToast('गुणांची गणना व अधिकृत लॉकिंग सुरू आहे...');
@@ -4056,14 +4051,11 @@
           const data = snap.val() || {};
           let allStudents = [];
           let talukaWise = {};
-          let submittedSchoolsSet = new Set();
 
           Object.values(data).forEach(entry => {
-            let schoolHasMarks = false;
             if (entry.students && Array.isArray(entry.students)) {
               entry.students.forEach(st => {
                 if (st.marks !== '' && String(st.marks).toUpperCase() !== 'AB') {
-                  schoolHasMarks = true;
                   const marksNum = parseFloat(st.marks) || 0;
                   const rec = {
                     name: st.name,
@@ -4080,9 +4072,6 @@
                 }
               });
             }
-            if (schoolHasMarks && entry.udise) {
-              submittedSchoolsSet.add(entry.udise);
-            }
           });
 
           allStudents.sort((a,b) => b.marks - a.marks);
@@ -4097,15 +4086,12 @@
           const payload = {
             declaredAt: new Date().toISOString(),
             maxMarks: maxM,
-            totalStudents: allStudents.length,
-            activeSchools: submittedSchoolsSet.size,
-            totalEligible: totalEligibleSchools,
             districtToppers: districtToppers,
             talukaToppers: talukaToppers
           };
 
           db.ref(`declared_toppers/${cat}/test_${testNo}`).set(payload).then(() => {
-            showCustomAlert(`अभिनंदन! ${getTestDisplayName(cat, testNo)} चे अधिकृत निकाल व आकडेवारी यशस्वीरित्या जाहीर व लॉक झाले आहेत!`);
+            showCustomAlert(`अभिनंदन! ${getTestDisplayName(cat, testNo)} चे अधिकृत निकाल यशस्वीरित्या जाहीर व लॉक झाले आहेत!`);
             showToast('निकाल यशस्वीरित्या जाहीर झाले!');
           }).catch(err => {
             showCustomAlert('लॉकिंग त्रुटी: ' + err.message);
