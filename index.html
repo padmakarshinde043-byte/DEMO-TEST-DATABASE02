@@ -1102,34 +1102,24 @@
         </select>
       </div>
 
-      <!-- १. शाळा निवडा -->
+      <!-- १. शाळा निवडा (सुटसुटीत, कंसाशिवाय व दुबार सिलेक्टशिवाय) -->
       <div class="app-card">
-        <div class="app-card-title"><i class="fa-solid fa-school" style="color:var(--sky);"></i> 1. शाळा निवडा (UDISE कोड किंवा नावाने शोधा)</div>
+        <div class="app-card-title"><i class="fa-solid fa-school" style="color:var(--sky);"></i> 1. शाळा निवडा</div>
         
-        <div class="form-group" style="margin-bottom: 10px;">
+        <div class="form-group" style="margin-bottom: 8px;">
           <label><i class="fa-solid fa-magnifying-glass" style="color:var(--sky);"></i> UDISE कोडचे काही अंक किंवा शाळेचे नाव टाका:</label>
           <input type="text" id="udise-search-input" class="form-control" placeholder="उदा. 2727 किंवा शाळेचे नाव टाईप करा..." oninput="searchSchoolsByUdise(this.value)">
           <div class="udise-suggestions-box" id="udise-results-box"></div>
-          
-          <p style="font-size:0.86rem; color:#0f172a; font-weight:700; margin-top:4px; line-height:1.4;">
-            <i class="fa-solid fa-circle-info" style="color:var(--sky);"></i> UDISE कोडचे 3-4 अंक किंवा नाव टाईप करताच खाली सर्व 2,574 शाळांची यादी दिसेल, त्यातून आपली शाळा निवडा.
-          </p>
+          <input type="hidden" id="entry-school" value="">
         </div>
 
-        <div class="form-group" style="margin-bottom: 4px;">
-          <label>निवडलेली शाळा</label>
-          <select class="form-control" id="entry-school" onchange="handleSchoolSelectionWithSecurity()">
-            <option value="">-- वरील सर्च बॉक्समधून शाळा निवडा --</option>
-          </select>
-        </div>
-
-        <div id="lock-notice" style="display:none; color:var(--accent-green); font-weight:700; font-size:0.92rem; margin-top:6px;">
+        <div id="lock-notice" style="display:none; color:var(--accent-green); font-weight:700; font-size:0.92rem; margin-top:4px;">
           <i class="fa-solid fa-circle-check"></i> शाळा निवड सुरक्षित झाली आहे. 
           <a href="javascript:void(0)" onclick="resetSchoolLock()" style="color:var(--danger); margin-left:6px; text-decoration:underline;">बदला</a>
         </div>
       </div>
 
-      <!-- २. नवीन विद्यार्थी वाढवा / जोडा (Collapsible - सुरुवातीला मिनिमाईज्ड) -->
+      <!-- २. नवीन विद्यार्थी वाढवा / जोडा (Collapsible) -->
       <div class="app-card" id="card-student-add-section" style="opacity:0.5; pointer-events:none;">
         <div class="collapsible-card-header" onclick="toggleStudentAddCard()">
           <div class="app-card-title" style="margin:0; border:none; padding:0;">
@@ -2775,12 +2765,11 @@
       const school = BEED_ALL_SCHOOLS.find(s => s.c === udiseCode);
       if (!school) return;
       
-      const schoolSelect = document.getElementById('entry-school');
-      schoolSelect.innerHTML = `<option value="${school.c}">${school.n} (${school.t})</option>`;
-      schoolSelect.value = school.c;
+      const schoolHidden = document.getElementById('entry-school');
+      if (schoolHidden) schoolHidden.value = school.c;
 
       document.getElementById('udise-results-box').style.display = 'none';
-      document.getElementById('udise-search-input').value = `${school.c} - ${school.n}`;
+      document.getElementById('udise-search-input').value = `${school.c} - ${school.n} (${school.t})`;
       handleSchoolSelectionWithSecurity();
     }
 
@@ -2886,7 +2875,10 @@
 
     function cancelPinModal() {
       closeModal('schoolPinModal');
-      document.getElementById('entry-school').value = '';
+      const schoolHidden = document.getElementById('entry-school');
+      if (schoolHidden) schoolHidden.value = '';
+      const searchInp = document.getElementById('udise-search-input');
+      if (searchInp) searchInp.value = '';
       pendingSchoolToLock = null;
       lockUIWithoutPin();
     }
@@ -2948,7 +2940,8 @@
     function proceedWithSchoolSelection(schoolObj) {
       selectedSchoolObj = schoolObj;
       document.getElementById('lock-notice').style.display = 'block';
-      document.getElementById('entry-school').classList.add('locked');
+      const searchInp = document.getElementById('udise-search-input');
+      if (searchInp) searchInp.classList.add('locked');
 
       unlockUIWithPin();
       loadStudentsFromFirebase();
@@ -2973,9 +2966,13 @@
     function resetSchoolLock() {
       selectedSchoolObj = null;
       document.getElementById('lock-notice').style.display = 'none';
-      document.getElementById('entry-school').classList.remove('locked');
-      document.getElementById('entry-school').value = '';
-      document.getElementById('udise-search-input').value = '';
+      const searchInp = document.getElementById('udise-search-input');
+      if (searchInp) {
+        searchInp.classList.remove('locked');
+        searchInp.value = '';
+      }
+      const schoolHidden = document.getElementById('entry-school');
+      if (schoolHidden) schoolHidden.value = '';
       lockUIWithoutPin();
       currentStudentsList = [];
     }
@@ -3482,29 +3479,27 @@
       });
     }
 
-    /* सुधारित आणि अचूक आकडेवारी फंक्शन - शून्य लॅग आणि १००% अचूक आकडे */
+    /* सुधारित आणि १००% अचूक आकडेवारी गणना */
     function listenLiveDashboardData() {
       const cacheKey = `${currentSelectedCategory}_test_${currentSelectedTest}`;
       const totalEligibleSchools = getTotalEligibleSchoolsForCategory(currentSelectedCategory);
 
-      // १. आधी कॅशमध्ये अचूक संख्या आहे का ते तपासा - असल्यास क्षणात दाखवा
+      // १. मेमरी कॅशमध्ये अचूक संख्या असल्यास तात्काळ दाखवा
       if (DASH_STATS_MEMORY_CACHE[cacheKey]) {
         const c = DASH_STATS_MEMORY_CACHE[cacheKey];
         document.getElementById('stat-total-students').innerText = c.students;
         document.getElementById('stat-active-schools').innerText = `${c.active}/${totalEligibleSchools}`;
       } else {
-        // जुने चुकीचे आकडे दाखवण्याऐवजी लोड होत असल्याचे चिन्ह
         document.getElementById('stat-total-students').innerText = '...';
         document.getElementById('stat-active-schools').innerText = `.../${totalEligibleSchools}`;
       }
 
-      // जुना लिसनर बंद करा
       if (currentActiveDashboardRef) {
         currentActiveDashboardRef.off();
         currentActiveDashboardRef = null;
       }
 
-      // २. Firebase च्या results पाथवरून संपूर्ण अचूक गणना करणे
+      // २. प्रत्यक्ष निकाल पाथवरून सर्व प्रविष्ट विद्यार्थी आणि शाळा मोजणे
       const refPath = `results/${currentSelectedCategory}/test_${currentSelectedTest}`;
       currentActiveDashboardRef = db.ref(refPath);
 
@@ -3534,13 +3529,13 @@
           });
         }
 
-        // अचूक आकडे कॅशमध्ये साठवा
+        // कॅशमध्ये अचूक संख्या ठेवणे
         DASH_STATS_MEMORY_CACHE[cacheKey] = {
           students: allStudentsCount,
           active: submittedSchoolsSet.size
         };
 
-        // पडद्यावर अचूक आकडे दाखवा
+        // पडद्यावर अचूक आकडे दाखवणे
         document.getElementById('stat-total-students').innerText = allStudentsCount;
         document.getElementById('stat-active-schools').innerText = `${submittedSchoolsSet.size}/${totalEligibleSchools}`;
 
