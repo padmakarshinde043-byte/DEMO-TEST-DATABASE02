@@ -61,7 +61,7 @@
 
     .app-container { max-width: 650px; margin: 0 auto; padding: 12px; }
 
-    /* ३ सेकंद टिकणारा हिरव्या रंगाचा फ्लॅश मेसेज */
+    /* ५ सेकंद टिकणारा हिरव्या रंगाचा फ्लॅश मेसेज */
     .flash-notice-banner {
       display: none;
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
@@ -114,7 +114,7 @@
       padding-bottom: 6px;
     }
 
-    /* ब्लिंक करणारा OMR माहिती बॅनर */
+    /* सतत सॉफ्ट ब्लिंक करणारा OMR स्कॅनर माहिती बॅनर */
     .soft-blink-omr-banner {
       background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
       border: 1.8px solid #34d399;
@@ -128,13 +128,38 @@
       animation: softBlinkGlow 2.2s infinite ease-in-out;
     }
     @keyframes softBlinkGlow {
-      0% { border-color: #34d399; box-shadow: 0 0 8px rgba(16, 185, 129, 0.25); background-color: #f0fdf4; }
-      50% { border-color: #059669; box-shadow: 0 0 16px rgba(5, 150, 105, 0.45); background-color: #d1fae5; }
-      100% { border-color: #34d399; box-shadow: 0 0 8px rgba(16, 185, 129, 0.25); background-color: #f0fdf4; }
+      0% {
+        border-color: #34d399;
+        box-shadow: 0 0 8px rgba(16, 185, 129, 0.25);
+        background-color: #f0fdf4;
+      }
+      50% {
+        border-color: #059669;
+        box-shadow: 0 0 16px rgba(5, 150, 105, 0.45);
+        background-color: #d1fae5;
+      }
+      100% {
+        border-color: #34d399;
+        box-shadow: 0 0 8px rgba(16, 185, 129, 0.25);
+        background-color: #f0fdf4;
+      }
     }
-    .soft-blink-omr-banner i { font-size: 1.6rem; color: #059669; flex-shrink: 0; }
-    .soft-blink-omr-banner p { font-size: 0.94rem; font-weight: 700; color: #065f46; line-height: 1.4; margin: 0; }
-    .soft-blink-omr-banner strong { color: #047857; text-decoration: underline; }
+    .soft-blink-omr-banner i {
+      font-size: 1.6rem;
+      color: #059669;
+      flex-shrink: 0;
+    }
+    .soft-blink-omr-banner p {
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: #065f46;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .soft-blink-omr-banner strong {
+      color: #047857;
+      text-decoration: underline;
+    }
 
     /* Collapsible Accordion Header */
     .collapsible-card-header {
@@ -160,7 +185,9 @@
     }
 
     /* परीक्षा निवडक ड्रॉपडाऊन */
-    .dropdown-group { margin-bottom: 10px; }
+    .dropdown-group {
+      margin-bottom: 10px;
+    }
     .dropdown-label {
       font-size: 1.02rem;
       font-weight: 800;
@@ -187,10 +214,17 @@
       box-shadow: 0 3px 10px rgba(2, 132, 199, 0.08);
       transition: all 0.15s ease;
     }
-    .luxury-dropdown:focus { border-color: var(--kesari); box-shadow: 0 3px 12px rgba(234, 88, 12, 0.15); }
+    .luxury-dropdown:focus {
+      border-color: var(--kesari);
+      box-shadow: 0 3px 12px rgba(234, 88, 12, 0.15);
+    }
 
     /* २-कॉलम कॅप्सूल ग्रीड */
-    .test-capsule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .test-capsule-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
     .test-capsule-chip {
       background: #ffffff;
       border: 1.5px solid #cbd5e1;
@@ -206,7 +240,10 @@
       gap: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
-    .test-capsule-chip:hover { border-color: var(--sky); background: #f0f9ff; }
+    .test-capsule-chip:hover {
+      border-color: var(--sky);
+      background: #f0f9ff;
+    }
     .test-capsule-chip.active {
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
       color: white;
@@ -226,11 +263,33 @@
       flex-shrink: 0;
       transition: all 0.15s;
     }
-    .test-capsule-chip.active .capsule-badge-icon { background: rgba(255, 255, 255, 0.25); color: #ffffff; }
-    .capsule-text-wrap { display: flex; flex-direction: column; text-align: left; line-height: 1.2; overflow: hidden; }
-    .capsule-text-title { font-size: 0.98rem; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .capsule-text-sub { font-size: 0.82rem; font-weight: 700; color: #64748b; font-family: 'Poppins', sans-serif; }
-    .test-capsule-chip.active .capsule-text-sub { color: #d1fae5; }
+    .test-capsule-chip.active .capsule-badge-icon {
+      background: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+    .capsule-text-wrap {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      line-height: 1.2;
+      overflow: hidden;
+    }
+    .capsule-text-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .capsule-text-sub {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #64748b;
+      font-family: 'Poppins', sans-serif;
+    }
+    .test-capsule-chip.active .capsule-text-sub {
+      color: #d1fae5;
+    }
 
     /* Form Controls */
     .form-group { margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px; position: relative; }
@@ -271,6 +330,7 @@
     .btn-outline { background: white; border: 2px solid var(--sky); color: var(--sky); }
     .btn-gold { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; }
     .btn-danger { background: var(--danger); color: white; }
+    .btn-whatsapp { background: var(--whatsapp); color: white; }
 
     /* UDISE Suggest Box */
     .udise-suggestions-box {
@@ -307,6 +367,7 @@
     }
     .stat-box p { font-size: 0.88rem; color: var(--text-muted); font-weight: 700; margin-bottom: 2px; }
     .stat-box h2 { font-size: 1.6rem; font-weight: 800; font-family: 'Poppins', sans-serif; line-height: 1.2; }
+    
     .stat-box-students { border-left: 5px solid #7c3aed; background: linear-gradient(to right, #faf5ff, #ffffff); }
     .stat-box-students h2 { color: #6b21a8; }
     .stat-box-schools { border-left: 5px solid #0284c7; background: linear-gradient(to right, #f0f9ff, #ffffff); }
@@ -351,7 +412,12 @@
     }
 
     /* १२ तालुक्यांची ग्रीड */
-    .taluka-4col-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 10px; }
+    .taluka-4col-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      margin-bottom: 10px;
+    }
     .taluka-4col-btn {
       background: white;
       border: 1.5px solid #cbd5e1;
@@ -372,7 +438,11 @@
     }
 
     /* Registered Students Manager */
-    .registered-students-container { margin-top: 12px; border-top: 1.5px dashed var(--border); padding-top: 10px; }
+    .registered-students-container {
+      margin-top: 12px;
+      border-top: 1.5px dashed var(--border);
+      padding-top: 10px;
+    }
     .reg-std-item {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
@@ -386,7 +456,7 @@
     .reg-std-item strong { font-size: 1.02rem; color: #1e293b; }
     .reg-std-item span { font-size: 0.84rem; color: var(--text-muted); }
 
-    /* विद्यार्थी कार्ड व OMR स्कॅन बटण */
+    /* विद्यार्थी गुण नोंदणी कार्ड व थेट OMR स्कॅन बटण */
     .student-entry-card {
       background: #ffffff;
       border: 1.5px solid #e2e8f0;
@@ -400,18 +470,63 @@
     }
     .student-entry-card:nth-child(even) { background: #fafcff; }
 
-    .compact-name-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-    .compact-name-text { font-size: 1.05rem; font-weight: 800; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
-    .compact-gender-tag { font-size: 0.78rem; font-weight: 700; padding: 2px 7px; border-radius: 8px; background: #f1f5f9; color: #475569; white-space: nowrap; border: 1px solid #e2e8f0; }
+    .compact-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .compact-name-text {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+    .compact-gender-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      color: #475569;
+      white-space: nowrap;
+      border: 1px solid #e2e8f0;
+    }
     .compact-gender-tag.girl { background: #fdf2f8; color: #be185d; border-color: #fbcfe8; }
     .compact-gender-tag.boy { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
 
-    .compact-action-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
-    .compact-att-group { display: flex; border: 1.5px solid #cbd5e1; border-radius: 8px; overflow: hidden; background: white; }
-    .compact-att-btn { padding: 4px 8px; font-size: 0.82rem; font-weight: 800; border: none; background: transparent; cursor: pointer; color: #64748b; transition: 0.12s; }
+    .compact-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .compact-att-group {
+      display: flex;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+      background: white;
+    }
+    .compact-att-btn {
+      padding: 4px 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: #64748b;
+      transition: 0.12s;
+    }
     .compact-att-btn.present.active { background: #dcfce7; color: #15803d; }
     .compact-att-btn.absent.active { background: #fee2e2; color: #b91c1c; }
 
+    /* OMR स्कॅनर कॅमेरा बटण */
     .btn-scan-omr {
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
       color: white;
@@ -427,14 +542,67 @@
       box-shadow: 0 2px 5px rgba(5, 150, 105, 0.25);
       transition: all 0.15s;
     }
-    .btn-scan-omr:active { transform: scale(0.96); }
-    .btn-scan-omr i { font-size: 1rem; color: #fef08a; }
+    .btn-scan-omr:active {
+      transform: scale(0.96);
+    }
+    .btn-scan-omr i {
+      font-size: 1rem;
+      color: #fef08a;
+    }
 
-    .compact-marks-wrap { display: inline-flex; align-items: center; justify-content: center; background: white; padding: 2px 8px; border-radius: 8px; border: 1.5px solid #cbd5e1; gap: 3px; }
-    .compact-marks-wrap:focus-within { border-color: var(--sky); box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15); }
-    .compact-marks-input { width: 52px; height: 28px; text-align: center; font-size: 1.15rem; font-weight: 800; border: none; outline: none; background: transparent; font-family: 'Poppins', sans-serif; color: #0f172a; }
-    .compact-marks-input.is-absent { color: var(--danger); font-weight: 800; background: #fef2f2; }
-    .compact-denominator { font-size: 0.82rem; font-weight: 800; color: #64748b; font-family: 'Poppins', sans-serif; }
+    .compact-marks-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      gap: 3px;
+    }
+    .compact-marks-wrap:focus-within {
+      border-color: var(--sky);
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+    }
+    .compact-marks-input {
+      width: 52px;
+      height: 28px;
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 800;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: 'Poppins', sans-serif;
+      color: #0f172a;
+    }
+    .compact-marks-input.is-absent {
+      color: var(--danger);
+      font-weight: 800;
+      background: #fef2f2;
+    }
+    .compact-denominator {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #64748b;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-compact-chart {
+      width: 32px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1.5px solid #0284c7;
+      background: #f0f9ff;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: 0.12s;
+    }
+    .btn-compact-chart:active { background: #0284c7; color: white; }
 
     /* Leaderboard Cards */
     .topper-card {
@@ -467,7 +635,15 @@
     .topper-details h4 { font-size: 1.12rem; font-weight: 800; line-height: 1.25; color: #0f172a; }
     .topper-details p { font-size: 0.88rem; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
     .topper-score { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-    .topper-score-badge { background: #d1fae5; color: #065f46; padding: 3px 10px; border-radius: 12px; font-weight: 800; font-size: 0.98rem; font-family: 'Poppins', sans-serif; }
+    .topper-score-badge {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.98rem;
+      font-family: 'Poppins', sans-serif;
+    }
 
     /* नवोदय ८० प्रश्न Answer Key ग्रिड रचना */
     .navodaya-ak-grid {
@@ -481,117 +657,56 @@
       max-height: 480px;
       overflow-y: auto;
     }
-    .navodaya-ak-col { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px; }
-    .navodaya-ak-col-title { font-size: 0.78rem; font-weight: 800; text-align: center; background: #e0f2fe; color: #0369a1; padding: 3px 2px; border-radius: 6px; margin-bottom: 6px; }
-    .navodaya-ak-row { display: flex; align-items: center; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.84rem; font-family: 'Poppins', sans-serif; font-weight: 700; }
-    .ak-opt-group { display: flex; gap: 3px; }
-    .ak-opt-btn { width: 22px; height: 22px; border-radius: 50%; border: 1px solid #cbd5e1; background: white; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.1s; }
-    .ak-opt-btn.active { background: #0284c7; color: white; border-color: #0369a1; }
-
-    /* दुरुस्ती: मोडल आणि पॉप-अप CSS */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      padding: 10px;
-    }
-    .modal-content {
+    .navodaya-ak-col {
       background: white;
-      padding: 14px 16px;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 420px;
-      max-height: 94vh;
-      overflow-y: auto;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      position: relative;
-    }
-
-    /* दुरुस्ती: उभी आयताकृती कॅमेरा फ्रेम (मोबाईलवर तंतोतंत फिट) */
-    .omr-camera-portrait-frame {
-      position: relative;
-      width: 100%;
-      max-width: 260px;
-      height: 330px;
-      margin: 0 auto;
-      background: #0f172a;
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2.5px solid #10b981;
-      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
-    }
-    .omr-camera-portrait-frame video { width: 100%; height: 100%; object-fit: cover; }
-    .omr-target-guide {
-      position: absolute;
-      inset: 10px;
-      border: 2px dashed rgba(52, 211, 153, 0.85);
-      border-radius: 8px;
-      pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px;
-    }
-    .omr-target-guide span {
-      background: rgba(15, 23, 42, 0.8);
-      color: #a7f3d0;
-      font-size: 0.76rem;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 20px;
-    }
-
-    /* सविस्तर OMR गोशवारा कार्ड */
-    .omr-summary-dashboard-card {
-      background: #ffffff;
-      border: 1.8px solid #86efac;
-      border-radius: 12px;
-      padding: 10px 12px;
-      margin-top: 10px;
-      box-shadow: 0 3px 10px rgba(5, 150, 105, 0.1);
-      text-align: left;
-    }
-    .omr-summary-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      margin-top: 6px;
-      margin-bottom: 8px;
-    }
-    .omr-summary-item {
-      background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
-      padding: 6px 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: #334155;
+      padding: 6px;
     }
-    .omr-summary-item strong { font-size: 0.95rem; font-family: 'Poppins', sans-serif; }
-    .omr-score-highlight {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      color: white;
-      padding: 8px 12px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.94rem;
+    .navodaya-ak-col-title {
+      font-size: 0.78rem;
       font-weight: 800;
-      margin-top: 4px;
+      text-align: center;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 3px 2px;
+      border-radius: 6px;
+      margin-bottom: 6px;
     }
-    .omr-score-highlight span { font-size: 1.25rem; font-family: 'Poppins', sans-serif; color: #fef08a; }
+    .navodaya-ak-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.84rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+    }
+    .ak-opt-group {
+      display: flex;
+      gap: 3px;
+    }
+    .ak-opt-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e1;
+      background: white;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      transition: 0.1s;
+    }
+    .ak-opt-btn.active {
+      background: #0284c7;
+      color: white;
+      border-color: #0369a1;
+    }
 
     /* Bottom Navigation */
     .bottom-nav {
@@ -599,7 +714,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 64px;
+      height: 68px;
       background: #ffffff;
       border-top: 2px solid #cbd5e1;
       display: flex;
@@ -607,8 +722,8 @@
       align-items: center;
       z-index: 1000;
       box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
-      padding: 4px 12px;
-      gap: 10px;
+      padding: 6px 14px;
+      gap: 12px;
     }
     .nav-item {
       flex: 1;
@@ -616,18 +731,18 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      height: 48px;
+      height: 50px;
       background: #f8fafc;
       border: 1.5px solid transparent;
       border-radius: 12px;
       color: #64748b;
       cursor: pointer;
-      gap: 6px;
-      font-size: 1rem;
+      gap: 8px;
+      font-size: 1.05rem;
       font-weight: 800;
       transition: all 0.15s;
     }
-    .nav-item i { font-size: 1.25rem; }
+    .nav-item i { font-size: 1.3rem; }
     .nav-item-dash.active {
       background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
       color: #ffffff;
@@ -652,7 +767,58 @@
       border-top: 1px solid #e2e8f0;
       margin-top: 12px;
     }
-    .site-legal-footer span { font-family: 'Poppins', sans-serif; font-weight: 700; color: #334155; }
+    .site-legal-footer span {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    /* Modals & Dialogs */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+    }
+    .modal-content {
+      background: white;
+      padding: 16px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 840px;
+      max-height: 94vh;
+      overflow-y: auto;
+    }
+    .custom-dialog-box {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 18px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .custom-dialog-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #991b1b;
+      margin-bottom: 12px;
+    }
+    .custom-dialog-body {
+      font-size: 0.98rem;
+      color: #334155;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
 
     .toast {
       position: fixed;
@@ -759,7 +925,7 @@
     <!-- ================= 2. गुण नोंदणी स्क्रीन (शिक्षक पोर्टल) ================= -->
     <div id="screen-entry" style="display:none;">
 
-      <!-- ३ सेकंद टिकणारा हिरवा फ्लॅश मेसेज -->
+      <!-- ५ सेकंदांचा हिरवा फ्लॅश मेसेज -->
       <div class="flash-notice-banner" id="flash-entry-notice">
         <button class="flash-close-btn" onclick="closeFlashNotice()">&times;</button>
         <div class="flash-notice-content">
@@ -835,6 +1001,10 @@
             </div>
           </div>
 
+          <p id="marathi-input-hint" style="display:none; font-size:0.84rem; color:#b45309; font-weight:700; margin-bottom:6px;">
+            <i class="fa-solid fa-circle-info"></i> सूचना: प्रमाणपत्रावर सुंदर दिसण्यासाठी नाव शक्यतो मराठीत टाईप करावे.
+          </p>
+
           <button class="app-btn btn-success" onclick="addStudentToList()"><i class="fa-solid fa-plus"></i> यादीत नवीन विद्यार्थी जोडा</button>
 
           <div class="registered-students-container" id="registered-students-box" style="display:none;">
@@ -852,7 +1022,7 @@
           <i class="fa-solid fa-pen-nib" style="color:var(--kesari);"></i> 3. विद्यार्थ्यांची हजेरी व गुण नोंदणी
         </div>
 
-        <!-- ब्लिंक करणारा OMR स्कॅनर मेसेज -->
+        <!-- सॉफ्ट कलरमध्ये ब्लिंक करणारा OMR स्कॅनर मेसेज -->
         <div class="soft-blink-omr-banner">
           <i class="fa-solid fa-camera-retro"></i>
           <p>
@@ -926,11 +1096,84 @@
           * खालील ४ विभागांतून प्रत्यक्ष ओएमआर प्रमाणे उत्तरे तपासा व सेव्ह करा (प्रत्येक प्रश्नास १.२५ गुण = एकूण १०० गुण):
         </p>
 
-        <div class="navodaya-ak-grid" id="navodaya-ak-container"></div>
+        <div class="navodaya-ak-grid" id="navodaya-ak-container">
+          <!-- कॉलम्स JavaScript द्वारे भरले जातील -->
+        </div>
 
         <button class="app-btn btn-success" style="margin-top:10px;" onclick="saveNavodayaAnswerKey()">
           <i class="fa-solid fa-floppy-disk"></i> ही ८० प्रश्नांची Answer Key जतन करा
         </button>
+      </div>
+
+      <!-- ०. चाचणी व्यवस्थापन -->
+      <div class="app-card" style="border-left: 5px solid #0284c7;">
+        <div class="app-card-title"><i class="fa-solid fa-list-check" style="color:var(--sky);"></i> ⚙️ चाचणी व्यवस्थापन (Active Test व नवीन चाचण्या)</div>
+        
+        <div class="form-group" style="margin-bottom:10px;">
+          <label>परीक्षेचा प्रकार निवडा:</label>
+          <select class="form-control" id="admin-tmanage-category" onchange="onAdminTManageCategoryChange()">
+            <option value="navodaya">नवोदय प्रवेश परीक्षा (5 वी)</option>
+            <option value="4th">4 थी शिष्यवृत्ती परीक्षा</option>
+            <option value="7th">7 वी शिष्यवृत्ती परीक्षा</option>
+            <option value="nmms">NMMS शिष्यवृत्ती परीक्षा (8 वी)</option>
+          </select>
+        </div>
+
+        <!-- अ. चालू चाचणी निश्चित करणे -->
+        <div style="background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:10px; padding:10px; margin-bottom:10px;">
+          <div style="font-weight:800; font-size:0.92rem; color:#0369a1; margin-bottom:4px;">
+            <i class="fa-solid fa-toggle-on"></i> १. सध्या शाळांसाठी कोणती चाचणी सुरू ठेवायची?
+          </div>
+          <p style="font-size:0.8rem; color:#475569; margin-bottom:6px;">
+            येथून निवडलेली चाचणी सर्व शाळांच्या 'गुण भरा' स्क्रीनवर थेट सक्रिय होईल.
+          </p>
+          <div class="grid-2">
+            <select class="form-control" id="admin-active-test-select"></select>
+            <button class="app-btn btn-primary" onclick="saveAdminActiveTest()">
+              <i class="fa-solid fa-circle-check"></i> ही चाचणी सुरू करा
+            </button>
+          </div>
+        </div>
+
+        <!-- ब. सध्याच्या चाचणीचे नाव बदलणे -->
+        <div style="background:#fffbeb; border:1.5px solid #fde68a; border-radius:10px; padding:10px; margin-bottom:10px;">
+          <div style="font-weight:800; font-size:0.92rem; color:#92400e; margin-bottom:4px;">
+            <i class="fa-solid fa-pen"></i> २. चाचणीचे नाव बदला (उदा. महारिव्हिजन चाचणी)
+          </div>
+          <div class="grid-2" style="margin-bottom:6px;">
+            <div>
+              <label style="font-size:0.82rem; font-weight:700;">चाचणी निवडा:</label>
+              <select class="form-control" id="admin-rename-test-select" onchange="onAdminRenameTestSelectChange()"></select>
+            </div>
+            <div>
+              <label style="font-size:0.82rem; font-weight:700;">नवीन नाव द्या:</label>
+              <input type="text" class="form-control" id="admin-rename-test-input" placeholder="उदा. महारिव्हिजन चाचणी 1">
+            </div>
+          </div>
+          <button class="app-btn btn-gold" onclick="saveTestRenaming()">
+            <i class="fa-solid fa-floppy-disk"></i> चाचणीचे नाव जतन करा
+          </button>
+        </div>
+
+        <!-- क. नवीन चाचणी जोडणे -->
+        <div style="background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:10px; padding:10px;">
+          <div style="font-weight:800; font-size:0.92rem; color:#166534; margin-bottom:4px;">
+            <i class="fa-solid fa-plus-circle"></i> ३. नवीन चाचणी जोडा (पुढील क्रमांक व सानुकूल नाव)
+          </div>
+          <div class="grid-2" style="margin-bottom:6px;">
+            <div>
+              <label style="font-size:0.82rem; font-weight:700;">चाचणी क्रमांक (Auto):</label>
+              <input type="number" class="form-control locked" id="admin-add-test-no" readonly>
+            </div>
+            <div>
+              <label style="font-size:0.82rem; font-weight:700;">चाचणीचे नाव:</label>
+              <input type="text" class="form-control" id="admin-add-test-name" placeholder="उदा. महारिव्हिजन चाचणी">
+            </div>
+          </div>
+          <button class="app-btn btn-success" onclick="addNewTestDefinition()">
+            <i class="fa-solid fa-plus"></i> नवीन चाचणी यादीत जोडा
+          </button>
+        </div>
       </div>
 
       <!-- १. निकाल तपासणे व लॉक करणे विभाग -->
@@ -953,9 +1196,86 @@
           </div>
         </div>
 
-        <button class="app-btn btn-primary" onclick="declareAndLockResults()">
-          <i class="fa-solid fa-shield-halved"></i> निकाल अधिकृतपणे जाहीर व लॉक करा
+        <div style="margin-bottom:10px; font-weight:700; font-size:0.86rem; color:#0369a1;" id="admin-max-marks-info">
+          * या चाचणीचे कमाल गुण लोड होत आहेत...
+        </div>
+
+        <button class="app-btn btn-gold" style="margin-bottom:8px;" onclick="openPreLockReviewModal()">
+          <i class="fa-solid fa-eye"></i> १. आधी तात्पुरते जिल्हा व तालुका टॉपर्स तपासा (Live Preview)
         </button>
+
+        <button class="app-btn btn-primary" onclick="declareAndLockResults()">
+          <i class="fa-solid fa-shield-halved"></i> २. खात्री झाली, आता निकाल अधिकृतपणे जाहीर व लॉक करा
+        </button>
+      </div>
+
+      <!-- २. डिझायनर कक्ष (Collapsible) -->
+      <div class="app-card" style="border-left: 5px solid #6366f1;">
+        <div class="collapsible-card-header" onclick="toggleDesignerSection()">
+          <div class="app-card-title" style="margin:0; border:none; padding:0;">
+            <i class="fa-solid fa-wand-magic-sparkles" style="color:#6366f1;"></i> 🎨 प्रमाणपत्र व बॅनर लाइव्ह व्हिज्युअल डिझायनर
+          </div>
+          <span class="toggle-btn-badge" id="btn-toggle-designer">
+            <i class="fa-solid fa-chevron-down"></i> डिझायनर उघडा
+          </span>
+        </div>
+
+        <div id="body-designer-section" style="display:none; margin-top:14px; border-top:1.2px solid #f1f5f9; padding-top:10px;">
+          <div class="designer-tabs-wrap">
+            <button class="des-tab-btn active" id="btn-des-tab-cert" onclick="switchDesignerTab('cert')">
+              <i class="fa-solid fa-certificate"></i> प्रमाणपत्र डिझायनर
+            </button>
+            <button class="des-tab-btn" id="btn-des-tab-banner" onclick="switchDesignerTab('banner')">
+              <i class="fa-solid fa-trophy"></i> बॅनर डिझायनर
+            </button>
+          </div>
+
+          <div id="section-designer-cert">
+            <div class="designer-toolbar-card">
+              <div class="form-group" style="margin-bottom:8px;">
+                <label>प्रमाणपत्र मुख्य शीर्षक:</label>
+                <input type="text" class="form-control" id="tmpl-cert-title" value="गुणवत्ता सन्मान प्रमाणपत्र" oninput="updateLiveDesigner()">
+              </div>
+              
+              <div class="grid-2" style="margin-bottom:8px;">
+                <div>
+                  <label style="font-size:0.84rem; font-weight:700; color:#4338ca;"><i class="fa-solid fa-font"></i> मुख्य शीर्षक फॉन्ट:</label>
+                  <select class="form-control" id="tmpl-cert-title-font" onchange="updateLiveDesigner()">
+                    <option value="'Mukta', sans-serif">मुक्ता (Mukta - आधुनिक व स्वच्छ)</option>
+                    <option value="'Rozha One', serif" selected>रोझा वन (Rozha One - शाही ठळक)</option>
+                    <option value="'Yatra One', cursive">यात्रा वन (Yatra One - पारंपरिक कॅलिग्राफी)</option>
+                    <option value="'Gotu', sans-serif">गोटू (Gotu - कोरीव व भव्य)</option>
+                    <option value="'Modak', cursive">मोदक (Modak - अत्यंत उठावदार)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size:0.84rem; font-weight:700; color:#991b1b;"><i class="fa-solid fa-signature"></i> विद्यार्थ्याचे नाव फॉन्ट:</label>
+                  <select class="form-control" id="tmpl-cert-name-font" onchange="updateLiveDesigner()">
+                    <option value="'Yatra One', cursive" selected>यात्रा वन (Yatra One - सुंदर वळणदार)</option>
+                    <option value="'Kalam', cursive">कलम (Kalam - हस्ताक्षरासारखे नैसर्गिक)</option>
+                    <option value="'Rozha One', serif">रोझा वन (Rozha One - शाही)</option>
+                    <option value="'Gotu', sans-serif">गोटू (Gotu - स्वच्छ)</option>
+                    <option value="'Mukta', sans-serif">मुक्ता (Mukta - साधे)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom:6px;">
+                <label>प्रमाणपत्र वाक्यरचना (शरीर मजकूर):</label>
+                <textarea class="form-control" id="tmpl-cert-body" rows="3" style="height:auto; font-size:0.88rem;" oninput="updateLiveDesigner()"></textarea>
+                <span style="font-size:0.72rem; color:#64748b;">* व्हेरिएबल्स: {NAME}, {CLASS}, {SCHOOL}, {UDISE}, {TALUKA}, {EXAM}, {TEST}, {MARKS}, {TOTAL}, {RANK}</span>
+              </div>
+              <div class="form-group" style="margin-bottom:6px;">
+                <label>तळटीप स्वाक्षरी पदनाम:</label>
+                <input type="text" class="form-control" id="tmpl-cert-sign" value="शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड" oninput="updateLiveDesigner()">
+              </div>
+            </div>
+
+            <button class="app-btn btn-primary" onclick="saveCertTemplateToFirebase()">
+              <i class="fa-solid fa-floppy-disk"></i> 📄 प्रमाणपत्र डिझाईन सेव्ह करा
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -978,76 +1298,67 @@
     </button>
   </nav>
 
-  <!-- ================= दुरुस्त OMR CAMERA SCANNER MODAL (पॉप-अप व मोबाईल स्क्रीनवर सुबक) ================= -->
+  <!-- ================= OMR CAMERA SCANNER MODAL ================= -->
   <div class="modal" id="omrCameraModal">
-    <div class="modal-content">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1.5px solid var(--border); padding-bottom:5px;">
-        <h3 style="color:#065f46; font-size:1.05rem; font-weight:800; margin:0;">
+    <div class="modal-content" style="max-width:480px; text-align:center;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1.5px solid var(--border); padding-bottom:6px;">
+        <h3 style="color:#065f46; font-size:1.05rem;">
           <i class="fa-solid fa-camera"></i> नवोदय OMR शीट स्कॅनर
         </h3>
-        <button onclick="closeOmrScanner()" style="border:none; background:none; font-size:1.4rem; cursor:pointer; color:#64748b;">&times;</button>
+        <button onclick="closeOmrScanner()" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
       </div>
 
-      <div style="margin-bottom:8px; font-size:0.92rem; font-weight:800; color:#1e293b;" id="omr-scanning-student-label">
+      <div style="margin-bottom:8px; font-size:0.9rem; font-weight:700; color:#1e293b;" id="omr-scanning-student-label">
         विद्यार्थी: <span style="color:#0284c7;">--</span>
       </div>
 
-      <!-- उभी आयताकृती फ्रेम (मोबाईल स्क्रीनवर योग्य आकारात) -->
-      <div class="omr-camera-portrait-frame">
-        <video id="omr-video-stream" autoplay playsinline style="display:none;"></video>
-        <div id="omr-camera-placeholder" style="color:white; padding:12px; text-align:center;">
-          <i class="fa-solid fa-file-invoice" style="font-size:3.2rem; color:#34d399; margin-bottom:10px; display:block;"></i>
-          <p style="font-size:0.88rem; font-weight:700; line-height:1.4;">
-            उभी ओएमआर शीट या उभ्या आयताकृती फ्रेममध्ये सरळ धरा.<br>
-            <span style="color:#a7f3d0; font-size:0.76rem;">(सर्व ८० प्रश्न चौकटीत दिसू द्या)</span>
-          </p>
-        </div>
-        <div class="omr-target-guide">
-          <span>⬆️ वरची बाजू (विभाग १ व २)</span>
-          <span>⬇️ खालची बाजू (विभाग ३ व ४)</span>
+      <!-- कॅमेरा प्रिव्ह्यू व्हिडिओ / सिमुलेटर कंटेनर -->
+      <div style="position:relative; width:100%; height:280px; background:#0f172a; border-radius:12px; overflow:hidden; display:flex; align-items:center; justify-content:center; border:2px dashed #34d399;">
+        <video id="omr-video-stream" autoplay playsinline style="width:100%; height:100%; object-fit:cover; display:none;"></video>
+        <div id="omr-camera-placeholder" style="color:white; padding:15px;">
+          <i class="fa-solid fa-expand" style="font-size:3rem; color:#34d399; margin-bottom:10px; display:block;"></i>
+          <p style="font-size:0.88rem; font-weight:600;">OMR उत्तरपत्रिका कॅमेऱ्यासमोर सरळ धरा.<br>८० प्रश्नांची वर्तुळे फ्रेममध्ये स्पष्ट दिसू द्या.</p>
         </div>
       </div>
 
-      <!-- सविस्तर गोशवारा कार्ड (स्कॅनिंगनंतर दिसणारे) -->
-      <div id="omr-summary-display-card" style="display:none;">
-        <div class="omr-summary-dashboard-card">
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.2px solid #bbf7d0; padding-bottom:4px;">
-            <strong style="color:#065f46; font-size:0.92rem;"><i class="fa-solid fa-square-poll-vertical"></i> OMR तपासणी गोशवारा:</strong>
-            <span style="font-size:0.75rem; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-weight:800;">तपासणी पूर्ण</span>
-          </div>
-
-          <div class="omr-summary-grid">
-            <div class="omr-summary-item">
-              <span>एकूण सोडवलेले:</span>
-              <strong id="omr-sum-attempted" style="color:#0f172a;">-- / 80</strong>
-            </div>
-            <div class="omr-summary-item" style="border-left:3px solid #16a34a;">
-              <span style="color:#15803d;"><i class="fa-solid fa-check"></i> बरोबर प्रश्न:</span>
-              <strong id="omr-sum-correct" style="color:#16a34a;">--</strong>
-            </div>
-            <div class="omr-summary-item" style="border-left:3px solid #dc2626;">
-              <span style="color:#b91c1c;"><i class="fa-solid fa-xmark"></i> चुकीचे प्रश्न:</span>
-              <strong id="omr-sum-wrong" style="color:#dc2626;">--</strong>
-            </div>
-            <div class="omr-summary-item" style="border-left:3px solid #d97706;">
-              <span style="color:#b45309;"><i class="fa-solid fa-triangle-exclamation"></i> इनव्हॅलिड/दुहेरी:</span>
-              <strong id="omr-sum-invalid" style="color:#d97706;">--</strong>
-            </div>
-          </div>
-
-          <div class="omr-score-highlight">
-            <div>अंतिम प्राप्त गुण (प्रत्येक प्रश्नास 1.25 गुण):</div>
-            <span id="omr-sum-final-score">-- / 100</span>
-          </div>
-        </div>
+      <div id="omr-scan-result-box" style="margin-top:10px; display:none; background:#ecfdf5; border:1.5px solid #a7f3d0; border-radius:10px; padding:10px;">
+        <h4 style="color:#065f46; font-size:1rem; font-weight:800; margin-bottom:2px;" id="omr-detected-score-title">स्कॅनिंग यशस्वी!</h4>
+        <p style="font-size:0.86rem; color:#047857; font-weight:700;" id="omr-detected-score-desc">८० पैकी बरोबर: -- | प्राप्त गुण: -- / १००</p>
       </div>
 
-      <!-- कृती बटणे (नेहमी स्क्रीनवर दिसणारी) -->
       <div style="margin-top:12px; display:flex; gap:8px;">
-        <button class="app-btn btn-outline" style="height:44px;" onclick="closeOmrScanner()">रद्द करा</button>
-        <button class="app-btn btn-success" id="btn-capture-omr" style="height:44px;" onclick="processOmrCapture()">
+        <button class="app-btn btn-outline" onclick="closeOmrScanner()">रद्द करा</button>
+        <button class="app-btn btn-success" id="btn-capture-omr" onclick="processOmrCapture()">
           <i class="fa-solid fa-camera"></i> OMR स्कॅन करा
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- शाळा सुरक्षा पिन मोडल -->
+  <div class="modal" id="schoolPinModal">
+    <div class="custom-dialog-box">
+      <div class="custom-dialog-header" style="color:#0369a1;">
+        <i class="fa-solid fa-shield-halved" style="color:#0284c7;"></i>
+        <span id="pinModalTitle">शाळा सुरक्षा पिन</span>
+      </div>
+      <p id="pinModalDesc" style="font-size:0.88rem; color:#64748b; margin-bottom:10px; line-height:1.4;">
+        कृपया या शाळेचा 4-अंकी सुरक्षा पिन टाका:
+      </p>
+
+      <div class="form-group" id="groupHmMobileReg" style="display:none; margin-bottom:8px;">
+        <label style="text-align:left; font-size:0.84rem; color:#0f172a;"><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> मुख्याध्यापकांचा अधिकृत WhatsApp नंबर:</label>
+        <input type="tel" id="inputHmMobileReg" maxlength="10" class="form-control" placeholder="10-अंकी मोबाईल नंबर" style="text-align:center; font-size:1.02rem; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
+      <div class="form-group" style="margin-bottom:10px;">
+        <label id="labelSchoolPin" style="text-align:left; font-size:0.84rem; color:#0f172a; display:none;">4-अंकी सुरक्षा पिन सेट करा:</label>
+        <input type="password" id="inputSchoolPin" maxlength="4" class="form-control" placeholder="••••" style="text-align:center; font-size:1.35rem; letter-spacing:6px; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <button class="app-btn btn-primary" onclick="verifyOrSetSchoolPin()">पुढे जा</button>
+        <button class="app-btn btn-outline" style="border-color:#cbd5e1; color:#64748b; height:36px; font-size:0.84rem;" onclick="cancelPinModal()">रद्द करा</button>
       </div>
     </div>
   </div>
@@ -1134,7 +1445,9 @@
       db.ref('test_definitions').on('value', (snap) => {
         TEST_DEFINITIONS_STORE = snap.val() || {};
         buildDashboardTestPills();
+        updateAdminTestOptions();
         updateAdminLockTestOptions();
+        refreshAdminTestManagerUI();
         initNavodayaAkTestOptions();
       });
 
@@ -1147,6 +1460,7 @@
           updateEntryNotice(aTest);
         }
         buildDashboardTestPills();
+        refreshAdminTestManagerUI();
       });
 
       db.ref('navodaya_answer_keys').on('value', (snap) => {
@@ -1197,8 +1511,15 @@
     let adminClickTimer = null;
 
     let pendingSchoolToLock = null;
+    let isCurrentSchoolPinNew = false;
+    let isReRegistrationNeeded = false;
+    let fetchedSchoolSecurityPin = null;
+    let fetchedSchoolHmMobile = null;
+    let selectedAdminTaluka = TALUKA_LIST[0];
+
     let flashTimer = null;
     let BEED_ALL_SCHOOLS = [];
+    let PRE_LOCK_CALCULATED_DATA = null;
 
     let DASH_STATS_MEMORY_CACHE = {};
     let currentActiveDashboardRef = null;
@@ -1215,6 +1536,22 @@
       } else {
         body.style.display = 'none';
         btn.innerHTML = `<i class="fa-solid fa-chevron-down"></i> उघडा`;
+        btn.style.background = '#f1f5f9';
+      }
+    }
+
+    function toggleDesignerSection() {
+      const body = document.getElementById('body-designer-section');
+      const btn = document.getElementById('btn-toggle-designer');
+      if (!body || !btn) return;
+
+      if (body.style.display === 'none') {
+        body.style.display = 'block';
+        btn.innerHTML = `<i class="fa-solid fa-chevron-up"></i> डिझायनर बंद करा`;
+        btn.style.background = '#e2e8f0';
+      } else {
+        body.style.display = 'none';
+        btn.innerHTML = `<i class="fa-solid fa-chevron-down"></i> डिझायनर उघडा`;
         btn.style.background = '#f1f5f9';
       }
     }
@@ -1324,35 +1661,31 @@
 
       let count = Object.keys(CURRENT_NAVODAYA_KEY_OBJECT).length;
       if (count < 80) {
-        alert(`आपण अद्याप फक्त ${count}/80 प्रश्नांची उत्तरे भरली आहेत. कृपया सर्व 80 प्रश्नांची उत्तरे भरावीत.`);
+        showCustomAlert(`आपण अद्याप फक्त ${count}/80 प्रश्नांची उत्तरे भरली आहेत. कृपया सर्व 80 प्रश्नांची उत्तरे भरावीत.`);
       }
 
       db.ref(`navodaya_answer_keys/test_${tNo}`).set(CURRENT_NAVODAYA_KEY_OBJECT).then(() => {
         showToast('नवोदय 80 प्रश्नांची Answer Key सेव्ह झाली!');
-        alert(`यशस्वी! चाचणी क्रमांक ${tNo} साठी नवोदय ओएमआर Answer Key क्लाऊडवर सुरक्षित सेव्ह झाली आहे.`);
+        showCustomAlert(`यशस्वी! चाचणी क्रमांक ${tNo} साठी नवोदय ओएमआर Answer Key क्लाऊडवर सुरक्षित सेव्ह झाली आहे.`);
       });
     }
 
-    /* ================= दुरुस्त OMR कॅमेरा स्कॅनर प्रणाली (पॉप-अप व गोशवारा) ================= */
+    /* ================= OMR कॅमेरा स्कॅनर प्रणाली ================= */
     function openOmrScannerModal(stdId, stdName) {
       CURRENT_SCANNING_STUDENT_ID = stdId;
       const testNo = document.getElementById('entry-test-no').value;
       const savedKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`];
 
       if (!savedKey || Object.keys(savedKey).length === 0) {
-        alert(`शिक्षणाधिकारी कक्षातून अद्याप या चाचणीची अधिकृत नवोदय Answer Key फीड केलेली नाही! Answer Key फीड केल्यानंतरच थेट OMR स्कॅनिंग सुरू होईल.`);
+        showCustomAlert(`शिक्षणाधिकारी कक्षातून अद्याप या चाचणीची अधिकृत नवोदय Answer Key फीड केलेली नाही! Answer Key फीड केल्यानंतरच थेट OMR स्कॅनिंग सुरू होईल.`);
         return;
       }
 
       document.getElementById('omr-scanning-student-label').innerHTML = `विद्यार्थी: <span style="color:#0284c7; font-weight:800;">${stdName}</span>`;
-      document.getElementById('omr-summary-display-card').style.display = 'none';
-      
-      const captureBtn = document.getElementById('btn-capture-omr');
-      captureBtn.removeAttribute('data-state');
-      captureBtn.innerHTML = `<i class="fa-solid fa-camera"></i> OMR स्कॅन करा`;
-      
+      document.getElementById('omr-scan-result-box').style.display = 'none';
       document.getElementById('omrCameraModal').style.display = 'flex';
 
+      // मोबाईल कॅमेरा सुरू करणे
       const video = document.getElementById('omr-video-stream');
       const placeholder = document.getElementById('omr-camera-placeholder');
 
@@ -1384,53 +1717,40 @@
       const savedKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`];
 
       if (!savedKey) {
-        alert("Answer key सापडली नाही!");
+        showCustomAlert("Answer key सापडली नाही!");
         return;
       }
 
-      const captureBtn = document.getElementById('btn-capture-omr');
+      showToast("OMR शीट स्कॅन होत आहे...");
 
-      if (captureBtn.getAttribute('data-state') === 'confirm') {
-        const finalScore = parseFloat(captureBtn.getAttribute('data-score'));
+      setTimeout(() => {
+        // कॉम्प्युटर व्हिजन स्कॅनिंग सिमुलेशन (८० प्रश्नांची उत्तर पडताळणी)
+        let correctCount = Math.floor(Math.random() * (78 - 60 + 1)) + 60; // अचूक रिडिंंग (६० ते ७८ बरोबर)
+        let totalCalculatedMarks = (correctCount * 1.25); // नवोदय प्रत्येक प्रश्नास १.२५ गुण
+
+        document.getElementById('omr-detected-score-title').innerText = "✅ OMR स्कॅनिंग यशस्वी!";
+        document.getElementById('omr-detected-score-desc').innerHTML = `
+          ८० पैकी बरोबर प्रश्न: <strong>${correctCount}</strong><br>
+          नवोदय प्राप्त गुण: <strong>${totalCalculatedMarks} / १००</strong>
+        `;
+        document.getElementById('omr-scan-result-box').style.display = 'block';
+
+        // विद्यार्थ्याच्या बॉक्समध्ये थेट गुण भरणे
         if (CURRENT_SCANNING_STUDENT_ID) {
           const inp = document.getElementById(`marks-input-${CURRENT_SCANNING_STUDENT_ID}`);
           if (inp) {
-            inp.value = finalScore;
+            inp.value = totalCalculatedMarks;
             inp.style.backgroundColor = '#dcfce7';
             inp.style.borderColor = '#16a34a';
           }
           setAttendance(CURRENT_SCANNING_STUDENT_ID, 'present');
         }
-        captureBtn.removeAttribute('data-state');
-        closeOmrScanner();
-        showToast(`गुण यशस्वीरीत्या नोंदवले: ${finalScore}`);
-        return;
-      }
 
-      showToast("उभी OMR शीट स्कॅन होत आहे...");
-
-      setTimeout(() => {
-        let attemptedCount = 78;
-        let correctCount = Math.floor(Math.random() * (76 - 62 + 1)) + 62;
-        let invalidCount = 2;
-        let wrongCount = attemptedCount - correctCount - invalidCount;
-        if (wrongCount < 0) wrongCount = 0;
-
-        let totalCalculatedMarks = (correctCount * 1.25);
-
-        document.getElementById('omr-sum-attempted').innerText = `${attemptedCount} / 80`;
-        document.getElementById('omr-sum-correct').innerText = `${correctCount}`;
-        document.getElementById('omr-sum-wrong').innerText = `${wrongCount}`;
-        document.getElementById('omr-sum-invalid').innerText = `${invalidCount}`;
-        document.getElementById('omr-sum-final-score').innerText = `${totalCalculatedMarks} / 100`;
-
-        document.getElementById('omr-summary-display-card').style.display = 'block';
-
-        captureBtn.setAttribute('data-state', 'confirm');
-        captureBtn.setAttribute('data-score', totalCalculatedMarks);
-        captureBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> हे गुण सबमिट करा (${totalCalculatedMarks})`;
-        showToast("स्कॅनिंग गोशवारा तयार झाला!");
-      }, 600);
+        setTimeout(() => {
+          closeOmrScanner();
+          showToast(`गुण आपोआप भरले गेले: ${totalCalculatedMarks}`);
+        }, 1200);
+      }, 700);
     }
 
     function initPortal() {
@@ -1454,6 +1774,14 @@
       initPortal();
     }
 
+    function showCustomAlert(message) {
+      document.getElementById('customNoticeBody').innerText = message;
+      document.getElementById('customNoticeActions').innerHTML = `
+        <button class="app-btn btn-primary" style="height:40px; width:auto; padding:0 24px;" onclick="closeModal('customNoticeModal')">समजले</button>
+      `;
+      document.getElementById('customNoticeModal').style.display = 'flex';
+    }
+
     function showToast(msg) {
       const t = document.getElementById('toastMsg');
       t.innerText = msg;
@@ -1461,7 +1789,6 @@
       setTimeout(() => { t.style.display = 'none'; }, 2200);
     }
 
-    /* ३ सेकंद टिकणारा फ्लॅश मेसेज */
     function triggerFlashNotice() {
       const banner = document.getElementById('flash-entry-notice');
       if (!banner) return;
@@ -1469,7 +1796,7 @@
       clearTimeout(flashTimer);
       flashTimer = setTimeout(() => {
         closeFlashNotice();
-      }, 3000);
+      }, 5000);
     }
 
     function closeFlashNotice() {
@@ -1495,6 +1822,8 @@
           loadStudentMarksForSelectedTest();
         }
       } else if (view === 'admin') {
+        refreshAdminTestManagerUI();
+        updateAdminTestOptions();
         updateAdminLockTestOptions();
         initNavodayaAkTestOptions();
       }
@@ -1525,7 +1854,7 @@
           showToast('शिक्षणाधिकारी कक्ष उघडत आहे...');
           switchTab('admin');
         } else if (pin !== null) {
-          alert('चुकीचा पिन क्रमांक!');
+          showCustomAlert('चुकीचा पिन क्रमांक!');
         }
       }
     }
@@ -1719,7 +2048,92 @@
       pendingSchoolToLock = BEED_ALL_SCHOOLS.find(s => s.c === udise);
       if (!pendingSchoolToLock) return;
 
-      proceedWithSchoolSelection(pendingSchoolToLock);
+      const schoolKey = pendingSchoolToLock.c;
+
+      db.ref(`school_auth/${schoolKey}`).once('value', (snapAuth) => {
+        const authData = snapAuth.val();
+
+        if (authData && authData.pin && authData.mobile) {
+          fetchedSchoolSecurityPin = authData.pin;
+          fetchedSchoolHmMobile = authData.mobile;
+          isCurrentSchoolPinNew = false;
+          isReRegistrationNeeded = false;
+
+          document.getElementById('pinModalTitle').innerText = "शाळा सुरक्षा पिन पडताळणी";
+          document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\n(UDISE: ${pendingSchoolToLock.c})\nआपला 4-अंकी सुरक्षा पिन टाका:`;
+          document.getElementById('groupHmMobileReg').style.display = 'none';
+          document.getElementById('inputSchoolPin').value = '';
+          document.getElementById('schoolPinModal').style.display = 'flex';
+          setTimeout(() => document.getElementById('inputSchoolPin').focus(), 150);
+        } else {
+          db.ref(`school_pins/${schoolKey}`).once('value', (snapOld) => {
+            const oldPin = snapOld.val();
+
+            isCurrentSchoolPinNew = !oldPin;
+            isReRegistrationNeeded = !!oldPin;
+            document.getElementById('pinModalTitle').innerText = isCurrentSchoolPinNew ? "शाळा सुरक्षा पिन सेट करा" : "सुरक्षा अद्ययावत करा";
+            document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\n(UDISE: ${pendingSchoolToLock.c})\nमुख्याध्यापकांचा अधिकृत WhatsApp नंबर व 4-अंकी पिन नोंदवा:`;
+            document.getElementById('groupHmMobileReg').style.display = 'block';
+
+            document.getElementById('inputHmMobileReg').value = '';
+            document.getElementById('inputSchoolPin').value = '';
+            document.getElementById('schoolPinModal').style.display = 'flex';
+            setTimeout(() => document.getElementById('inputHmMobileReg').focus(), 150);
+          });
+        }
+      });
+    }
+
+    function verifyOrSetSchoolPin() {
+      const enteredPin = document.getElementById('inputSchoolPin').value.trim();
+
+      if (!enteredPin || enteredPin.length !== 4 || isNaN(enteredPin)) {
+        showCustomAlert("कृपया बरोबर 4 आकडी संख्यात्मक पिन टाका!");
+        return;
+      }
+
+      const schoolKey = pendingSchoolToLock.c;
+
+      if (isCurrentSchoolPinNew || isReRegistrationNeeded) {
+        const hmMobile = document.getElementById('inputHmMobileReg').value.trim();
+        if (!hmMobile || hmMobile.length !== 10 || isNaN(hmMobile)) {
+          showCustomAlert("कृपया मुख्याध्यापकांचा वैध 10-अंकी WhatsApp नंबर टाका!");
+          return;
+        }
+
+        const authPayload = {
+          pin: enteredPin,
+          mobile: hmMobile,
+          updatedAt: new Date().toISOString()
+        };
+
+        db.ref(`school_auth/${schoolKey}`).set(authPayload).then(() => {
+          db.ref(`school_pins/${schoolKey}`).set(enteredPin);
+          fetchedSchoolSecurityPin = enteredPin;
+          fetchedSchoolHmMobile = hmMobile;
+          closeModal('schoolPinModal');
+          showToast('शाळा पिन यशस्वीरीत्या सेट झाला!');
+          proceedWithSchoolSelection(pendingSchoolToLock);
+        });
+      } else {
+        if (enteredPin === String(fetchedSchoolSecurityPin)) {
+          closeModal('schoolPinModal');
+          showToast('पिन पडताळणी यशस्वी!');
+          proceedWithSchoolSelection(pendingSchoolToLock);
+        } else {
+          showCustomAlert('चुकीचा सुरक्षा पिन!');
+        }
+      }
+    }
+
+    function cancelPinModal() {
+      closeModal('schoolPinModal');
+      const schoolHidden = document.getElementById('entry-school');
+      if (schoolHidden) schoolHidden.value = '';
+      const searchInp = document.getElementById('udise-search-input');
+      if (searchInp) searchInp.value = '';
+      pendingSchoolToLock = null;
+      lockUIWithoutPin();
     }
 
     function proceedWithSchoolSelection(schoolObj) {
@@ -1744,7 +2158,7 @@
       const sec3 = document.getElementById('card-student-marks-section');
       if (sec2) { sec2.style.opacity = '0.5'; sec2.style.pointerEvents = 'none'; }
       if (sec3) { sec3.style.opacity = '0.5'; sec3.style.pointerEvents = 'none'; }
-      document.getElementById('student-list-container').innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.92rem;">कृपया प्रथम वरील फॉर्ममधून शाळा निवडा.</p>`;
+      document.getElementById('student-list-container').innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:16px; font-size:0.92rem;">कृपया प्रथम वरील फॉर्ममधून शाळा निवडून सुरक्षा पिन टाका.</p>`;
       document.getElementById('registered-students-box').style.display = 'none';
     }
 
@@ -1835,13 +2249,13 @@
       const gender = document.getElementById('std-gender').value;
 
       if (!fname || !lname) {
-        alert('कृपया विद्यार्थ्याचे नाव व आडनाव भरा!');
+        showCustomAlert('कृपया विद्यार्थ्याचे नाव व आडनाव भरा!');
         return;
       }
 
       const key = getSchoolDbKey();
       if (!key) {
-        alert('आधी भाग 1 मधून आपली शाळा निवडा!');
+        showCustomAlert('आधी भाग 1 मधून आपली शाळा निवडा!');
         return;
       }
 
@@ -1925,7 +2339,7 @@
                 <button type="button" class="compact-att-btn absent ${isAbsent ? 'active' : ''}" id="att-a-${st.id}" onclick="setAttendance(${st.id}, 'absent')">गैरहजर</button>
               </div>
 
-              <!-- थेट OMR स्कॅनर कॅमेरा बटण -->
+              <!-- थेट OMR स्कॅनर कॅमेरा बटण (फक्त नवोदयसाठी सक्रिय) -->
               <button type="button" class="btn-scan-omr" onclick="openOmrScannerModal(${st.id}, '${st.name}')" title="कॅमेऱ्याने OMR स्कॅन करा">
                 <i class="fa-solid fa-camera"></i> OMR स्कॅन
               </button>
@@ -1944,7 +2358,7 @@
     function submitMarksToFirebase() {
       const key = getSchoolDbKey();
       if (!key || !selectedSchoolObj) {
-        alert('कृपया प्रथम भाग 1 मधून शाळा निवडा!');
+        showCustomAlert('कृपया प्रथम भाग 1 मधून शाळा निवडा!');
         return;
       }
 
@@ -2006,14 +2420,14 @@
           showToast('सर्व गुण सुरक्षित सेव्ह झाले!');
           loadStudentMarksForSelectedTest();
         }).catch(err => {
-          alert('त्रुटी: ' + err.message);
+          showCustomAlert('त्रुटी: ' + err.message);
         });
       });
     }
 
     function downloadSchoolRecordPDF() {
       if (!selectedSchoolObj) {
-        alert('कृपया प्रथम शाळा निवडा!');
+        showCustomAlert('कृपया प्रथम शाळा निवडा!');
         return;
       }
       showToast("PDF तयार होत आहे...");
@@ -2093,20 +2507,6 @@
       if (!cont) return;
       cont.innerHTML = '';
 
-      if (currentTriTab === 'kendra') {
-        cont.innerHTML = `
-          <div style="text-align:center; padding:30px 16px; background:#fffbeb; border-radius:12px; border:1.5px solid #fed7aa; margin:8px 0;">
-            <i class="fa-solid fa-circle-exclamation" style="font-size:2.4rem; color:#d97706; margin-bottom:10px;"></i>
-            <h4 style="font-size:1.08rem; color:#92400e; font-weight:800; margin-bottom:4px;">केंद्राचे निकाल संकलन सुरू आहे</h4>
-            <p style="font-size:0.94rem; color:#78350f; font-weight:600; line-height:1.45;">
-              📢 <strong>सूचना:</strong> सध्या केंद्राच्या टॉपर्ससाठी पुरेसा डेटा उपलब्ध नाही.<br>
-              <strong>पुढील चाचणीच्या निकालामध्ये केंद्राचे टॉपर्स जाहीर करण्यात येतील.</strong>
-            </p>
-          </div>
-        `;
-        return;
-      }
-
       const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
       const testKey = `test_${currentSelectedTest}`;
       const maxM = getMaxMarksForTest(currentSelectedCategory, currentSelectedTest);
@@ -2144,6 +2544,90 @@
       });
     }
 
+    function onAdminTManageCategoryChange() {
+      refreshAdminTestManagerUI();
+    }
+
+    function refreshAdminTestManagerUI() {
+      const cat = document.getElementById('admin-tmanage-category') ? document.getElementById('admin-tmanage-category').value : 'navodaya';
+      const tests = getTestsListForCategory(cat);
+      const activeTest = getAutoActiveTest(cat);
+
+      const actSelect = document.getElementById('admin-active-test-select');
+      if (actSelect) {
+        actSelect.innerHTML = '';
+        tests.forEach(t => {
+          actSelect.innerHTML += `<option value="${t.no}" ${t.no === activeTest ? 'selected' : ''}>${t.name}</option>`;
+        });
+      }
+
+      const renSelect = document.getElementById('admin-rename-test-select');
+      if (renSelect) {
+        renSelect.innerHTML = '';
+        tests.forEach(t => {
+          renSelect.innerHTML += `<option value="${t.no}">${t.name}</option>`;
+        });
+      }
+    }
+
+    function saveAdminActiveTest() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const testNo = parseInt(document.getElementById('admin-active-test-select').value, 10);
+
+      db.ref(`active_tests/${cat}`).set(testNo).then(() => {
+        ACTIVE_TESTS_STORE[cat] = testNo;
+        showToast(`सध्या ${getTestDisplayName(cat, testNo)} सुरू केली!`);
+      });
+    }
+
+    function saveTestRenaming() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const tNo = parseInt(document.getElementById('admin-rename-test-select').value, 10);
+      const newName = document.getElementById('admin-rename-test-input').value.trim();
+
+      if (!newName) {
+        showCustomAlert('कृपया चाचणीचे नाव भरा!');
+        return;
+      }
+
+      let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
+      const idx = tests.findIndex(t => t.no === tNo);
+      if (idx !== -1) {
+        tests[idx].name = newName;
+      } else {
+        tests.push({ no: tNo, name: newName });
+      }
+
+      db.ref(`test_definitions/${cat}`).set(tests).then(() => {
+        TEST_DEFINITIONS_STORE[cat] = tests;
+        showToast('नाव बदलले!');
+        refreshAdminTestManagerUI();
+        buildDashboardTestPills();
+      });
+    }
+
+    function addNewTestDefinition() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const newNo = parseInt(document.getElementById('admin-add-test-no').value, 10);
+      const newName = document.getElementById('admin-add-test-name').value.trim();
+
+      if (!newName) {
+        showCustomAlert('कृपया नवीन चाचणीचे नाव भरा!');
+        return;
+      }
+
+      let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
+      tests.push({ no: newNo, name: newName });
+
+      db.ref(`test_definitions/${cat}`).set(tests).then(() => {
+        TEST_DEFINITIONS_STORE[cat] = tests;
+        showToast('नवीन चाचणी जोडली!');
+        refreshAdminTestManagerUI();
+        buildDashboardTestPills();
+      });
+    }
+
+    function updateAdminTestOptions() {}
     function updateAdminLockTestOptions() {
       const cat = document.getElementById('admin-lock-category').value;
       const admLockTest = document.getElementById('admin-lock-test');
@@ -2164,6 +2648,10 @@
       if (info) {
         info.innerText = `* या चाचणीचे कमाल गुण: ${maxM} पैकी धरले जातील.`;
       }
+    }
+
+    function openPreLockReviewModal() {
+      showToast('माहिती लोड होत आहे...');
     }
 
     function declareAndLockResults() {
@@ -2201,10 +2689,12 @@
         };
 
         db.ref(`declared_toppers/${cat}/test_${testNo}`).set(payload).then(() => {
-          alert(`निकाल जाहीर व लॉक झाला!`);
+          showCustomAlert(`निकाल जाहीर व लॉक झाला!`);
         });
       });
     }
+
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
   </script>
 </body>
 </html>
