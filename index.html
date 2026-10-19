@@ -114,7 +114,30 @@
       padding-bottom: 6px;
     }
 
-    /* परीक्षा निवडक ड्रॉपडाऊन - मोठा व स्पष्ट फॉन्ट */
+    /* Collapsible Accordion Header */
+    .collapsible-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      padding-bottom: 2px;
+    }
+    .collapsible-card-header .toggle-btn-badge {
+      font-size: 0.84rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      color: var(--sky-dark);
+      border: 1px solid #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+
+    /* परीक्षा निवडक ड्रॉपडाऊन */
     .dropdown-group {
       margin-bottom: 10px;
     }
@@ -149,7 +172,7 @@
       box-shadow: 0 3px 12px rgba(234, 88, 12, 0.15);
     }
 
-    /* २-कॉलम कॅप्सूल ग्रीड - मोठा व ठळक फॉन्ट */
+    /* २-कॉलम कॅप्सूल ग्रीड */
     .test-capsule-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -221,7 +244,7 @@
       color: #d1fae5;
     }
 
-    /* Form Controls - मोठे व स्पष्ट अक्षरे */
+    /* Form Controls */
     .form-group { margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px; position: relative; }
     .form-group label { font-size: 0.96rem; font-weight: 700; color: #334155; }
     .form-control {
@@ -286,7 +309,7 @@
     }
     .udise-suggest-item:hover, .udise-suggest-item:active { background: var(--sky-light); }
 
-    /* Stats Grid - मोठे व स्पष्ट आकडे */
+    /* Stats Grid */
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
     .stat-box {
       background: white;
@@ -303,7 +326,7 @@
     .stat-box-schools { border-left: 5px solid #0284c7; background: linear-gradient(to right, #f0f9ff, #ffffff); }
     .stat-box-schools h2 { color: #075985; }
 
-    /* ३ टॉपर्स टॅब्स - मोठे व स्पष्ट */
+    /* ३ टॉपर्स टॅब्स */
     .topper-tri-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
     .tri-tab-btn {
       flex: 1;
@@ -386,7 +409,7 @@
     .reg-std-item strong { font-size: 1.02rem; color: #1e293b; }
     .reg-std-item span { font-size: 0.84rem; color: var(--text-muted); }
 
-    /* विद्यार्थी गुण नोंदणी कार्ड - मोठा व स्पष्ट फॉन्ट */
+    /* विद्यार्थी गुण नोंदणी कार्ड */
     .student-entry-card {
       background: #ffffff;
       border: 1.5px solid #e2e8f0;
@@ -509,7 +532,7 @@
     }
     .btn-compact-chart:active { background: #0284c7; color: white; }
 
-    /* Leaderboard Cards - मोठे व स्पष्ट फॉन्ट */
+    /* Leaderboard Cards */
     .topper-card {
       background: white;
       border: 1.5px solid #e2e8f0;
@@ -550,7 +573,7 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    /* Bottom Navigation - मोठे व ठळक */
+    /* Bottom Navigation */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -1106,45 +1129,55 @@
         </div>
       </div>
 
-      <!-- २. नवीन विद्यार्थी वाढवा / जोडा -->
+      <!-- बदल २: नवीन विद्यार्थी वाढवा / जोडा हा भाग Collapsible (Minimize-Expand) केला आहे -->
       <div class="app-card" id="card-student-add-section" style="opacity:0.5; pointer-events:none;">
-        <div class="app-card-title"><i class="fa-solid fa-user-plus" style="color:var(--accent-green);"></i> 2. नवीन विद्यार्थी वाढवा / जोडा</div>
+        <div class="collapsible-card-header" onclick="toggleStudentAddCard()">
+          <div class="app-card-title" style="margin:0; border:none; padding:0;">
+            <i class="fa-solid fa-user-plus" style="color:var(--accent-green);"></i> 2. नवीन विद्यार्थी वाढवा / जोडा
+          </div>
+          <span class="toggle-btn-badge" id="btn-toggle-std-add">
+            <i class="fa-solid fa-chevron-down"></i> उघडा
+          </span>
+        </div>
         
-        <div class="grid-2">
-          <div class="form-group">
-            <label>प्रथम नाव:</label>
-            <input type="text" class="form-control" id="std-fname" placeholder="उदा. सार्थक" oninput="enforceMarathiText(this)">
+        <!-- मिनिमाईज्ड बॉडी कंटेनर (सुरुवातीला बंद) -->
+        <div id="body-student-add-section" style="display:none; margin-top:12px; border-top:1.2px solid #f1f5f9; padding-top:10px;">
+          <div class="grid-2">
+            <div class="form-group">
+              <label>प्रथम नाव:</label>
+              <input type="text" class="form-control" id="std-fname" placeholder="उदा. सार्थक" oninput="enforceMarathiText(this)">
+            </div>
+            <div class="form-group">
+              <label>वडिलांचे नाव:</label>
+              <input type="text" class="form-control" id="std-mname" placeholder="उदा. रामराव" oninput="enforceMarathiText(this)">
+            </div>
           </div>
-          <div class="form-group">
-            <label>वडिलांचे नाव:</label>
-            <input type="text" class="form-control" id="std-mname" placeholder="उदा. रामराव" oninput="enforceMarathiText(this)">
+          <div class="grid-2">
+            <div class="form-group">
+              <label>आडनाव:</label>
+              <input type="text" class="form-control" id="std-lname" placeholder="उदा. सोळंके" oninput="enforceMarathiText(this)">
+            </div>
+            <div class="form-group">
+              <label>लिंग</label>
+              <select class="form-control" id="std-gender">
+                <option value="मुलगा">मुलगा</option>
+                <option value="मुलगी">मुलगी</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="grid-2">
-          <div class="form-group">
-            <label>आडनाव:</label>
-            <input type="text" class="form-control" id="std-lname" placeholder="उदा. सोळंके" oninput="enforceMarathiText(this)">
-          </div>
-          <div class="form-group">
-            <label>लिंग</label>
-            <select class="form-control" id="std-gender">
-              <option value="मुलगा">मुलगा</option>
-              <option value="मुलगी">मुलगी</option>
-            </select>
-          </div>
-        </div>
 
-        <p id="marathi-input-hint" style="display:none; font-size:0.84rem; color:#b45309; font-weight:700; margin-bottom:6px;">
-          <i class="fa-solid fa-circle-info"></i> सूचना: प्रमाणपत्रावर सुंदर दिसण्यासाठी नाव शक्यतो मराठीत टाईप करावे.
-        </p>
+          <p id="marathi-input-hint" style="display:none; font-size:0.84rem; color:#b45309; font-weight:700; margin-bottom:6px;">
+            <i class="fa-solid fa-circle-info"></i> सूचना: प्रमाणपत्रावर सुंदर दिसण्यासाठी नाव शक्यतो मराठीत टाईप करावे.
+          </p>
 
-        <button class="app-btn btn-success" onclick="addStudentToList()"><i class="fa-solid fa-plus"></i> यादीत नवीन विद्यार्थी जोडा</button>
+          <button class="app-btn btn-success" onclick="addStudentToList()"><i class="fa-solid fa-plus"></i> यादीत नवीन विद्यार्थी जोडा</button>
 
-        <div class="registered-students-container" id="registered-students-box" style="display:none;">
-          <div style="font-weight:800; font-size:0.92rem; color:#475569; margin-bottom:6px;">
-            <i class="fa-solid fa-users"></i> नोंदणीकृत विद्यार्थी यादी (नाव बदल / कमी करा):
+          <div class="registered-students-container" id="registered-students-box" style="display:none;">
+            <div style="font-weight:800; font-size:0.92rem; color:#475569; margin-bottom:6px;">
+              <i class="fa-solid fa-users"></i> नोंदणीकृत विद्यार्थी यादी (नाव बदल / कमी करा):
+            </div>
+            <div id="registered-students-list"></div>
           </div>
-          <div id="registered-students-list"></div>
         </div>
       </div>
 
@@ -1305,199 +1338,209 @@
         </button>
       </div>
 
-      <!-- २. डिझायनर कक्ष -->
+      <!-- बदल ३: डिझायनर कक्ष Collapsible (Minimize) केला आहे, जेणेकरून स्क्रोल करताना घटक हलणार नाहीत -->
       <div class="app-card" style="border-left: 5px solid #6366f1;">
-        <div class="app-card-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6366f1;"></i> 🎨 प्रमाणपत्र व बॅनर लाइव्ह व्हिज्युअल डिझायनर</div>
-
-        <div class="designer-tabs-wrap">
-          <button class="des-tab-btn active" id="btn-des-tab-cert" onclick="switchDesignerTab('cert')">
-            <i class="fa-solid fa-certificate"></i> प्रमाणपत्र डिझायनर
-          </button>
-          <button class="des-tab-btn" id="btn-des-tab-banner" onclick="switchDesignerTab('banner')">
-            <i class="fa-solid fa-trophy"></i> बॅनर डिझायनर
-          </button>
+        <div class="collapsible-card-header" onclick="toggleDesignerSection()">
+          <div class="app-card-title" style="margin:0; border:none; padding:0;">
+            <i class="fa-solid fa-wand-magic-sparkles" style="color:#6366f1;"></i> 🎨 प्रमाणपत्र व बॅनर लाइव्ह व्हिज्युअल डिझायनर
+          </div>
+          <span class="toggle-btn-badge" id="btn-toggle-designer">
+            <i class="fa-solid fa-chevron-down"></i> डिझायनर उघडा
+          </span>
         </div>
 
-        <!-- विभाग अ: प्रमाणपत्र सेटिंग्ज -->
-        <div id="section-designer-cert">
-          <div class="designer-toolbar-card">
-            
-            <div class="form-group" style="margin-bottom:8px;">
-              <label>प्रमाणपत्र मुख्य शीर्षक:</label>
-              <input type="text" class="form-control" id="tmpl-cert-title" value="गुणवत्ता सन्मान प्रमाणपत्र" oninput="updateLiveDesigner()">
-            </div>
-            
-            <div class="grid-2" style="margin-bottom:8px;">
-              <div>
-                <label style="font-size:0.84rem; font-weight:700; color:#4338ca;"><i class="fa-solid fa-font"></i> मुख्य शीर्षक फॉन्ट:</label>
-                <select class="form-control" id="tmpl-cert-title-font" onchange="updateLiveDesigner()">
-                  <option value="'Mukta', sans-serif">मुक्ता (Mukta - आधुनिक व स्वच्छ)</option>
-                  <option value="'Rozha One', serif" selected>रोझा वन (Rozha One - शाही ठळक)</option>
-                  <option value="'Yatra One', cursive">यात्रा वन (Yatra One - पारंपरिक कॅलिग्राफी)</option>
-                  <option value="'Gotu', sans-serif">गोटू (Gotu - कोरीव व भव्य)</option>
-                  <option value="'Modak', cursive">मोदक (Modak - अत्यंत उठावदार)</option>
-                </select>
-              </div>
-              <div>
-                <label style="font-size:0.84rem; font-weight:700; color:#991b1b;"><i class="fa-solid fa-signature"></i> विद्यार्थ्याचे नाव फॉन्ट:</label>
-                <select class="form-control" id="tmpl-cert-name-font" onchange="updateLiveDesigner()">
-                  <option value="'Yatra One', cursive" selected>यात्रा वन (Yatra One - सुंदर वळणदार)</option>
-                  <option value="'Kalam', cursive">कलम (Kalam - हस्ताक्षरासारखे नैसर्गिक)</option>
-                  <option value="'Rozha One', serif">रोझा वन (Rozha One - शाही)</option>
-                  <option value="'Gotu', sans-serif">गोटू (Gotu - स्वच्छ)</option>
-                  <option value="'Mukta', sans-serif">मुक्ता (Mukta - साधे)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group" style="margin-bottom:6px;">
-              <label>प्रमाणपत्र वाक्यरचना (शरीर मजकूर):</label>
-              <textarea class="form-control" id="tmpl-cert-body" rows="3" style="height:auto; font-size:0.88rem;" oninput="updateLiveDesigner()"></textarea>
-              <span style="font-size:0.72rem; color:#64748b;">* व्हेरिएबल्स: {NAME}, {CLASS}, {SCHOOL}, {UDISE}, {TALUKA}, {EXAM}, {TEST}, {MARKS}, {TOTAL}, {RANK}</span>
-            </div>
-            <div class="form-group" style="margin-bottom:6px;">
-              <label>तळटीप स्वाक्षरी पदनाम:</label>
-              <input type="text" class="form-control" id="tmpl-cert-sign" value="शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड" oninput="updateLiveDesigner()">
-            </div>
-
-            <div class="slider-control-row">
-              <label>मजकूर फॉन्ट आकार:</label>
-              <input type="range" id="slider-cert-font" min="12" max="24" value="16" oninput="applyDesignerStyles()">
-              <span class="slider-val-badge" id="val-cert-font">16px</span>
-            </div>
-            <div class="slider-control-row">
-              <label>ओळींमधील अंतर (Line-Height):</label>
-              <input type="range" id="slider-cert-lh" min="1.2" max="2.6" step="0.1" value="1.85" oninput="applyDesignerStyles()">
-              <span class="slider-val-badge" id="val-cert-lh">1.85</span>
-            </div>
-
-            <div class="form-group" style="margin-top:8px;">
-              <label><i class="fa-solid fa-image" style="color:var(--sky);"></i> प्रमाणपत्र बॅकग्राउंड इमेज अपलोड करा (JPG/PNG):</label>
-              <input type="file" id="input-cert-bg-file" accept="image/*" class="form-control" style="padding-top:6px;" onchange="handleCertBgUpload(this)">
-            </div>
-          </div>
-
-          <div style="background:#e2e8f0; padding:8px; border-radius:12px; overflow-x:auto; margin-bottom:10px;">
-            <div class="cert-container-box designer-active-box" id="admin-live-cert-designer">
-              <div class="draggable-element" id="drag-cert-title" style="top:44px; left:130px; text-align:center; width:560px; font-size:1.95rem; font-weight:800; color:#0f2b5c;">
-                गुणवत्ता सन्मान प्रमाणपत्र
-              </div>
-              <div class="draggable-element" id="drag-cert-date" style="top:104px; right:36px; font-size:0.86rem; font-weight:600; color:#334155; font-family:'Poppins', sans-serif;">
-                Date: 15/10/2026
-              </div>
-              <div class="draggable-element" id="drag-cert-name" style="top:142px; left:55px; width:710px; text-align:center; font-family:'Yatra One', cursive; font-size:1.75rem; color:#991b1b; text-decoration:underline;">
-                Puja Pravin Patil
-              </div>
-              <div class="draggable-element" id="drag-cert-body" style="top:198px; left:55px; width:710px; text-align:center; font-size:1.02rem; line-height:1.85; color:#1e293b; font-weight:500; word-spacing: 2px;">
-                गौरवपूर्वक प्रमाणित करण्यात येते की, विद्यार्थी / विद्यार्थिनी <strong>Puja Pravin Patil</strong> (इयत्ता 5 वी (नवोदय)), शाळा: <strong>ZPPS BHIM NAGAR KITTI ADGAON</strong> (UDISE: 27270710302), तालुका: <strong>माजलगाव</strong> या विद्यार्थिनीने नवोदय सराव परीक्षेत घवघवीत यश संपादन केले आहे.
-              </div>
-              <div class="draggable-element" id="drag-cert-badges" style="top:332px; left:55px; width:710px; display:flex; justify-content:center; gap:20px;">
-                <div class="gold-capsule-badge">
-                  <i class="fa-solid fa-star"></i> प्राप्त गुण: 99 / 100
-                </div>
-                <div class="gold-capsule-badge" id="admin-sample-rank-badge">
-                  <i class="fa-solid fa-trophy"></i> सावरगाव केंद्रात क्रमांक #1
-                </div>
-              </div>
-              <div class="draggable-element" id="drag-cert-ribbon" style="top:405px; left:55px; width:710px; text-align:center;">
-                <div class="cert-congrats-ribbon">
-                  ✨ आपण मिळवलेल्या या यशाबद्दल आपले हार्दिक अभिनंदन आणि उज्ज्वल भविष्याकरिता मन:पूर्वक शुभेच्छा! ✨
-                </div>
-              </div>
-              <div class="draggable-element" id="drag-cert-sign" style="top:470px; right:35px; text-align:right; font-size:0.88rem; font-weight:800; color:#0f2b5c;">
-                शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड
-              </div>
-            </div>
-          </div>
-
-          <div style="display:flex; flex-direction:column; gap:8px;">
-            <button class="app-btn btn-primary" onclick="saveCertTemplateToFirebase()">
-              <i class="fa-solid fa-floppy-disk"></i> 📄 प्रमाणपत्र डिझाईन सेव्ह करा
+        <!-- मिनिमाईज्ड डिझायनर बॉडी (सुरुवातीला बंद) -->
+        <div id="body-designer-section" style="display:none; margin-top:14px; border-top:1.2px solid #f1f5f9; padding-top:10px;">
+          <div class="designer-tabs-wrap">
+            <button class="des-tab-btn active" id="btn-des-tab-cert" onclick="switchDesignerTab('cert')">
+              <i class="fa-solid fa-certificate"></i> प्रमाणपत्र डिझायनर
             </button>
-            <div class="grid-2">
-              <button class="app-btn btn-outline" style="border-color:#ef4444; color:#ef4444;" onclick="resetCertLayoutToDefault()">
-                <i class="fa-solid fa-arrow-rotate-left"></i> मूळ लेआउट पूर्ववत करा
-              </button>
-              <button class="app-btn btn-success" onclick="downloadAdminSampleCertificatePDF()">
-                <i class="fa-solid fa-file-pdf"></i> नमुना प्रमाणपत्र PDF डाऊनलोड
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- विभाग ब: बॅनर सेटिंग्ज -->
-        <div id="section-designer-banner" style="display:none;">
-          <div class="designer-toolbar-card">
-            <div class="form-group" style="margin-bottom:6px;">
-              <label>बॅनर मुख्य मथळा:</label>
-              <input type="text" class="form-control" id="tmpl-banner-title" value="बीड जिल्हा सराव परीक्षा टॉपर्स" oninput="updateLiveDesigner()">
-            </div>
-            <div class="form-group" style="margin-bottom:6px;">
-              <label>वरचा बॅज मजकूर:</label>
-              <input type="text" class="form-control" id="tmpl-banner-badge" value="💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐" oninput="updateLiveDesigner()">
-            </div>
-            <div class="form-group" style="margin-bottom:6px;">
-              <label>तळटीप सौजन्य (Footer):</label>
-              <input type="text" class="form-control" id="tmpl-banner-footer" value="🎯 शिक्षण विभाग, जिल्हा परिषद बीड" oninput="updateLiveDesigner()">
-            </div>
-
-            <div class="slider-control-row">
-              <label>मथळा फॉन्ट आकार:</label>
-              <input type="range" id="slider-banner-font" min="18" max="34" value="26" oninput="applyDesignerStyles()">
-              <span class="slider-val-badge" id="val-banner-font">26px</span>
-            </div>
-            <div class="slider-control-row">
-              <label>बॅनर मधील अंतर (Gap):</label>
-              <input type="range" id="slider-banner-gap" min="3" max="14" value="6" oninput="applyDesignerStyles()">
-              <span class="slider-val-badge" id="val-banner-gap">6px</span>
-            </div>
+            <button class="des-tab-btn" id="btn-des-tab-banner" onclick="switchDesignerTab('banner')">
+              <i class="fa-solid fa-trophy"></i> बॅनर डिझायनर
+            </button>
           </div>
 
-          <div style="background:#e2e8f0; padding:10px; border-radius:12px; overflow-x:auto; margin-bottom:10px; display:flex; justify-content:center;">
-            <div class="banner-preview-box" id="admin-live-banner-designer">
-              <div class="banner-top-header">
-                <p class="banner-dept-title">जिल्हा परिषद, बीड — शिक्षण विभाग</p>
-                <div class="banner-exam-badge" id="banner-designer-exam-name">नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा</div>
-                <h2 class="banner-heading-main" id="banner-designer-title-txt">पाटोदा तालुका Top 10 गुणवत्ता यादी</h2>
-                <p class="banner-subheading">चाचणी निकाल</p>
+          <!-- विभाग अ: प्रमाणपत्र सेटिंग्ज -->
+          <div id="section-designer-cert">
+            <div class="designer-toolbar-card">
+              
+              <div class="form-group" style="margin-bottom:8px;">
+                <label>प्रमाणपत्र मुख्य शीर्षक:</label>
+                <input type="text" class="form-control" id="tmpl-cert-title" value="गुणवत्ता सन्मान प्रमाणपत्र" oninput="updateLiveDesigner()">
+              </div>
+              
+              <div class="grid-2" style="margin-bottom:8px;">
                 <div>
-                  <span class="banner-congrats-tag" id="banner-designer-badge-txt">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
+                  <label style="font-size:0.84rem; font-weight:700; color:#4338ca;"><i class="fa-solid fa-font"></i> मुख्य शीर्षक फॉन्ट:</label>
+                  <select class="form-control" id="tmpl-cert-title-font" onchange="updateLiveDesigner()">
+                    <option value="'Mukta', sans-serif">मुक्ता (Mukta - आधुनिक व स्वच्छ)</option>
+                    <option value="'Rozha One', serif" selected>रोझा वन (Rozha One - शाही ठळक)</option>
+                    <option value="'Yatra One', cursive">यात्रा वन (Yatra One - पारंपरिक कॅलिग्राफी)</option>
+                    <option value="'Gotu', sans-serif">गोटू (Gotu - कोरीव व भव्य)</option>
+                    <option value="'Modak', cursive">मोदक (Modak - अत्यंत उठावदार)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size:0.84rem; font-weight:700; color:#991b1b;"><i class="fa-solid fa-signature"></i> विद्यार्थ्याचे नाव फॉन्ट:</label>
+                  <select class="form-control" id="tmpl-cert-name-font" onchange="updateLiveDesigner()">
+                    <option value="'Yatra One', cursive" selected>यात्रा वन (Yatra One - सुंदर वळणदार)</option>
+                    <option value="'Kalam', cursive">कलम (Kalam - हस्ताक्षरासारखे नैसर्गिक)</option>
+                    <option value="'Rozha One', serif">रोझा वन (Rozha One - शाही)</option>
+                    <option value="'Gotu', sans-serif">गोटू (Gotu - स्वच्छ)</option>
+                    <option value="'Mukta', sans-serif">मुक्ता (Mukta - साधे)</option>
+                  </select>
                 </div>
               </div>
 
-              <div class="banner-topper-grid" id="banner-designer-topper-grid">
-                <div class="banner-row">
-                  <div>🥇 <span class="b-std-name">१. गणेश रामहरी उबाळे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
-                  <div class="b-marks-badge">95/100 गुण</div>
-                </div>
-                <div class="banner-row">
-                  <div>🥈 <span class="b-std-name">२. धनश्री संदीप आरसुळ</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
-                  <div class="b-marks-badge">95/100 गुण</div>
-                </div>
-                <div class="banner-row">
-                  <div>🥉 <span class="b-std-name">३. सिद्धेश संदिपराव वेदरे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
-                  <div class="b-marks-badge">92.5/100 गुण</div>
-                </div>
+              <div class="form-group" style="margin-bottom:6px;">
+                <label>प्रमाणपत्र वाक्यरचना (शरीर मजकूर):</label>
+                <textarea class="form-control" id="tmpl-cert-body" rows="3" style="height:auto; font-size:0.88rem;" oninput="updateLiveDesigner()"></textarea>
+                <span style="font-size:0.72rem; color:#64748b;">* व्हेरिएबल्स: {NAME}, {CLASS}, {SCHOOL}, {UDISE}, {TALUKA}, {EXAM}, {TEST}, {MARKS}, {TOTAL}, {RANK}</span>
+              </div>
+              <div class="form-group" style="margin-bottom:6px;">
+                <label>तळटीप स्वाक्षरी पदनाम:</label>
+                <input type="text" class="form-control" id="tmpl-cert-sign" value="शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड" oninput="updateLiveDesigner()">
               </div>
 
-              <div class="banner-footer-auth">
-                <span id="banner-designer-footer-txt">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
-                <span>🏆 जिल्हा परिषद बीड</span>
+              <div class="slider-control-row">
+                <label>मजकूर फॉन्ट आकार:</label>
+                <input type="range" id="slider-cert-font" min="12" max="24" value="16" oninput="applyDesignerStyles()">
+                <span class="slider-val-badge" id="val-cert-font">16px</span>
+              </div>
+              <div class="slider-control-row">
+                <label>ओळींमधील अंतर (Line-Height):</label>
+                <input type="range" id="slider-cert-lh" min="1.2" max="2.6" step="0.1" value="1.85" oninput="applyDesignerStyles()">
+                <span class="slider-val-badge" id="val-cert-lh">1.85</span>
+              </div>
+
+              <div class="form-group" style="margin-top:8px;">
+                <label><i class="fa-solid fa-image" style="color:var(--sky);"></i> प्रमाणपत्र बॅकग्राउंड इमेज अपलोड करा (JPG/PNG):</label>
+                <input type="file" id="input-cert-bg-file" accept="image/*" class="form-control" style="padding-top:6px;" onchange="handleCertBgUpload(this)">
+              </div>
+            </div>
+
+            <div style="background:#e2e8f0; padding:8px; border-radius:12px; overflow-x:auto; margin-bottom:10px;">
+              <div class="cert-container-box designer-active-box" id="admin-live-cert-designer">
+                <div class="draggable-element" id="drag-cert-title" style="top:44px; left:130px; text-align:center; width:560px; font-size:1.95rem; font-weight:800; color:#0f2b5c;">
+                  गुणवत्ता सन्मान प्रमाणपत्र
+                </div>
+                <div class="draggable-element" id="drag-cert-date" style="top:104px; right:36px; font-size:0.86rem; font-weight:600; color:#334155; font-family:'Poppins', sans-serif;">
+                  Date: 15/10/2026
+                </div>
+                <div class="draggable-element" id="drag-cert-name" style="top:142px; left:55px; width:710px; text-align:center; font-family:'Yatra One', cursive; font-size:1.75rem; color:#991b1b; text-decoration:underline;">
+                  Puja Pravin Patil
+                </div>
+                <div class="draggable-element" id="drag-cert-body" style="top:198px; left:55px; width:710px; text-align:center; font-size:1.02rem; line-height:1.85; color:#1e293b; font-weight:500; word-spacing: 2px;">
+                  गौरवपूर्वक प्रमाणित करण्यात येते की, विद्यार्थी / विद्यार्थिनी <strong>Puja Pravin Patil</strong> (इयत्ता 5 वी (नवोदय)), शाळा: <strong>ZPPS BHIM NAGAR KITTI ADGAON</strong> (UDISE: 27270710302), तालुका: <strong>माजलगाव</strong> या विद्यार्थिनीने नवोदय सराव परीक्षेत घवघवीत यश संपादन केले आहे.
+                </div>
+                <div class="draggable-element" id="drag-cert-badges" style="top:332px; left:55px; width:710px; display:flex; justify-content:center; gap:20px;">
+                  <div class="gold-capsule-badge">
+                    <i class="fa-solid fa-star"></i> प्राप्त गुण: 99 / 100
+                  </div>
+                  <div class="gold-capsule-badge" id="admin-sample-rank-badge">
+                    <i class="fa-solid fa-trophy"></i> सावरगाव केंद्रात क्रमांक #1
+                  </div>
+                </div>
+                <div class="draggable-element" id="drag-cert-ribbon" style="top:405px; left:55px; width:710px; text-align:center;">
+                  <div class="cert-congrats-ribbon">
+                    ✨ आपण मिळवलेल्या या यशाबद्दल आपले हार्दिक अभिनंदन आणि उज्ज्वल भविष्याकरिता मन:पूर्वक शुभेच्छा! ✨
+                  </div>
+                </div>
+                <div class="draggable-element" id="drag-cert-sign" style="top:470px; right:35px; text-align:right; font-size:0.88rem; font-weight:800; color:#0f2b5c;">
+                  शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <button class="app-btn btn-primary" onclick="saveCertTemplateToFirebase()">
+                <i class="fa-solid fa-floppy-disk"></i> 📄 प्रमाणपत्र डिझाईन सेव्ह करा
+              </button>
+              <div class="grid-2">
+                <button class="app-btn btn-outline" style="border-color:#ef4444; color:#ef4444;" onclick="resetCertLayoutToDefault()">
+                  <i class="fa-solid fa-arrow-rotate-left"></i> मूळ लेआउट पूर्ववत करा
+                </button>
+                <button class="app-btn btn-success" onclick="downloadAdminSampleCertificatePDF()">
+                  <i class="fa-solid fa-file-pdf"></i> नमुना प्रमाणपत्र PDF डाऊनलोड
+                </button>
               </div>
             </div>
           </div>
 
-          <div style="display:flex; flex-direction:column; gap:8px;">
-            <button class="app-btn btn-primary" onclick="saveBannerTemplateToFirebase()">
-              <i class="fa-solid fa-trophy"></i> 🏆 बॅनर डिझाईन सेव्ह करा
-            </button>
-            <div class="grid-2">
-              <button class="app-btn btn-outline" style="border-color:#ef4444; color:#ef4444;" onclick="resetBannerLayoutToDefault()">
-                <i class="fa-solid fa-arrow-rotate-left"></i> मूळ लेआउट पूर्ववत करा
+          <!-- विभाग ब: बॅनर सेटिंग्ज -->
+          <div id="section-designer-banner" style="display:none;">
+            <div class="designer-toolbar-card">
+              <div class="form-group" style="margin-bottom:6px;">
+                <label>बॅनर मुख्य मथळा:</label>
+                <input type="text" class="form-control" id="tmpl-banner-title" value="बीड जिल्हा सराव परीक्षा टॉपर्स" oninput="updateLiveDesigner()">
+              </div>
+              <div class="form-group" style="margin-bottom:6px;">
+                <label>वरचा बॅज मजकूर:</label>
+                <input type="text" class="form-control" id="tmpl-banner-badge" value="💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐" oninput="updateLiveDesigner()">
+              </div>
+              <div class="form-group" style="margin-bottom:6px;">
+                <label>तळटीप सौजन्य (Footer):</label>
+                <input type="text" class="form-control" id="tmpl-banner-footer" value="🎯 शिक्षण विभाग, जिल्हा परिषद बीड" oninput="updateLiveDesigner()">
+              </div>
+
+              <div class="slider-control-row">
+                <label>मथळा फॉन्ट आकार:</label>
+                <input type="range" id="slider-banner-font" min="18" max="34" value="26" oninput="applyDesignerStyles()">
+                <span class="slider-val-badge" id="val-banner-font">26px</span>
+              </div>
+              <div class="slider-control-row">
+                <label>बॅनर मधील अंतर (Gap):</label>
+                <input type="range" id="slider-banner-gap" min="3" max="14" value="6" oninput="applyDesignerStyles()">
+                <span class="slider-val-badge" id="val-banner-gap">6px</span>
+              </div>
+            </div>
+
+            <div style="background:#e2e8f0; padding:10px; border-radius:12px; overflow-x:auto; margin-bottom:10px; display:flex; justify-content:center;">
+              <div class="banner-preview-box" id="admin-live-banner-designer">
+                <div class="banner-top-header">
+                  <p class="banner-dept-title">जिल्हा परिषद, बीड — शिक्षण विभाग</p>
+                  <div class="banner-exam-badge" id="banner-designer-exam-name">नवोदय विद्यालय प्रवेश पात्रता सराव परीक्षा</div>
+                  <h2 class="banner-heading-main" id="banner-designer-title-txt">पाटोदा तालुका Top 10 गुणवत्ता यादी</h2>
+                  <p class="banner-subheading">चाचणी निकाल</p>
+                  <div>
+                    <span class="banner-congrats-tag" id="banner-designer-badge-txt">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
+                  </div>
+                </div>
+
+                <div class="banner-topper-grid" id="banner-designer-topper-grid">
+                  <div class="banner-row">
+                    <div>🥇 <span class="b-std-name">१. गणेश रामहरी उबाळे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                    <div class="b-marks-badge">95/100 गुण</div>
+                  </div>
+                  <div class="banner-row">
+                    <div>🥈 <span class="b-std-name">२. धनश्री संदीप आरसुळ</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                    <div class="b-marks-badge">95/100 गुण</div>
+                  </div>
+                  <div class="banner-row">
+                    <div>🥉 <span class="b-std-name">३. सिद्धेश संदिपराव वेदरे</span> <span class="b-sch-name">(ZPPS JAREWADI)</span></div>
+                    <div class="b-marks-badge">92.5/100 गुण</div>
+                  </div>
+                </div>
+
+                <div class="banner-footer-auth">
+                  <span id="banner-designer-footer-txt">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
+                  <span>🏆 जिल्हा परिषद बीड</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <button class="app-btn btn-primary" onclick="saveBannerTemplateToFirebase()">
+                <i class="fa-solid fa-trophy"></i> 🏆 बॅनर डिझाईन सेव्ह करा
               </button>
-              <button class="app-btn btn-gold" onclick="downloadAdminSampleBannerPDF()">
-                <i class="fa-solid fa-download"></i> नमुना बॅनर PDF डाऊनलोड
-              </button>
+              <div class="grid-2">
+                <button class="app-btn btn-outline" style="border-color:#ef4444; color:#ef4444;" onclick="resetBannerLayoutToDefault()">
+                  <i class="fa-solid fa-arrow-rotate-left"></i> मूळ लेआउट पूर्ववत करा
+                </button>
+                <button class="app-btn btn-gold" onclick="downloadAdminSampleBannerPDF()">
+                  <i class="fa-solid fa-download"></i> नमुना बॅनर PDF डाऊनलोड
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -1879,6 +1922,7 @@
       return minStart;
     }
 
+    /* बदल १: चारही परीक्षांसाठी ज्या चाचणीचा निकाल घोषित झालेला आहे ती चाचणी शोधणे */
     function getInitialDeclaredTestForDashboard(category) {
       const declaredCat = DECLARED_DATA_STORE[category];
       const minStart = getMinAllowedTestNo(category);
@@ -1966,6 +2010,40 @@
     let flashTimer = null;
     let BEED_ALL_SCHOOLS = [];
     let PRE_LOCK_CALCULATED_DATA = null;
+
+    /* मिनिमाईज - एक्स्पॅन्ड टॉगल फंक्शन्स */
+    function toggleStudentAddCard() {
+      const body = document.getElementById('body-student-add-section');
+      const btn = document.getElementById('btn-toggle-std-add');
+      if (!body || !btn) return;
+
+      if (body.style.display === 'none') {
+        body.style.display = 'block';
+        btn.innerHTML = `<i class="fa-solid fa-chevron-up"></i> बंद करा`;
+        btn.style.background = '#e2e8f0';
+      } else {
+        body.style.display = 'none';
+        btn.innerHTML = `<i class="fa-solid fa-chevron-down"></i> उघडा`;
+        btn.style.background = '#f1f5f9';
+      }
+    }
+
+    function toggleDesignerSection() {
+      const body = document.getElementById('body-designer-section');
+      const btn = document.getElementById('btn-toggle-designer');
+      if (!body || !btn) return;
+
+      if (body.style.display === 'none') {
+        body.style.display = 'block';
+        btn.innerHTML = `<i class="fa-solid fa-chevron-up"></i> डिझायनर बंद करा`;
+        btn.style.background = '#e2e8f0';
+        applyCertLayout();
+      } else {
+        body.style.display = 'none';
+        btn.innerHTML = `<i class="fa-solid fa-chevron-down"></i> डिझायनर उघडा`;
+        btn.style.background = '#f1f5f9';
+      }
+    }
 
     function enforceMarathiText(inputEl) {
       const val = inputEl.value;
@@ -2487,7 +2565,6 @@
           loadStudentMarksForSelectedTest();
         }
       } else if (view === 'admin') {
-        applyCertLayout();
         refreshAdminTestManagerUI();
         updateAdminTestOptions();
         updateAdminLockTestOptions();
@@ -3450,9 +3527,15 @@
       });
     }
 
+    /* बदल १: निकाल लोड होताच चारही परीक्षांसाठी declared test शोधून थेट सेट करणे */
     function listenDeclaredResults() {
       db.ref('declared_toppers').on('value', (snap) => {
         DECLARED_DATA_STORE = snap.val() || {};
+        
+        // वेबसाईट उघडताच नुकतीच निकाल लागलेली चाचणी आपोआप सिलेक्ट करणे
+        currentSelectedTest = getInitialDeclaredTestForDashboard(currentSelectedCategory);
+        buildDashboardTestPills();
+        listenLiveDashboardData();
         renderDeclaredResultsOnDashboard();
       });
     }
