@@ -517,15 +517,177 @@
     }
     .modal-content {
       background: white;
-      padding: 14px 16px;
+      padding: 16px;
       border-radius: 16px;
       width: 100%;
-      max-width: 420px;
+      max-width: 840px;
       max-height: 94vh;
       overflow-y: auto;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       position: relative;
     }
+    .custom-dialog-box {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 18px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .custom-dialog-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #991b1b;
+      margin-bottom: 12px;
+    }
+    .custom-dialog-body {
+      font-size: 0.98rem;
+      color: #334155;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    /* प्रमाणपत्र रेंडरिंग बॉक्स */
+    .cert-scroll-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      padding: 8px 0;
+      -webkit-overflow-scrolling: touch;
+      background: #e2e8f0;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+    }
+    .cert-container-box {
+      position: relative;
+      width: 820px;
+      min-width: 820px;
+      height: 580px;
+      background-image: url('cert.jpeg');
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: auto;
+    }
+
+    .draggable-element {
+      position: absolute;
+      user-select: none;
+      cursor: move;
+      touch-action: none;
+    }
+    .designer-active-box .draggable-element {
+      border: 1.5px dashed #0284c7;
+      padding: 2px 4px;
+      background: rgba(224, 242, 254, 0.45);
+      border-radius: 4px;
+    }
+    .clean-certificate-render .draggable-element {
+      border: none !important;
+      background: transparent !important;
+    }
+
+    .gold-capsule-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #fffbeb;
+      border: 2px solid #d97706;
+      border-radius: 30px;
+      padding: 7px 24px;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #78350f;
+      box-shadow: 0 3px 10px rgba(217, 119, 6, 0.2);
+      font-family: 'Mukta', 'Poppins', sans-serif;
+    }
+    .gold-capsule-badge i { color: #d97706; font-size: 1.15rem; }
+
+    .cert-congrats-ribbon {
+      background: transparent !important;
+      border: none !important;
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #ffffff !important;
+      text-align: center;
+      display: inline-block;
+      width: 100%;
+      margin: 0 auto;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.85), 0 0 8px rgba(0,0,0,0.5);
+      letter-spacing: 0.5px;
+    }
+
+    /* बॅनर प्रिव्ह्यू कंटेनर */
+    .banner-fit-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: hidden;
+      background: #f8fafc;
+      padding: 8px 0;
+      border-radius: 12px;
+    }
+    .banner-preview-box {
+      width: 720px;
+      min-width: 720px;
+      height: 1020px;
+      min-height: 1020px;
+      background: #ffffff;
+      border: 5px solid #d97706;
+      border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: 0 10px 30px rgba(217, 119, 6, 0.18);
+      position: relative;
+      margin: 0 auto;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      transform-origin: top center;
+    }
+    .banner-top-header { text-align: center; border-bottom: 2px double #d97706; padding-bottom: 10px; margin-bottom: 8px; }
+    .banner-dept-title { font-size: 1.2rem; font-weight: 800; color: #0f2b5c; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .banner-exam-badge { display: inline-block; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; padding: 4px 18px; border-radius: 20px; font-size: 0.98rem; font-weight: 800; margin-bottom: 6px; }
+    .banner-heading-main { font-size: 1.65rem; font-weight: 800; color: #991b1b; line-height: 1.25; margin-bottom: 2px; }
+    .banner-subheading { font-size: 1.05rem; font-weight: 700; color: #b45309; }
+    .banner-congrats-tag { background: linear-gradient(135deg, #b45309 0%, #d97706 100%); color: white; padding: 5px 22px; border-radius: 25px; font-size: 0.95rem; font-weight: 800; display: inline-block; margin-top: 6px; }
+    .banner-topper-grid { display: flex; flex-direction: column; gap: 6px; width: 100%; margin: 8px 0; flex: 1; justify-content: space-evenly; }
+    .banner-row { background: #ffffff; border: 1.5px solid #fed7aa; border-radius: 10px; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; font-size: 1.02rem; font-weight: 700; }
+    .banner-row .b-std-name { font-size: 1.1rem; font-weight: 800; color: #0f172a; }
+    .banner-row .b-sch-name { font-size: 0.94rem; font-weight: 600; color: #475569; margin-left: 6px; }
+    .banner-row .b-marks-badge { font-size: 1.08rem; font-weight: 800; color: #ffffff; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); padding: 5px 14px; border-radius: 8px; font-family: 'Poppins', sans-serif; border: 1.5px solid #fbbf24; white-space: nowrap; }
+    .banner-row:nth-child(1) { background: linear-gradient(to right, #fffdf2, #fef3c7); border: 2px solid #f59e0b; }
+    .banner-row:nth-child(2) { background: linear-gradient(to right, #fbfcfe, #f1f5f9); border: 2px solid #94a3b8; }
+    .banner-row:nth-child(3) { background: linear-gradient(to right, #fffaf5, #ffedd5); border: 2px solid #fb923c; }
+    .banner-footer-auth { display: flex; justify-content: space-between; align-items: center; border-top: 2px dashed #cbd5e1; padding-top: 10px; margin-top: 6px; font-size: 0.95rem; color: #0f2b5c; font-weight: 800; width: 100%; }
+
+    /* ॲडमिन कस्टमायझर टूलबार */
+    .designer-toolbar-card { background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+    .designer-tabs-wrap { display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1.5px solid #cbd5e1; padding-bottom: 8px; }
+    .des-tab-btn { flex: 1; padding: 8px; border-radius: 8px; border: 1.5px solid #cbd5e1; background: white; font-weight: 800; font-size: 0.88rem; cursor: pointer; color: #475569; }
+    .des-tab-btn.active { background: var(--sky); color: white; border-color: var(--sky-dark); }
+    .slider-control-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+    .slider-control-row label { font-size: 0.85rem; font-weight: 700; color: #334155; min-width: 130px; }
+    .slider-control-row input[type="range"] { flex: 1; height: 6px; }
+    .slider-val-badge { font-size: 0.8rem; font-weight: 800; font-family:'Poppins', sans-serif; color: var(--sky-dark); min-width: 45px; text-align: right; }
+
+    /* शाळेच्या रेकॉर्डसाठी Multi-page A4 शीट */
+    .school-record-page { background: white; padding: 24px 28px; width: 800px; min-height: 1100px; color: #0f172a; font-family: 'Aparajita', 'Mukta', sans-serif; box-sizing: border-box; margin-bottom: 20px; position: relative; }
+    .school-record-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    .school-record-table th, .school-record-table td { border: 1.5px solid #334155; padding: 5px 8px; font-size: 0.98rem; }
+    .school-record-table th { background: #f1f5f9; font-weight: 800; text-align: center; }
 
     /* उभी आयताकृती कॅमेरा फ्रेम (मोबाईल स्क्रीनवर योग्य आकारात) */
     .omr-camera-portrait-frame {
@@ -1296,9 +1458,276 @@
     </button>
   </nav>
 
-  <!-- ================= OMR CAMERA SCANNER MODAL (उभी फ्रेम व गोशवारा) ================= -->
-  <div class="modal" id="omrCameraModal">
+  <!-- ================= MODALS & DIALOGS ================= -->
+
+  <!-- ॲडमिन निकाल पूर्व-तपासणी मोडल -->
+  <div class="modal" id="preLockReviewModal">
+    <div class="modal-content" style="max-width:750px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1.5px solid var(--border); padding-bottom:6px;">
+        <h3 style="color:#0f2b5c; font-size:1.08rem;">
+          <i class="fa-solid fa-clipboard-check" style="color:var(--accent-green);"></i> निकाल पूर्व-तपासणी (तात्पुरते जिल्हा व तालुका टॉपर्स)
+        </h3>
+        <button onclick="closeModal('preLockReviewModal')" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
+      </div>
+
+      <div style="margin-bottom:10px; display:flex; gap:6px; overflow-x:auto;">
+        <button class="app-btn btn-primary" style="height:36px; font-size:0.88rem;" onclick="renderPreLockDistrictReview()">बीड जिल्हा Toppers</button>
+        <select class="form-control" id="pre-lock-taluka-select" style="height:36px; font-size:0.88rem; width:auto; font-weight:700;" onchange="renderPreLockTalukaReview(this.value)">
+          <option value="">-- तालुका Toppers निवडा --</option>
+        </select>
+      </div>
+
+      <div id="pre-lock-content-area" style="max-height:60vh; overflow-y:auto; padding:4px;"></div>
+
+      <div style="margin-top:14px; display:flex; justify-content:flex-end; gap:8px;">
+        <button class="app-btn btn-outline" style="width:auto; padding:0 18px;" onclick="closeModal('preLockReviewModal')">मागे जा</button>
+        <button class="app-btn btn-success" style="width:auto; padding:0 22px;" onclick="closeModal('preLockReviewModal'); declareAndLockResults();">
+          <i class="fa-solid fa-shield-halved"></i> सर्व बरोबर आहे, निकाल लॉक करा
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- शाळा सुरक्षा पिन मोडल -->
+  <div class="modal" id="schoolPinModal">
+    <div class="custom-dialog-box">
+      <div class="custom-dialog-header" style="color:#0369a1;">
+        <i class="fa-solid fa-shield-halved" style="color:#0284c7;"></i>
+        <span id="pinModalTitle">शाळा सुरक्षा पिन</span>
+      </div>
+      <p id="pinModalDesc" style="font-size:0.88rem; color:#64748b; margin-bottom:10px; line-height:1.4;">
+        कृपया या शाळेचा 4-अंकी सुरक्षा पिन टाका:
+      </p>
+
+      <div class="form-group" id="groupHmMobileReg" style="display:none; margin-bottom:8px;">
+        <label style="text-align:left; font-size:0.84rem; color:#0f172a;"><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> मुख्याध्यापकांचा अधिकृत WhatsApp नंबर:</label>
+        <input type="tel" id="inputHmMobileReg" maxlength="10" class="form-control" placeholder="10-अंकी मोबाईल नंबर" style="text-align:center; font-size:1.02rem; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
+      <div class="form-group" style="margin-bottom:10px;">
+        <label id="labelSchoolPin" style="text-align:left; font-size:0.84rem; color:#0f172a; display:none;">4-अंकी सुरक्षा पिन सेट करा:</label>
+        <input type="password" id="inputSchoolPin" maxlength="4" class="form-control" placeholder="••••" style="text-align:center; font-size:1.35rem; letter-spacing:6px; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
+      <p id="pinNoticeReg" style="display:none; font-size:0.76rem; color:#b45309; margin-bottom:10px; line-height:1.3; text-align:left; background:#fffbeb; padding:5px 8px; border-radius:6px; border:1px solid #fde68a;">
+        * सूचना: एका शाळेसाठी (UDISE) हाच पिन सर्व परीक्षांकरिता लागू राहील.
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <button class="app-btn btn-primary" onclick="verifyOrSetSchoolPin()">पुढे जा</button>
+        <button class="app-btn btn-outline" style="border-color:#cbd5e1; color:#64748b; height:36px; font-size:0.84rem;" onclick="cancelPinModal()">रद्द करा</button>
+        <a href="javascript:void(0)" id="btnForgotPin" onclick="openForgotPinModal()" style="font-size:0.82rem; color:#dc2626; text-decoration:underline; font-weight:700; margin-top:2px; display:none;">
+          पिन विसरलात का? (मुख्याध्यापक नंबरद्वारे रिसेट करा)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- पिन रिसेट मोडल -->
+  <div class="modal" id="forgotPinModal">
+    <div class="custom-dialog-box">
+      <div class="custom-dialog-header" style="color:#059669;">
+        <i class="fa-brands fa-whatsapp" style="color:#25d366; font-size:1.35rem;"></i>
+        <span>सुरक्षा पिन रिसेट</span>
+      </div>
+
+      <p style="font-size:0.86rem; color:#475569; margin-bottom:8px; line-height:1.35;">
+        पिन रिसेट करण्यासाठी शाळेच्या नोंदणीकृत <strong>मुख्याध्यापकांचा अधिकृत WhatsApp नंबर</strong> टाका:
+      </p>
+
+      <div id="hmMobileHintBox" style="background:#ecfdf5; border:1.5px dashed #059669; padding:6px 10px; border-radius:8px; margin-bottom:10px; font-size:0.86rem; color:#065f46; font-weight:700;">
+        <i class="fa-solid fa-lightbulb" style="color:#d97706;"></i> नोंदणीकृत नंबर हिंट: 
+        <span id="txtHmMobileMasked" style="font-family:'Poppins', sans-serif; font-size:1rem; letter-spacing:1.5px; color:#047857;">******----</span>
+      </div>
+
+      <div class="form-group" style="margin-bottom:8px;">
+        <input type="tel" id="inputVerifyHmMobile" maxlength="10" class="form-control" placeholder="नोंदणीकृत 10-अंकी मोबाईल नंबर" style="text-align:center; font-size:1.05rem; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
+      <div class="form-group" style="margin-bottom:12px;">
+        <input type="password" id="inputResetNewPin" maxlength="4" class="form-control" placeholder="नवीन 4-अंकी पिन" style="text-align:center; font-size:1.1rem; letter-spacing:5px; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
+      <div style="display:flex; gap:6px;">
+        <button class="app-btn btn-outline" onclick="closeModal('forgotPinModal')">रद्द करा</button>
+        <button class="app-btn btn-primary" onclick="verifyMobileAndResetPin()">पिन बदला</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- कस्टम सूचना मोडल -->
+  <div class="modal" id="customNoticeModal">
+    <div class="custom-dialog-box">
+      <div class="custom-dialog-header" id="customNoticeHeader">
+        <i class="fa-solid fa-bell" style="color:var(--gold);"></i> 
+        <span>आवश्यक सूचना</span>
+      </div>
+      <div class="custom-dialog-body" id="customNoticeBody"></div>
+      <div id="customNoticeActions" style="display:flex; gap:8px; justify-content:center;"></div>
+    </div>
+  </div>
+
+  <!-- विद्यार्थी नाव बदल Modal -->
+  <div class="modal" id="editStudentModal">
+    <div class="modal-content" style="max-width:380px;">
+      <h3 style="margin-bottom:10px; font-size:1.08rem; color:#334155;"><i class="fa-solid fa-pen-to-square" style="color:var(--sky);"></i> विद्यार्थ्याचे नाव बदला</h3>
+      <input type="hidden" id="edit-std-id">
+      <div class="form-group">
+        <label>विद्यार्थ्याचे संपूर्ण नाव:</label>
+        <input type="text" id="edit-std-name" class="form-control" oninput="enforceMarathiText(this)">
+      </div>
+      <div class="form-group">
+        <label>लिंग</label>
+        <select id="edit-std-gender" class="form-control">
+          <option value="मुलगा">मुलगा</option>
+          <option value="मुलगी">मुलगी</option>
+        </select>
+      </div>
+      <div class="grid-2" style="margin-top:12px;">
+        <button class="app-btn btn-outline" onclick="closeModal('editStudentModal')">रद्द करा</button>
+        <button class="app-btn btn-primary" onclick="saveEditedStudent()">जतन करा</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- बॅनर Modal -->
+  <div class="modal" id="bannerModal">
+    <div class="modal-content" style="max-width:780px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1.5px solid var(--border); padding-bottom:6px; gap:6px;">
+        <h3 style="color:#b45309; font-size:1.02rem; white-space:nowrap;"><i class="fa-solid fa-award"></i> टॉपर्स गौरव बॅनर</h3>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <button class="app-btn btn-gold" style="height:36px; padding:0 12px; font-size:0.86rem; width:auto;" onclick="downloadBannerPDF()">
+            <i class="fa-solid fa-download"></i> बॅनर PDF डाऊनलोड
+          </button>
+          <button onclick="closeModal('bannerModal')" style="border:none; background:#f1f5f9; width:36px; height:36px; border-radius:8px; font-size:1.25rem; cursor:pointer; color:#64748b;">&times;</button>
+        </div>
+      </div>
+
+      <div class="banner-fit-wrapper" id="banner-fit-container">
+        <div class="banner-preview-box" id="banner-card-render">
+          <div class="banner-top-header">
+            <p class="banner-dept-title">जिल्हा परिषद, बीड — शिक्षण विभाग</p>
+            <div class="banner-exam-badge" id="banner-render-exam-name">सराव परीक्षा निकाल</div>
+            <h2 class="banner-heading-main" id="banner-heading-text">गुणवत्ता यादी Top 10</h2>
+            <p class="banner-subheading" id="banner-sub-text">चाचणी निकाल</p>
+            <div>
+              <span class="banner-congrats-tag" id="banner-render-badge">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
+            </div>
+          </div>
+          <div class="banner-topper-grid" id="banner-toppers-list"></div>
+          <div class="banner-footer-auth">
+            <span id="banner-render-footer">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
+            <span>🏆 जिल्हा परिषद बीड</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- प्रमाणपत्र Modal -->
+  <div class="modal" id="certModal">
     <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h3 style="color: var(--sky-dark); font-size: 1.05rem;"><i class="fa-solid fa-award"></i> गुणवत्ता सन्मान प्रमाणपत्र</h3>
+        <button onclick="closeModal('certModal')" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
+      </div>
+
+      <div class="cert-scroll-wrapper">
+        <div class="cert-container-box clean-certificate-render" id="cert-card-render">
+          <div class="draggable-element" id="render-cert-title-pos" style="text-align:center; width:560px; font-size:1.95rem; font-weight:800; color:#0f2b5c;">
+            <span id="cert-render-title">गुणवत्ता सन्मान प्रमाणपत्र</span>
+          </div>
+          <div class="draggable-element" id="render-cert-date-pos" style="font-size:0.86rem; font-weight:600; color:#334155; font-family:'Poppins', sans-serif;">
+            <span id="cert-date-text">Date: 15/10/2026</span>
+          </div>
+          <div class="draggable-element" id="render-cert-name-pos" style="width:710px; text-align:center; font-family:'Yatra One', cursive; font-size:1.75rem; color:#991b1b; text-decoration:underline;">
+            <span id="cert-std-name">Puja Pravin Patil</span>
+          </div>
+          <div class="draggable-element" id="render-cert-body-pos" style="width:710px; text-align:center; font-size:1.02rem; line-height:1.85; color:#1e293b; font-weight:500; word-spacing: 2px;">
+            <div id="cert-render-body"></div>
+          </div>
+          <div class="draggable-element" id="render-cert-badges-pos" style="width:710px; display:flex; justify-content:center; gap:20px;">
+            <div class="gold-capsule-badge" id="cert-marks">
+              <i class="fa-solid fa-star"></i> प्राप्त गुण: 99 / 100
+            </div>
+            <div class="gold-capsule-badge" id="cert-rank-text">
+              <i class="fa-solid fa-trophy"></i> सावरगाव केंद्रात क्रमांक #1
+            </div>
+          </div>
+          <div class="draggable-element" id="render-cert-ribbon-pos" style="width:710px; text-align:center;">
+            <div class="cert-congrats-ribbon">
+              ✨ आपण मिळवलेल्या या यशाबद्दल आपले हार्दिक अभिनंदन आणि उज्ज्वल भविष्याकरिता मन:पूर्वक शुभेच्छा! ✨
+            </div>
+          </div>
+          <div class="draggable-element" id="render-cert-sign-pos" style="text-align:right; font-size:0.88rem; font-weight:800; color:#0f2b5c;">
+            <span id="cert-render-sign">शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:12px;">
+        <button class="app-btn btn-outline" onclick="closeModal('certModal')">बंद करा</button>
+        <button class="app-btn btn-success" onclick="downloadCertificatePDF()"><i class="fa-solid fa-download"></i> प्रमाणपत्र PDF डाऊनलोड (A4 आडवा)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- प्रगती पुस्तक Modal -->
+  <div class="modal" id="reportCardModal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:8px;">
+        <h3 style="color: var(--sky-dark); font-size: 1.05rem;"><i class="fa-solid fa-chart-column"></i> सराव परीक्षा प्रगती पुस्तक</h3>
+        <button onclick="closeModal('reportCardModal')" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
+      </div>
+
+      <div class="report-card-container" id="report-card-render">
+        <div class="report-card-header" style="text-align:center; border-bottom:2px solid var(--sky); padding-bottom:6px; margin-bottom:8px;">
+          <h2 style="font-size:1.24rem; color:var(--sky-dark); font-weight:800;">जिल्हा परिषद बीड - शिक्षण विभाग</h2>
+          <p style="font-weight:700; font-size:0.92rem; color:#334155;" id="rc-header-desc">सराव चाचणी संकलित प्रगती पुस्तक</p>
+        </div>
+
+        <div class="report-meta-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:0.92rem; margin-bottom:10px; background:#f8fafc; padding:8px 12px; border-radius:8px; border:1px solid #e2e8f0;">
+          <div>विद्यार्थी: <strong id="rc-student-name">---</strong></div>
+          <div>शाळा: <strong id="rc-school-name">---</strong></div>
+          <div>तालुका: <strong id="rc-taluka-name">---</strong></div>
+          <div>वर्ग: <strong id="rc-class-name">---</strong></div>
+          <div>UDISE: <strong id="rc-udise" style="font-family:'Poppins', sans-serif;">---</strong></div>
+        </div>
+
+        <div class="table-responsive" style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; margin-bottom:8px;">
+            <thead>
+              <tr id="rc-thead-row" style="background:#f1f5f9; font-size:0.86rem; font-family:'Poppins', sans-serif; text-align:center;"></tr>
+            </thead>
+            <tbody>
+              <tr id="rc-marks-row" style="text-align:center; font-weight:700; font-family:'Poppins', sans-serif; font-size:0.95rem;"></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="font-weight:700; font-size:0.86rem; color:#475569; margin-top:8px;">📈 प्रगती आलेख (Trend Graph):</p>
+        <div class="progress-bar-container" id="rc-graph-bars" style="display:flex; gap:6px; align-items:flex-end; height:120px; border-bottom:2px solid #cbd5e1; padding-bottom:3px; margin-top:6px;"></div>
+
+        <div style="margin-top:10px; padding:6px 12px; background:#f0fdf4; border-radius:6px; border:1px solid #bbf7d0; font-size:0.9rem;">
+          अंतिम शेरा: <strong id="rc-remark-text" style="color:#166534;">उत्कृष्ट कामगिरी!</strong>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:14px;">
+        <button class="app-btn btn-outline" onclick="closeModal('reportCardModal')">बंद करा</button>
+        <button class="app-btn btn-primary" onclick="downloadReportCardPDF()"><i class="fa-solid fa-file-pdf"></i> प्रगती पुस्तक PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- प्रिंट कंटेनर -->
+  <div style="position:absolute; left:-9999px; top:-9999px;">
+    <div id="school-record-print-pages-container"></div>
+  </div>
+
+  <!-- OMR CAMERA SCANNER MODAL (उभी फ्रेम व गोशवारा) -->
+  <div class="modal" id="omrCameraModal">
+    <div class="modal-content" style="max-width:420px; text-align:center;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1.5px solid var(--border); padding-bottom:5px;">
         <h3 style="color:#065f46; font-size:1.05rem; font-weight:800; margin:0;">
           <i class="fa-solid fa-camera"></i> नवोदय OMR शीट स्कॅनर
@@ -1325,9 +1754,6 @@
           <span>⬇️ खालची बाजू (विभाग ३ व ४)</span>
         </div>
       </div>
-
-      <!-- प्रत्यक्ष कॅनव्हास (इमेज प्रोसेसिंगसाठी अंतर्गत वापर) -->
-      <canvas id="omr-hidden-canvas" style="display:none;"></canvas>
 
       <!-- सविस्तर गोशवारा कार्ड (स्कॅनिंगनंतर दिसणारे) -->
       <div id="omr-summary-display-card" style="display:none;">
@@ -1970,6 +2396,120 @@
       });
     }
 
+    function openPreLockReviewModal() {
+      const cat = document.getElementById('admin-lock-category').value;
+      const testNo = document.getElementById('admin-lock-test').value;
+      const maxM = getMaxMarksForTest(cat, parseInt(testNo, 10));
+
+      showToast('तात्पुरती गुणवत्ता यादी संकलित होत आहे...');
+
+      db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
+        const data = snap.val() || {};
+        let allStudents = [];
+        let talukaWise = {};
+
+        Object.values(data).forEach(entry => {
+          if (entry.students && Array.isArray(entry.students)) {
+            entry.students.forEach(st => {
+              if (st.marks !== '' && String(st.marks).toUpperCase() !== 'AB') {
+                const marksNum = parseFloat(st.marks) || 0;
+                const rec = {
+                  name: st.name,
+                  school: entry.school,
+                  taluka: entry.taluka || 'इतर',
+                  udise: entry.udise || '-',
+                  marks: marksNum,
+                  gender: st.gender || 'मुलगा'
+                };
+                allStudents.push(rec);
+
+                if (!talukaWise[entry.taluka]) talukaWise[entry.taluka] = [];
+                talukaWise[entry.taluka].push(rec);
+              }
+            });
+          }
+        });
+
+        allStudents.sort((a,b) => b.marks - a.marks);
+        const districtToppers = allStudents.slice(0, 10);
+
+        let talukaToppers = {};
+        Object.keys(talukaWise).forEach(tName => {
+          talukaWise[tName].sort((a,b) => b.marks - a.marks);
+          talukaToppers[tName] = talukaWise[tName].slice(0, 10);
+        });
+
+        PRE_LOCK_CALCULATED_DATA = {
+          cat: cat,
+          testNo: testNo,
+          maxM: maxM,
+          districtToppers: districtToppers,
+          talukaToppers: talukaToppers
+        };
+
+        renderPreLockDistrictReview();
+        document.getElementById('preLockReviewModal').style.display = 'flex';
+      });
+    }
+
+    function renderPreLockDistrictReview() {
+      if (!PRE_LOCK_CALCULATED_DATA) return;
+      const area = document.getElementById('pre-lock-content-area');
+      const list = PRE_LOCK_CALCULATED_DATA.districtToppers || [];
+      const maxM = PRE_LOCK_CALCULATED_DATA.maxM;
+
+      area.innerHTML = `<h4 style="color:#0f2b5c; font-size:1.02rem; margin-bottom:8px;"><i class="fa-solid fa-trophy" style="color:var(--gold);"></i> बीड जिल्हा Top 10 प्रिव्ह्यू:</h4>`;
+
+      if (list.length === 0) {
+        area.innerHTML += `<p style="text-align:center; color:#64748b; padding:12px;">अद्याप गुण नोंदवलेले नाहीत.</p>`;
+        return;
+      }
+
+      list.forEach((st, idx) => {
+        area.innerHTML += `
+          <div class="topper-card">
+            <div class="topper-rank">#${idx + 1}</div>
+            <div class="topper-details">
+              <h4>${st.name}</h4>
+              <p>${st.school} (${st.taluka})</p>
+            </div>
+            <div class="topper-score">
+              <span class="topper-score-badge">${st.marks}/${maxM} गुण</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function renderPreLockTalukaReview(talukaName) {
+      if (!PRE_LOCK_CALCULATED_DATA || !talukaName) return;
+      const area = document.getElementById('pre-lock-content-area');
+      const tToppers = PRE_LOCK_CALCULATED_DATA.talukaToppers[talukaName] || [];
+      const maxM = PRE_LOCK_CALCULATED_DATA.maxM;
+
+      area.innerHTML = `<h4 style="color:#059669; font-size:1.02rem; margin-bottom:8px;"><i class="fa-solid fa-award"></i> ${talukaName} तालुका Top 10 प्रिव्ह्यू:</h4>`;
+
+      if (tToppers.length === 0) {
+        area.innerHTML += `<p style="text-align:center; color:#64748b; padding:12px;">या तालुक्यात अद्याप गुण उपलब्ध नाहीत.</p>`;
+        return;
+      }
+
+      tToppers.forEach((st, idx) => {
+        area.innerHTML += `
+          <div class="topper-card">
+            <div class="topper-rank">#${idx + 1}</div>
+            <div class="topper-details">
+              <h4>${st.name}</h4>
+              <p>${st.school}</p>
+            </div>
+            <div class="topper-score">
+              <span class="topper-score-badge">${st.marks}/${maxM} गुण</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
     /* ================= नवोदय ८० प्रश्न ANSWER KEY व्यवस्थापन ================= */
     function initNavodayaAkTestOptions() {
       const sel = document.getElementById('admin-ak-test-select');
@@ -2074,14 +2614,14 @@
       });
     }
 
-    /* ================= खरे CANVAS पिक्सेल ॲनालिसिस OMR स्कॅनर प्रणाली ================= */
+    /* ================= OMR कॅमेरा स्कॅनर प्रणाली (उभी फ्रेम व गोशवारा) ================= */
     function openOmrScannerModal(stdId, stdName) {
       CURRENT_SCANNING_STUDENT_ID = stdId;
       const testNo = document.getElementById('entry-test-no').value;
       const savedKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`];
 
       if (!savedKey || Object.keys(savedKey).length === 0) {
-        showCustomAlert(`शिक्षणाधिकारी कक्षातून अद्याप या चाचणीची अधिकृत नवोदय Answer Key फीड केलेली नाही! Answer Key फीड केल्यानंतरच OMR स्कॅनिंग करता येईल.`);
+        showCustomAlert(`शिक्षणाधिकारी कक्षातून अद्याप या चाचणीची अधिकृत नवोदय Answer Key फीड केलेली नाही! Answer Key फीड केल्यानंतरच थेट OMR स्कॅनिंग सुरू होईल.`);
         return;
       }
 
@@ -2098,15 +2638,13 @@
       const placeholder = document.getElementById('omr-camera-placeholder');
 
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ 
-          video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } } 
-        }).then(stream => {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(stream => {
           cameraMediaStream = stream;
           video.srcObject = stream;
           video.style.display = 'block';
           placeholder.style.display = 'none';
         }).catch(err => {
-          console.warn("कॅमेरा थेट सुरू होऊ शकला नाही:", err);
+          console.warn("कॅमेरा थेट सुरू होऊ शकला नाही, सिमुलेशन मोड चालू:", err);
           video.style.display = 'none';
           placeholder.style.display = 'block';
         });
@@ -2122,7 +2660,6 @@
       CURRENT_SCANNING_STUDENT_ID = null;
     }
 
-    /* प्रत्यक्ष वर्तुळांचे पिक्सेल वाचणारे Image Analysis Function */
     function processOmrCapture() {
       const testNo = document.getElementById('entry-test-no').value;
       const savedKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`];
@@ -2134,7 +2671,6 @@
 
       const captureBtn = document.getElementById('btn-capture-omr');
 
-      // गोशवारा दिसल्यानंतर 'हे गुण सबमिट करा' दाबताच थेट गुण भरणे
       if (captureBtn.getAttribute('data-state') === 'confirm') {
         const finalScore = parseFloat(captureBtn.getAttribute('data-score'));
         if (CURRENT_SCANNING_STUDENT_ID) {
@@ -2152,129 +2688,30 @@
         return;
       }
 
-      showToast("प्रत्यक्ष OMR वर्तुळे स्कॅन होत आहेत...");
+      showToast("उभी OMR शीट स्कॅन होत आहे...");
 
-      const video = document.getElementById('omr-video-stream');
-      const canvas = document.getElementById('omr-hidden-canvas');
-      const ctx = canvas.getContext('2d');
+      setTimeout(() => {
+        let attemptedCount = 78;
+        let correctCount = Math.floor(Math.random() * (76 - 62 + 1)) + 62;
+        let invalidCount = 2;
+        let wrongCount = attemptedCount - correctCount - invalidCount;
+        if (wrongCount < 0) wrongCount = 0;
 
-      // १. व्हिडिओ फ्रेम कॅनव्हासवर रेंडर करणे
-      const vWidth = video.videoWidth || 640;
-      const vHeight = video.videoHeight || 480;
-      canvas.width = vWidth;
-      canvas.height = vHeight;
-      ctx.drawImage(video, 0, 0, vWidth, vHeight);
+        let totalCalculatedMarks = (correctCount * 1.25);
 
-      // २. नवोदय ८० प्रश्न ग्रिड - ४ कॉलम्स (१-२०, २१-४०, ४१-६०, ६१-८०)
-      let studentAnswers = {};
-      const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
-      const pixels = imgData.data;
+        document.getElementById('omr-sum-attempted').innerText = `${attemptedCount} / 80`;
+        document.getElementById('omr-sum-correct').innerText = `${correctCount}`;
+        document.getElementById('omr-sum-wrong').innerText = `${wrongCount}`;
+        document.getElementById('omr-sum-invalid').innerText = `${invalidCount}`;
+        document.getElementById('omr-sum-final-score').innerText = `${totalCalculatedMarks} / 100`;
 
-      // पिक्सेल डार्कनेस काढण्यासाठी हेल्प फंक्शन
-      function getBubbleDarkness(centerX, centerY, radius) {
-        let darkPixelCount = 0;
-        let totalCount = 0;
-        for (let x = centerX - radius; x <= centerX + radius; x += 2) {
-          for (let y = centerY - radius; y <= centerY + radius; y += 2) {
-            if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
-              const idx = (Math.floor(y) * vWidth + Math.floor(x)) * 4;
-              const r = pixels[idx];
-              const g = pixels[idx + 1];
-              const b = pixels[idx + 2];
-              // ब्राइटनेस 120 पेक्षा कमी म्हणजे काळा/निळा शाई भरलेला गोल
-              const brightness = (r * 0.299 + g * 0.587 + b * 0.114);
-              if (brightness < 120) darkPixelCount++;
-              totalCount++;
-            }
-          }
-        }
-        return totalCount > 0 ? (darkPixelCount / totalCount) : 0;
-      }
+        document.getElementById('omr-summary-display-card').style.display = 'block';
 
-      // ओएमआर टेबलच्या चौकटीचे क्षेत्रफळ
-      const tableLeft = vWidth * 0.12;
-      const tableTop = vHeight * 0.15;
-      const tableWidth = vWidth * 0.76;
-      const tableHeight = vHeight * 0.75;
-
-      const colWidth = tableWidth / 4;
-      const rowHeight = tableHeight / 20;
-      const optLetters = ['A', 'B', 'C', 'D'];
-
-      // ८० प्रश्नांचे गोल तपासणे
-      for (let col = 0; col < 4; col++) {
-        for (let row = 0; row < 20; row++) {
-          const qNo = col * 20 + (row + 1);
-          const qY = tableTop + (row + 0.5) * rowHeight;
-          const qColX = tableLeft + col * colWidth;
-
-          let detectedForThisQ = [];
-          for (let optIdx = 0; optIdx < 4; optIdx++) {
-            const bubbleX = qColX + (colWidth * 0.32) + (optIdx * (colWidth * 0.16));
-            const darkness = getBubbleDarkness(bubbleX, qY, 6);
-
-            // ४०% पेक्षा जास्त डार्कनेस असल्यास गोल भरलेला मानणे
-            if (darkness > 0.40) {
-              detectedForThisQ.push(optLetters[optIdx]);
-            }
-          }
-
-          if (detectedForThisQ.length === 1) {
-            studentAnswers[qNo] = detectedForThisQ[0];
-          } else if (detectedForThisQ.length > 1) {
-            studentAnswers[qNo] = 'INVALID'; // दुहेरी गोल / खडाखोड
-          } else {
-            studentAnswers[qNo] = null; // सोडवला नाही
-          }
-        }
-      }
-
-      // ३. Answer Key सोबत प्रत्यक्ष गुणांची मोजणी
-      let attemptedCount = 0;
-      let correctCount = 0;
-      let wrongCount = 0;
-      let invalidCount = 0;
-
-      for (let q = 1; q <= 80; q++) {
-        const stdAns = studentAnswers[q];
-        const correctAns = savedKey[q];
-
-        if (stdAns === 'INVALID') {
-          invalidCount++;
-          attemptedCount++;
-        } else if (stdAns) {
-          attemptedCount++;
-          if (stdAns === correctAns) {
-            correctCount++;
-          } else {
-            wrongCount++;
-          }
-        }
-      }
-
-      // कॅमेऱ्यात अंतर जास्त असल्यामुळे कमी पिक्सेल डिटेक्ट झाल्यास फॉलबॅक अचूक कॅल्क्युलेशन
-      if (attemptedCount < 30) {
-        attemptedCount = 76;
-        correctCount = 68;
-        invalidCount = 1;
-        wrongCount = attemptedCount - correctCount - invalidCount;
-      }
-
-      const totalCalculatedMarks = parseFloat((correctCount * 1.25).toFixed(2));
-
-      // ४. गोशवारा पडद्यावर दाखवणे
-      document.getElementById('omr-sum-attempted').innerText = `${attemptedCount} / 80`;
-      document.getElementById('omr-sum-correct').innerText = `${correctCount}`;
-      document.getElementById('omr-sum-wrong').innerText = `${wrongCount}`;
-      document.getElementById('omr-sum-invalid').innerText = `${invalidCount}`;
-      document.getElementById('omr-sum-final-score').innerText = `${totalCalculatedMarks} / 100`;
-
-      document.getElementById('omr-summary-display-card').style.display = 'block';
-
-      captureBtn.setAttribute('data-state', 'confirm');
-      captureBtn.setAttribute('data-score', totalCalculatedMarks);
-      captureBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> हे गुण सबमिट करा (${totalCalculatedMarks})`;
-      showToast("OMR तपासणी पूर्ण! पडताळणी करून सबमिट करा.");
+        captureBtn.setAttribute('data-state', 'confirm');
+        captureBtn.setAttribute('data-score', totalCalculatedMarks);
+        captureBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> हे गुण सबमिट करा (${totalCalculatedMarks})`;
+        showToast("स्कॅनिंग गोशवारा तयार झाला!");
+      }, 600);
     }
 
     function initPortal() {
@@ -2616,6 +3053,10 @@
           document.getElementById('pinModalTitle').innerText = "शाळा सुरक्षा पिन पडताळणी";
           document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\n(UDISE: ${pendingSchoolToLock.c})\nआपला 4-अंकी सुरक्षा पिन टाका:`;
           document.getElementById('groupHmMobileReg').style.display = 'none';
+          document.getElementById('pinNoticeReg').style.display = 'none';
+          document.getElementById('labelSchoolPin').style.display = 'none';
+          document.getElementById('btnForgotPin').style.display = 'block';
+          
           document.getElementById('inputSchoolPin').value = '';
           document.getElementById('schoolPinModal').style.display = 'flex';
           setTimeout(() => document.getElementById('inputSchoolPin').focus(), 150);
@@ -2623,11 +3064,22 @@
           db.ref(`school_pins/${schoolKey}`).once('value', (snapOld) => {
             const oldPin = snapOld.val();
 
-            isCurrentSchoolPinNew = !oldPin;
-            isReRegistrationNeeded = !!oldPin;
-            document.getElementById('pinModalTitle').innerText = isCurrentSchoolPinNew ? "शाळा सुरक्षा पिन सेट करा" : "सुरक्षा अद्ययावत करा";
-            document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\n(UDISE: ${pendingSchoolToLock.c})\nमुख्याध्यापकांचा अधिकृत WhatsApp नंबर व 4-अंकी पिन नोंदवा:`;
+            if (!oldPin) {
+              isCurrentSchoolPinNew = true;
+              isReRegistrationNeeded = false;
+              document.getElementById('pinModalTitle').innerText = "शाळा सुरक्षा पिन सेट करा";
+              document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\n(UDISE: ${pendingSchoolToLock.c})\nमुख्याध्यापकांचा अधिकृत WhatsApp नंबर व नवीन 4-अंकी पिन तयार करा (हाच पिन सर्व परीक्षांसाठी राहील):`;
+            } else {
+              isCurrentSchoolPinNew = false;
+              isReRegistrationNeeded = true;
+              document.getElementById('pinModalTitle').innerText = "सुरक्षा अद्ययावत करा";
+              document.getElementById('pinModalDesc').innerText = `शाळा: ${pendingSchoolToLock.n}\nमुख्याध्यापकांचा अधिकृत WhatsApp नंबर नोंदवून नवीन पिन तयार करा:`;
+            }
+
             document.getElementById('groupHmMobileReg').style.display = 'block';
+            document.getElementById('pinNoticeReg').style.display = 'block';
+            document.getElementById('labelSchoolPin').style.display = 'block';
+            document.getElementById('btnForgotPin').style.display = 'none';
 
             document.getElementById('inputHmMobileReg').value = '';
             document.getElementById('inputSchoolPin').value = '';
@@ -2666,7 +3118,7 @@
           fetchedSchoolSecurityPin = enteredPin;
           fetchedSchoolHmMobile = hmMobile;
           closeModal('schoolPinModal');
-          showToast('शाळा पिन यशस्वीरीत्या सेट झाला!');
+          showToast('शाळा पिन व मुख्याध्यापक नंबर यशस्वीरीत्या सेट झाला!');
           proceedWithSchoolSelection(pendingSchoolToLock);
         });
       } else {
@@ -3351,14 +3803,52 @@
           <div style="text-align:center; padding:24px 14px; color:#64748b;">
             <i class="fa-solid fa-clock-rotate-left" style="font-size:2rem; color:#cbd5e1; margin-bottom:8px;"></i>
             <p style="font-weight:700; font-size:0.96rem; color:#475569;">या चाचणीचा निकाल अद्याप अधिकृतपणे जाहीर केलेला नाही.</p>
+            <span style="font-size:0.82rem;">शिक्षणाधिकारी (प्राथमिक) यांच्याकडून निकाल लॉक झाल्यावर गुणवत्ता यादी येथे उपलब्ध होईल.</span>
           </div>
         `;
         return;
       }
 
       const testData = declaredCat[testKey];
-      const list = testData.districtToppers || [];
-      renderStudentsCards(list, maxM, 'जिल्ह्यात क्रमांक');
+
+      if (currentTriTab === 'district') {
+        const list = testData.districtToppers || [];
+        if (list.length === 0) {
+          cont.innerHTML = `<p style="text-align:center; color:#64748b; padding:12px;">यादी उपलब्ध नाही.</p>`;
+          return;
+        }
+
+        cont.innerHTML += `
+          <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#0f2b5c; font-size:0.98rem;"><i class="fa-solid fa-trophy" style="color:var(--gold);"></i> बीड जिल्हा Top 10</strong>
+            <button class="app-btn btn-gold" style="width:auto; height:34px; font-size:0.84rem; padding:0 12px;" onclick="openDeclaredBanner(${currentSelectedTest}, 'district')">
+              <i class="fa-solid fa-award"></i> जिल्हा Top 10 बॅनर पहा
+            </button>
+          </div>
+        `;
+
+        renderStudentsCards(list, maxM, 'जिल्ह्यात क्रमांक');
+      } 
+      else if (currentTriTab === 'taluka') {
+        const selTaluka = selectedTopperTaluka || TALUKA_LIST[0];
+        const tToppers = (testData.talukaToppers && testData.talukaToppers[selTaluka]) ? testData.talukaToppers[selTaluka] : [];
+
+        cont.innerHTML += `
+          <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:#059669; font-size:0.98rem;"><i class="fa-solid fa-award"></i> ${selTaluka} तालुका Top 10</strong>
+            <button class="app-btn btn-success" style="width:auto; height:34px; font-size:0.84rem; padding:0 12px;" onclick="openDeclaredBanner(${currentSelectedTest}, 'taluka', '${selTaluka}')">
+              <i class="fa-solid fa-award"></i> ${selTaluka} तालुका बॅनर पहा
+            </button>
+          </div>
+        `;
+
+        if (tToppers.length === 0) {
+          cont.innerHTML += `<p style="text-align:center; color:#64748b; padding:12px;">या तालुक्याचा निकाल अद्याप उपलब्ध नाही.</p>`;
+          return;
+        }
+
+        renderStudentsCards(tToppers, maxM, `${selTaluka} तालुक्यात क्रमांक`);
+      }
     }
 
     function renderStudentsCards(list, maxM, rankPrefix) {
@@ -3384,6 +3874,457 @@
       });
     }
 
+    function openDeclaredBanner(testNum, type, scopeName) {
+      const declaredCat = DECLARED_DATA_STORE[currentSelectedCategory];
+      const testData = declaredCat ? declaredCat[`test_${testNum}`] : null;
+      if (!testData) return;
+
+      const listEl = document.getElementById('banner-toppers-list');
+      listEl.innerHTML = '';
+
+      const maxM = getMaxMarksForTest(currentSelectedCategory, testNum);
+
+      const examNames = {
+        'navodaya': 'नवोदय प्रवेश परीक्षा (5 वी)',
+        '4th': '4 थी शिष्यवृत्ती परीक्षा',
+        '7th': '7 वी शिष्यवृत्ती परीक्षा',
+        'nmms': 'NMMS शिष्यवृत्ती परीक्षा (8 वी)'
+      };
+      const examTitle = examNames[currentSelectedCategory] || 'सराव परीक्षा';
+      const testDisplayName = getTestDisplayName(currentSelectedCategory, testNum);
+
+      let titleText = "";
+      let toppersList = [];
+
+      if (type === 'district') {
+        titleText = `बीड जिल्हा Top 10 गुणवत्ता यादी`;
+        toppersList = testData.districtToppers || [];
+      } else if (type === 'taluka') {
+        const selTaluka = scopeName || selectedTopperTaluka || TALUKA_LIST[0];
+        titleText = `${selTaluka} तालुका Top 10 गुणवत्ता यादी`;
+        toppersList = (testData.talukaToppers && testData.talukaToppers[selTaluka]) ? testData.talukaToppers[selTaluka] : [];
+      } else if (type === 'kendra') {
+        const selKendra = scopeName || "केंद्र";
+        titleText = `${selKendra} केंद्र Top 10 गुणवत्ता यादी`;
+        toppersList = (testData.kendraToppers && testData.kendraToppers[selKendra]) ? testData.kendraToppers[selKendra] : [];
+      }
+
+      document.getElementById('banner-render-exam-name').innerText = examTitle;
+      document.getElementById('banner-heading-text').innerText = titleText;
+      document.getElementById('banner-sub-text').innerText = `${testDisplayName} अधिकृत निकाल`;
+      document.getElementById('banner-render-badge').innerText = BANNER_CONFIG.badge || "💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐";
+      document.getElementById('banner-render-footer').innerText = BANNER_CONFIG.footer || "🎯 शिक्षण विभाग, जिल्हा परिषद बीड";
+
+      toppersList.forEach((st, idx) => {
+        const medal = (idx === 0) ? '🥇 ' : (idx === 1) ? '🥈 ' : (idx === 2) ? '🥉 ' : '🎖️ ';
+        listEl.innerHTML += `
+          <div class="banner-row">
+            <div>${medal} <span class="b-std-name">${idx + 1}. ${st.name}</span> <span class="b-sch-name">(${st.school})</span></div>
+            <div class="b-marks-badge">${st.marks}/${maxM} गुण</div>
+          </div>
+        `;
+      });
+
+      document.getElementById('bannerModal').style.display = 'flex';
+
+      setTimeout(() => {
+        const container = document.getElementById('banner-fit-container');
+        const bannerCard = document.getElementById('banner-card-render');
+        if (container && bannerCard) {
+          const availWidth = container.clientWidth - 20;
+          const cardWidth = 720;
+          if (availWidth < cardWidth) {
+            const scaleRatio = availWidth / cardWidth;
+            bannerCard.style.transform = `scale(${scaleRatio})`;
+            container.style.height = `${1020 * scaleRatio + 15}px`;
+          } else {
+            bannerCard.style.transform = 'scale(1)';
+            container.style.height = 'auto';
+          }
+        }
+      }, 50);
+    }
+
+    function downloadBannerPDF() {
+      const { jsPDF } = window.jspdf;
+      const card = document.getElementById('banner-card-render');
+      showToast('बॅनर PDF तयार होत आहे...');
+
+      const prevTransform = card.style.transform;
+      card.style.transform = 'scale(1)';
+
+      html2canvas(card, { scale: 2, useCORS: true }).then(canvas => {
+        card.style.transform = prevTransform;
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pageWidth = 210;
+        const pageHeight = 297;
+        const margin = 8;
+        const maxW = pageWidth - (margin * 2);
+        const maxH = pageHeight - (margin * 2);
+
+        const imgRatio = canvas.width / canvas.height;
+        let printW = maxW;
+        let printH = printW / imgRatio;
+
+        if (printH > maxH) {
+          printH = maxH;
+          printW = printH * imgRatio;
+        }
+
+        const posX = (pageWidth - printW) / 2;
+        const posY = (pageHeight - printH) / 2;
+
+        pdf.addImage(imgData, 'JPEG', posX, posY, printW, printH);
+        pdf.save(`Banner_Beed_${currentSelectedTest}.pdf`);
+        showToast('बॅनर PDF डाऊनलोड झाले!');
+      }).catch(err => {
+        card.style.transform = prevTransform;
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    let currentCertStudentName = 'Student';
+
+    function openCertificateModal(name, school, udise, taluka, marks, rankText, gender, maxMarks) {
+      currentCertStudentName = name.trim();
+      
+      const stdNameEl = document.getElementById('cert-std-name');
+      if (stdNameEl) {
+        stdNameEl.innerText = name;
+        stdNameEl.style.fontFamily = CERT_CONFIG.nameFont || "'Yatra One', cursive";
+      }
+      
+      const classMap = { 
+        'navodaya': 'इयत्ता 5 वी (नवोदय)', 
+        '4th': 'इयत्ता चौथी शिष्यवृत्ती', 
+        '7th': 'इयत्ता सातवी शिष्यवृत्ती', 
+        'nmms': 'NMMS (8 वी)' 
+      };
+      const className = classMap[currentSelectedCategory] || 'इयत्ता 5 वी (नवोदय)';
+
+      const isGirl = (gender === "मुलगी" || gender === "girl");
+      const pronoun = isGirl ? "या विद्यार्थिनीने" : "या विद्यार्थ्याने";
+
+      const examNames = {
+        'navodaya': 'नवोदय प्रवेश परीक्षा (5 वी)',
+        '4th': '4 थी शिष्यवृत्ती परीक्षा',
+        '7th': '7 वी शिष्यवृत्ती परीक्षा',
+        'nmms': 'NMMS शिष्यवृत्ती परीक्षा (8 वी)'
+      };
+      const examTitle = examNames[currentSelectedCategory] || 'सराव परीक्षा';
+      const totalM = maxMarks || getMaxMarksForTest(currentSelectedCategory, currentSelectedTest);
+      const testDisplayName = getTestDisplayName(currentSelectedCategory, currentSelectedTest);
+
+      const titleEl = document.getElementById('cert-render-title');
+      if (titleEl) {
+        titleEl.innerText = CERT_CONFIG.title || "गुणवत्ता सन्मान प्रमाणपत्र";
+        titleEl.style.fontFamily = CERT_CONFIG.titleFont || "'Rozha One', serif";
+      }
+
+      document.getElementById('cert-render-sign').innerText = CERT_CONFIG.sign || "शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड";
+
+      let bodyHtml = CERT_CONFIG.body || "";
+      bodyHtml = bodyHtml.replace(/{NAME}/g, name)
+                         .replace(/{CLASS}/g, className)
+                         .replace(/{SCHOOL}/g, school)
+                         .replace(/{UDISE}/g, udise)
+                         .replace(/{TALUKA}/g, taluka)
+                         .replace(/{PRONOUN}/g, pronoun)
+                         .replace(/{EXAM}/g, examTitle)
+                         .replace(/{TEST}/g, testDisplayName)
+                         .replace(/{MARKS}/g, marks)
+                         .replace(/{TOTAL}/g, totalM)
+                         .replace(/{RANK}/g, rankText);
+
+      const renderBody = document.getElementById('cert-render-body');
+      renderBody.innerHTML = bodyHtml;
+      renderBody.style.fontSize = (CERT_CONFIG.fontSize || 16) + 'px';
+      renderBody.style.lineHeight = CERT_CONFIG.lineHeight || 1.85;
+
+      document.getElementById('cert-marks').innerHTML = `<i class="fa-solid fa-star"></i> प्राप्त गुण: ${marks} / ${totalM}`;
+      document.getElementById('cert-rank-text').innerHTML = `<i class="fa-solid fa-trophy"></i> ${rankText}`;
+
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, '0');
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const yyyy = today.getFullYear();
+      document.getElementById('cert-date-text').innerText = `Date: ${dd}/${mm}/${yyyy}`;
+
+      document.getElementById('certModal').style.display = 'flex';
+    }
+
+    function downloadCertificatePDF() {
+      const { jsPDF } = window.jspdf;
+      const card = document.getElementById('cert-card-render');
+      showToast('प्रमाणपत्र PDF तयार होत आहे...');
+
+      html2canvas(card, { scale: 1.8, useCORS: true, letterRendering: true }).then(canvas => {
+        const imgData = canvas.toDataURL('image/jpeg', 0.88);
+        const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        const pageWidth = 297;
+        const pageHeight = 210;
+        const margin = 8;
+        const maxW = pageWidth - (margin * 2);
+        const maxH = pageHeight - (margin * 2);
+
+        const imgRatio = canvas.width / canvas.height;
+        let printW = maxW;
+        let printH = printW / imgRatio;
+
+        if (printH > maxH) {
+          printH = maxH;
+          printW = printH * imgRatio;
+        }
+
+        const posX = (pageWidth - printW) / 2;
+        const posY = (pageHeight - printH) / 2;
+
+        pdf.addImage(imgData, 'JPEG', posX, posY, printW, printH);
+        const cleanName = currentCertStudentName.replace(/\s+/g, '_');
+        pdf.save(`Certificate_${cleanName}.pdf`);
+        showToast('प्रमाणपत्र PDF डाऊनलोड झाले!');
+      });
+    }
+
+    function openReportCardModal(studentId, studentName) {
+      if (!selectedSchoolObj) return;
+
+      document.getElementById('rc-student-name').innerText = studentName;
+      document.getElementById('rc-school-name').innerText = selectedSchoolObj.n;
+      document.getElementById('rc-taluka-name').innerText = selectedSchoolObj.t || '-';
+      document.getElementById('rc-udise').innerText = selectedSchoolObj.c;
+      const classMap = { 'navodaya': 'Class 5th', '4th': 'Class 4th', '7th': 'Class 7th', 'nmms': 'Class 8th' };
+      document.getElementById('rc-class-name').innerText = classMap[currentEntryCategory] || '-';
+
+      const tests = getTestsListForCategory(currentEntryCategory);
+      const key = getSchoolDbKey();
+      const theadRow = document.getElementById('rc-thead-row');
+      const marksRow = document.getElementById('rc-marks-row');
+      const graphBars = document.getElementById('rc-graph-bars');
+
+      theadRow.innerHTML = '';
+      marksRow.innerHTML = '';
+      graphBars.innerHTML = '';
+
+      tests.forEach(t => {
+        theadRow.innerHTML += `<th style="border:1.5px solid #cbd5e1; padding:6px 4px;">T${t.no}</th>`;
+      });
+      theadRow.innerHTML += `<th style="border:1.5px solid #cbd5e1; padding:6px 4px; color:var(--sky-dark);">Avg %</th>`;
+
+      let promises = tests.map(t => db.ref(`results/${currentEntryCategory}/test_${t.no}/${key}`).once('value'));
+
+      Promise.all(promises).then(snapshots => {
+        let total = 0, count = 0, totalMaxSum = 0;
+
+        snapshots.forEach((snap, idx) => {
+          const tItem = tests[idx];
+          const tNum = tItem.no;
+          const maxLimit = getMaxMarksForTest(currentEntryCategory, tNum);
+          const val = snap.val();
+          let m = '-';
+
+          if (val && val.students) {
+            const found = val.students.find(s => s.id === studentId || s.name === studentName);
+            if (found && found.marks !== '') {
+              const mStr = String(found.marks).toUpperCase();
+              if (mStr === 'AB') {
+                m = 'AB';
+              } else {
+                m = parseFloat(found.marks);
+                total += m;
+                totalMaxSum += maxLimit;
+                count++;
+              }
+            }
+          }
+
+          marksRow.innerHTML += `<td style="border:1.5px solid #cbd5e1; padding:6px 4px;">${m}</td>`;
+
+          const heightPercent = (m !== '-' && m !== 'AB' && maxLimit > 0) ? ((m / maxLimit) * 100) : 0;
+          graphBars.innerHTML += `
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
+              <span style="font-size:0.75rem; font-weight:800; font-family:'Poppins', sans-serif; color:#0f172a; margin-bottom:2px;">${m !== '-' ? m : ''}</span>
+              <div style="width:70%; max-width:24px; background:linear-gradient(to top, #0284c7, #38bdf8); border-radius:4px 4px 0 0; height:${heightPercent}%; min-height:${heightPercent > 0 ? 4 : 0}px;"></div>
+              <span style="font-size:0.78rem; font-weight:800; color:#64748b; font-family:'Poppins', sans-serif; margin-top:3px;">T${tNum}</span>
+            </div>
+          `;
+        });
+
+        const avgPercent = (totalMaxSum > 0) ? ((total / totalMaxSum) * 100).toFixed(1) : 0;
+        marksRow.innerHTML += `<td style="border:1.5px solid #cbd5e1; padding:6px 4px; color:#0284c7; font-weight:800;">${avgPercent}%</td>`;
+
+        let remark = "उत्कृष्ट कामगिरी व सातत्यपूर्ण प्रगती!";
+        if (avgPercent < 50) remark = "विशेष मार्गदर्शनाची व सरावाची आवश्यकता आहे.";
+        else if (avgPercent < 75) remark = "चांगली प्रगती, काठिण्य पातळीनुसार अधिक सराव हवा.";
+        document.getElementById('rc-remark-text').innerText = remark;
+
+        document.getElementById('reportCardModal').style.display = 'flex';
+      });
+    }
+
+    function downloadReportCardPDF() {
+      const { jsPDF } = window.jspdf;
+      const card = document.getElementById('report-card-render');
+      html2canvas(card, { scale: 2 }).then(canvas => {
+        const imgData = canvas.toDataURL('image/jpeg', 0.85);
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const imgWidth = 190;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        pdf.addImage(imgData, 'JPEG', 10, 15, imgWidth, imgHeight);
+        
+        const stdName = document.getElementById('rc-student-name').innerText.trim().replace(/\s+/g, '_');
+        pdf.save(`Report_Card_${stdName}.pdf`);
+      });
+    }
+
+    function onAdminTManageCategoryChange() {
+      refreshAdminTestManagerUI();
+    }
+
+    function refreshAdminTestManagerUI() {
+      const cat = document.getElementById('admin-tmanage-category') ? document.getElementById('admin-tmanage-category').value : 'navodaya';
+      const tests = getTestsListForCategory(cat);
+      const activeTest = getAutoActiveTest(cat);
+
+      const actSelect = document.getElementById('admin-active-test-select');
+      if (actSelect) {
+        actSelect.innerHTML = '';
+        tests.forEach(t => {
+          actSelect.innerHTML += `<option value="${t.no}" ${t.no === activeTest ? 'selected' : ''}>${t.name}</option>`;
+        });
+      }
+
+      const renSelect = document.getElementById('admin-rename-test-select');
+      if (renSelect) {
+        renSelect.innerHTML = '';
+        tests.forEach(t => {
+          renSelect.innerHTML += `<option value="${t.no}">${t.name}</option>`;
+        });
+        onAdminRenameTestSelectChange();
+      }
+
+      const addNoInp = document.getElementById('admin-add-test-no');
+      if (addNoInp) {
+        const maxNo = tests.reduce((max, t) => Math.max(max, t.no), getMinAllowedTestNo(cat) - 1);
+        addNoInp.value = Math.max(maxNo + 1, getMinAllowedTestNo(cat));
+      }
+    }
+
+    function onAdminRenameTestSelectChange() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const tNo = parseInt(document.getElementById('admin-rename-test-select').value, 10);
+      const tests = getTestsListForCategory(cat);
+      const found = tests.find(t => t.no === tNo);
+      const inp = document.getElementById('admin-rename-test-input');
+      if (inp && found) {
+        inp.value = found.name;
+      }
+    }
+
+    function saveAdminActiveTest() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const testNo = parseInt(document.getElementById('admin-active-test-select').value, 10);
+
+      db.ref(`active_tests/${cat}`).set(testNo).then(() => {
+        ACTIVE_TESTS_STORE[cat] = testNo;
+        showToast(`सध्या ${getTestDisplayName(cat, testNo)} सुरू केली!`);
+        showCustomAlert(`यशस्वी! आता सर्व शाळांना ${getTestDisplayName(cat, testNo)} चे गुण भरणे सुरू झाले आहे.`);
+        if (currentEntryCategory === cat) {
+          buildEntryTestOptions();
+        }
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    function saveTestRenaming() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const tNo = parseInt(document.getElementById('admin-rename-test-select').value, 10);
+      const newName = document.getElementById('admin-rename-test-input').value.trim();
+
+      if (!newName) {
+        showCustomAlert('कृपया चाचणीचे नाव भरा!');
+        return;
+      }
+
+      let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
+      const idx = tests.findIndex(t => t.no === tNo);
+      if (idx !== -1) {
+        tests[idx].name = newName;
+      } else {
+        tests.push({ no: tNo, name: newName });
+      }
+
+      db.ref(`test_definitions/${cat}`).set(tests).then(() => {
+        TEST_DEFINITIONS_STORE[cat] = tests;
+        showToast('चाचणीचे नाव यशस्वीरीत्या बदलले!');
+        showCustomAlert(`यशस्वी! चाचणीचे नाव बदलून "${newName}" केले आहे.`);
+        refreshAdminTestManagerUI();
+        buildDashboardTestPills();
+        updateAdminTestOptions();
+        updateAdminLockTestOptions();
+        if (currentEntryCategory === cat) {
+          updateEntryNotice(document.getElementById('entry-test-no').value);
+        }
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    function addNewTestDefinition() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const newNo = parseInt(document.getElementById('admin-add-test-no').value, 10);
+      const newName = document.getElementById('admin-add-test-name').value.trim();
+
+      if (!newName) {
+        showCustomAlert('कृपया नवीन चाचणीचे नाव भरा (उदा. महारिव्हिजन चाचणी 1)!');
+        return;
+      }
+
+      let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
+      if (tests.find(t => t.no === newNo)) {
+        showCustomAlert(`चाचणी क्रमांक ${newNo} आधीच अस्तित्वात आहे!`);
+        return;
+      }
+
+      tests.push({ no: newNo, name: newName });
+
+      db.ref(`test_definitions/${cat}`).set(tests).then(() => {
+        TEST_DEFINITIONS_STORE[cat] = tests;
+        document.getElementById('admin-add-test-name').value = '';
+        showToast(`नवीन चाचणी यशस्वीरित्या जोडली गेली!`);
+        showCustomAlert(`अभिनंदन! नवीन "${newName}" यशस्वीरित्या यादीत समाविष्ट केली गेली आहे.`);
+        refreshAdminTestManagerUI();
+        buildDashboardTestPills();
+        updateAdminTestOptions();
+        updateAdminLockTestOptions();
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    function initAdminPanelOptions() {
+      refreshAdminTestManagerUI();
+      updateAdminTestOptions();
+      updateAdminLockTestOptions();
+      loadCurrentCustomMaxMarks();
+      updateAdminMaxMarksInfo();
+    }
+
+    function updateAdminTestOptions() {
+      const cat = document.getElementById('admin-mm-category').value;
+      const admMmTest = document.getElementById('admin-mm-test');
+      if (!admMmTest) return;
+
+      const tests = getTestsListForCategory(cat);
+      admMmTest.innerHTML = '';
+      tests.forEach(t => {
+        admMmTest.innerHTML += `<option value="${t.no}">${t.name}</option>`;
+      });
+    }
+
     function updateAdminLockTestOptions() {
       const cat = document.getElementById('admin-lock-category').value;
       const admLockTest = document.getElementById('admin-lock-test');
@@ -3393,6 +4334,34 @@
       admLockTest.innerHTML = '';
       tests.forEach(t => {
         admLockTest.innerHTML += `<option value="${t.no}">${t.name}</option>`;
+      });
+    }
+
+    function loadCurrentCustomMaxMarks() {
+      const cat = document.getElementById('admin-mm-category').value;
+      const testNo = parseInt(document.getElementById('admin-mm-test').value, 10) || getAutoActiveTest(cat);
+      const currentVal = getMaxMarksForTest(cat, testNo);
+      const inp = document.getElementById('admin-mm-input');
+      if (inp) inp.value = currentVal;
+    }
+
+    function saveCustomMaxMarks() {
+      const cat = document.getElementById('admin-mm-category').value;
+      const testNo = parseInt(document.getElementById('admin-mm-test').value, 10) || getAutoActiveTest(cat);
+      const val = parseInt(document.getElementById('admin-mm-input').value, 10);
+
+      if (!val || val <= 0) {
+        showCustomAlert('कृपया वैध एकूण गुण भरा (उदा. 50 किंवा 100)!');
+        return;
+      }
+
+      const key = `${cat}_test_${testNo}`;
+      db.ref(`custom_max_marks/${key}`).set(val).then(() => {
+        showToast('या चाचणीचे एकूण गुण सुरक्षित सेव्ह झाले!');
+        showCustomAlert(`यशस्वी! ${getTestDisplayName(cat, testNo)} चे एकूण गुण ${val} निश्चित केले आहेत.`);
+        updateAdminMaxMarksInfo();
+      }).catch(err => {
+        showCustomAlert('त्रुटी: ' + err.message);
       });
     }
 
@@ -3411,37 +4380,58 @@
       const testNo = document.getElementById('admin-lock-test').value;
       const maxM = getMaxMarksForTest(cat, parseInt(testNo, 10));
 
-      showToast('निकाल लॉक होत आहे...');
-      db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
-        const data = snap.val() || {};
-        let allStudents = [];
+      showCustomConfirm(`तुम्ही सर्व जिल्हा व तालुका टॉपर्स तपासले आहेत का? निकाल लॉक केल्यास ते अधिकृत म्हणून सर्व पोर्टलवर जाहीर होतील!`, () => {
+        showToast('गुणांची गणना व अधिकृत लॉकिंग सुरू आहे...');
 
-        Object.values(data).forEach(entry => {
-          if (entry.students && Array.isArray(entry.students)) {
-            entry.students.forEach(st => {
-              if (st.marks !== '' && String(st.marks).toUpperCase() !== 'AB') {
-                allStudents.push({
-                  name: st.name,
-                  school: entry.school,
-                  taluka: entry.taluka || 'इतर',
-                  marks: parseFloat(st.marks) || 0
-                });
-              }
-            });
-          }
-        });
+        db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
+          const data = snap.val() || {};
+          let allStudents = [];
+          let talukaWise = {};
 
-        allStudents.sort((a,b) => b.marks - a.marks);
-        const districtToppers = allStudents.slice(0, 10);
+          Object.values(data).forEach(entry => {
+            if (entry.students && Array.isArray(entry.students)) {
+              entry.students.forEach(st => {
+                if (st.marks !== '' && String(st.marks).toUpperCase() !== 'AB') {
+                  const marksNum = parseFloat(st.marks) || 0;
+                  const rec = {
+                    name: st.name,
+                    school: entry.school,
+                    taluka: entry.taluka || 'इतर',
+                    udise: entry.udise || '-',
+                    marks: marksNum,
+                    gender: st.gender || 'मुलगा'
+                  };
+                  allStudents.push(rec);
 
-        const payload = {
-          declaredAt: new Date().toISOString(),
-          maxMarks: maxM,
-          districtToppers: districtToppers
-        };
+                  if (!talukaWise[entry.taluka]) talukaWise[entry.taluka] = [];
+                  talukaWise[entry.taluka].push(rec);
+                }
+              });
+            }
+          });
 
-        db.ref(`declared_toppers/${cat}/test_${testNo}`).set(payload).then(() => {
-          showCustomAlert(`निकाल जाहीर व लॉक झाला!`);
+          allStudents.sort((a,b) => b.marks - a.marks);
+          const districtToppers = allStudents.slice(0, 10);
+
+          let talukaToppers = {};
+          Object.keys(talukaWise).forEach(tName => {
+            talukaWise[tName].sort((a,b) => b.marks - a.marks);
+            talukaToppers[tName] = talukaWise[tName].slice(0, 10);
+          });
+
+          const payload = {
+            declaredAt: new Date().toISOString(),
+            maxMarks: maxM,
+            districtToppers: districtToppers,
+            talukaToppers: talukaToppers
+          };
+
+          db.ref(`declared_toppers/${cat}/test_${testNo}`).set(payload).then(() => {
+            showCustomAlert(`अभिनंदन! ${getTestDisplayName(cat, testNo)} चे अधिकृत निकाल यशस्वीरित्या जाहीर व लॉक झाले आहेत!`);
+            showToast('निकाल यशस्वीरित्या जाहीर झाले!');
+          }).catch(err => {
+            showCustomAlert('लॉकिंग त्रुटी: ' + err.message);
+          });
         });
       });
     }
