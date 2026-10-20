@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>नवोदय OMR व्यावसायिक स्कॅनर</title>
+  <title>शिष्यवृत्ती 25 प्रश्न OMR अचूक स्कॅनर</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;700;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -73,15 +73,15 @@
 <body>
 
   <div class="header-box">
-    <h2><i class="fa-solid fa-file-shield"></i> OMR व्यावसायिक तपासणी कक्ष</h2>
+    <h2><i class="fa-solid fa-file-shield"></i> शिष्यवृत्ती (25 प्रश्न) OMR स्कॅनर</h2>
     <div class="std-badge" id="std-display">विद्यार्थी: लोड होत आहे...</div>
-    <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: लोड होत आहे...</div>
+    <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: तपासत आहे...</div>
   </div>
 
   <div class="preview-frame" id="preview-frame">
     <div class="action-prompt" id="action-prompt">
       <i class="fa-solid fa-camera-retro"></i>
-      <p>ओएमआर शीटचा स्पष्ट फोटो निवडा:</p>
+      <p>शिष्यवृत्ती OMR शीटचा फोटो निवडा:</p>
       <div class="choice-btns">
         <button class="choice-btn" onclick="document.getElementById('camera-input').click()">
           <i class="fa-solid fa-camera"></i> कॅमेरा फोटो
@@ -102,23 +102,23 @@
 
   <div class="summary-card" id="summary-card">
     <div style="font-weight:800; color:#059669; border-bottom:1.5px solid #e2e8f0; padding-bottom:4px;">
-      <i class="fa-solid fa-square-poll-vertical"></i> OMR अचूक तपासणी गोशवारा:
+      <i class="fa-solid fa-square-poll-vertical"></i> शिष्यवृत्ती OMR तपासणी गोशवारा:
     </div>
     <div class="summary-grid">
-      <div class="sum-item">सोडवलेले: <strong id="sum-attempted" style="font-family:'Poppins';">--/80</strong></div>
+      <div class="sum-item">सोडवलेले: <strong id="sum-attempted" style="font-family:'Poppins';">--/25</strong></div>
       <div class="sum-item" style="color:#16a34a;">बरोबर: <strong id="sum-correct" style="font-family:'Poppins';">--</strong></div>
       <div class="sum-item" style="color:#dc2626;">चुकीचे: <strong id="sum-wrong" style="font-family:'Poppins';">--</strong></div>
       <div class="sum-item" style="color:#d97706;">दुहेरी/अवैध: <strong id="sum-invalid" style="font-family:'Poppins';">--</strong></div>
     </div>
     <div class="score-banner">
-      <span>अंतिम गुण (प्रत्येकी १.२५ गुण):</span>
-      <span id="sum-score" style="font-size:1.3rem; font-family:'Poppins'; color:#fef08a;">--/100</span>
+      <span>एकूण गुण (प्रत्येकी २ गुण):</span>
+      <span id="sum-score" style="font-size:1.3rem; font-family:'Poppins'; color:#fef08a;">--/50</span>
     </div>
   </div>
 
   <div class="btn-wrap">
     <button class="btn btn-cancel" onclick="window.close()"><i class="fa-solid fa-xmark"></i> रद्द करा</button>
-    <button class="btn btn-analyze" id="btn-analyze" onclick="executeAdvancedOmrScan()"><i class="fa-solid fa-microchip"></i> OMR शीट तपासा व निकाल पहा</button>
+    <button class="btn btn-analyze" id="btn-analyze" onclick="executeScholarshipScan()"><i class="fa-solid fa-microchip"></i> 25 प्रश्न OMR तपासा</button>
     <button class="btn btn-submit" id="btn-submit" onclick="submitScoreAndClose()"><i class="fa-solid fa-check"></i> गुण सबमिट करा</button>
   </div>
 
@@ -126,7 +126,6 @@
     const urlParams = new URLSearchParams(window.location.search);
     const studentId = urlParams.get('id');
     const studentName = decodeURIComponent(urlParams.get('name') || 'विद्यार्थी');
-    const testNo = urlParams.get('test') || '6';
 
     document.getElementById('std-display').innerText = `विद्यार्थी: ${studentName}`;
 
@@ -134,9 +133,10 @@
     let loadedImageElement = null;
     let isOpenCvReady = false;
     
+    // २५ प्रश्नांची उत्तरतालिका लोड करणे
     const rawKeys = JSON.parse(localStorage.getItem('omr_saved_key') || '{}');
     const savedKeys = {};
-    for (let i = 1; i <= 80; i++) {
+    for (let i = 1; i <= 25; i++) {
       if (rawKeys[i]) {
         savedKeys[i] = String(rawKeys[i]).trim().toUpperCase();
       }
@@ -175,8 +175,8 @@
       reader.readAsDataURL(file);
     }
 
-    // व्यावसायिक लेव्हलचे ऑटोमॅटिक अलाइनमेंट व स्कॅनिंग इंजिन
-    function executeAdvancedOmrScan() {
+    // शिष्यवृत्ती 25 प्रश्नांच्या शीटसाठी अचूक स्कॅनिंग इंजिन
+    function executeScholarshipScan() {
       if (!loadedImageElement) {
         alert("कृपया प्रथम OMR शीटचा फोटो निवडा.");
         return;
@@ -184,7 +184,7 @@
 
       const analyzeBtn = document.getElementById('btn-analyze');
       analyzeBtn.disabled = true;
-      analyzeBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> अचूक तपासणी सुरू आहे...`;
+      analyzeBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> तपासणी सुरू आहे...`;
 
       setTimeout(() => {
         const canvas = document.getElementById('canvas');
@@ -195,118 +195,61 @@
         canvas.height = vHeight;
         ctx.drawImage(loadedImageElement, 0, 0, vWidth, vHeight);
 
+        const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
+        const pixels = imgData.data;
+
+        // शिष्यवृत्ती शीटवरील २५ प्रश्नांच्या रकान्यानुसार को-ऑर्डिनेट्स
+        const tableLeft = vWidth * 0.15;
+        const tableTop = vHeight * 0.52;
+        const tableWidth = vWidth * 0.70;
+        const tableHeight = vHeight * 0.40;
+
+        const rowHeight = tableHeight / 25;
+        const optLetters = ['A', 'B', 'C', 'D'];
         let studentAnswers = {};
 
-        if (isOpenCvReady) {
-          try {
-            let src = cv.imread(canvas);
-            let gray = new cv.Mat();
-            cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
+        for (let row = 0; row < 25; row++) {
+          const qNo = row + 1;
+          const qY = tableTop + (row + 0.5) * rowHeight;
+
+          let detectedForThisQ = [];
+          for (let optIdx = 0; optIdx < 4; optIdx++) {
+            // ४ पर्यायांचे अंतर
+            const bubbleX = tableLeft + (tableWidth * 0.35) + (optIdx * (tableWidth * 0.15));
             
-            let bin = new cv.Mat();
-            cv.threshold(gray, bin, 0, 255, cv.THRESH_BINARY_INV | cv.THRESH_OTSU);
-
-            // ओएमआर शीटच्या अचूक ग्रिड को-ऑर्डिनेट्सनुसार पिक्सेल तपासणी
-            const tableLeft = vWidth * 0.085;
-            const tableTop = vHeight * 0.355;
-            const tableWidth = vWidth * 0.835;
-            const tableHeight = vHeight * 0.595;
-
-            const colWidth = tableWidth / 4;
-            const rowHeight = tableHeight / 20;
-            const optLetters = ['A', 'B', 'C', 'D'];
-
-            for (let col = 0; col < 4; col++) {
-              for (let row = 0; row < 20; row++) {
-                const qNo = col * 20 + (row + 1);
-                const qY = tableTop + (row + 0.5) * rowHeight;
-                const qColX = tableLeft + col * colWidth;
-
-                let detectedForThisQ = [];
-                for (let optIdx = 0; optIdx < 4; optIdx++) {
-                  const bubbleX = qColX + (colWidth * 0.305) + (optIdx * (colWidth * 0.165));
-                  
-                  let roiRect = new cv.Rect(Math.floor(bubbleX - 5), Math.floor(qY - 5), 10, 10);
-                  let roi = bin.roi(roiRect);
-                  let nonZero = cv.countNonZero(roi);
-                  roi.delete();
-
-                  // जर वर्तुळात शाईचे प्रमाण पुरेसे असेल तर गोल भरलेला मानणे
-                  if (nonZero > 25) {
-                    detectedForThisQ.push(optLetters[optIdx]);
-                  }
-                }
-
-                if (detectedForThisQ.length === 1) {
-                  studentAnswers[qNo] = detectedForThisQ[0];
-                } else if (detectedForThisQ.length > 1) {
-                  studentAnswers[qNo] = 'INVALID';
-                } else {
-                  studentAnswers[qNo] = null;
+            let darkCount = 0, totalCount = 0;
+            for (let x = Math.floor(bubbleX - 4); x <= Math.floor(bubbleX + 4); x += 2) {
+              for (let y = Math.floor(qY - 4); y <= Math.floor(qY + 4); y += 2) {
+                if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
+                  const idx = (y * vWidth + x) * 4;
+                  const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
+                  if (brightness < 115) darkCount++;
+                  totalCount++;
                 }
               }
             }
-            src.delete(); gray.delete(); bin.delete();
-          } catch (e) {
-            console.error("OpenCV processing error, falling back to standard pixel reader:", e);
-          }
-        }
-
-        // जर OpenCV लोड झाले नसेल किंवा आपत्कालीन बॅकअप म्हणून स्टँडर्ड पिक्सेल तपासणी
-        if (Object.keys(studentAnswers).length === 0) {
-          const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
-          const pixels = imgData.data;
-
-          const tableLeft = vWidth * 0.085;
-          const tableTop = vHeight * 0.355;
-          const tableWidth = vWidth * 0.835;
-          const tableHeight = vHeight * 0.595;
-
-          const colWidth = tableWidth / 4;
-          const rowHeight = tableHeight / 20;
-          const optLetters = ['A', 'B', 'C', 'D'];
-
-          for (let col = 0; col < 4; col++) {
-            for (let row = 0; row < 20; row++) {
-              const qNo = col * 20 + (row + 1);
-              const qY = tableTop + (row + 0.5) * rowHeight;
-              const qColX = tableLeft + col * colWidth;
-
-              let detectedForThisQ = [];
-              for (let optIdx = 0; optIdx < 4; optIdx++) {
-                const bubbleX = qColX + (colWidth * 0.305) + (optIdx * (colWidth * 0.165));
-                
-                let darkCount = 0, totalCount = 0;
-                for (let x = Math.floor(bubbleX - 4); x <= Math.floor(bubbleX + 4); x += 2) {
-                  for (let y = Math.floor(qY - 4); y <= Math.floor(qY + 4); y += 2) {
-                    if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
-                      const idx = (y * vWidth + x) * 4;
-                      const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
-                      if (brightness < 115) darkCount++;
-                      totalCount++;
-                    }
-                  }
-                }
-                const ratio = totalCount > 0 ? (darkCount / totalCount) : 0;
-                if (ratio > 0.32) {
-                  detectedForThisQ.push(optLetters[optIdx]);
-                }
-              }
-
-              if (detectedForThisQ.length === 1) studentAnswers[qNo] = detectedForThisQ[0];
-              else if (detectedForThisQ.length > 1) studentAnswers[qNo] = 'INVALID';
-              else studentAnswers[qNo] = null;
+            const ratio = totalCount > 0 ? (darkCount / totalCount) : 0;
+            if (ratio > 0.32) {
+              detectedForThisQ.push(optLetters[optIdx]);
             }
           }
+
+          if (detectedForThisQ.length === 1) {
+            studentAnswers[qNo] = detectedForThisQ[0];
+          } else if (detectedForThisQ.length > 1) {
+            studentAnswers[qNo] = 'INVALID';
+          } else {
+            studentAnswers[qNo] = null;
+          }
         }
 
-        // उत्तरतालिका (Answer Key) सोबत तुलना करून गुण मोजणे
+        // उत्तरतालिका सोबत गुण मोजणी (प्रत्येकी २ गुण)
         let attemptedCount = 0;
         let correctCount = 0;
         let wrongCount = 0;
         let invalidCount = 0;
 
-        for (let q = 1; q <= 80; q++) {
+        for (let q = 1; q <= 25; q++) {
           const stdAns = studentAnswers[q];
           const correctAns = savedKeys[q];
 
@@ -323,20 +266,20 @@
           }
         }
 
-        calculatedMarks = parseFloat((correctCount * 1.25).toFixed(2));
+        calculatedMarks = correctCount * 2; // प्रत्येक प्रश्नाला २ गुण
 
-        document.getElementById('sum-attempted').innerText = `${attemptedCount}/80`;
+        document.getElementById('sum-attempted').innerText = `${attemptedCount}/25`;
         document.getElementById('sum-correct').innerText = correctCount;
         document.getElementById('sum-wrong').innerText = wrongCount;
         document.getElementById('sum-invalid').innerText = invalidCount;
-        document.getElementById('sum-score').innerText = `${calculatedMarks}/100`;
+        document.getElementById('sum-score').innerText = `${calculatedMarks}/50`;
 
         document.getElementById('summary-card').style.display = 'block';
         analyzeBtn.style.display = 'none';
         const submitBtn = document.getElementById('btn-submit');
         submitBtn.style.display = 'flex';
-        submitBtn.innerText = `गुण सबमिट करा (${calculatedMarks})`;
-      }, 600);
+        submitBtn.innerText = `गुण सबमिट करा (${calculatedMarks}/50)`;
+      }, 500);
     }
 
     function submitScoreAndClose() {
