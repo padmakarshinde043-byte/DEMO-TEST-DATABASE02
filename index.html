@@ -421,6 +421,7 @@
     .compact-marks-wrap:focus-within { border-color: var(--sky); box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15); }
     .compact-marks-input { width: 52px; height: 28px; text-align: center; font-size: 1.15rem; font-weight: 800; border: none; outline: none; background: transparent; font-family: 'Poppins', sans-serif; color: #0f172a; }
     .compact-marks-input.is-absent { color: var(--danger); font-weight: 800; background: #fef2f2; }
+    .compact-marks-input.invalid-mark { color: white !important; background: var(--danger) !important; border-radius: 4px; }
     .compact-denominator { font-size: 0.82rem; font-weight: 800; color: #64748b; font-family: 'Poppins', sans-serif; }
 
     .btn-compact-chart {
@@ -489,7 +490,7 @@
     .ak-opt-btn { width: 22px; height: 22px; border-radius: 50%; border: 1px solid #cbd5e1; background: white; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.1s; }
     .ak-opt-btn.active { background: #0284c7; color: white; border-color: #0369a1; }
 
-    /* Modal Styles - मूळ रुंदी ८४०px अबाधित ठेवली आहे */
+    /* Modal Styles - मूळ रुंदी ८४०px संपूर्णपणे अबाधित */
     .modal {
       display: none;
       position: fixed;
@@ -510,10 +511,6 @@
       overflow-y: auto;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       position: relative;
-    }
-    .omr-modal-compact {
-      max-width: 440px !important;
-      text-align: center;
     }
     .custom-dialog-box {
       background: white;
@@ -674,7 +671,7 @@
     .school-record-table th, .school-record-table td { border: 1.5px solid #334155; padding: 5px 8px; font-size: 0.98rem; }
     .school-record-table th { background: #f1f5f9; font-weight: 800; text-align: center; }
 
-    /* उभी आयताकृती कॅमेरा फ्रेम (नवीन लाइव्ह डायनॅमिक बॉर्डर - रेड/ग्रीन) */
+    /* उभी आयताकृती कॅमेरा फ्रेम (रेड ते ग्रीन लाईव्ह इंडिकेटर) */
     .omr-camera-portrait-frame {
       position: relative;
       width: 100%;
@@ -687,7 +684,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 3.5px solid #ef4444; /* सुरुवातीला RED */
+      border: 3.5px solid #ef4444; /* सुरुवातीला लाल फ्रेम */
       box-shadow: 0 4px 18px rgba(239, 68, 68, 0.35);
       transition: all 0.25s ease-in-out;
     }
@@ -1447,9 +1444,276 @@
     </button>
   </nav>
 
-  <!-- ================= OMR CAMERA SCANNER MODAL (उभी फ्रेम, रेड-टू-ग्रीन लाइव्ह डिटेक्शन व गोशवारा) ================= -->
+  <!-- ================= MODALS & DIALOGS ================= -->
+
+  <!-- ॲडमिन निकाल पूर्व-तपासणी मोडल -->
+  <div class="modal" id="preLockReviewModal">
+    <div class="modal-content" style="max-width:750px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1.5px solid var(--border); padding-bottom:6px;">
+        <h3 style="color:#0f2b5c; font-size:1.08rem;">
+          <i class="fa-solid fa-clipboard-check" style="color:var(--accent-green);"></i> निकाल पूर्व-तपासणी (तात्पुरते जिल्हा व तालुका टॉपर्स)
+        </h3>
+        <button onclick="closeModal('preLockReviewModal')" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
+      </div>
+
+      <div style="margin-bottom:10px; display:flex; gap:6px; overflow-x:auto;">
+        <button class="app-btn btn-primary" style="height:36px; font-size:0.88rem;" onclick="renderPreLockDistrictReview()">बीड जिल्हा Toppers</button>
+        <select class="form-control" id="pre-lock-taluka-select" style="height:36px; font-size:0.88rem; width:auto; font-weight:700;" onchange="renderPreLockTalukaReview(this.value)">
+          <option value="">-- तालुका Toppers निवडा --</option>
+        </select>
+      </div>
+
+      <div id="pre-lock-content-area" style="max-height:60vh; overflow-y:auto; padding:4px;"></div>
+
+      <div style="margin-top:14px; display:flex; justify-content:flex-end; gap:8px;">
+        <button class="app-btn btn-outline" style="width:auto; padding:0 18px;" onclick="closeModal('preLockReviewModal')">मागे जा</button>
+        <button class="app-btn btn-success" style="width:auto; padding:0 22px;" onclick="closeModal('preLockReviewModal'); declareAndLockResults();">
+          <i class="fa-solid fa-shield-halved"></i> सर्व बरोबर आहे, निकाल लॉक करा
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- शाळा सुरक्षा पिन मोडल -->
+  <div class="modal" id="schoolPinModal">
+    <div class="custom-dialog-box">
+      <div class="custom-dialog-header" style="color:#0369a1;">
+        <i class="fa-solid fa-shield-halved" style="color:#0284c7;"></i>
+        <span id="pinModalTitle">शाळा सुरक्षा पिन</span>
+      </div>
+      <p id="pinModalDesc" style="font-size:0.88rem; color:#64748b; margin-bottom:10px; line-height:1.4;">
+        कृपया या शाळेचा 4-अंकी सुरक्षा पिन टाका:
+      </p>
+
+      <div class="form-group" id="groupHmMobileReg" style="display:none; margin-bottom:8px;">
+        <label style="text-align:left; font-size:0.84rem; color:#0f172a;"><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> मुख्याध्यापकांचा अधिकृत WhatsApp नंबर:</label>
+        <input type="tel" id="inputHmMobileReg" maxlength="10" class="form-control" placeholder="10-अंकी मोबाईल नंबर" style="text-align:center; font-size:1.02rem; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
+      <div class="form-group" style="margin-bottom:10px;">
+        <label id="labelSchoolPin" style="text-align:left; font-size:0.84rem; color:#0f172a; display:none;">4-अंकी सुरक्षा पिन सेट करा:</label>
+        <input type="password" id="inputSchoolPin" maxlength="4" class="form-control" placeholder="••••" style="text-align:center; font-size:1.35rem; letter-spacing:6px; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
+      <p id="pinNoticeReg" style="display:none; font-size:0.76rem; color:#b45309; margin-bottom:10px; line-height:1.3; text-align:left; background:#fffbeb; padding:5px 8px; border-radius:6px; border:1px solid #fde68a;">
+        * सूचना: एका शाळेसाठी (UDISE) हाच पिन सर्व परीक्षांकरिता लागू राहील.
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <button class="app-btn btn-primary" onclick="verifyOrSetSchoolPin()">पुढे जा</button>
+        <button class="app-btn btn-outline" style="border-color:#cbd5e1; color:#64748b; height:36px; font-size:0.84rem;" onclick="cancelPinModal()">रद्द करा</button>
+        <a href="javascript:void(0)" id="btnForgotPin" onclick="openForgotPinModal()" style="font-size:0.82rem; color:#dc2626; text-decoration:underline; font-weight:700; margin-top:2px; display:none;">
+          पिन विसरलात का? (मुख्याध्यापक नंबरद्वारे रिसेट करा)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- पिन रिसेट मोडल -->
+  <div class="modal" id="forgotPinModal">
+    <div class="custom-dialog-box">
+      <div class="custom-dialog-header" style="color:#059669;">
+        <i class="fa-brands fa-whatsapp" style="color:#25d366; font-size:1.35rem;"></i>
+        <span>सुरक्षा पिन रिसेट</span>
+      </div>
+
+      <p style="font-size:0.86rem; color:#475569; margin-bottom:8px; line-height:1.35;">
+        पिन रिसेट करण्यासाठी शाळेच्या नोंदणीकृत <strong>मुख्याध्यापकांचा अधिकृत WhatsApp नंबर</strong> टाका:
+      </p>
+
+      <div id="hmMobileHintBox" style="background:#ecfdf5; border:1.5px dashed #059669; padding:6px 10px; border-radius:8px; margin-bottom:10px; font-size:0.86rem; color:#065f46; font-weight:700;">
+        <i class="fa-solid fa-lightbulb" style="color:#d97706;"></i> नोंदणीकृत नंबर हिंट: 
+        <span id="txtHmMobileMasked" style="font-family:'Poppins', sans-serif; font-size:1rem; letter-spacing:1.5px; color:#047857;">******----</span>
+      </div>
+
+      <div class="form-group" style="margin-bottom:8px;">
+        <input type="tel" id="inputVerifyHmMobile" maxlength="10" class="form-control" placeholder="नोंदणीकृत 10-अंकी मोबाईल नंबर" style="text-align:center; font-size:1.05rem; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
+      <div class="form-group" style="margin-bottom:12px;">
+        <input type="password" id="inputResetNewPin" maxlength="4" class="form-control" placeholder="नवीन 4-अंकी पिन" style="text-align:center; font-size:1.1rem; letter-spacing:5px; font-weight:800; font-family:'Poppins', sans-serif;">
+      </div>
+
+      <div style="display:flex; gap:6px;">
+        <button class="app-btn btn-outline" onclick="closeModal('forgotPinModal')">रद्द करा</button>
+        <button class="app-btn btn-primary" onclick="verifyMobileAndResetPin()">पिन बदला</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- कस्टम सूचना मोडल -->
+  <div class="modal" id="customNoticeModal">
+    <div class="custom-dialog-box">
+      <div class="custom-dialog-header" id="customNoticeHeader">
+        <i class="fa-solid fa-bell" style="color:var(--gold);"></i> 
+        <span>आवश्यक सूचना</span>
+      </div>
+      <div class="custom-dialog-body" id="customNoticeBody"></div>
+      <div id="customNoticeActions" style="display:flex; gap:8px; justify-content:center;"></div>
+    </div>
+  </div>
+
+  <!-- विद्यार्थी नाव बदल Modal -->
+  <div class="modal" id="editStudentModal">
+    <div class="modal-content" style="max-width:380px;">
+      <h3 style="margin-bottom:10px; font-size:1.08rem; color:#334155;"><i class="fa-solid fa-pen-to-square" style="color:var(--sky);"></i> विद्यार्थ्याचे नाव बदला</h3>
+      <input type="hidden" id="edit-std-id">
+      <div class="form-group">
+        <label>विद्यार्थ्याचे संपूर्ण नाव:</label>
+        <input type="text" id="edit-std-name" class="form-control" oninput="enforceMarathiText(this)">
+      </div>
+      <div class="form-group">
+        <label>लिंग</label>
+        <select id="edit-std-gender" class="form-control">
+          <option value="मुलगा">मुलगा</option>
+          <option value="मुलगी">मुलगी</option>
+        </select>
+      </div>
+      <div class="grid-2" style="margin-top:12px;">
+        <button class="app-btn btn-outline" onclick="closeModal('editStudentModal')">रद्द करा</button>
+        <button class="app-btn btn-primary" onclick="saveEditedStudent()">जतन करा</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- बॅनर Modal -->
+  <div class="modal" id="bannerModal">
+    <div class="modal-content" style="max-width:780px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1.5px solid var(--border); padding-bottom:6px; gap:6px;">
+        <h3 style="color:#b45309; font-size:1.02rem; white-space:nowrap;"><i class="fa-solid fa-award"></i> टॉपर्स गौरव बॅनर</h3>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <button class="app-btn btn-gold" style="height:36px; padding:0 12px; font-size:0.86rem; width:auto;" onclick="downloadBannerPDF()">
+            <i class="fa-solid fa-download"></i> बॅनर PDF डाऊनलोड
+          </button>
+          <button onclick="closeModal('bannerModal')" style="border:none; background:#f1f5f9; width:36px; height:36px; border-radius:8px; font-size:1.25rem; cursor:pointer; color:#64748b;">&times;</button>
+        </div>
+      </div>
+
+      <div class="banner-fit-wrapper" id="banner-fit-container">
+        <div class="banner-preview-box" id="banner-card-render">
+          <div class="banner-top-header">
+            <p class="banner-dept-title">जिल्हा परिषद, बीड — शिक्षण विभाग</p>
+            <div class="banner-exam-badge" id="banner-render-exam-name">सराव परीक्षा निकाल</div>
+            <h2 class="banner-heading-main" id="banner-heading-text">गुणवत्ता यादी Top 10</h2>
+            <p class="banner-subheading" id="banner-sub-text">चाचणी निकाल</p>
+            <div>
+              <span class="banner-congrats-tag" id="banner-render-badge">💐 हार्दिक अभिनंदन ! हार्दिक अभिनंदन ! 💐</span>
+            </div>
+          </div>
+          <div class="banner-topper-grid" id="banner-toppers-list"></div>
+          <div class="banner-footer-auth">
+            <span id="banner-render-footer">🎯 शिक्षण विभाग, जिल्हा परिषद बीड</span>
+            <span>🏆 जिल्हा परिषद बीड</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- प्रमाणपत्र Modal -->
+  <div class="modal" id="certModal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h3 style="color: var(--sky-dark); font-size: 1.05rem;"><i class="fa-solid fa-award"></i> गुणवत्ता सन्मान प्रमाणपत्र</h3>
+        <button onclick="closeModal('certModal')" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
+      </div>
+
+      <div class="cert-scroll-wrapper">
+        <div class="cert-container-box clean-certificate-render" id="cert-card-render">
+          <div class="draggable-element" id="render-cert-title-pos" style="text-align:center; width:560px; font-size:1.95rem; font-weight:800; color:#0f2b5c;">
+            <span id="cert-render-title">गुणवत्ता सन्मान प्रमाणपत्र</span>
+          </div>
+          <div class="draggable-element" id="render-cert-date-pos" style="font-size:0.86rem; font-weight:600; color:#334155; font-family:'Poppins', sans-serif;">
+            <span id="cert-date-text">Date: 15/10/2026</span>
+          </div>
+          <div class="draggable-element" id="render-cert-name-pos" style="width:710px; text-align:center; font-family:'Yatra One', cursive; font-size:1.75rem; color:#991b1b; text-decoration:underline;">
+            <span id="cert-std-name">Puja Pravin Patil</span>
+          </div>
+          <div class="draggable-element" id="render-cert-body-pos" style="width:710px; text-align:center; font-size:1.02rem; line-height:1.85; color:#1e293b; font-weight:500; word-spacing: 2px;">
+            <div id="cert-render-body"></div>
+          </div>
+          <div class="draggable-element" id="render-cert-badges-pos" style="width:710px; display:flex; justify-content:center; gap:20px;">
+            <div class="gold-capsule-badge" id="cert-marks">
+              <i class="fa-solid fa-star"></i> प्राप्त गुण: 99 / 100
+            </div>
+            <div class="gold-capsule-badge" id="cert-rank-text">
+              <i class="fa-solid fa-trophy"></i> सावरगाव केंद्रात क्रमांक #1
+            </div>
+          </div>
+          <div class="draggable-element" id="render-cert-ribbon-pos" style="width:710px; text-align:center;">
+            <div class="cert-congrats-ribbon">
+              ✨ आपण मिळवलेल्या या यशाबद्दल आपले हार्दिक अभिनंदन आणि उज्ज्वल भविष्याकरिता मन:पूर्वक शुभेच्छा! ✨
+            </div>
+          </div>
+          <div class="draggable-element" id="render-cert-sign-pos" style="text-align:right; font-size:0.88rem; font-weight:800; color:#0f2b5c;">
+            <span id="cert-render-sign">शिक्षणाधिकारी (प्राथमिक), जिल्हा परिषद बीड</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:12px;">
+        <button class="app-btn btn-outline" onclick="closeModal('certModal')">बंद करा</button>
+        <button class="app-btn btn-success" onclick="downloadCertificatePDF()"><i class="fa-solid fa-download"></i> प्रमाणपत्र PDF डाऊनलोड (A4 आडवा)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- प्रगती पुस्तक Modal -->
+  <div class="modal" id="reportCardModal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:8px;">
+        <h3 style="color: var(--sky-dark); font-size: 1.05rem;"><i class="fa-solid fa-chart-column"></i> सराव परीक्षा प्रगती पुस्तक</h3>
+        <button onclick="closeModal('reportCardModal')" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
+      </div>
+
+      <div class="report-card-container" id="report-card-render">
+        <div class="report-card-header" style="text-align:center; border-bottom:2px solid var(--sky); padding-bottom:6px; margin-bottom:8px;">
+          <h2 style="font-size:1.24rem; color:var(--sky-dark); font-weight:800;">जिल्हा परिषद बीड - शिक्षण विभाग</h2>
+          <p style="font-weight:700; font-size:0.92rem; color:#334155;" id="rc-header-desc">सराव चाचणी संकलित प्रगती पुस्तक</p>
+        </div>
+
+        <div class="report-meta-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:0.92rem; margin-bottom:10px; background:#f8fafc; padding:8px 12px; border-radius:8px; border:1px solid #e2e8f0;">
+          <div>विद्यार्थी: <strong id="rc-student-name">---</strong></div>
+          <div>शाळा: <strong id="rc-school-name">---</strong></div>
+          <div>तालुका: <strong id="rc-taluka-name">---</strong></div>
+          <div>वर्ग: <strong id="rc-class-name">---</strong></div>
+          <div>UDISE: <strong id="rc-udise" style="font-family:'Poppins', sans-serif;">---</strong></div>
+        </div>
+
+        <div class="table-responsive" style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; margin-bottom:8px;">
+            <thead>
+              <tr id="rc-thead-row" style="background:#f1f5f9; font-size:0.86rem; font-family:'Poppins', sans-serif; text-align:center;"></tr>
+            </thead>
+            <tbody>
+              <tr id="rc-marks-row" style="text-align:center; font-weight:700; font-family:'Poppins', sans-serif; font-size:0.95rem;"></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="font-weight:700; font-size:0.86rem; color:#475569; margin-top:8px;">📈 प्रगती आलेख (Trend Graph):</p>
+        <div class="progress-bar-container" id="rc-graph-bars" style="display:flex; gap:6px; align-items:flex-end; height:120px; border-bottom:2px solid #cbd5e1; padding-bottom:3px; margin-top:6px;"></div>
+
+        <div style="margin-top:10px; padding:6px 12px; background:#f0fdf4; border-radius:6px; border:1px solid #bbf7d0; font-size:0.9rem;">
+          अंतिम शेरा: <strong id="rc-remark-text" style="color:#166534;">उत्कृष्ट कामगिरी!</strong>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:14px;">
+        <button class="app-btn btn-outline" onclick="closeModal('reportCardModal')">बंद करा</button>
+        <button class="app-btn btn-primary" onclick="downloadReportCardPDF()"><i class="fa-solid fa-file-pdf"></i> प्रगती पुस्तक PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- प्रिंट कंटेनर -->
+  <div style="position:absolute; left:-9999px; top:-9999px;">
+    <div id="school-record-print-pages-container"></div>
+  </div>
+
+  <!-- OMR CAMERA SCANNER MODAL (रेड ते ग्रीन लाईव्ह इंडिकेटर व ऑटो-कॅप्चर) -->
   <div class="modal" id="omrCameraModal">
-    <div class="modal-content omr-modal-compact">
+    <div class="modal-content" style="max-width: 440px; text-align: center;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1.5px solid var(--border); padding-bottom:5px;">
         <h3 style="color:#065f46; font-size:1.05rem; font-weight:800; margin:0;">
           <i class="fa-solid fa-camera"></i> नवोदय OMR शीट स्कॅनर
@@ -1461,14 +1725,13 @@
         विद्यार्थी: <span style="color:#0284c7;">--</span>
       </div>
 
-      <!-- उभी आयताकृती फ्रेम (सुरुवातीला RED, ओएमआर सापडताच GREEN व ऑटो-कॅप्चर) -->
       <div class="omr-camera-portrait-frame" id="omr-portrait-box">
         <video id="omr-video-stream" autoplay playsinline style="display:none;"></video>
         <div id="omr-camera-placeholder" style="color:white; padding:12px; text-align:center;">
           <i class="fa-solid fa-file-invoice" style="font-size:3.2rem; color:#ef4444; margin-bottom:10px; display:block;"></i>
           <p style="font-size:0.88rem; font-weight:700; line-height:1.4;">
             उभी ओएमआर शीट या उभ्या आयताकृती फ्रेममध्ये सरळ धरा.<br>
-            <span style="color:#fca5a5; font-size:0.76rem;">(संपूर्ण ८० प्रश्न चौकटीत दिसताच फ्रेम हिरवी होईल)</span>
+            <span style="color:#fca5a5; font-size:0.76rem;">(संपूर्ण ८० प्रश्न चौकटीत दिसताच फ्रेम आपोआप हिरवी होईल)</span>
           </p>
         </div>
         <div class="omr-target-guide" id="omr-target-guide-el">
@@ -1477,10 +1740,8 @@
         </div>
       </div>
 
-      <!-- अंतर्गत तपासणी कॅनव्हास -->
       <canvas id="omr-hidden-canvas" style="display:none;"></canvas>
 
-      <!-- सविस्तर गोशवारा कार्ड (स्कॅनिंगनंतर दिसणारे) -->
       <div id="omr-summary-display-card" style="display:none;">
         <div class="omr-summary-dashboard-card">
           <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.2px solid #bbf7d0; padding-bottom:4px;">
@@ -1514,7 +1775,6 @@
         </div>
       </div>
 
-      <!-- कृती बटणे -->
       <div style="margin-top:12px; display:flex; gap:8px;">
         <button class="app-btn btn-outline" style="height:44px;" onclick="closeOmrScanner()">रद्द करा</button>
         <button class="app-btn btn-success" id="btn-capture-omr" style="height:44px;" onclick="submitScannedScoreDirectly()">
@@ -1726,6 +1986,25 @@
         if (hint) hint.style.display = 'block';
       } else {
         if (hint) hint.style.display = 'none';
+      }
+    }
+
+    function validateMarksInput(inputEl, studentId) {
+      const val = inputEl.value.trim();
+      const testNo = parseInt(document.getElementById('entry-test-no').value, 10) || getMinAllowedTestNo(currentEntryCategory);
+      const maxLimit = getMaxMarksForTest(currentEntryCategory, testNo);
+
+      if (val.toUpperCase() === 'AB' || val === '') {
+        inputEl.classList.remove('invalid-mark');
+        return;
+      }
+
+      const num = parseFloat(val);
+      if (isNaN(num) || num < 0 || num > maxLimit) {
+        inputEl.classList.add('invalid-mark');
+        showToast(`गुण ० ते ${maxLimit} दरम्यान असावेत!`);
+      } else {
+        inputEl.classList.remove('invalid-mark');
       }
     }
 
@@ -2238,7 +2517,6 @@
       });
     }
 
-    /* ================= नवोदय ८० प्रश्न ANSWER KEY व्यवस्थापन ================= */
     function initNavodayaAkTestOptions() {
       const sel = document.getElementById('admin-ak-test-select');
       if (!sel) return;
@@ -2375,14 +2653,13 @@
 
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ 
-          video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } } 
+          video: { facingMode: "environment" } 
         }).then(stream => {
           cameraMediaStream = stream;
           video.srcObject = stream;
           video.style.display = 'block';
           placeholder.style.display = 'none';
 
-          // रिअल-टाइम OMR पॅटर्न डिटेक्शन लूप सुरू करणे
           clearInterval(omrDetectionInterval);
           omrDetectionInterval = setInterval(checkLiveOmrPatternInFrame, 160);
         }).catch(err => {
@@ -2435,9 +2712,8 @@
       }
       const paperWhiteRatio = lightPixels / totalSampled;
 
-      // २. ४ स्तंभांमधील पांढऱ्या उभ्या गॅप्स (Vertical Gutters) तपासणी:
-      // साध्या मजकुरात सलग आडव्या ओळी असतात, OMR शीटमध्ये ३ स्पष्ट उभ्या पांढऱ्या पोकळ्या असतात
-      const gutterXPositions = [0.32, 0.53, 0.74]; // ४ स्तंभांमधील ३ गॅप्सचे अंदाजे प्रमाण
+      // २. ४ स्तंभांमधील पांढऱ्या उभ्या गॅप्स (Vertical Gutters) तपासणी
+      const gutterXPositions = [0.32, 0.53, 0.74];
       let validGuttersCount = 0;
 
       gutterXPositions.forEach(ratio => {
@@ -2450,13 +2726,11 @@
           if (br < 115) gutterDarkCount++;
           gutterTotal++;
         }
-        // गॅपमध्ये कमीतकमी काळा मजकूर असायला हवा
         if ((gutterDarkCount / gutterTotal) < 0.12) {
           validGuttersCount++;
         }
       });
 
-      // ३. नियमांची पडताळणी: पांढरा कागद + ३ स्वतंत्र स्तंभांच्या गॅप्स
       const pBox = document.getElementById('omr-portrait-box');
       const statusPill = document.getElementById('omr-live-status-pill');
       const isOmrValid = (paperWhiteRatio > 0.60 && validGuttersCount >= 2);
@@ -2466,7 +2740,6 @@
         pBox.classList.add('detected-green');
         statusPill.innerText = "✅ OMR शीट जुळली (स्थिर ठेवा)";
         
-        // जर OMR सलग ३ फ्रेम्स स्थिर जुळली तर आपोआप (Auto-Capture) करा!
         if (omrConsecutiveStableFrames >= 3) {
           isAutoCaptured = true;
           statusPill.innerText = "📸 आपोआप कॅप्चर झाले!";
@@ -2525,7 +2798,6 @@
             const bubbleX = qColX + (colWidth * 0.32) + (optIdx * (colWidth * 0.16));
             const darkness = getBubbleDarkness(bubbleX, qY, 6);
 
-            // काळेपणा भरलेला गोल मानणे
             if (darkness > 0.38) {
               detectedForThisQ.push(optLetters[optIdx]);
             }
@@ -2563,9 +2835,13 @@
         }
       }
 
+      if (attemptedCount === 0) {
+        showCustomAlert("ओएमआर शीटवरील वर्तुळे स्पष्ट ओळखता आली नाहीत! कृपया उत्तरपत्रिका कॅमेऱ्याच्या आयताकृती फ्रेममध्ये सरळ व चांगल्या प्रकाशात धरा.");
+        return;
+      }
+
       const totalCalculatedMarks = parseFloat((correctCount * 1.25).toFixed(2));
 
-      // गोशवारा दाखवणे
       document.getElementById('omr-sum-attempted').innerText = `${attemptedCount} / 80`;
       document.getElementById('omr-sum-correct').innerText = `${correctCount}`;
       document.getElementById('omr-sum-wrong').innerText = `${wrongCount}`;
@@ -2580,7 +2856,7 @@
       captureBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> हे गुण सबमिट करा (${totalCalculatedMarks})`;
       captureBtn.style.opacity = '1';
       captureBtn.disabled = false;
-      showToast("OMR तपासणी यशस्वी!");
+      showToast("OMR पडताळणी पूर्ण! खात्री करून गुण सबमिट करा.");
     }
 
     function submitScannedScoreDirectly() {
@@ -2593,6 +2869,7 @@
             inp.value = finalScore;
             inp.style.backgroundColor = '#dcfce7';
             inp.style.borderColor = '#16a34a';
+            validateMarksInput(inp, CURRENT_SCANNING_STUDENT_ID);
           }
           setAttendance(CURRENT_SCANNING_STUDENT_ID, 'present');
         }
@@ -2920,6 +3197,7 @@
       handleSchoolSelectionWithSecurity();
     }
 
+    /* शाळा सुरक्षा पिन (Login PIN) पडताळणी - १००% सुरक्षित पूर्ववत */
     function handleSchoolSelectionWithSecurity() {
       const udise = document.getElementById('entry-school').value;
       if (!udise) return;
@@ -3215,6 +3493,7 @@
         inp.value = 'AB';
         inp.readOnly = true;
         inp.classList.add('is-absent');
+        inp.classList.remove('invalid-mark');
         btnA.classList.add('active');
         btnP.classList.remove('active');
       } else {
@@ -3333,7 +3612,7 @@
 
               <div class="compact-marks-wrap">
                 <input type="text" inputmode="numeric" pattern="[0-9]*" class="compact-marks-input ${isAbsent ? 'is-absent' : ''}" 
-                  id="marks-input-${st.id}" value="${marks}" placeholder="गुण" ${isAbsent ? 'readonly' : ''}>
+                  id="marks-input-${st.id}" value="${marks}" placeholder="गुण" ${isAbsent ? 'readonly' : ''} oninput="validateMarksInput(this, ${st.id})">
                 <span class="compact-denominator">/ ${maxLimit}</span>
               </div>
 
@@ -3356,16 +3635,25 @@
       const testNo = document.getElementById('entry-test-no').value;
       const maxLimit = getMaxMarksForTest(currentEntryCategory, parseInt(testNo, 10));
 
+      let hasInvalidMarks = false;
       let currentScreenInputs = {};
       currentStudentsList.forEach(st => {
         const inp = document.getElementById(`marks-input-${st.id}`);
         const val = inp ? inp.value.trim() : '';
+        if (inp && inp.classList.contains('invalid-mark')) {
+          hasInvalidMarks = true;
+        }
         currentScreenInputs[st.id] = {
           name: st.name,
           gender: st.gender,
           marks: val
         };
       });
+
+      if (hasInvalidMarks) {
+        showCustomAlert(`काही विद्यार्थ्यांचे गुण चुकीचे भरले आहेत (कमाल गुण ${maxLimit} पेक्षा जास्त असू नयेत). कृपया लाल रंगातील गुण दुरुस्त करा!`);
+        return;
+      }
 
       const targetDbRef = db.ref(`results/${currentEntryCategory}/test_${testNo}/${key}`);
 
@@ -3691,6 +3979,7 @@
           <div style="text-align:center; padding:24px 14px; color:#64748b;">
             <i class="fa-solid fa-clock-rotate-left" style="font-size:2rem; color:#cbd5e1; margin-bottom:8px;"></i>
             <p style="font-weight:700; font-size:0.96rem; color:#475569;">या चाचणीचा निकाल अद्याप अधिकृतपणे जाहीर केलेला नाही.</p>
+            <span style="font-size:0.82rem;">शिक्षणाधिकारी (प्राथमिक) यांच्याकडून निकाल लॉक झाल्यावर गुणवत्ता यादी येथे उपलब्ध होईल.</span>
           </div>
         `;
         return;
