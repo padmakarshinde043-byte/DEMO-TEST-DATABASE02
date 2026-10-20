@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>नवोदय OMR शीट लाइव्ह स्कॅनर</title>
+  <title>नवोदय OMR शीट अचूक स्कॅनर</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;700;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- OpenCV.js बाह्य लायब्ररी (अचूक इमेज प्रोसेसिंगसाठी) -->
   <script async src="https://docs.opencv.org/4.8.0/opencv.js" onload="onOpenCvReady()"></script>
 
   <style>
@@ -16,33 +15,28 @@
 
     .header-box { text-align: center; margin-bottom: 8px; width: 100%; max-width: 380px; }
     .header-box h2 { font-size: 1.15rem; color: #38bdf8; font-weight: 800; }
-    .std-badge { background: #1e293b; color: #fef08a; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.95rem; display: inline-block; margin-top: 4px; border: 1px solid #334155; }
+    .std-badge { background: #1e293b; color: #fef08a; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.92rem; display: inline-block; margin-top: 4px; border: 1px solid #334155; }
 
     .camera-frame {
       position: relative;
       width: 100%;
       max-width: 300px;
-      height: 400px;
+      height: 360px;
       background: #000;
       border-radius: 16px;
       overflow: hidden;
-      border: 4px solid #ef4444;
-      box-shadow: 0 0 25px rgba(239, 68, 68, 0.4);
+      border: 4px solid #3b82f6;
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.25s ease;
-    }
-    .camera-frame.detected-green {
-      border-color: #10b981 !important;
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.7) !important;
     }
     video { width: 100%; height: 100%; object-fit: cover; }
 
     .guide-overlay {
       position: absolute;
       inset: 8px;
-      border: 2px dashed rgba(239, 68, 68, 0.85);
+      border: 2px dashed rgba(56, 189, 248, 0.85);
       border-radius: 10px;
       pointer-events: none;
       display: flex;
@@ -51,16 +45,14 @@
       align-items: center;
       padding: 8px;
     }
-    .camera-frame.detected-green .guide-overlay { border-color: rgba(52, 211, 153, 0.95); }
     .status-pill {
-      background: rgba(220, 38, 38, 0.9);
+      background: rgba(2, 132, 199, 0.9);
       color: #ffffff;
       font-size: 0.8rem;
       font-weight: 800;
       padding: 4px 14px;
       border-radius: 20px;
     }
-    .camera-frame.detected-green .status-pill { background: rgba(5, 150, 105, 0.95) !important; }
 
     .summary-card {
       width: 100%;
@@ -78,23 +70,25 @@
     .score-banner { background: #059669; color: white; padding: 8px 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; }
 
     .btn-wrap { display: flex; gap: 8px; width: 100%; max-width: 340px; margin-top: 10px; }
-    .btn { flex: 1; height: 46px; border-radius: 10px; border: none; font-weight: 800; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn { flex: 1; height: 48px; border-radius: 10px; border: none; font-weight: 800; font-size: 0.98rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
     .btn-cancel { background: #334155; color: white; }
+    .btn-capture { background: #0284c7; color: white; font-size: 1.05rem; }
     .btn-submit { background: #10b981; color: white; }
   </style>
 </head>
 <body>
 
   <div class="header-box">
-    <h2><i class="fa-solid fa-camera"></i> नवोदय OMR शीट स्कॅनर</h2>
+    <h2><i class="fa-solid fa-camera"></i> नवोदय OMR शीट अचूक स्कॅनर</h2>
     <div class="std-badge" id="std-display">विद्यार्थी: लोड होत आहे...</div>
+    <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: तपासत आहे...</div>
   </div>
 
   <div class="camera-frame" id="cam-frame">
     <video id="video" autoplay playsinline></video>
     <div class="guide-overlay">
       <span class="status-pill" id="status-pill">⏳ इंजिन लोड होत आहे...</span>
-      <span style="background:rgba(15,23,42,0.8); color:#cbd5e1; font-size:0.75rem; padding:3px 10px; border-radius:12px;">⬇️ संपूर्ण ८० प्रश्न चौकटीत भरा</span>
+      <span style="background:rgba(15,23,42,0.8); color:#cbd5e1; font-size:0.75rem; padding:3px 10px; border-radius:12px;">📸 ओएमआर शीट स्थिर धरून बटण दाबा</span>
     </div>
   </div>
 
@@ -118,7 +112,8 @@
 
   <div class="btn-wrap">
     <button class="btn btn-cancel" onclick="window.close()"><i class="fa-solid fa-xmark"></i> रद्द करा</button>
-    <button class="btn btn-submit" id="btn-submit" style="display:none;" onclick="submitScoreAndClose()"><i class="fa-solid fa-check"></i> हे गुण सबमिट करा</button>
+    <button class="btn btn-capture" id="btn-capture" onclick="manualCaptureAndAnalyze()"><i class="fa-solid fa-camera-rotate"></i> OMR स्कॅन करा</button>
+    <button class="btn btn-submit" id="btn-submit" style="display:none;" onclick="submitScoreAndClose()"><i class="fa-solid fa-check"></i> गुण सबमिट करा</button>
   </div>
 
   <script>
@@ -130,16 +125,22 @@
     document.getElementById('std-display').innerText = `विद्यार्थी: ${studentName}`;
 
     let videoStream = null;
-    let detectionInterval = null;
-    let autoCaptured = false;
     let calculatedMarks = 0;
     let isOpenCvReady = false;
-
     const savedKeys = JSON.parse(localStorage.getItem('omr_saved_key') || '{}');
+
+    // तपासा की Key आली आहे का
+    const keyCount = Object.keys(savedKeys).length;
+    if (keyCount > 0) {
+      document.getElementById('key-status').innerText = `✅ उत्तरतालिका उपलब्ध (${keyCount} प्रश्न)`;
+    } else {
+      document.getElementById('key-status').innerText = `⚠️ चेतावणी: उत्तरतालिका मिळालेली नाही!`;
+      document.getElementById('key-status').style.color = '#ef4444';
+    }
 
     function onOpenCvReady() {
       isOpenCvReady = true;
-      document.getElementById('status-pill').innerText = "❌ OMR शीट दिसत नाही";
+      document.getElementById('status-pill').innerText = "✅ कॅमेरा तयार आहे";
       startCamera();
     }
 
@@ -151,15 +152,16 @@
           videoStream = stream;
           const video = document.getElementById('video');
           video.srcObject = stream;
-          detectionInterval = setInterval(scanOmrFrame, 200);
         }).catch(err => alert("कॅमेरा सुरू होऊ शकला नाही: " + err.message));
       }
     }
 
-    function scanOmrFrame() {
-      if (!isOpenCvReady || autoCaptured) return;
+    function manualCaptureAndAnalyze() {
       const video = document.getElementById('video');
-      if (!video || video.readyState !== 4) return;
+      if (!video || video.readyState !== 4) {
+        alert("कॅमेरा अद्याप तयार नाही, कृपया थोडा वेळ थांबा.");
+        return;
+      }
 
       const canvas = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
@@ -170,86 +172,14 @@
       let src = cv.imread(canvas);
       let gray = new cv.Mat();
       cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
-      cv.GaussianBlur(gray, gray, new cv.Size(5, 5), 0);
+      
+      // थेट बिनारायझेशन करून काळे पिक्सेल अचूक मोजणे
+      let bin = new cv.Mat();
+      cv.threshold(gray, bin, 0, 255, cv.THRESH_BINARY_INV | cv.THRESH_OTSU);
 
-      let thresh = new cv.Mat();
-      cv.adaptiveThreshold(gray, thresh, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY_INV, 11, 2);
-
-      let contours = new cv.MatVector();
-      let hierarchy = new cv.Mat();
-      cv.findContours(thresh, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-
-      let maxArea = 0;
-      let sheetContour = null;
-
-      for (let i = 0; i < contours.size(); ++i) {
-        let cnt = contours.get(i);
-        let area = cv.contourArea(cnt);
-        if (area > (canvas.width * canvas.height * 0.25)) { // किमान २५% फ्रेम व्यापलेली असावी
-          let peri = cv.arcLength(cnt, true);
-          let approx = new cv.Mat();
-          cv.approxPolyDP(cnt, approx, 0.02 * peri, true);
-          if (approx.rows === 4 && area > maxArea) {
-            maxArea = area;
-            sheetContour = approx;
-          }
-        }
-      }
-
-      const frameBox = document.getElementById('cam-frame');
-      const statusPill = document.getElementById('status-pill');
-
-      if (sheetContour) {
-        frameBox.classList.add('detected-green');
-        statusPill.innerText = "✅ OMR शीट अचूक जुळली!";
-        autoCaptured = true;
-        clearInterval(detectionInterval);
-        
-        // अचूक सरळ (Warp Perspective) करून तपासणे
-        processAlignedOmr(gray, sheetContour);
-      } else {
-        frameBox.classList.remove('detected-green');
-        statusPill.innerText = "❌ OMR शीट पूर्ण चौकटीत आणा";
-      }
-
-      src.delete(); gray.delete(); thresh.delete(); contours.delete(); hierarchy.delete();
-    }
-
-    function processAlignedOmr(grayMat, sheetCornerMat) {
-      // ४ कोपरे क्रमवारीने लावणे
-      let pts = [];
-      for (let i = 0; i < 4; i++) {
-        pts.push({ x: sheetCornerMat.data32S[i * 2], y: sheetCornerMat.data32S[i * 2 + 1] });
-      }
-
-      pts.sort((a, b) => a.y - b.y);
-      let topPts = [pts[0], pts[1]].sort((a, b) => a.x - b.x);
-      let botPts = [pts[2], pts[3]].sort((a, b) => a.x - b.x);
-
-      let srcTri = cv.matFromArray(4, 1, cv.CV_32FC2, [
-        topPts[0].x, topPts[0].y,
-        topPts[1].x, topPts[1].y,
-        botPts[1].x, botPts[1].y,
-        botPts[0].x, botPts[0].y
-      ]);
-
-      const w = 600, h = 800;
-      let dstTri = cv.matFromArray(4, 1, cv.CV_32FC2, [0, 0, w, 0, w, h, 0, h]);
-      let M = cv.getPerspectiveTransform(srcTri, dstTri);
-      let warped = new cv.Mat();
-      cv.warpPerspective(grayMat, warped, M, new cv.Size(w, h));
-
-      let binWarped = new cv.Mat();
-      cv.threshold(warped, binWarped, 0, 255, cv.THRESH_BINARY_INV | cv.THRESH_OTSU);
-
-      // आता शीट सपाट व सरळ झाल्यामुळे ग्रिड तंतोतंत बसेल
-      const gridLeft = w * 0.08;
-      const gridTop = h * 0.31;
-      const gridWidth = w * 0.84;
-      const gridHeight = h * 0.63;
-
-      const colW = gridWidth / 4;
-      const rowH = gridHeight / 20;
+      const w = gray.cols, h = gray.rows;
+      const gridLeft = w * 0.11, gridTop = h * 0.16;
+      const colW = (w * 0.78) / 4, rowH = (h * 0.74) / 20;
       const letters = ['A', 'B', 'C', 'D'];
       let studentAns = {};
 
@@ -261,16 +191,14 @@
 
           let detected = [];
           for (let opt = 0; opt < 4; opt++) {
-            const bX = qX + (colW * 0.30) + (opt * (colW * 0.17));
-            
-            // वर्तुळाच्या भागातील काळ्या पिक्सेलची मोजणी
-            let roiRect = new cv.Rect(Math.floor(bX - 6), Math.floor(qY - 6), 12, 12);
-            let roi = binWarped.roi(roiRect);
+            const bX = qX + (colW * 0.32) + (opt * (colW * 0.16));
+            let roiRect = new cv.Rect(Math.floor(bX - 5), Math.floor(qY - 5), 10, 10);
+            let roi = bin.roi(roiRect);
             let nonZero = cv.countNonZero(roi);
             roi.delete();
 
-            // ४५% पेक्षा जास्त काळेपणा असल्यास गोल भरलेला मानणे
-            if (nonZero > 65) {
+            // थ्रेशोल्ड वाढवला आहे (४५ ऐवजी ६० पिक्सेल), ज्यामुळे सावल्या पकडल्या जाणार नाहीत
+            if (nonZero > 60) {
               detected.push(letters[opt]);
             }
           }
@@ -281,11 +209,16 @@
         }
       }
 
-      // निकाल तयार करणे
+      calculateAndDisplayResults(studentAns);
+      src.delete(); gray.delete(); bin.delete();
+    }
+
+    function calculateAndDisplayResults(studentAns) {
       let attempted = 0, correct = 0, wrong = 0, invalid = 0;
       for (let q = 1; q <= 80; q++) {
         const ans = studentAns[q];
         const key = savedKeys[q];
+        
         if (ans === 'INVALID') { invalid++; attempted++; }
         else if (ans) {
           attempted++;
@@ -303,10 +236,9 @@
       document.getElementById('sum-score').innerText = `${calculatedMarks}/100`;
 
       document.getElementById('summary-card').style.display = 'block';
+      document.getElementById('btn-capture').style.display = 'none';
       document.getElementById('btn-submit').style.display = 'flex';
       document.getElementById('btn-submit').innerText = `हे गुण सबमिट करा (${calculatedMarks})`;
-
-      srcTri.delete(); dstTri.delete(); M.delete(); warped.delete(); binWarped.delete();
     }
 
     function submitScoreAndClose() {
