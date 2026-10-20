@@ -45,6 +45,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 
 .app-container { max-width: 650px; margin: 0 auto; padding: 12px; }
 
+/* कायमस्वरूपी बारीक व शांत अक्षरातील सूचना पट्टी */
 .static-entry-notice-strip {
   background: #f1f5f9;
   border: 1px solid #cbd5e1;
@@ -61,6 +62,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 }
 .static-entry-notice-strip i { color: #d97706; font-size: 1rem; }
 
+/* विभाग कार्ड्स */
 .app-card {
   background: var(--surface);
   border-radius: var(--radius);
@@ -81,6 +83,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
   padding-bottom: 6px;
 }
 
+/* सतत ब्लिंक करणारा OMR माहिती बॅनर */
 .soft-blink-omr-banner {
   background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
   border: 1.8px solid #34d399;
@@ -102,6 +105,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 .soft-blink-omr-banner p { font-size: 0.94rem; font-weight: 700; color: #065f46; line-height: 1.4; margin: 0; }
 .soft-blink-omr-banner strong { color: #047857; text-decoration: underline; }
 
+/* Collapsible Accordion Header */
 .collapsible-card-header {
   display: flex;
   justify-content: space-between;
@@ -124,6 +128,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
   transition: all 0.2s;
 }
 
+/* ड्रॉपडाऊन आणि फिल्ड्स */
 .dropdown-group { margin-bottom: 10px; }
 .dropdown-label {
   font-size: 1.02rem;
@@ -153,6 +158,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 }
 .luxury-dropdown:focus { border-color: var(--kesari); box-shadow: 0 3px 12px rgba(234, 88, 12, 0.15); }
 
+/* कॅप्सूल ग्रीड */
 .test-capsule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .test-capsule-chip {
   background: #ffffff;
@@ -195,6 +201,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 .capsule-text-sub { font-size: 0.82rem; font-weight: 700; color: #64748b; font-family: 'Poppins', sans-serif; }
 .test-capsule-chip.active .capsule-text-sub { color: #d1fae5; }
 
+/* फॉर्म कंट्रोल्स */
 .form-group { margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px; position: relative; }
 .form-group label { font-size: 0.96rem; font-weight: 700; color: #334155; }
 .form-control {
@@ -213,6 +220,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
+/* बटणे */
 .app-btn {
   width: 100%;
   height: 48px;
@@ -234,6 +242,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 .btn-gold { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; }
 .btn-danger { background: var(--danger); color: white; }
 
+/* UDISE Suggestion Box */
 .udise-suggestions-box {
   position: absolute;
   top: 100%;
@@ -257,6 +266,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 }
 .udise-suggest-item:hover, .udise-suggest-item:active { background: var(--sky-light); }
 
+/* आकडेवारी बॉक्सेस */
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
 .stat-box {
   background: white;
@@ -272,6 +282,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 .stat-box-schools { border-left: 5px solid #0284c7; background: linear-gradient(to right, #f0f9ff, #ffffff); }
 .stat-box-schools h2 { color: #075985; }
 
+/* ३ टॉपर्स टॅब्स */
 .topper-tri-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
 .tri-tab-btn {
   flex: 1;
@@ -309,6 +320,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
   box-shadow: 0 3px 10px rgba(217, 119, 6, 0.3);
 }
 
+/* १२ तालुके ग्रीड */
 .taluka-4col-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 10px; }
 .taluka-4col-btn {
   background: white;
@@ -329,6 +341,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
   box-shadow: 0 2px 6px rgba(2, 132, 199, 0.15);
 }
 
+/* नोंदणीकृत विद्यार्थी व्यवस्थापन */
 .registered-students-container { margin-top: 12px; border-top: 1.5px dashed var(--border); padding-top: 10px; }
 .reg-std-item {
   background: #f8fafc;
@@ -358,6 +371,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 .btn-edit { background: #e0f2fe; color: #0369a1; }
 .btn-delete { background: #fee2e2; color: #b91c1c; }
 
+/* विद्यार्थी गुण नोंदणी कार्ड */
 .student-entry-card {
   background: #ffffff;
   border: 1.5px solid #e2e8f0;
@@ -456,6 +470,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 .topper-score { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 .topper-score-badge { background: #d1fae5; color: #065f46; padding: 3px 10px; border-radius: 12px; font-weight: 800; font-size: 0.98rem; font-family: 'Poppins', sans-serif; }
 
+/* ॲडमिन Answer Key ग्रिड */
 .navodaya-ak-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -474,7 +489,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 .ak-opt-btn { width: 22px; height: 22px; border-radius: 50%; border: 1px solid #cbd5e1; background: white; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.1s; }
 .ak-opt-btn.active { background: #0284c7; color: white; border-color: #0369a1; }
 
-/* Modals */
+/* Modals - मूळ ८४०px रुंदी कायम */
 .modal {
   display: none;
   position: fixed;
@@ -523,6 +538,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
   margin-bottom: 18px;
 }
 
+/* प्रमाणपत्र A4 लँडस्केप बॉक्स */
 .cert-scroll-wrapper {
   width: 100%;
   overflow-x: auto;
@@ -547,7 +563,6 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
   overflow: hidden;
   margin: auto;
 }
-
 .draggable-element {
   position: absolute;
   user-select: none;
@@ -596,6 +611,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
   letter-spacing: 0.5px;
 }
 
+/* बॅनर बॉक्स */
 .banner-fit-wrapper {
   width: 100%;
   display: flex;
@@ -641,6 +657,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 .banner-row:nth-child(3) { background: linear-gradient(to right, #fffaf5, #ffedd5); border: 2px solid #fb923c; }
 .banner-footer-auth { display: flex; justify-content: space-between; align-items: center; border-top: 2px dashed #cbd5e1; padding-top: 10px; margin-top: 6px; font-size: 0.95rem; color: #0f2b5c; font-weight: 800; width: 100%; }
 
+/* ॲडमिन डिझायनर टूल्स */
 .designer-toolbar-card { background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 12px; padding: 12px; margin-bottom: 12px; }
 .designer-tabs-wrap { display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1.5px solid #cbd5e1; padding-bottom: 8px; }
 .des-tab-btn { flex: 1; padding: 8px; border-radius: 8px; border: 1.5px solid #cbd5e1; background: white; font-weight: 800; font-size: 0.88rem; cursor: pointer; color: #475569; }
@@ -650,12 +667,13 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 .slider-control-row input[type="range"] { flex: 1; height: 6px; }
 .slider-val-badge { font-size: 0.8rem; font-weight: 800; font-family:'Poppins', sans-serif; color: var(--sky-dark); min-width: 45px; text-align: right; }
 
+/* मल्टिपेज A4 शीट */
 .school-record-page { background: white; padding: 24px 28px; width: 800px; min-height: 1100px; color: #0f172a; font-family: 'Aparajita', 'Mukta', sans-serif; box-sizing: border-box; margin-bottom: 20px; position: relative; }
 .school-record-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
 .school-record-table th, .school-record-table td { border: 1.5px solid #334155; padding: 5px 8px; font-size: 0.98rem; }
 .school-record-table th { background: #f1f5f9; font-weight: 800; text-align: center; }
 
-/* उभी आयताकृती कॅमेरा फ्रेम (रेड ते ग्रीन लाईव्ह इंडिकेटर) */
+/* उभी आयताकृती OMR कॅमेरा फ्रेम (Red to Green Indicator) */
 .omr-camera-portrait-frame {
   position: relative;
   width: 100%;
@@ -668,7 +686,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3.5px solid #ef4444; /* सुरुवातीला लाल */
+  border: 3.5px solid #ef4444; /* सुरुवातीला RED */
   box-shadow: 0 4px 18px rgba(239, 68, 68, 0.35);
   transition: all 0.25s ease-in-out;
 }
@@ -751,6 +769,7 @@ body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; mi
 }
 .omr-score-highlight span { font-size: 1.25rem; font-family: 'Poppins', sans-serif; color: #fef08a; }
 
+/* Bottom Nav */
 .bottom-nav {
   position: fixed;
   bottom: 0;
