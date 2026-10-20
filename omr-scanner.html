@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>नवोदय OMR शीट लाईव्ह कॅमेरा स्कॅनर</title>
+  <title>नवोदय OMR शीट अचूक स्कॅनर</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;700;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,44 +16,37 @@
     .header-box h2 { font-size: 1.15rem; color: #38bdf8; font-weight: 800; }
     .std-badge { background: #1e293b; color: #fef08a; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.92rem; display: inline-block; margin-top: 4px; border: 1px solid #334155; }
 
-    /* लाईव्ह कॅमेरा फ्रेम */
-    .camera-frame {
+    /* इमेज आणि कॅमेरा निवडीची फ्रेम */
+    .preview-frame {
       position: relative;
       width: 100%;
-      max-width: 300px;
-      height: 360px;
-      background: #000;
+      max-width: 320px;
+      height: 380px;
+      background: #1e293b;
+      border: 3px dashed #38bdf8;
       border-radius: 16px;
-      overflow: hidden;
-      border: 4px solid #3b82f6;
-      box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    video, img#captured-preview { width: 100%; height: 100%; object-fit: cover; }
-    img#captured-preview { display: none; position: absolute; inset: 0; }
-
-    .guide-overlay {
-      position: absolute;
-      inset: 8px;
-      border: 2px dashed rgba(56, 189, 248, 0.85);
-      border-radius: 10px;
-      pointer-events: none;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       align-items: center;
-      padding: 8px;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-    .status-pill {
-      background: rgba(2, 132, 199, 0.9);
-      color: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 800;
-      padding: 4px 14px;
-      border-radius: 20px;
+    .preview-frame img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+      display: none;
     }
+    .action-prompt { text-align: center; padding: 16px; }
+    .action-prompt i { font-size: 3rem; color: #38bdf8; margin-bottom: 10px; }
+    .action-prompt p { font-size: 0.92rem; color: #cbd5e1; font-weight: 700; margin-bottom: 14px; }
+
+    .choice-btns { display: flex; gap: 8px; width: 100%; padding: 0 10px; }
+    .choice-btn { flex: 1; padding: 8px 4px; background: #0284c7; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
 
     .summary-card {
       width: 100%;
@@ -73,32 +66,45 @@
     .btn-wrap { display: flex; gap: 8px; width: 100%; max-width: 340px; margin-top: 10px; }
     .btn { flex: 1; height: 48px; border-radius: 10px; border: none; font-weight: 800; font-size: 0.98rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
     .btn-cancel { background: #334155; color: white; }
-    .btn-capture { background: #0284c7; color: white; font-size: 1.05rem; }
+    .btn-analyze { background: #d97706; color: white; font-size: 1rem; display: none; }
     .btn-submit { background: #10b981; color: white; display: none; }
   </style>
 </head>
 <body>
 
   <div class="header-box">
-    <h2><i class="fa-solid fa-camera"></i> नवोदय OMR शीट कॅमेरा स्कॅनर</h2>
+    <h2><i class="fa-solid fa-file-arrow-up"></i> OMR शीट तपासणी कक्ष</h2>
     <div class="std-badge" id="std-display">विद्यार्थी: लोड होत आहे...</div>
     <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: तपासून तयार</div>
   </div>
 
-  <div class="camera-frame" id="cam-frame">
-    <video id="video" autoplay playsinline></video>
-    <img id="captured-preview" alt="Captured Preview">
-    <div class="guide-overlay" id="guide-overlay">
-      <span class="status-pill" id="status-pill">📸 कॅमेरा चालू आहे</span>
-      <span style="background:rgba(15,23,42,0.8); color:#cbd5e1; font-size:0.75rem; padding:3px 10px; border-radius:12px;">ओएमआर शीट चौकटीत धरून फोटो काढा</span>
+  <!-- फोटो अपलोड किंवा कॅमेरा निवडण्याची फ्रेम -->
+  <div class="preview-frame" id="preview-frame">
+    <div class="action-prompt" id="action-prompt">
+      <i class="fa-solid fa-camera-retro"></i>
+      <p>ओएमआर शीट तपासण्यासाठी खालीलपैकी एक पर्याय निवडा:</p>
+      <div class="choice-btns">
+        <button class="choice-btn" onclick="document.getElementById('camera-input').click()">
+          <i class="fa-solid fa-camera"></i> कॅमेरा फोटो
+        </button>
+        <button class="choice-btn" style="background:#059669;" onclick="document.getElementById('gallery-input').click()">
+          <i class="fa-solid fa-folder-open"></i> गॅलरी अपलोड
+        </button>
+      </div>
     </div>
+    
+    <!-- लपवलेले इनपुट्स -->
+    <input type="file" id="camera-input" accept="image/*" capture="environment" style="display:none;" onchange="processSelectedImage(event)">
+    <input type="file" id="gallery-input" accept="image/*" style="display:none;" onchange="processSelectedImage(event)">
+    
+    <img id="selected-img" alt="OMR Sheet">
   </div>
 
   <canvas id="canvas" style="display:none;"></canvas>
 
   <div class="summary-card" id="summary-card">
     <div style="font-weight:800; color:#059669; border-bottom:1.5px solid #e2e8f0; padding-bottom:4px;">
-      <i class="fa-solid fa-square-poll-vertical"></i> OMR तपासणी गोशवारा:
+      <i class="fa-solid fa-square-poll-vertical"></i> OMR अचूक तपासणी गोशवारा:
     </div>
     <div class="summary-grid">
       <div class="sum-item">सोडवलेले: <strong id="sum-attempted" style="font-family:'Poppins';">--/80</strong></div>
@@ -114,7 +120,7 @@
 
   <div class="btn-wrap">
     <button class="btn btn-cancel" onclick="window.close()"><i class="fa-solid fa-xmark"></i> रद्द करा</button>
-    <button class="btn btn-capture" id="btn-capture" onclick="captureAndAnalyzePhoto()"><i class="fa-solid fa-camera"></i> फोटो काढा व तпаसा</button>
+    <button class="btn btn-analyze" id="btn-analyze" onclick="executeAccurateAnalysis()"><i class="fa-solid fa-microchip"></i> OMR शीटचे अचूक विश्लेषण करा</button>
     <button class="btn btn-submit" id="btn-submit" onclick="submitScoreAndClose()"><i class="fa-solid fa-check"></i> गुण सबमिट करा</button>
   </div>
 
@@ -127,7 +133,8 @@
     document.getElementById('std-display').innerText = `विद्यार्थी: ${studentName}`;
 
     let calculatedMarks = 0;
-    let videoStream = null;
+    let loadedImageElement = null;
+    
     const rawKeys = JSON.parse(localStorage.getItem('omr_saved_key') || '{}');
     const savedKeys = {};
     for (let i = 1; i <= 80; i++) {
@@ -144,57 +151,59 @@
       document.getElementById('key-status').style.color = '#ef4444';
     }
 
-    // थेट कॅमेरा सुरू करणे
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ 
-        video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } } 
-      }).then(stream => {
-        videoStream = stream;
-        const video = document.getElementById('video');
-        video.srcObject = stream;
-      }).catch(err => alert("कॅमेरा सुरू होऊ शकला नाही: " + err.message));
+    // फोटो निवडल्यावर तो फ्रेममध्ये दाखवणे व विश्लेषणाचे बटण सुरू करणे
+    function processSelectedImage(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          loadedImageElement = img;
+          
+          // प्रिव्ह्यू दाखवणे
+          const preview = document.getElementById('selected-img');
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+          
+          document.getElementById('action-prompt').style.display = 'none';
+          document.getElementById('btn-analyze').style.display = 'flex';
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
 
-    // शिक्षकाने 'फोटो काढा व तपासा' दाबल्यावर चालणारी कृती
-    function captureAndAnalyzePhoto() {
-      const video = document.getElementById('video');
-      if (!video || video.readyState !== 4) {
-        alert("कॅमेरा अद्याप तयार नाही, कृपया थोडा वेळ थांबा.");
+    // शिक्षकाने 'विश्लेषण करा' दाबल्यावर अचूक पिक्सेल मोजणी करणे
+    function executeAccurateAnalysis() {
+      if (!loadedImageElement) {
+        alert("कृपया प्रथम OMR शीटचा फोटो कॅमेरा किंवा गॅलरीतून अपलोड करा.");
         return;
       }
 
       const canvas = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
-      const vWidth = video.videoWidth || 1280;
-      const vHeight = video.videoHeight || 720;
+      const vWidth = loadedImageElement.width;
+      const vHeight = loadedImageElement.height;
       canvas.width = vWidth;
       canvas.height = vHeight;
-      ctx.drawImage(video, 0, 0, vWidth, vHeight);
-
-      // काढलेला फोटो प्रिव्ह्यू म्हणून फ्रेममध्ये दाखवणे
-      const previewImg = document.getElementById('captured-preview');
-      previewImg.src = canvas.toDataURL('image/jpeg');
-      previewImg.style.display = 'block';
-      video.style.display = 'none';
-      document.getElementById('guide-overlay').style.display = 'none';
-
-      // कॅमेऱ्याचा स्ट्रिम बंद करणे
-      if (videoStream) {
-        videoStream.getTracks().forEach(track => track.stop());
-      }
+      ctx.drawImage(loadedImageElement, 0, 0, vWidth, vHeight);
 
       const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
       const pixels = imgData.data;
 
+      // वर्तुळाचा काळेपणा तपासणारे अचूक फंक्शन
       function getBubbleDarkness(cx, cy) {
         let darkCount = 0;
         let totalCount = 0;
-        for (let x = cx - 4; x <= cx + 4; x += 2) {
-          for (let y = cy - 4; y <= cy + 4; y += 2) {
+        // वर्तुळाच्या आत अचूक नमुना तपासणी
+        for (let x = cx - 5; x <= cx + 5; x += 2) {
+          for (let y = cy - 5; y <= cy + 5; y += 2) {
             if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
               const idx = (Math.floor(y) * vWidth + Math.floor(x)) * 4;
               const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
-              if (brightness < 110) {
+              if (brightness < 115) { // शाईचा गडद पणा
                 darkCount++;
               }
               totalCount++;
@@ -204,9 +213,10 @@
         return totalCount > 0 ? (darkCount / totalCount) : 0;
       }
 
-      const tableLeft = vWidth * 0.12;
+      // नवोदय OMR शीटच्या प्रत्यक्ष रकान्यानुसार ग्रिड पोझिशन
+      const tableLeft = vWidth * 0.13;
       const tableTop = vHeight * 0.32;
-      const tableWidth = vWidth * 0.76;
+      const tableWidth = vWidth * 0.74;
       const tableHeight = vHeight * 0.60;
 
       const colWidth = tableWidth / 4;
@@ -225,7 +235,8 @@
             const bubbleX = qColX + (colWidth * 0.32) + (optIdx * (colWidth * 0.16));
             const darknessRatio = getBubbleDarkness(bubbleX, qY);
 
-            if (darknessRatio > 0.35) {
+            // ४०% पेक्षा जास्त शाई असल्यास तो गोल भरलेला मानला जाईल
+            if (darknessRatio > 0.40) {
               detectedForThisQ.push(optLetters[optIdx]);
             }
           }
@@ -233,13 +244,14 @@
           if (detectedForThisQ.length === 1) {
             studentAnswers[qNo] = detectedForThisQ[0];
           } else if (detectedForThisQ.length > 1) {
-            studentAnswers[qNo] = 'INVALID';
+            studentAnswers[qNo] = 'INVALID'; // एकापेक्षा जास्त वर्तुळे भरली असल्यास
           } else {
-            studentAnswers[qNo] = null;
+            studentAnswers[qNo] = null; // कोरा प्रश्न
           }
         }
       }
 
+      // उत्तरतालिका (Answer Key) सोबत तुलना करून निकाल तयार करणे
       let attemptedCount = 0;
       let correctCount = 0;
       let wrongCount = 0;
@@ -264,6 +276,7 @@
 
       calculatedMarks = parseFloat((correctCount * 1.25).toFixed(2));
 
+      // गोशवारा स्क्रीनवर दाखवणे
       document.getElementById('sum-attempted').innerText = `${attemptedCount}/80`;
       document.getElementById('sum-correct').innerText = correctCount;
       document.getElementById('sum-wrong').innerText = wrongCount;
@@ -271,8 +284,9 @@
       document.getElementById('sum-score').innerText = `${calculatedMarks}/100`;
 
       document.getElementById('summary-card').style.display = 'block';
-      document.getElementById('btn-capture').style.display = 'none';
+      document.getElementById('btn-analyze').style.display = 'none';
       document.getElementById('btn-submit').style.display = 'flex';
+      document.getElementById('btn-submit').innerText = `गुण सबमिट करा (${calculatedMarks})`;
     }
 
     function submitScoreAndClose() {
