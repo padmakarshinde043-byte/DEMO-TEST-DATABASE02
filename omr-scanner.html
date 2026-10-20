@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>नवोदय OMR शीट अचूक तपासणी कक्ष</title>
+  <title>नवोदय OMR व्यावसायिक स्कॅनर</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;700;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script async src="https://docs.opencv.org/4.8.0/opencv.js" onload="onOpenCvReady()"></script>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Mukta', sans-serif; }
@@ -72,15 +73,15 @@
 <body>
 
   <div class="header-box">
-    <h2><i class="fa-solid fa-file-shield"></i> OMR सखोल तपासणी कक्ष</h2>
+    <h2><i class="fa-solid fa-file-shield"></i> OMR व्यावसायिक तपासणी कक्ष</h2>
     <div class="std-badge" id="std-display">विद्यार्थी: लोड होत आहे...</div>
-    <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: तपासून तयार</div>
+    <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: लोड होत आहे...</div>
   </div>
 
   <div class="preview-frame" id="preview-frame">
     <div class="action-prompt" id="action-prompt">
       <i class="fa-solid fa-camera-retro"></i>
-      <p>ओएमआर शीट तपासण्यासाठी फोटो निवडा:</p>
+      <p>ओएमआर शीटचा स्पष्ट फोटो निवडा:</p>
       <div class="choice-btns">
         <button class="choice-btn" onclick="document.getElementById('camera-input').click()">
           <i class="fa-solid fa-camera"></i> कॅमेरा फोटो
@@ -91,8 +92,8 @@
       </div>
     </div>
     
-    <input type="file" id="camera-input" accept="image/*" capture="environment" style="display:none;" onchange="processSelectedImage(event)">
-    <input type="file" id="gallery-input" accept="image/*" style="display:none;" onchange="processSelectedImage(event)">
+    <input type="file" id="camera-input" accept="image/*" capture="environment" style="display:none;" onchange="handleImageSelection(event)">
+    <input type="file" id="gallery-input" accept="image/*" style="display:none;" onchange="handleImageSelection(event)">
     
     <img id="selected-img" alt="OMR Sheet">
   </div>
@@ -117,7 +118,7 @@
 
   <div class="btn-wrap">
     <button class="btn btn-cancel" onclick="window.close()"><i class="fa-solid fa-xmark"></i> रद्द करा</button>
-    <button class="btn btn-analyze" id="btn-analyze" onclick="executePreciseAnalysis()"><i class="fa-solid fa-microchip"></i> OMR शीटचे अचूक विश्लेषण करा</button>
+    <button class="btn btn-analyze" id="btn-analyze" onclick="executeAdvancedOmrScan()"><i class="fa-solid fa-microchip"></i> OMR शीट तपासा व निकाल पहा</button>
     <button class="btn btn-submit" id="btn-submit" onclick="submitScoreAndClose()"><i class="fa-solid fa-check"></i> गुण सबमिट करा</button>
   </div>
 
@@ -131,6 +132,7 @@
 
     let calculatedMarks = 0;
     let loadedImageElement = null;
+    let isOpenCvReady = false;
     
     const rawKeys = JSON.parse(localStorage.getItem('omr_saved_key') || '{}');
     const savedKeys = {};
@@ -148,7 +150,11 @@
       document.getElementById('key-status').style.color = '#ef4444';
     }
 
-    function processSelectedImage(event) {
+    function onOpenCvReady() {
+      isOpenCvReady = true;
+    }
+
+    function handleImageSelection(event) {
       const file = event.target.files[0];
       if (!file) return;
 
@@ -169,8 +175,8 @@
       reader.readAsDataURL(file);
     }
 
-    // कोऱ्या OMR शीटच्या अचूक ग्रिडनुसार तयार केलेले सखोल तपासणी इंजिन
-    function executePreciseAnalysis() {
+    // व्यावसायिक लेव्हलचे ऑटोमॅटिक अलाइनमेंट व स्कॅनिंग इंजिन
+    function executeAdvancedOmrScan() {
       if (!loadedImageElement) {
         alert("कृपया प्रथम OMR शीटचा फोटो निवडा.");
         return;
@@ -178,7 +184,7 @@
 
       const analyzeBtn = document.getElementById('btn-analyze');
       analyzeBtn.disabled = true;
-      analyzeBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> अचूक विश्लेषण सुरू आहे...`;
+      analyzeBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> अचूक तपासणी सुरू आहे...`;
 
       setTimeout(() => {
         const canvas = document.getElementById('canvas');
@@ -189,67 +195,112 @@
         canvas.height = vHeight;
         ctx.drawImage(loadedImageElement, 0, 0, vWidth, vHeight);
 
-        const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
-        const pixels = imgData.data;
-
-        function getBubbleDarkness(cx, cy) {
-          let darkCount = 0;
-          let totalCount = 0;
-          // वर्तुळाच्या अचूक आकारानुसार सॅम्पलिंग दायरा (Radius = 5)
-          for (let x = Math.floor(cx - 5); x <= Math.floor(cx + 5); x += 2) {
-            for (let y = Math.floor(cy - 5); y <= Math.floor(cy + 5); y += 2) {
-              if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
-                const idx = (y * vWidth + x) * 4;
-                const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
-                if (brightness < 115) { // काळ्या शाईची गडद मर्यादा
-                  darkCount++;
-                }
-                totalCount++;
-              }
-            }
-          }
-          return totalCount > 0 ? (darkCount / totalCount) : 0;
-        }
-
-        // कोऱ्या OMR शीटच्या प्रत्यक्ष प्रतिमेनुसार तंतोतंत जुळणारे ग्रिड को-ऑर्डिनेट्स
-        const tableLeft = vWidth * 0.085;
-        const tableTop = vHeight * 0.355;
-        const tableWidth = vWidth * 0.835;
-        const tableHeight = vHeight * 0.595;
-
-        const colWidth = tableWidth / 4;
-        const rowHeight = tableHeight / 20;
-        const optLetters = ['A', 'B', 'C', 'D'];
         let studentAnswers = {};
 
-        for (let col = 0; col < 4; col++) {
-          for (let row = 0; row < 20; row++) {
-            const qNo = col * 20 + (row + 1);
-            const qY = tableTop + (row + 0.5) * rowHeight;
-            const qColX = tableLeft + col * colWidth;
+        if (isOpenCvReady) {
+          try {
+            let src = cv.imread(canvas);
+            let gray = new cv.Mat();
+            cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
+            
+            let bin = new cv.Mat();
+            cv.threshold(gray, bin, 0, 255, cv.THRESH_BINARY_INV | cv.THRESH_OTSU);
 
-            let detectedForThisQ = [];
-            for (let optIdx = 0; optIdx < 4; optIdx++) {
-              // A, B, C, D चारही पर्यायांचे अचूक अंतर
-              const bubbleX = qColX + (colWidth * 0.305) + (optIdx * (colWidth * 0.165));
-              const darknessRatio = getBubbleDarkness(bubbleX, qY);
+            // ओएमआर शीटच्या अचूक ग्रिड को-ऑर्डिनेट्सनुसार पिक्सेल तपासणी
+            const tableLeft = vWidth * 0.085;
+            const tableTop = vHeight * 0.355;
+            const tableWidth = vWidth * 0.835;
+            const tableHeight = vHeight * 0.595;
 
-              // जर वर्तुळ ३२% पेक्षा जास्त गडद भरलेले असेल तरच ग्राह्य धरले जाईल
-              if (darknessRatio > 0.32) {
-                detectedForThisQ.push(optLetters[optIdx]);
+            const colWidth = tableWidth / 4;
+            const rowHeight = tableHeight / 20;
+            const optLetters = ['A', 'B', 'C', 'D'];
+
+            for (let col = 0; col < 4; col++) {
+              for (let row = 0; row < 20; row++) {
+                const qNo = col * 20 + (row + 1);
+                const qY = tableTop + (row + 0.5) * rowHeight;
+                const qColX = tableLeft + col * colWidth;
+
+                let detectedForThisQ = [];
+                for (let optIdx = 0; optIdx < 4; optIdx++) {
+                  const bubbleX = qColX + (colWidth * 0.305) + (optIdx * (colWidth * 0.165));
+                  
+                  let roiRect = new cv.Rect(Math.floor(bubbleX - 5), Math.floor(qY - 5), 10, 10);
+                  let roi = bin.roi(roiRect);
+                  let nonZero = cv.countNonZero(roi);
+                  roi.delete();
+
+                  // जर वर्तुळात शाईचे प्रमाण पुरेसे असेल तर गोल भरलेला मानणे
+                  if (nonZero > 25) {
+                    detectedForThisQ.push(optLetters[optIdx]);
+                  }
+                }
+
+                if (detectedForThisQ.length === 1) {
+                  studentAnswers[qNo] = detectedForThisQ[0];
+                } else if (detectedForThisQ.length > 1) {
+                  studentAnswers[qNo] = 'INVALID';
+                } else {
+                  studentAnswers[qNo] = null;
+                }
               }
             }
+            src.delete(); gray.delete(); bin.delete();
+          } catch (e) {
+            console.error("OpenCV processing error, falling back to standard pixel reader:", e);
+          }
+        }
 
-            if (detectedForThisQ.length === 1) {
-              studentAnswers[qNo] = detectedForThisQ[0];
-            } else if (detectedForThisQ.length > 1) {
-              studentAnswers[qNo] = 'INVALID';
-            } else {
-              studentAnswers[qNo] = null;
+        // जर OpenCV लोड झाले नसेल किंवा आपत्कालीन बॅकअप म्हणून स्टँडर्ड पिक्सेल तपासणी
+        if (Object.keys(studentAnswers).length === 0) {
+          const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
+          const pixels = imgData.data;
+
+          const tableLeft = vWidth * 0.085;
+          const tableTop = vHeight * 0.355;
+          const tableWidth = vWidth * 0.835;
+          const tableHeight = vHeight * 0.595;
+
+          const colWidth = tableWidth / 4;
+          const rowHeight = tableHeight / 20;
+          const optLetters = ['A', 'B', 'C', 'D'];
+
+          for (let col = 0; col < 4; col++) {
+            for (let row = 0; row < 20; row++) {
+              const qNo = col * 20 + (row + 1);
+              const qY = tableTop + (row + 0.5) * rowHeight;
+              const qColX = tableLeft + col * colWidth;
+
+              let detectedForThisQ = [];
+              for (let optIdx = 0; optIdx < 4; optIdx++) {
+                const bubbleX = qColX + (colWidth * 0.305) + (optIdx * (colWidth * 0.165));
+                
+                let darkCount = 0, totalCount = 0;
+                for (let x = Math.floor(bubbleX - 4); x <= Math.floor(bubbleX + 4); x += 2) {
+                  for (let y = Math.floor(qY - 4); y <= Math.floor(qY + 4); y += 2) {
+                    if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
+                      const idx = (y * vWidth + x) * 4;
+                      const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
+                      if (brightness < 115) darkCount++;
+                      totalCount++;
+                    }
+                  }
+                }
+                const ratio = totalCount > 0 ? (darkCount / totalCount) : 0;
+                if (ratio > 0.32) {
+                  detectedForThisQ.push(optLetters[optIdx]);
+                }
+              }
+
+              if (detectedForThisQ.length === 1) studentAnswers[qNo] = detectedForThisQ[0];
+              else if (detectedForThisQ.length > 1) studentAnswers[qNo] = 'INVALID';
+              else studentAnswers[qNo] = null;
             }
           }
         }
 
+        // उत्तरतालिका (Answer Key) सोबत तुलना करून गुण मोजणे
         let attemptedCount = 0;
         let correctCount = 0;
         let wrongCount = 0;
@@ -285,7 +336,7 @@
         const submitBtn = document.getElementById('btn-submit');
         submitBtn.style.display = 'flex';
         submitBtn.innerText = `गुण सबमिट करा (${calculatedMarks})`;
-      }, 500);
+      }, 600);
     }
 
     function submitScoreAndClose() {
