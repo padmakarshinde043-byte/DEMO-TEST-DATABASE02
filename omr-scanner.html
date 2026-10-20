@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>नवोदय OMR शीट अचूक स्कॅनर</title>
+  <title>नवोदय OMR शीट व्यावसायिक तपासणी कक्ष</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;700;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,9 +13,10 @@
     body { background: #0f172a; color: white; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 12px; }
 
     .header-box { text-align: center; margin-bottom: 8px; width: 100%; max-width: 380px; }
-    .header-box h2 { font-size: 1.15rem; color: #38bdf8; font-weight: 800; }
+    .header-box h2 { font-size: 1.12rem; color: #38bdf8; font-weight: 800; }
     .std-badge { background: #1e293b; color: #fef08a; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.92rem; display: inline-block; margin-top: 4px; border: 1px solid #334155; }
 
+    /* व्यावसायिक प्रिव्ह्यू फ्रेम */
     .preview-frame {
       position: relative;
       width: 100%;
@@ -47,6 +48,7 @@
     .choice-btns { display: flex; gap: 8px; width: 100%; margin-top: 12px; padding: 0 10px; }
     .choice-btn { flex: 1; padding: 10px 4px; background: #0284c7; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
 
+    /* अचूक तपासणी गोशवारा कार्ड */
     .summary-card {
       width: 100%;
       max-width: 340px;
@@ -65,21 +67,21 @@
     .btn-wrap { display: flex; gap: 8px; width: 100%; max-width: 340px; margin-top: 10px; }
     .btn { flex: 1; height: 48px; border-radius: 10px; border: none; font-weight: 800; font-size: 0.98rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
     .btn-cancel { background: #334155; color: white; }
-    .btn-analyze { background: #d97706; color: white; font-size: 1rem; display: none; }
+    .btn-analyze { background: #d97706; color: white; font-size: 0.95rem; display: none; }
     .btn-submit { background: #10b981; color: white; display: none; }
   </style>
 </head>
 <body>
 
   <div class="header-box">
-    <h2><i class="fa-solid fa-file-arrow-up"></i> OMR शीट तपासणी कक्ष</h2>
+    <h2><i class="fa-solid fa-file-shield"></i> OMR अचूक तपासणी कक्ष</h2>
     <div class="std-badge" id="std-display">विद्यार्थी: लोड होत आहे...</div>
-    <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: तपासून तयार</div>
+    <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: तपासत आहे...</div>
   </div>
 
   <div class="preview-frame" id="preview-frame">
     <div class="action-prompt" id="action-prompt">
-      <i class="fa-solid fa-camera-retro"></i>
+      <i class="fa-solid	fa-camera-retro"></i>
       <p>ओएमआर शीट तपासण्यासाठी फोटो निवडा:</p>
       <div class="choice-btns">
         <button class="choice-btn" onclick="document.getElementById('camera-input').click()">
@@ -117,7 +119,7 @@
 
   <div class="btn-wrap">
     <button class="btn btn-cancel" onclick="window.close()"><i class="fa-solid fa-xmark"></i> रद्द करा</button>
-    <button class="btn btn-analyze" id="btn-analyze" onclick="executeAccurateAnalysis()"><i class="fa-solid fa-microchip"></i> OMR शीटचे अचूक विश्लेषण करा</button>
+    <button class="btn btn-analyze" id="btn-analyze" onclick="executeProfessionalAnalysis()"><i class="fa-solid fa-microchip"></i> OMR शीटचे अचूक विश्लेषण करा</button>
     <button class="btn btn-submit" id="btn-submit" onclick="submitScoreAndClose()"><i class="fa-solid fa-check"></i> गुण सबमिट करा</button>
   </div>
 
@@ -169,115 +171,118 @@
       reader.readAsDataURL(file);
     }
 
-    function executeAccurateAnalysis() {
+    function executeProfessionalAnalysis() {
       if (!loadedImageElement) {
         alert("कृपया प्रथम OMR शीटचा फोटो निवडा.");
         return;
       }
 
-      const canvas = document.getElementById('canvas');
-      const ctx = canvas.getContext('2d');
-      const vWidth = loadedImageElement.width;
-      const vHeight = loadedImageElement.height;
-      canvas.width = vWidth;
-      canvas.height = vHeight;
-      ctx.drawImage(loadedImageElement, 0, 0, vWidth, vHeight);
+      document.getElementById('btn-analyze.innerText') = "विश्लेषण सुरू आहे, कृपया थांबा...";
 
-      const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
-      const pixels = imgData.data;
+      setTimeout(() => {
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const vWidth = loadedImageElement.width;
+        const vHeight = loadedImageElement.height;
+        canvas.width = vWidth;
+        canvas.height = vHeight;
+        ctx.drawImage(loadedImageElement, 0, 0, vWidth, vHeight);
 
-      // वर्तुळाचा काळेपणा अचूकपणे तपासणारे लॉजिक
-      function getBubbleDarkness(cx, cy) {
-        let darkCount = 0;
-        let totalCount = 0;
-        for (let x = cx - 6; x <= cx + 6; x += 2) {
-          for (let y = cy - 6; y <= cy + 6; y += 2) {
-            if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
-              const idx = (Math.floor(y) * vWidth + Math.floor(x)) * 4;
-              const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
-              if (brightness < 120) {
-                darkCount++;
+        const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
+        const pixels = imgData.data;
+
+        // वर्तुळाचा काळेपणा अचूकपणे तपासणारे व्यावसायिक लॉजिक
+        function getBubbleDarkness(cx, cy) {
+          let darkCount = 0;
+          let totalCount = 0;
+          for (let x = cx - 5; x <= cx + 5; x += 2) {
+            for (let y = cy - 5; y <= cy + 5; y += 2) {
+              if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
+                const idx = (Math.floor(y) * vWidth + Math.floor(x)) * 4;
+                const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
+                if (brightness < 100) { // गडद शाई
+                  darkCount++;
+                }
+                totalCount++;
               }
-              totalCount++;
+            }
+          }
+          return totalCount > 0 ? (darkCount / totalCount) : 0;
+        }
+
+        // नवोदय OMR शीटच्या प्रत्यक्ष रकान्यानुसार अचूक ग्रिड को-ऑर्डिनेट्स
+        const tableLeft = vWidth * 0.115;
+        const tableTop = vHeight * 0.29;
+        const tableWidth = vWidth * 0.77;
+        const tableHeight = vHeight * 0.63;
+
+        const colWidth = tableWidth / 4;
+        const rowHeight = tableHeight / 20;
+        const optLetters = ['A', 'B', 'C', 'D'];
+        let studentAnswers = {};
+
+        for (let col = 0; col < 4; col++) {
+          for (let row = 0; row < 20; row++) {
+            const qNo = col * 20 + (row + 1);
+            const qY = tableTop + (row + 0.5) * rowHeight;
+            const qColX = tableLeft + col * colWidth;
+
+            let detectedForThisQ = [];
+            for (let optIdx = 0; optIdx < 4; optIdx++) {
+              const bubbleX = qColX + (colWidth * 0.31) + (optIdx * (colWidth * 0.165));
+              const darknessRatio = getBubbleDarkness(bubbleX, qY);
+
+              // ३५% पेक्षा जास्त शाई असल्यास गोल भरलेला मानला जाईल
+              if (darknessRatio > 0.35) {
+                detectedForThisQ.push(optLetters[optIdx]);
+              }
+            }
+
+            if (detectedForThisQ.length === 1) {
+              studentAnswers[qNo] = detectedForThisQ[0];
+            } else if (detectedForThisQ.length > 1) {
+              studentAnswers[qNo] = 'INVALID';
+            } else {
+              studentAnswers[qNo] = null;
             }
           }
         }
-        return totalCount > 0 ? (darkCount / totalCount) : 0;
-      }
 
-      // नवोदय OMR शीटच्या अचूक बॉक्सनुसार सुधारित ग्रिड को-ऑर्डिनेट्स
-      const tableLeft = vWidth * 0.08;
-      const tableTop = vHeight * 0.27;
-      const tableWidth = vWidth * 0.84;
-      const tableHeight = vHeight * 0.68;
+        let attemptedCount = 0;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let invalidCount = 0;
 
-      const colWidth = tableWidth / 4;
-      const rowHeight = tableHeight / 20;
-      const optLetters = ['A', 'B', 'C', 'D'];
-      let studentAnswers = {};
+        for (let q = 1; q <= 80; q++) {
+          const stdAns = studentAnswers[q];
+          const correctAns = savedKeys[q];
 
-      for (let col = 0; col < 4; col++) {
-        for (let row = 0; row < 20; row++) {
-          const qNo = col * 20 + (row + 1);
-          const qY = tableTop + (row + 0.5) * rowHeight;
-          const qColX = tableLeft + col * colWidth;
-
-          let detectedForThisQ = [];
-          for (let optIdx = 0; optIdx < 4; optIdx++) {
-            // A, B, C, D पर्यायांचे अचूक अंतर
-            const bubbleX = qColX + (colWidth * 0.31) + (optIdx * (colWidth * 0.165));
-            const darknessRatio = getBubbleDarkness(bubbleX, qY);
-
-            // ३०% पेक्षा जास्त शाई असल्यास गोल भरलेला मानला जाईल
-            if (darknessRatio > 0.30) {
-              detectedForThisQ.push(optLetters[optIdx]);
+          if (stdAns === 'INVALID') {
+            invalidCount++;
+            attemptedCount++;
+          } else if (stdAns) {
+            attemptedCount++;
+            if (stdAns === correctAns) {
+              correctCount++;
+            } else {
+              wrongCount++;
             }
           }
-
-          if (detectedForThisQ.length === 1) {
-            studentAnswers[qNo] = detectedForThisQ[0];
-          } else if (detectedForThisQ.length > 1) {
-            studentAnswers[qNo] = 'INVALID';
-          } else {
-            studentAnswers[qNo] = null;
-          }
         }
-      }
 
-      let attemptedCount = 0;
-      let correctCount = 0;
-      let wrongCount = 0;
-      let invalidCount = 0;
+        calculatedMarks = parseFloat((correctCount * 1.25).toFixed(2));
 
-      for (let q = 1; q <= 80; q++) {
-        const stdAns = studentAnswers[q];
-        const correctAns = savedKeys[q];
+        document.getElementById('sum-attempted').innerText = `${attemptedCount}/80`;
+        document.getElementById('sum-correct').innerText = correctCount;
+        document.getElementById('sum-wrong').innerText = wrongCount;
+        document.getElementById('sum-invalid').innerText = invalidCount;
+        document.getElementById('sum-score').innerText = `${calculatedMarks}/100`;
 
-        if (stdAns === 'INVALID') {
-          invalidCount++;
-          attemptedCount++;
-        } else if (stdAns) {
-          attemptedCount++;
-          if (stdAns === correctAns) {
-            correctCount++;
-          } else {
-            wrongCount++;
-          }
-        }
-      }
-
-      calculatedMarks = parseFloat((correctCount * 1.25).toFixed(2));
-
-      document.getElementById('sum-attempted').innerText = `${attemptedCount}/80`;
-      document.getElementById('sum-correct').innerText = correctCount;
-      document.getElementById('sum-wrong').innerText = wrongCount;
-      document.getElementById('sum-invalid').innerText = invalidCount;
-      document.getElementById('sum-score').innerText = `${calculatedMarks}/100`;
-
-      document.getElementById('summary-card').style.display = 'block';
-      document.getElementById('btn-analyze').style.display = 'none';
-      document.getElementById('btn-submit').style.display = 'flex';
-      document.getElementById('btn-submit').innerText = `गुण सबमिट करा (${calculatedMarks})`;
+        document.getElementById('summary-card').style.display = 'block';
+        document.getElementById('btn-analyze').style.display = 'none';
+        document.getElementById('btn-submit').style.display = 'flex';
+        document.getElementById('btn-submit').innerText = `गुण सबमिट करा (${calculatedMarks})`;
+      }, 300);
     }
 
     function submitScoreAndClose() {
