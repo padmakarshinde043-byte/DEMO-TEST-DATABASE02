@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>नवोदय OMR शीट व्यावसायिक तपासणी कक्ष</title>
+  <title>नवोदय OMR शीट अचूक स्कॅनर</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;700;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,7 +16,6 @@
     .header-box h2 { font-size: 1.12rem; color: #38bdf8; font-weight: 800; }
     .std-badge { background: #1e293b; color: #fef08a; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.92rem; display: inline-block; margin-top: 4px; border: 1px solid #334155; }
 
-    /* व्यावसायिक प्रिव्ह्यू फ्रेम */
     .preview-frame {
       position: relative;
       width: 100%;
@@ -48,7 +47,6 @@
     .choice-btns { display: flex; gap: 8px; width: 100%; margin-top: 12px; padding: 0 10px; }
     .choice-btn { flex: 1; padding: 10px 4px; background: #0284c7; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
 
-    /* अचूक तपासणी गोशवारा कार्ड */
     .summary-card {
       width: 100%;
       max-width: 340px;
@@ -81,7 +79,7 @@
 
   <div class="preview-frame" id="preview-frame">
     <div class="action-prompt" id="action-prompt">
-      <i class="fa-solid	fa-camera-retro"></i>
+      <i class="fa-solid fa-camera-retro"></i>
       <p>ओएमआर शीट तपासण्यासाठी फोटो निवडा:</p>
       <div class="choice-btns">
         <button class="choice-btn" onclick="document.getElementById('camera-input').click()">
@@ -177,7 +175,8 @@
         return;
       }
 
-      document.getElementById('btn-analyze.innerText') = "विश्लेषण सुरू आहे, कृपया थांबा...";
+      const analyzeBtn = document.getElementById('btn-analyze');
+      analyzeBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> विश्लेषण सुरू आहे...`;
 
       setTimeout(() => {
         const canvas = document.getElementById('canvas');
@@ -191,7 +190,6 @@
         const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
         const pixels = imgData.data;
 
-        // वर्तुळाचा काळेपणा अचूकपणे तपासणारे व्यावसायिक लॉजिक
         function getBubbleDarkness(cx, cy) {
           let darkCount = 0;
           let totalCount = 0;
@@ -200,7 +198,7 @@
               if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
                 const idx = (Math.floor(y) * vWidth + Math.floor(x)) * 4;
                 const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
-                if (brightness < 100) { // गडद शाई
+                if (brightness < 110) {
                   darkCount++;
                 }
                 totalCount++;
@@ -210,7 +208,6 @@
           return totalCount > 0 ? (darkCount / totalCount) : 0;
         }
 
-        // नवोदय OMR शीटच्या प्रत्यक्ष रकान्यानुसार अचूक ग्रिड को-ऑर्डिनेट्स
         const tableLeft = vWidth * 0.115;
         const tableTop = vHeight * 0.29;
         const tableWidth = vWidth * 0.77;
@@ -232,7 +229,6 @@
               const bubbleX = qColX + (colWidth * 0.31) + (optIdx * (colWidth * 0.165));
               const darknessRatio = getBubbleDarkness(bubbleX, qY);
 
-              // ३५% पेक्षा जास्त शाई असल्यास गोल भरलेला मानला जाईल
               if (darknessRatio > 0.35) {
                 detectedForThisQ.push(optLetters[optIdx]);
               }
@@ -279,9 +275,10 @@
         document.getElementById('sum-score').innerText = `${calculatedMarks}/100`;
 
         document.getElementById('summary-card').style.display = 'block';
-        document.getElementById('btn-analyze').style.display = 'none';
-        document.getElementById('btn-submit').style.display = 'flex';
-        document.getElementById('btn-submit').innerText = `गुण सबमिट करा (${calculatedMarks})`;
+        analyzeBtn.style.display = 'none';
+        const submitBtn = document.getElementById('btn-submit');
+        submitBtn.style.display = 'flex';
+        submitBtn.innerText = `गुण सबमिट करा (${calculatedMarks})`;
       }, 300);
     }
 
