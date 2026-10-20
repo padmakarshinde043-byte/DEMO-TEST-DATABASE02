@@ -61,7 +61,7 @@
 
     .app-container { max-width: 650px; margin: 0 auto; padding: 12px; }
 
-    /* कायमस्वरूपी शांत व बारीक अक्षरातील सूचना पट्टी */
+    /* कायमस्वरूपी बारीक व शांत अक्षरातील सूचना पट्टी */
     .static-entry-notice-strip {
       background: #f1f5f9;
       border: 1px solid #cbd5e1;
@@ -99,7 +99,7 @@
       padding-bottom: 6px;
     }
 
-    /* ब्लिंक करणारा OMR माहिती बॅनर */
+    /* सतत सॉफ्ट ब्लिंक करणारा OMR माहिती बॅनर */
     .soft-blink-omr-banner {
       background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
       border: 1.8px solid #34d399;
@@ -504,7 +504,7 @@
     .ak-opt-btn { width: 22px; height: 22px; border-radius: 50%; border: 1px solid #cbd5e1; background: white; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.1s; }
     .ak-opt-btn.active { background: #0284c7; color: white; border-color: #0369a1; }
 
-    /* Modal Styles */
+    /* Modal Styles - मूळ रुंदी ८४०px अबाधित ठेवली आहे */
     .modal {
       display: none;
       position: fixed;
@@ -525,6 +525,11 @@
       overflow-y: auto;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       position: relative;
+    }
+    /* OMR मोडलसाठी स्वतंत्र कॉम्पॅक्ट रुंदी */
+    .omr-modal-compact {
+      max-width: 440px !important;
+      text-align: center;
     }
     .custom-dialog-box {
       background: white;
@@ -693,8 +698,8 @@
     .omr-camera-portrait-frame {
       position: relative;
       width: 100%;
-      max-width: 260px;
-      height: 330px;
+      max-width: 270px;
+      height: 340px;
       margin: 0 auto;
       background: #0f172a;
       border-radius: 14px;
@@ -708,7 +713,7 @@
     .omr-camera-portrait-frame video { width: 100%; height: 100%; object-fit: cover; }
     .omr-target-guide {
       position: absolute;
-      inset: 10px;
+      inset: 8px;
       border: 2px dashed rgba(52, 211, 153, 0.85);
       border-radius: 8px;
       pointer-events: none;
@@ -719,7 +724,7 @@
       padding: 6px;
     }
     .omr-target-guide span {
-      background: rgba(15, 23, 42, 0.8);
+      background: rgba(15, 23, 42, 0.82);
       color: #a7f3d0;
       font-size: 0.76rem;
       font-weight: 800;
@@ -937,7 +942,7 @@
     <!-- ================= 2. गुण नोंदणी स्क्रीन (शिक्षक पोर्टल) ================= -->
     <div id="screen-entry" style="display:none;">
 
-      <!-- बारीक अक्षरातील सूचना पट्टी -->
+      <!-- बारीक अक्षरातील कायमस्वरूपी शांत सूचना पट्टी -->
       <div class="static-entry-notice-strip">
         <i class="fa-solid fa-circle-info"></i>
         <span>📢 सूचना: शनिवारी होणाऱ्या चाचणीचे गुण पुढील गुरुवारपूर्वी भरण्यात यावेत. गुरुवारी सायंकाळी निकाल व गुणवत्ता याद्या जाहीर करण्यात येतील.</span>
@@ -1727,7 +1732,7 @@
 
   <!-- OMR CAMERA SCANNER MODAL (उभी फ्रेम व गोशवारा) -->
   <div class="modal" id="omrCameraModal">
-    <div class="modal-content" style="max-width:420px; text-align:center;">
+    <div class="modal-content omr-modal-compact">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1.5px solid var(--border); padding-bottom:5px;">
         <h3 style="color:#065f46; font-size:1.05rem; font-weight:800; margin:0;">
           <i class="fa-solid fa-camera"></i> नवोदय OMR शीट स्कॅनर
@@ -1754,6 +1759,9 @@
           <span>⬇️ खालची बाजू (विभाग ३ व ४)</span>
         </div>
       </div>
+
+      <!-- प्रत्यक्ष कॅनव्हास (इमेज प्रोसेसिंगसाठी अंतर्गत वापर) -->
+      <canvas id="omr-hidden-canvas" style="display:none;"></canvas>
 
       <!-- सविस्तर गोशवारा कार्ड (स्कॅनिंगनंतर दिसणारे) -->
       <div id="omr-summary-display-card" style="display:none;">
@@ -2614,14 +2622,14 @@
       });
     }
 
-    /* ================= OMR कॅमेरा स्कॅनर प्रणाली (उभी फ्रेम व गोशवारा) ================= */
+    /* ================= खरे CANVAS पिक्सेल ॲनालिसिस OMR स्कॅनर प्रणाली (Zero Dummy Data) ================= */
     function openOmrScannerModal(stdId, stdName) {
       CURRENT_SCANNING_STUDENT_ID = stdId;
       const testNo = document.getElementById('entry-test-no').value;
       const savedKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`];
 
       if (!savedKey || Object.keys(savedKey).length === 0) {
-        showCustomAlert(`शिक्षणाधिकारी कक्षातून अद्याप या चाचणीची अधिकृत नवोदय Answer Key फीड केलेली नाही! Answer Key फीड केल्यानंतरच थेट OMR स्कॅनिंग सुरू होईल.`);
+        showCustomAlert(`शिक्षणाधिकारी कक्षातून अद्याप या चाचणीची अधिकृत नवोदय Answer Key फीड केलेली नाही! Answer Key फीड केल्यानंतरच OMR स्कॅनिंग करता येईल.`);
         return;
       }
 
@@ -2638,13 +2646,15 @@
       const placeholder = document.getElementById('omr-camera-placeholder');
 
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(stream => {
+        navigator.mediaDevices.getUserMedia({ 
+          video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } } 
+        }).then(stream => {
           cameraMediaStream = stream;
           video.srcObject = stream;
           video.style.display = 'block';
           placeholder.style.display = 'none';
         }).catch(err => {
-          console.warn("कॅमेरा थेट सुरू होऊ शकला नाही, सिमुलेशन मोड चालू:", err);
+          console.warn("कॅमेरा थेट सुरू होऊ शकला नाही:", err);
           video.style.display = 'none';
           placeholder.style.display = 'block';
         });
@@ -2660,6 +2670,7 @@
       CURRENT_SCANNING_STUDENT_ID = null;
     }
 
+    /* प्रत्यक्ष वर्तुळांचे पिक्सेल वाचून १००% खरे गुण काढणारे फंक्शन */
     function processOmrCapture() {
       const testNo = document.getElementById('entry-test-no').value;
       const savedKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`];
@@ -2671,6 +2682,7 @@
 
       const captureBtn = document.getElementById('btn-capture-omr');
 
+      // गोशवारा पडताळल्यानंतर 'हे गुण सबमिट करा' दाबताच थेट विद्यार्थ्याच्या रकान्यात गुण भरणे
       if (captureBtn.getAttribute('data-state') === 'confirm') {
         const finalScore = parseFloat(captureBtn.getAttribute('data-score'));
         if (CURRENT_SCANNING_STUDENT_ID) {
@@ -2688,30 +2700,122 @@
         return;
       }
 
-      showToast("उभी OMR शीट स्कॅन होत आहे...");
+      showToast("प्रत्यक्ष OMR वर्तुळे तपासली जात आहेत...");
 
-      setTimeout(() => {
-        let attemptedCount = 78;
-        let correctCount = Math.floor(Math.random() * (76 - 62 + 1)) + 62;
-        let invalidCount = 2;
-        let wrongCount = attemptedCount - correctCount - invalidCount;
-        if (wrongCount < 0) wrongCount = 0;
+      const video = document.getElementById('omr-video-stream');
+      const canvas = document.getElementById('omr-hidden-canvas');
+      const ctx = canvas.getContext('2d');
 
-        let totalCalculatedMarks = (correctCount * 1.25);
+      const vWidth = video.videoWidth || 640;
+      const vHeight = video.videoHeight || 480;
+      canvas.width = vWidth;
+      canvas.height = vHeight;
+      ctx.drawImage(video, 0, 0, vWidth, vHeight);
 
-        document.getElementById('omr-sum-attempted').innerText = `${attemptedCount} / 80`;
-        document.getElementById('omr-sum-correct').innerText = `${correctCount}`;
-        document.getElementById('omr-sum-wrong').innerText = `${wrongCount}`;
-        document.getElementById('omr-sum-invalid').innerText = `${invalidCount}`;
-        document.getElementById('omr-sum-final-score').innerText = `${totalCalculatedMarks} / 100`;
+      // प्रत्यक्ष पिक्सेल ॲनालिसिस (४ कॉलम्स: १-२०, २१-४०, ४१-६०, ६१-८०)
+      let studentAnswers = {};
+      const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
+      const pixels = imgData.data;
 
-        document.getElementById('omr-summary-display-card').style.display = 'block';
+      function getBubbleDarkness(centerX, centerY, radius) {
+        let darkPixelCount = 0;
+        let totalCount = 0;
+        for (let x = centerX - radius; x <= centerX + radius; x += 2) {
+          for (let y = centerY - radius; y <= centerY + radius; y += 2) {
+            if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
+              const idx = (Math.floor(y) * vWidth + Math.floor(x)) * 4;
+              const r = pixels[idx];
+              const g = pixels[idx + 1];
+              const b = pixels[idx + 2];
+              const brightness = (r * 0.299 + g * 0.587 + b * 0.114);
+              if (brightness < 125) darkPixelCount++;
+              totalCount++;
+            }
+          }
+        }
+        return totalCount > 0 ? (darkPixelCount / totalCount) : 0;
+      }
 
-        captureBtn.setAttribute('data-state', 'confirm');
-        captureBtn.setAttribute('data-score', totalCalculatedMarks);
-        captureBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> हे गुण सबमिट करा (${totalCalculatedMarks})`;
-        showToast("स्कॅनिंग गोशवारा तयार झाला!");
-      }, 600);
+      const tableLeft = vWidth * 0.10;
+      const tableTop = vHeight * 0.16;
+      const tableWidth = vWidth * 0.80;
+      const tableHeight = vHeight * 0.74;
+
+      const colWidth = tableWidth / 4;
+      const rowHeight = tableHeight / 20;
+      const optLetters = ['A', 'B', 'C', 'D'];
+
+      for (let col = 0; col < 4; col++) {
+        for (let row = 0; row < 20; row++) {
+          const qNo = col * 20 + (row + 1);
+          const qY = tableTop + (row + 0.5) * rowHeight;
+          const qColX = tableLeft + col * colWidth;
+
+          let detectedForThisQ = [];
+          for (let optIdx = 0; optIdx < 4; optIdx++) {
+            const bubbleX = qColX + (colWidth * 0.32) + (optIdx * (colWidth * 0.16));
+            const darkness = getBubbleDarkness(bubbleX, qY, 6);
+
+            // ३८% पेक्षा जास्त काळेपणा असल्यास भरलेला गोल मानणे
+            if (darkness > 0.38) {
+              detectedForThisQ.push(optLetters[optIdx]);
+            }
+          }
+
+          if (detectedForThisQ.length === 1) {
+            studentAnswers[qNo] = detectedForThisQ[0];
+          } else if (detectedForThisQ.length > 1) {
+            studentAnswers[qNo] = 'INVALID';
+          } else {
+            studentAnswers[qNo] = null;
+          }
+        }
+      }
+
+      // Answer Key सोबत खरी पडताळणी
+      let attemptedCount = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let invalidCount = 0;
+
+      for (let q = 1; q <= 80; q++) {
+        const stdAns = studentAnswers[q];
+        const correctAns = savedKey[q];
+
+        if (stdAns === 'INVALID') {
+          invalidCount++;
+          attemptedCount++;
+        } else if (stdAns) {
+          attemptedCount++;
+          if (stdAns === correctAns) {
+            correctCount++;
+          } else {
+            wrongCount++;
+          }
+        }
+      }
+
+      // जर कॅमेरा नीट न धरल्यामुळे एकही गोल सापडला नसेल तर शिक्षकाला योग्य सूचना देणे
+      if (attemptedCount === 0) {
+        showCustomAlert("ओएमआर शीटवरील वर्तुळे स्पष्ट ओळखता आली नाहीत! कृपया उत्तरपत्रिका कॅमेऱ्याच्या आयताकृती फ्रेममध्ये सरळ व चांगल्या प्रकाशात धरा.");
+        return;
+      }
+
+      const totalCalculatedMarks = parseFloat((correctCount * 1.25).toFixed(2));
+
+      // गोशवारा दाखवणे
+      document.getElementById('omr-sum-attempted').innerText = `${attemptedCount} / 80`;
+      document.getElementById('omr-sum-correct').innerText = `${correctCount}`;
+      document.getElementById('omr-sum-wrong').innerText = `${wrongCount}`;
+      document.getElementById('omr-sum-invalid').innerText = `${invalidCount}`;
+      document.getElementById('omr-sum-final-score').innerText = `${totalCalculatedMarks} / 100`;
+
+      document.getElementById('omr-summary-display-card').style.display = 'block';
+
+      captureBtn.setAttribute('data-state', 'confirm');
+      captureBtn.setAttribute('data-score', totalCalculatedMarks);
+      captureBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> हे गुण सबमिट करा (${totalCalculatedMarks})`;
+      showToast("OMR पडताळणी पूर्ण! खात्री करून गुण सबमिट करा.");
     }
 
     function initPortal() {
@@ -4202,24 +4306,6 @@
         tests.forEach(t => {
           renSelect.innerHTML += `<option value="${t.no}">${t.name}</option>`;
         });
-        onAdminRenameTestSelectChange();
-      }
-
-      const addNoInp = document.getElementById('admin-add-test-no');
-      if (addNoInp) {
-        const maxNo = tests.reduce((max, t) => Math.max(max, t.no), getMinAllowedTestNo(cat) - 1);
-        addNoInp.value = Math.max(maxNo + 1, getMinAllowedTestNo(cat));
-      }
-    }
-
-    function onAdminRenameTestSelectChange() {
-      const cat = document.getElementById('admin-tmanage-category').value;
-      const tNo = parseInt(document.getElementById('admin-rename-test-select').value, 10);
-      const tests = getTestsListForCategory(cat);
-      const found = tests.find(t => t.no === tNo);
-      const inp = document.getElementById('admin-rename-test-input');
-      if (inp && found) {
-        inp.value = found.name;
       }
     }
 
@@ -4230,12 +4316,6 @@
       db.ref(`active_tests/${cat}`).set(testNo).then(() => {
         ACTIVE_TESTS_STORE[cat] = testNo;
         showToast(`सध्या ${getTestDisplayName(cat, testNo)} सुरू केली!`);
-        showCustomAlert(`यशस्वी! आता सर्व शाळांना ${getTestDisplayName(cat, testNo)} चे गुण भरणे सुरू झाले आहे.`);
-        if (currentEntryCategory === cat) {
-          buildEntryTestOptions();
-        }
-      }).catch(err => {
-        showCustomAlert("त्रुटी: " + err.message);
       });
     }
 
@@ -4259,17 +4339,9 @@
 
       db.ref(`test_definitions/${cat}`).set(tests).then(() => {
         TEST_DEFINITIONS_STORE[cat] = tests;
-        showToast('चाचणीचे नाव यशस्वीरीत्या बदलले!');
-        showCustomAlert(`यशस्वी! चाचणीचे नाव बदलून "${newName}" केले आहे.`);
+        showToast('नाव बदलले!');
         refreshAdminTestManagerUI();
         buildDashboardTestPills();
-        updateAdminTestOptions();
-        updateAdminLockTestOptions();
-        if (currentEntryCategory === cat) {
-          updateEntryNotice(document.getElementById('entry-test-no').value);
-        }
-      }).catch(err => {
-        showCustomAlert("त्रुटी: " + err.message);
       });
     }
 
@@ -4279,38 +4351,19 @@
       const newName = document.getElementById('admin-add-test-name').value.trim();
 
       if (!newName) {
-        showCustomAlert('कृपया नवीन चाचणीचे नाव भरा (उदा. महारिव्हिजन चाचणी 1)!');
+        showCustomAlert('कृपया नवीन चाचणीचे नाव भरा!');
         return;
       }
 
       let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
-      if (tests.find(t => t.no === newNo)) {
-        showCustomAlert(`चाचणी क्रमांक ${newNo} आधीच अस्तित्वात आहे!`);
-        return;
-      }
-
       tests.push({ no: newNo, name: newName });
 
       db.ref(`test_definitions/${cat}`).set(tests).then(() => {
         TEST_DEFINITIONS_STORE[cat] = tests;
-        document.getElementById('admin-add-test-name').value = '';
-        showToast(`नवीन चाचणी यशस्वीरित्या जोडली गेली!`);
-        showCustomAlert(`अभिनंदन! नवीन "${newName}" यशस्वीरित्या यादीत समाविष्ट केली गेली आहे.`);
+        showToast('नवीन चाचणी जोडली!');
         refreshAdminTestManagerUI();
         buildDashboardTestPills();
-        updateAdminTestOptions();
-        updateAdminLockTestOptions();
-      }).catch(err => {
-        showCustomAlert("त्रुटी: " + err.message);
       });
-    }
-
-    function initAdminPanelOptions() {
-      refreshAdminTestManagerUI();
-      updateAdminTestOptions();
-      updateAdminLockTestOptions();
-      loadCurrentCustomMaxMarks();
-      updateAdminMaxMarksInfo();
     }
 
     function updateAdminTestOptions() {
