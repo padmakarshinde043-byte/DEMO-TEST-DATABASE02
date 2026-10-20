@@ -1,17 +1,15 @@
 /* ==========================================================================
-   OMR-SCANNER.JS - स्वतंत्र नवोदय OMR स्कॅनिंग इंजिन
-   जिल्हा परिषद, बीड - शिक्षण विभाग | ८० प्रश्न अचूक पिक्सेल वाचन
+   OMR-SCANNER.JS - स्वतंत्र नवोदय OMR स्कॅनिंग इंजिन (Conflict-Free)
    ========================================================================== */
 
-let CURRENT_SCANNING_STUDENT_ID = null;
-let cameraMediaStream = null;
-let omrDetectionInterval = null;
-let omrConsecutiveStableFrames = 0;
-let isAutoCaptured = false;
+window.CURRENT_SCANNING_STUDENT_ID = null;
+window.cameraMediaStream = null;
+window.omrDetectionInterval = null;
+window.omrConsecutiveStableFrames = 0;
+window.isAutoCaptured = false;
 
-/* ================= १. OMR स्कॅनर मोडल उघडणे ================= */
 function openOmrScannerModal(stdId, stdName) {
-  CURRENT_SCANNING_STUDENT_ID = stdId;
+  window.CURRENT_SCANNING_STUDENT_ID = stdId;
   const testNo = document.getElementById('entry-test-no').value;
   const savedKey = (typeof NAVODAYA_ANSWER_KEYS_STORE !== 'undefined') ? NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`] : null;
 
@@ -41,21 +39,20 @@ function openOmrScannerModal(stdId, stdName) {
 
   const video = document.getElementById('omr-video-stream');
   const placeholder = document.getElementById('omr-camera-placeholder');
-  isAutoCaptured = false;
-  omrConsecutiveStableFrames = 0;
+  window.isAutoCaptured = false;
+  window.omrConsecutiveStableFrames = 0;
 
   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ 
       video: { facingMode: "environment" } 
     }).then(stream => {
-      cameraMediaStream = stream;
+      window.cameraMediaStream = stream;
       video.srcObject = stream;
       video.style.display = 'block';
       if (placeholder) placeholder.style.display = 'none';
 
-      // रिअल-टाइम OMR पॅटर्न डिटेक्शन लूप (दर १६०ms ला तपासणी)
-      clearInterval(omrDetectionInterval);
-      omrDetectionInterval = setInterval(checkLiveOmrPatternInFrame, 160);
+      clearInterval(window.omrDetectionInterval);
+      window.omrDetectionInterval = setInterval(checkLiveOmrPatternInFrame, 160);
     }).catch(err => {
       console.warn("कॅमेरा थेट सुरू होऊ शकला नाही:", err);
       video.style.display = 'none';
@@ -64,22 +61,20 @@ function openOmrScannerModal(stdId, stdName) {
   }
 }
 
-/* ================= २. OMR स्कॅनर बंद करणे ================= */
 function closeOmrScanner() {
-  clearInterval(omrDetectionInterval);
-  omrDetectionInterval = null;
-  if (cameraMediaStream) {
-    cameraMediaStream.getTracks().forEach(track => track.stop());
-    cameraMediaStream = null;
+  clearInterval(window.omrDetectionInterval);
+  window.omrDetectionInterval = null;
+  if (window.cameraMediaStream) {
+    window.cameraMediaStream.getTracks().forEach(track => track.stop());
+    window.cameraMediaStream = null;
   }
   document.getElementById('omrCameraModal').style.display = 'none';
-  CURRENT_SCANNING_STUDENT_ID = null;
-  isAutoCaptured = false;
+  window.CURRENT_SCANNING_STUDENT_ID = null;
+  window.isAutoCaptured = false;
 }
 
-/* ================= ३. लाइव्ह पॅटर्न व्हॅलिडेशन (रेड ते ग्रीन फ्रेम) ================= */
 function checkLiveOmrPatternInFrame() {
-  if (isAutoCaptured) return;
+  if (window.isAutoCaptured) return;
   const video = document.getElementById('omr-video-stream');
   if (!video || video.readyState !== 4) return;
 
@@ -95,7 +90,6 @@ function checkLiveOmrPatternInFrame() {
   const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
   const pixels = imgData.data;
 
-  // १. पांढऱ्या कागदाची पडताळणी
   let lightPixels = 0;
   let totalSampled = 0;
   for (let y = vHeight * 0.2; y < vHeight * 0.8; y += 12) {
@@ -108,7 +102,6 @@ function checkLiveOmrPatternInFrame() {
   }
   const paperWhiteRatio = lightPixels / totalSampled;
 
-  // २. ४ स्तंभांमधील पांढऱ्या उभ्या गॅप्स (Vertical Gutters) तपासणी
   const gutterXPositions = [0.32, 0.53, 0.74];
   let validGuttersCount = 0;
 
@@ -132,26 +125,24 @@ function checkLiveOmrPatternInFrame() {
   const isOmrValid = (paperWhiteRatio > 0.60 && validGuttersCount >= 2);
 
   if (isOmrValid) {
-    omrConsecutiveStableFrames++;
+    window.omrConsecutiveStableFrames++;
     if (pBox) pBox.classList.add('detected-green');
     if (statusPill) statusPill.innerText = "✅ OMR शीट जुळली (स्थिर ठेवा)";
     
-    // OMR सलग ३ फ्रेम्स स्थिर जुळताच आपोआप कॅप्चर (Auto-Capture)
-    if (omrConsecutiveStableFrames >= 3) {
-      isAutoCaptured = true;
+    if (window.omrConsecutiveStableFrames >= 3) {
+      window.isAutoCaptured = true;
       if (statusPill) statusPill.innerText = "📸 आपोआप कॅप्चर झाले!";
       executeRealOmrAnalysis(pixels, vWidth, vHeight);
     }
   } else {
-    omrConsecutiveStableFrames = 0;
+    window.omrConsecutiveStableFrames = 0;
     if (pBox) pBox.classList.remove('detected-green');
     if (statusPill) statusPill.innerText = "❌ OMR शीट दिसत नाही";
   }
 }
 
-/* ================= ४. प्रत्यक्ष पिक्सेल ॲनालिसिस (खरे गुण व गोशवारा) ================= */
 function executeRealOmrAnalysis(pixels, vWidth, vHeight) {
-  clearInterval(omrDetectionInterval);
+  clearInterval(window.omrDetectionInterval);
   showToast("OMR शीट स्कॅन झाली! गुण मोजले जात आहेत...");
 
   const testNo = document.getElementById('entry-test-no').value;
@@ -184,7 +175,6 @@ function executeRealOmrAnalysis(pixels, vWidth, vHeight) {
 
   let studentAnswers = {};
 
-  // नवोदय ८० प्रश्न (४ कॉलम्स × २० ओळी) वर्तुळे तपासणे
   for (let col = 0; col < 4; col++) {
     for (let row = 0; row < 20; row++) {
       const qNo = col * 20 + (row + 1);
@@ -204,14 +194,13 @@ function executeRealOmrAnalysis(pixels, vWidth, vHeight) {
       if (detectedForThisQ.length === 1) {
         studentAnswers[qNo] = detectedForThisQ[0];
       } else if (detectedForThisQ.length > 1) {
-        studentAnswers[qNo] = 'INVALID'; // दुहेरी गोल / खडाखोड
+        studentAnswers[qNo] = 'INVALID';
       } else {
-        studentAnswers[qNo] = null; // सोडवला नाही
+        studentAnswers[qNo] = null;
       }
     }
   }
 
-  // Answer Key सोबत प्रत्यक्ष गुणांची मोजणी
   let attemptedCount = 0;
   let correctCount = 0;
   let wrongCount = 0;
@@ -241,7 +230,6 @@ function executeRealOmrAnalysis(pixels, vWidth, vHeight) {
 
   const totalCalculatedMarks = parseFloat((correctCount * 1.25).toFixed(2));
 
-  // गोशवारा पडद्यावर दाखवणे
   document.getElementById('omr-sum-attempted').innerText = `${attemptedCount} / 80`;
   document.getElementById('omr-sum-correct').innerText = `${correctCount}`;
   document.getElementById('omr-sum-wrong').innerText = `${wrongCount}`;
@@ -261,23 +249,22 @@ function executeRealOmrAnalysis(pixels, vWidth, vHeight) {
   showToast("OMR तपासणी यशस्वी!");
 }
 
-/* ================= ५. गुण सबमिट करणे व रकान्यात भरणे ================= */
 function submitScannedScoreDirectly() {
   const captureBtn = document.getElementById('btn-capture-omr');
   if (captureBtn && captureBtn.getAttribute('data-state') === 'confirm') {
     const finalScore = parseFloat(captureBtn.getAttribute('data-score'));
-    if (CURRENT_SCANNING_STUDENT_ID) {
-      const inp = document.getElementById(`marks-input-${CURRENT_SCANNING_STUDENT_ID}`);
+    if (window.CURRENT_SCANNING_STUDENT_ID) {
+      const inp = document.getElementById(`marks-input-${window.CURRENT_SCANNING_STUDENT_ID}`);
       if (inp) {
         inp.value = finalScore;
         inp.style.backgroundColor = '#dcfce7';
         inp.style.borderColor = '#16a34a';
         if (typeof validateMarksInput === 'function') {
-          validateMarksInput(inp, CURRENT_SCANNING_STUDENT_ID);
+          validateMarksInput(inp, window.CURRENT_SCANNING_STUDENT_ID);
         }
       }
       if (typeof setAttendance === 'function') {
-        setAttendance(CURRENT_SCANNING_STUDENT_ID, 'present');
+        setAttendance(window.CURRENT_SCANNING_STUDENT_ID, 'present');
       }
     }
     captureBtn.removeAttribute('data-state');
