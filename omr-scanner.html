@@ -3,33 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>मोबाईल OMR तपासणी व टच व्हॅलिडेर</title>
+  <title>मोबाईल ऑटोकॅप्चर OMR स्कॅनर</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;700;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Mukta', sans-serif; }
-    body { background: #0f172a; color: white; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 12px; }
+    body { background: #0f172a; color: white; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 10px; }
 
-    .header-box { text-align: center; margin-bottom: 8px; width: 100%; max-width: 380px; }
-    .header-box h2 { font-size: 1.12rem; color: #38bdf8; font-weight: 800; }
-    .std-badge { background: #1e293b; color: #fef08a; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.92rem; display: inline-block; margin-top: 4px; border: 1px solid #334155; }
+    .header-box { text-align: center; margin-bottom: 6px; width: 100%; max-width: 380px; }
+    .header-box h2 { font-size: 1.05rem; color: #38bdf8; font-weight: 800; }
+    .std-badge { background: #1e293b; color: #fef08a; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-top: 3px; border: 1px solid #334155; }
 
     .preview-frame {
       position: relative;
       width: 100%;
       max-width: 320px;
-      height: 320px;
+      height: 220px;
       background: #1e293b;
-      border: 3.5px dashed #38bdf8;
-      border-radius: 16px;
+      border: 2.5px dashed #38bdf8;
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
     .preview-frame img {
       position: absolute;
@@ -40,30 +40,29 @@
       background: #000;
       display: none;
     }
-    .action-prompt { text-align: center; padding: 16px; }
-    .action-prompt i { font-size: 2.8rem; color: #38bdf8; margin-bottom: 8px; }
-    .action-prompt p { font-size: 0.9rem; color: #cbd5e1; font-weight: 700; line-height: 1.4; }
+    .action-prompt { text-align: center; padding: 12px; }
+    .action-prompt i { font-size: 2.2rem; color: #38bdf8; margin-bottom: 6px; }
+    .action-prompt p { font-size: 0.85rem; color: #cbd5e1; font-weight: 700; }
 
-    .choice-btns { display: flex; gap: 8px; width: 100%; margin-top: 12px; padding: 0 10px; }
-    .choice-btn { flex: 1; padding: 10px 4px; background: #0284c7; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .choice-btns { display: flex; gap: 6px; width: 100%; margin-top: 8px; padding: 0 5px; }
+    .choice-btn { flex: 1; padding: 8px 4px; background: #0284c7; color: white; border: none; border-radius: 6px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; }
 
-    /* मोबाईल टच व्हॅलिडेर पॅनल */
     .verification-panel {
       width: 100%;
       max-width: 340px;
       background: #ffffff;
       color: #0f172a;
-      border-radius: 14px;
-      padding: 12px;
-      margin-top: 10px;
+      border-radius: 12px;
+      padding: 10px;
+      margin-top: 8px;
       display: none;
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      max-height: 250px;
+      max-height: 280px;
       overflow-y: auto;
     }
-    .q-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; font-weight: 700; }
-    .options-group { display: flex; gap: 4px; }
-    .opt-badge { width: 28px; height: 28px; border: 1.5px solid #0284c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; cursor: pointer; color: #0284c7; background: #fff; }
+    .q-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid #e2e8f0; font-size: 0.88rem; font-weight: 700; }
+    .options-group { display: flex; gap: 6px; }
+    .opt-badge { width: 26px; height: 26px; border: 1.5px solid #0284c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; cursor: pointer; color: #0284c7; background: #fff; }
     .opt-badge.selected { background: #0284c7; color: white; font-weight: 800; }
 
     .summary-card {
@@ -71,33 +70,32 @@
       max-width: 340px;
       background: #ffffff;
       color: #0f172a;
-      border-radius: 14px;
-      padding: 12px;
-      margin-top: 10px;
+      border-radius: 12px;
+      padding: 10px;
+      margin-top: 8px;
       display: none;
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
-    .score-banner { background: #059669; color: white; padding: 8px 12px; border-radius: 8px; font-weight: 800; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+    .score-banner { background: #059669; color: white; padding: 6px 10px; border-radius: 6px; font-weight: 800; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
 
-    .btn-wrap { display: flex; gap: 8px; width: 100%; max-width: 340px; margin-top: 10px; }
-    .btn { flex: 1; height: 48px; border-radius: 10px; border: none; font-weight: 800; font-size: 0.98rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn-wrap { display: flex; gap: 6px; width: 100%; max-width: 340px; margin-top: 8px; }
+    .btn { flex: 1; height: 42px; border-radius: 8px; border: none; font-weight: 800; font-size: 0.92rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; }
     .btn-cancel { background: #334155; color: white; }
-    .btn-analyze { background: #d97706; color: white; font-size: 0.92rem; display: none; }
     .btn-submit { background: #10b981; color: white; display: none; }
   </style>
 </head>
 <body>
 
   <div class="header-box">
-    <h2><i class="fa-solid fa-mobile-screen"></i> मोबाईल OMR टच तपासणी</h2>
+    <h2><i class="fa-solid fa-wand-magic-sparkles"></i> मोबाईल ऑटोकॅप्चर OMR स्कॅनर</h2>
     <div class="std-badge" id="std-display">विद्यार्थी: लोड होत आहे...</div>
-    <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: तपासत आहे...</div>
+    <div id="key-status" style="font-size:0.7rem; color:#34d399; margin-top:2px;">उत्तरतालिका: तपासत आहे...</div>
   </div>
 
   <div class="preview-frame" id="preview-frame">
     <div class="action-prompt" id="action-prompt">
       <i class="fa-solid fa-camera-retro"></i>
-      <p>OMR शीटचा फोटो निवडा:</p>
+      <p>OMR शीटचा स्पष्ट फोटो निवडा:</p>
       <div class="choice-btns">
         <button class="choice-btn" onclick="document.getElementById('camera-input').click()">
           <i class="fa-solid fa-camera"></i> कॅमेरा
@@ -114,27 +112,27 @@
     <img id="selected-img" alt="OMR Sheet">
   </div>
 
-  <!-- मोबाईल टच व्हॅलिडेर (इथे शिक्षक एका क्लिकवर उत्तरे तपासू किंवा बदलू शकतात) -->
+  <canvas id="canvas" style="display:none;"></canvas>
+
   <div class="verification-panel" id="verification-panel">
-    <div style="font-weight:800; color:#0284c7; border-bottom:1.5px solid #e2e8f0; padding-bottom:4px; margin-bottom:6px;">
-      <i class="fa-solid fa-hand-pointer"></i> विद्यार्थ्याचे उत्तर तपासा/बदला (Touch Verify):
+    <div style="font-weight:800; color:#0284c7; border-bottom:1.5px solid #e2e8f0; padding-bottom:3px; margin-bottom:4px; font-size:0.85rem;">
+      <i class="fa-solid fa-robot"></i> फोटोतून स्वयंचलित कॅप्चर (तपासा/बदला):
     </div>
     <div id="questions-list"></div>
   </div>
 
   <div class="summary-card" id="summary-card">
-    <div style="font-weight:800; color:#059669; border-bottom:1.5px solid #e2e8f0; padding-bottom:4px;">
+    <div style="font-weight:800; color:#059669; border-bottom:1.5px solid #e2e8f0; padding-bottom:3px; font-size:0.85rem;">
       <i class="fa-solid fa-square-poll-vertical"></i> अंतिम गुण गोशवारा:
     </div>
     <div class="score-banner">
       <span>एकूण गुण (प्रत्येकी २ गुण):</span>
-      <span id="sum-score" style="font-size:1.3rem; font-family:'Poppins'; color:#fef08a;">0/50</span>
+      <span id="sum-score" style="font-size:1.2rem; font-family:'Poppins'; color:#fef08a;">0/50</span>
     </div>
   </div>
 
   <div class="btn-wrap">
-    <button class="btn btn-cancel" onclick="window.close()"><i class="fa-solid fa-xmark"></i> रद्द करा</button>
-    <button class="btn btn-analyze" id="btn-analyze" onclick="startVerificationProcess()"><i class="fa-solid fa-list-check"></i> उत्तरे तपासायला घ्या</button>
+    <button class="btn btn-cancel" onclick="window.close()"><i class="fa-solid fa-xmark"></i> रद्द</button>
     <button class="btn btn-submit" id="btn-submit" onclick="submitScoreAndClose()"><i class="fa-solid fa-check"></i> गुण सबमिट करा</button>
   </div>
 
@@ -146,7 +144,7 @@
     document.getElementById('std-display').innerText = `विद्यार्थी: ${studentName}`;
 
     let studentAnswers = {};
-    for(let i=1; i<=25; i++) studentAnswers[i] = null; // २५ प्रश्न
+    for(let i=1; i<=25; i++) studentAnswers[i] = null;
 
     const rawKeys = JSON.parse(localStorage.getItem('omr_saved_key') || '{}');
     const savedKeys = {};
@@ -168,18 +166,98 @@
 
       const reader = new FileReader();
       reader.onload = function(e) {
-        const preview = document.getElementById('selected-img');
-        preview.src = e.target.result;
-        preview.style.display = 'block';
-        
-        document.getElementById('action-prompt').style.display = 'none';
-        document.getElementById('btn-analyze').style.display = 'flex';
+        const img = new Image();
+        img.onload = function() {
+          const preview = document.getElementById('selected-img');
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+          
+          document.getElementById('action-prompt').style.display = 'none';
+          
+          // फोटो अपलोड करताच ऑटोमॅटिक स्कॅन करून उत्तरे कॅप्चर करणे
+          processAutoCapture(img);
+        };
+        img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
 
-    function startVerificationProcess() {
-      document.getElementById('btn-analyze').style.display = 'none';
+    function processAutoCapture(img) {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const vWidth = img.width;
+      const vHeight = img.height;
+      canvas.width = vWidth;
+      canvas.height = vHeight;
+      ctx.drawImage(img, 0, 0, vWidth, vHeight);
+
+      const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
+      const pixels = imgData.data;
+
+      function getDarkness(cx, cy) {
+        let dark = 0, total = 0;
+        for (let x = Math.floor(cx - 5); x <= Math.floor(cx + 5); x += 2) {
+          for (let y = Math.floor(cy - 5); y <= Math.floor(cy + 5); y += 2) {
+            if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
+              const idx = (y * vWidth + x) * 4;
+              const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
+              if (brightness < 120) dark++;
+              total++;
+            }
+          }
+        }
+        return total > 0 ? (dark / total) : 0;
+      }
+
+      // शिष्यवृत्ती शीटच्या दोन कॉलमनुसार पिक्सेल पोझिशन्स
+      const col1Left = vWidth * 0.22;
+      const col2Left = vWidth * 0.60;
+      const tableTop = vHeight * 0.415;
+      const tableHeight = vHeight * 0.45;
+      const rowHeight = tableHeight / 13;
+      const optLetters = ['A', 'B', 'C', 'D'];
+
+      // प्रश्न १ ते १३ (पहिला कॉलम)
+      for (let row = 0; row < 13; row++) {
+        const qNo = row + 1;
+        const qY = tableTop + (row + 0.5) * rowHeight;
+        let bestOpt = null;
+        let maxDark = 0;
+
+        for (let optIdx = 0; optIdx < 4; optIdx++) {
+          const bubbleX = col1Left + (optIdx * (vWidth * 0.045));
+          let score = getDarkness(bubbleX, qY);
+          if (score > 0.28 && score > maxDark) {
+            maxDark = score;
+            bestOpt = optLetters[optIdx];
+          }
+        }
+        studentAnswers[qNo] = bestOpt;
+      }
+
+      // प्रश्न १४ ते २५ (दुसरा कॉलम)
+      for (let row = 0; row < 12; row++) {
+        const qNo = row + 14;
+        const qY = tableTop + (row + 0.5) * rowHeight;
+        let bestOpt = null;
+        let maxDark = 0;
+
+        for (let optIdx = 0; optIdx < 4; optIdx++) {
+          const bubbleX = col2Left + (optIdx * (vWidth * 0.045));
+          let score = getDarkness(bubbleX, qY);
+          if (score > 0.28 && score > maxDark) {
+            maxDark = score;
+            bestOpt = optLetters[optIdx];
+          }
+        }
+        studentAnswers[qNo] = bestOpt;
+      }
+
+      // इंटरफेसवर कॅप्चर झालेली उत्तरे दर्शवणे
+      renderVerificationUI();
+    }
+
+    function renderVerificationUI() {
       const qList = document.getElementById('questions-list');
       qList.innerHTML = '';
 
@@ -188,10 +266,10 @@
         row.className = 'q-row';
         row.innerHTML = `<span>प्रश्न ${i < 10 ? '0' + i : i}:</span>
           <div class="options-group" id="opt-group-${i}">
-            <div class="opt-badge" onclick="setAnswer(${i}, 'A')">A</div>
-            <div class="opt-badge" onclick="setAnswer(${i}, 'B')">B</div>
-            <div class="opt-badge" onclick="setAnswer(${i}, 'C')">C</div>
-            <div class="opt-badge" onclick="setAnswer(${i}, 'D')">D</div>
+            <div class="opt-badge ${studentAnswers[i] === 'A' ? 'selected' : ''}" onclick="setAnswer(${i}, 'A')">A</div>
+            <div class="opt-badge ${studentAnswers[i] === 'B' ? 'selected' : ''}" onclick="setAnswer(${i}, 'B')">B</div>
+            <div class="opt-badge ${studentAnswers[i] === 'C' ? 'selected' : ''}" onclick="setAnswer(${i}, 'C')">C</div>
+            <div class="opt-badge ${studentAnswers[i] === 'D' ? 'selected' : ''}" onclick="setAnswer(${i}, 'D')">D</div>
           </div>`;
         qList.appendChild(row);
       }
@@ -204,12 +282,11 @@
 
     function setAnswer(qNo, opt) {
       if (studentAnswers[qNo] === opt) {
-        studentAnswers[qNo] = null; // पुन्हा क्लिक केल्यास निवड रद्द होईल
+        studentAnswers[qNo] = null;
       } else {
         studentAnswers[qNo] = opt;
       }
 
-      // UI अपडेट करणे
       const group = document.getElementById(`opt-group-${qNo}`);
       const badges = group.getElementsByClassName('opt-badge');
       for (let b of badges) {
@@ -229,7 +306,7 @@
           correctCount++;
         }
       }
-      let finalMarks = correctCount * 2; // प्रत्येकी २ गुण
+      let finalMarks = correctCount * 2;
       document.getElementById('sum-score').innerText = `${finalMarks}/50`;
       document.getElementById('btn-submit').innerText = `गुण सबमिट करा (${finalMarks}/50)`;
     }
