@@ -129,7 +129,6 @@
     let isOpenCvReady = false;
     const savedKeys = JSON.parse(localStorage.getItem('omr_saved_key') || '{}');
 
-    // तपासा की Key आली आहे का
     const keyCount = Object.keys(savedKeys).length;
     if (keyCount > 0) {
       document.getElementById('key-status').innerText = `✅ उत्तरतालिका उपलब्ध (${keyCount} प्रश्न)`;
@@ -156,6 +155,7 @@
       }
     }
 
+    // कोणतीही स्वयंचलित (Auto) प्रक्रिया नाही. शिक्षक बटण दाबल्यावरच स्कॅन होईल.
     function manualCaptureAndAnalyze() {
       const video = document.getElementById('video');
       if (!video || video.readyState !== 4) {
@@ -173,32 +173,35 @@
       let gray = new cv.Mat();
       cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
       
-      // थेट बिनारायझेशन करून काळे पिक्सेल अचूक मोजणे
       let bin = new cv.Mat();
       cv.threshold(gray, bin, 0, 255, cv.THRESH_BINARY_INV | cv.THRESH_OTSU);
 
       const w = gray.cols, h = gray.rows;
-      const gridLeft = w * 0.11, gridTop = h * 0.16;
-      const colW = (w * 0.78) / 4, rowH = (h * 0.74) / 20;
+      
+      // नवोदय OMR शीटच्या प्रत्यक्ष बॉक्सनुसार अचूक मोजमाप ग्रिड
+      const gridLeft = w * 0.125, gridTop = h * 0.31;
+      const colWidth = (w * 0.77) / 4;
+      const rowHeight = (h * 0.62) / 20;
       const letters = ['A', 'B', 'C', 'D'];
       let studentAns = {};
 
       for (let col = 0; col < 4; col++) {
         for (let row = 0; row < 20; row++) {
           const q = col * 20 + (row + 1);
-          const qY = gridTop + (row + 0.5) * rowH;
-          const qX = gridLeft + col * colW;
+          const qY = gridTop + (row + 0.5) * rowHeight;
+          const qX = gridLeft + col * colWidth;
 
           let detected = [];
           for (let opt = 0; opt < 4; opt++) {
-            const bX = qX + (colW * 0.32) + (opt * (colW * 0.16));
-            let roiRect = new cv.Rect(Math.floor(bX - 5), Math.floor(qY - 5), 10, 10);
+            // प्रत्येक पर्यायाच्या वर्तुळाची मध्यबिंदू जागा (अचूक समायोजन)
+            const bX = qX + (colWidth * 0.28) + (opt * (colWidth * 0.17));
+            let roiRect = new cv.Rect(Math.floor(bX - 4), Math.floor(qY - 4), 8, 8);
             let roi = bin.roi(roiRect);
             let nonZero = cv.countNonZero(roi);
             roi.delete();
 
-            // थ्रेशोल्ड वाढवला आहे (४५ ऐवजी ६० पिक्सेल), ज्यामुळे सावल्या पकडल्या जाणार नाहीत
-            if (nonZero > 60) {
+            // काळ्या रंगाची मर्यादा वाढवून केवळ ठळकपणे भरलेला गोलच ग्राह्य धरला जाईल
+            if (nonZero > 28) {
               detected.push(letters[opt]);
             }
           }
@@ -238,7 +241,7 @@
       document.getElementById('summary-card').style.display = 'block';
       document.getElementById('btn-capture').style.display = 'none';
       document.getElementById('btn-submit').style.display = 'flex';
-      document.getElementById('btn-submit').innerText = `हे गुण सबमिट करा (${calculatedMarks})`;
+      document.getElementById('btn-submit').innerText = `गुण सबमिट करा (${calculatedMarks})`;
     }
 
     function submitScoreAndClose() {
