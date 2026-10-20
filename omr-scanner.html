@@ -127,7 +127,15 @@
     let videoStream = null;
     let calculatedMarks = 0;
     let isOpenCvReady = false;
-    const savedKeys = JSON.parse(localStorage.getItem('omr_saved_key') || '{}');
+    
+    // फक्त १ ते ८० मधील योग्य प्रश्नच फिल्टर करून घेणे (८१ किंवा ० व्या की वगळणे)
+    const rawKeys = JSON.parse(localStorage.getItem('omr_saved_key') || '{}');
+    const savedKeys = {};
+    for (let i = 1; i <= 80; i++) {
+      if (rawKeys[i]) {
+        savedKeys[i] = String(rawKeys[i]).trim().toUpperCase();
+      }
+    }
 
     const keyCount = Object.keys(savedKeys).length;
     if (keyCount > 0) {
@@ -155,7 +163,6 @@
       }
     }
 
-    // कोणतीही स्वयंचलित (Auto) प्रक्रिया नाही. शिक्षक बटण दाबल्यावरच स्कॅन होईल.
     function manualCaptureAndAnalyze() {
       const video = document.getElementById('video');
       if (!video || video.readyState !== 4) {
@@ -178,10 +185,10 @@
 
       const w = gray.cols, h = gray.rows;
       
-      // नवोदय OMR शीटच्या प्रत्यक्ष बॉक्सनुसार अचूक मोजमाप ग्रिड
-      const gridLeft = w * 0.125, gridTop = h * 0.31;
-      const colWidth = (w * 0.77) / 4;
-      const rowHeight = (h * 0.62) / 20;
+      // नवोदय OMR शीटच्या प्रत्यक्ष बॉक्सनुसार अधिक रुंद आणि अचूक मोजमाप ग्रिड
+      const gridLeft = w * 0.09, gridTop = h * 0.30;
+      const colWidth = (w * 0.82) / 4;
+      const rowHeight = (h * 0.64) / 20;
       const letters = ['A', 'B', 'C', 'D'];
       let studentAns = {};
 
@@ -193,15 +200,15 @@
 
           let detected = [];
           for (let opt = 0; opt < 4; opt++) {
-            // प्रत्येक पर्यायाच्या वर्तुळाची मध्यबिंदू जागा (अचूक समायोजन)
-            const bX = qX + (colWidth * 0.28) + (opt * (colWidth * 0.17));
-            let roiRect = new cv.Rect(Math.floor(bX - 4), Math.floor(qY - 4), 8, 8);
+            // प्रत्येक पर्यायाच्या वर्तुळाची अचूक मध्यबिंदू जागा
+            const bX = qX + (colWidth * 0.30) + (opt * (colWidth * 0.17));
+            let roiRect = new cv.Rect(Math.floor(bX - 5), Math.floor(qY - 5), 10, 10);
             let roi = bin.roi(roiRect);
             let nonZero = cv.countNonZero(roi);
             roi.delete();
 
-            // काळ्या रंगाची मर्यादा वाढवून केवळ ठळकपणे भरलेला गोलच ग्राह्य धरला जाईल
-            if (nonZero > 28) {
+            // काळ्या रंगाची मर्यादा योग्य ठेवणे जेणेकरून भरलेले गोल अचूक पकडले जातील
+            if (nonZero > 22) {
               detected.push(letters[opt]);
             }
           }
