@@ -133,7 +133,6 @@
     let loadedImageElement = null;
     let isOpenCvReady = false;
     
-    // २५ प्रश्नांची उत्तरतालिका लोड करणे
     const rawKeys = JSON.parse(localStorage.getItem('omr_saved_key') || '{}');
     const savedKeys = {};
     for (let i = 1; i <= 25; i++) {
@@ -175,7 +174,7 @@
       reader.readAsDataURL(file);
     }
 
-    // शिष्यवृत्ती 25 प्रश्नांच्या शीटसाठी अचूक स्कॅनिंग इंजिन
+    // दोन-कॉलम रचनेनुसार शिष्यवृत्ती शीट स्कॅनिंग इंजिन
     function executeScholarshipScan() {
       if (!loadedImageElement) {
         alert("कृपया प्रथम OMR शीटचा फोटो निवडा.");
@@ -184,7 +183,7 @@
 
       const analyzeBtn = document.getElementById('btn-analyze');
       analyzeBtn.disabled = true;
-      analyzeBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> तपासणी सुरू आहे...`;
+      analyzeBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> अचूक तपासणी सुरू आहे...`;
 
       setTimeout(() => {
         const canvas = document.getElementById('canvas');
@@ -198,52 +197,67 @@
         const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
         const pixels = imgData.data;
 
-        // शिष्यवृत्ती शीटवरील २५ प्रश्नांच्या रकान्यानुसार को-ऑर्डिनेट्स
-        const tableLeft = vWidth * 0.15;
-        const tableTop = vHeight * 0.52;
-        const tableWidth = vWidth * 0.70;
-        const tableHeight = vHeight * 0.40;
+        function getBubbleDarkness(cx, cy) {
+          let darkCount = 0, totalCount = 0;
+          for (let x = Math.floor(cx - 4); x <= Math.floor(cx + 4); x += 2) {
+            for (let y = Math.floor(cy - 4); y <= Math.floor(cy + 4); y += 2) {
+              if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
+                const idx = (y * vWidth + x) * 4;
+                const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
+                if (brightness < 115) darkCount++;
+                totalCount++;
+              }
+            }
+          }
+          return totalCount > 0 ? (darkCount / totalCount) : 0;
+        }
 
-        const rowHeight = tableHeight / 25;
+        // दोन कॉलमची अचूक क्षेत्रे (डावा कॉलम: १ ते १३, उजवा कॉलम: १४ ते २५)
+        const col1Left = vWidth * 0.22;
+        const col2Left = vWidth * 0.60;
+        const tableTop = vHeight * 0.415;
+        const tableHeight = vHeight * 0.45;
+        const rowHeight = tableHeight / 13;
         const optLetters = ['A', 'B', 'C', 'D'];
         let studentAnswers = {};
 
-        for (let row = 0; row < 25; row++) {
+        // कॉलम १ (प्रश्न १ ते १३)
+        for (let row = 0; row < 13; row++) {
           const qNo = row + 1;
           const qY = tableTop + (row + 0.5) * rowHeight;
 
-          let detectedForThisQ = [];
+          let detected = [];
           for (let optIdx = 0; optIdx < 4; optIdx++) {
-            // ४ पर्यायांचे अंतर
-            const bubbleX = tableLeft + (tableWidth * 0.35) + (optIdx * (tableWidth * 0.15));
-            
-            let darkCount = 0, totalCount = 0;
-            for (let x = Math.floor(bubbleX - 4); x <= Math.floor(bubbleX + 4); x += 2) {
-              for (let y = Math.floor(qY - 4); y <= Math.floor(qY + 4); y += 2) {
-                if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
-                  const idx = (y * vWidth + x) * 4;
-                  const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
-                  if (brightness < 115) darkCount++;
-                  totalCount++;
-                }
-              }
-            }
-            const ratio = totalCount > 0 ? (darkCount / totalCount) : 0;
-            if (ratio > 0.32) {
-              detectedForThisQ.push(optLetters[optIdx]);
+            const bubbleX = col1Left + (optIdx * (vWidth * 0.045));
+            if (getBubbleDarkness(bubbleX, qY) > 0.30) {
+              detected.push(optLetters[optIdx]);
             }
           }
 
-          if (detectedForThisQ.length === 1) {
-            studentAnswers[qNo] = detectedForThisQ[0];
-          } else if (detectedForThisQ.length > 1) {
-            studentAnswers[qNo] = 'INVALID';
-          } else {
-            studentAnswers[qNo] = null;
-          }
+          if (detected.length === 1) studentAnswers[qNo] = detected[0];
+          else if (detected.length > 1) studentAnswers[qNo] = 'INVALID';
+          else studentAnswers[qNo] = null;
         }
 
-        // उत्तरतालिका सोबत गुण मोजणी (प्रत्येकी २ गुण)
+        // कॉलम २ (प्रश्न १४ ते २५)
+        for (let row = 0; row < 12; row++) {
+          const qNo = row + 14;
+          const qY = tableTop + (row + 0.5) * rowHeight;
+
+          let detected = [];
+          for (let optIdx = 0; optIdx < 4; optIdx++) {
+            const bubbleX = col2Left + (optIdx * (vWidth * 0.045));
+            if (getBubbleDarkness(bubbleX, qY) > 0.30) {
+              detected.push(optLetters[optIdx]);
+            }
+          }
+
+          if (detected.length === 1) studentAnswers[qNo] = detected[0];
+          else if (detected.length > 1) studentAnswers[qNo] = 'INVALID';
+          else studentAnswers[qNo] = null;
+        }
+
+        // गुण मोजणी
         let attemptedCount = 0;
         let correctCount = 0;
         let wrongCount = 0;
@@ -266,7 +280,7 @@
           }
         }
 
-        calculatedMarks = correctCount * 2; // प्रत्येक प्रश्नाला २ गुण
+        calculatedMarks = correctCount * 2;
 
         document.getElementById('sum-attempted').innerText = `${attemptedCount}/25`;
         document.getElementById('sum-correct').innerText = correctCount;
