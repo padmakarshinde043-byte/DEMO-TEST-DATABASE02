@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>नवोदय OMR शीट अचूक स्कॅनर</title>
+  <title>नवोदय OMR अचूक सखोल तपासणी कक्ष</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;700;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -65,16 +65,16 @@
     .btn-wrap { display: flex; gap: 8px; width: 100%; max-width: 340px; margin-top: 10px; }
     .btn { flex: 1; height: 48px; border-radius: 10px; border: none; font-weight: 800; font-size: 0.98rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
     .btn-cancel { background: #334155; color: white; }
-    .btn-analyze { background: #d97706; color: white; font-size: 0.95rem; display: none; }
+    .btn-analyze { background: #d97706; color: white; font-size: 0.92rem; display: none; }
     .btn-submit { background: #10b981; color: white; display: none; }
   </style>
 </head>
 <body>
 
   <div class="header-box">
-    <h2><i class="fa-solid fa-file-shield"></i> OMR अचूक तपासणी कक्ष</h2>
+    <h2><i class="fa-solid fa-file-shield"></i> OMR सखोल तपासणी कक्ष</h2>
     <div class="std-badge" id="std-display">विद्यार्थी: लोड होत आहे...</div>
-    <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: तपासत आहे...</div>
+    <div id="key-status" style="font-size:0.75rem; color:#34d399; margin-top:2px;">उत्तरतालिका: तपासून तयार</div>
   </div>
 
   <div class="preview-frame" id="preview-frame">
@@ -101,7 +101,7 @@
 
   <div class="summary-card" id="summary-card">
     <div style="font-weight:800; color:#059669; border-bottom:1.5px solid #e2e8f0; padding-bottom:4px;">
-      <i class="fa-solid fa-square-poll-vertical"></i> OMR अचूक तपासणी गोशवारा:
+      <i class="fa-solid fa-square-poll-vertical"></i> OMR सखोल तपासणी गोशवारा:
     </div>
     <div class="summary-grid">
       <div class="sum-item">सोडवलेले: <strong id="sum-attempted" style="font-family:'Poppins';">--/80</strong></div>
@@ -117,7 +117,7 @@
 
   <div class="btn-wrap">
     <button class="btn btn-cancel" onclick="window.close()"><i class="fa-solid fa-xmark"></i> रद्द करा</button>
-    <button class="btn btn-analyze" id="btn-analyze" onclick="executeProfessionalAnalysis()"><i class="fa-solid fa-microchip"></i> OMR शीटचे अचूक विश्लेषण करा</button>
+    <button class="btn btn-analyze" id="btn-analyze" onclick="executeDeepAnalysis()"><i class="fa-solid fa-microchip"></i> OMR शीटचा सखोल अभ्यास करा</button>
     <button class="btn btn-submit" id="btn-submit" onclick="submitScoreAndClose()"><i class="fa-solid fa-check"></i> गुण सबमिट करा</button>
   </div>
 
@@ -169,15 +169,18 @@
       reader.readAsDataURL(file);
     }
 
-    function executeProfessionalAnalysis() {
+    // सखोल आणि अचूक अभ्यास करणारे इंजिन (कोणतीही घाई नाही, योग्य वेळ घेऊन तपासणी)
+    function executeDeepAnalysis() {
       if (!loadedImageElement) {
         alert("कृपया प्रथम OMR शीटचा फोटो निवडा.");
         return;
       }
 
       const analyzeBtn = document.getElementById('btn-analyze');
-      analyzeBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> विश्लेषण सुरू आहे...`;
+      analyzeBtn.disabled = true;
+      analyzeBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> सखोल अभ्यास सुरू आहे, कृपया थांबा...`;
 
+      // थ्रेड फ्री ठेवण्यासाठी थोडा वेळ देऊन मग अचूक पिक्सेल प्रोसेसिंग करणे
       setTimeout(() => {
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
@@ -190,34 +193,42 @@
         const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
         const pixels = imgData.data;
 
-        function getBubbleDarkness(cx, cy) {
-          let darkCount = 0;
-          let totalCount = 0;
-          for (let x = cx - 5; x <= cx + 5; x += 2) {
-            for (let y = cy - 5; y <= cy + 5; y += 2) {
+        // प्रत्येक वर्तुळाच्या क्षेत्रातील गडद शाईची टक्केवारी काढणारे फंक्शन
+        function getBubbleDarknessPercentage(cx, cy) {
+          let darkPixels = 0;
+          let totalPixels = 0;
+          const radius = 5;
+          for (let x = cx - radius; x <= cx + radius; x++) {
+            for (let y = cy - radius; y <= cy + radius; y++) {
               if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
-                const idx = (Math.floor(y) * vWidth + Math.floor(x)) * 4;
-                const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
-                if (brightness < 110) {
-                  darkCount++;
+                // वर्तुळाच्या परिघाच्या आतील भाग तपासणे
+                if ((x - cx) * (x - cx) + (y - cy) * (y - cy) <= radius * radius) {
+                  const idx = (y * vWidth + x) * 4;
+                  // ग्रेस्केल ब्राइटनेस
+                  const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
+                  if (brightness < 110) { // गडद शाई थ्रेशोल्ड
+                    darkPixels++;
+                  }
+                  totalPixels++;
                 }
-                totalCount++;
               }
             }
           }
-          return totalCount > 0 ? (darkCount / totalCount) : 0;
+          return totalPixels > 0 ? (darkPixels / totalPixels) : 0;
         }
 
-        const tableLeft = vWidth * 0.115;
-        const tableTop = vHeight * 0.29;
-        const tableWidth = vWidth * 0.77;
-        const tableHeight = vHeight * 0.63;
+        // नवोदय ओएमआर शीटचे अचूक ग्रिड क्षेत्र
+        const tableLeft = vWidth * 0.12;
+        const tableTop = vHeight * 0.30;
+        const tableWidth = vWidth * 0.76;
+        const tableHeight = vHeight * 0.62;
 
         const colWidth = tableWidth / 4;
         const rowHeight = tableHeight / 20;
         const optLetters = ['A', 'B', 'C', 'D'];
         let studentAnswers = {};
 
+        // ८० प्रश्नांची सखोल तपासणी
         for (let col = 0; col < 4; col++) {
           for (let row = 0; row < 20; row++) {
             const qNo = col * 20 + (row + 1);
@@ -226,10 +237,12 @@
 
             let detectedForThisQ = [];
             for (let optIdx = 0; optIdx < 4; optIdx++) {
+              // A, B, C, D पर्यायांचे अचूक मध्यबिंदू मोजमाप
               const bubbleX = qColX + (colWidth * 0.31) + (optIdx * (colWidth * 0.165));
-              const darknessRatio = getBubbleDarkness(bubbleX, qY);
+              const fillRatio = getBubbleDarknessPercentage(bubbleX, qY);
 
-              if (darknessRatio > 0.35) {
+              // जर वर्तुळ ३८% पेक्षा जास्त गडद भरलेले असेल तरच ग्राह्य धरले जाईल
+              if (fillRatio > 0.38) {
                 detectedForThisQ.push(optLetters[optIdx]);
               }
             }
@@ -237,13 +250,14 @@
             if (detectedForThisQ.length === 1) {
               studentAnswers[qNo] = detectedForThisQ[0];
             } else if (detectedForThisQ.length > 1) {
-              studentAnswers[qNo] = 'INVALID';
+              studentAnswers[qNo] = 'INVALID'; // एकापेक्षा जास्त गोल भरल्यास दुहेरी/अवैध
             } else {
-              studentAnswers[qNo] = null;
+              studentAnswers[qNo] = null; // कोरा प्रश्न
             }
           }
         }
 
+        // उत्तरतालिका (Answer Key) सोबत तुलना करून खात्रीशीर आकडेवारी तयार करणे
         let attemptedCount = 0;
         let correctCount = 0;
         let wrongCount = 0;
@@ -268,6 +282,7 @@
 
         calculatedMarks = parseFloat((correctCount * 1.25).toFixed(2));
 
+        // गोशवारा स्क्रीनवर अचूकपणे प्रदर्शित करणे
         document.getElementById('sum-attempted').innerText = `${attemptedCount}/80`;
         document.getElementById('sum-correct').innerText = correctCount;
         document.getElementById('sum-wrong').innerText = wrongCount;
@@ -279,7 +294,7 @@
         const submitBtn = document.getElementById('btn-submit');
         submitBtn.style.display = 'flex';
         submitBtn.innerText = `गुण सबमिट करा (${calculatedMarks})`;
-      }, 300);
+      }, 500);
     }
 
     function submitScoreAndClose() {
