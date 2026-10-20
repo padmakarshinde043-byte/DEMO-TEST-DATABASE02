@@ -671,102 +671,6 @@
     .school-record-table th, .school-record-table td { border: 1.5px solid #334155; padding: 5px 8px; font-size: 0.98rem; }
     .school-record-table th { background: #f1f5f9; font-weight: 800; text-align: center; }
 
-    /* उभी आयताकृती कॅमेरा फ्रेम (रेड ते ग्रीन लाईव्ह इंडिकेटर) */
-    .omr-camera-portrait-frame {
-      position: relative;
-      width: 100%;
-      max-width: 270px;
-      height: 350px;
-      margin: 0 auto;
-      background: #0f172a;
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 3.5px solid #ef4444; /* सुरुवातीला लाल फ्रेम */
-      box-shadow: 0 4px 18px rgba(239, 68, 68, 0.35);
-      transition: all 0.25s ease-in-out;
-    }
-    .omr-camera-portrait-frame.detected-green {
-      border-color: #10b981 !important;
-      box-shadow: 0 0 22px rgba(16, 185, 129, 0.65) !important;
-    }
-    .omr-camera-portrait-frame video { width: 100%; height: 100%; object-fit: cover; }
-    
-    .omr-target-guide {
-      position: absolute;
-      inset: 8px;
-      border: 2px dashed rgba(239, 68, 68, 0.85);
-      border-radius: 8px;
-      pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px;
-      transition: all 0.2s ease;
-    }
-    .omr-camera-portrait-frame.detected-green .omr-target-guide {
-      border-color: rgba(52, 211, 153, 0.95);
-    }
-    .omr-target-guide .status-pill {
-      background: rgba(220, 38, 38, 0.9);
-      color: #ffffff;
-      font-size: 0.76rem;
-      font-weight: 800;
-      padding: 4px 12px;
-      border-radius: 20px;
-      transition: all 0.2s;
-    }
-    .omr-camera-portrait-frame.detected-green .omr-target-guide .status-pill {
-      background: rgba(5, 150, 105, 0.95) !important;
-      color: #ffffff;
-    }
-
-    .omr-summary-dashboard-card {
-      background: #ffffff;
-      border: 1.8px solid #86efac;
-      border-radius: 12px;
-      padding: 10px 12px;
-      margin-top: 10px;
-      box-shadow: 0 3px 10px rgba(5, 150, 105, 0.1);
-      text-align: left;
-    }
-    .omr-summary-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      margin-top: 6px;
-      margin-bottom: 8px;
-    }
-    .omr-summary-item {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 6px 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: #334155;
-    }
-    .omr-summary-item strong { font-size: 0.95rem; font-family: 'Poppins', sans-serif; }
-    .omr-score-highlight {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      color: white;
-      padding: 8px 12px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.94rem;
-      font-weight: 800;
-      margin-top: 4px;
-    }
-    .omr-score-highlight span { font-size: 1.25rem; font-family: 'Poppins', sans-serif; color: #fef08a; }
-
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -1711,81 +1615,9 @@
     <div id="school-record-print-pages-container"></div>
   </div>
 
-  <!-- OMR CAMERA SCANNER MODAL (रेड ते ग्रीन लाईव्ह इंडिकेटर व ऑटो-कॅप्चर) -->
-  <div class="modal" id="omrCameraModal">
-    <div class="modal-content" style="max-width: 440px; text-align: center;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1.5px solid var(--border); padding-bottom:5px;">
-        <h3 style="color:#065f46; font-size:1.05rem; font-weight:800; margin:0;">
-          <i class="fa-solid fa-camera"></i> नवोदय OMR शीट स्कॅनर
-        </h3>
-        <button onclick="closeOmrScanner()" style="border:none; background:none; font-size:1.4rem; cursor:pointer; color:#64748b;">&times;</button>
-      </div>
-
-      <div style="margin-bottom:8px; font-size:0.92rem; font-weight:800; color:#1e293b;" id="omr-scanning-student-label">
-        विद्यार्थी: <span style="color:#0284c7;">--</span>
-      </div>
-
-      <div class="omr-camera-portrait-frame" id="omr-portrait-box">
-        <video id="omr-video-stream" autoplay playsinline style="display:none;"></video>
-        <div id="omr-camera-placeholder" style="color:white; padding:12px; text-align:center;">
-          <i class="fa-solid fa-file-invoice" style="font-size:3.2rem; color:#ef4444; margin-bottom:10px; display:block;"></i>
-          <p style="font-size:0.88rem; font-weight:700; line-height:1.4;">
-            उभी ओएमआर शीट या उभ्या आयताकृती फ्रेममध्ये सरळ धरा.<br>
-            <span style="color:#fca5a5; font-size:0.76rem;">(संपूर्ण ८० प्रश्न चौकटीत दिसताच फ्रेम आपोआप हिरवी होईल)</span>
-          </p>
-        </div>
-        <div class="omr-target-guide" id="omr-target-guide-el">
-          <span class="status-pill" id="omr-live-status-pill">❌ OMR शीट दिसत नाही</span>
-          <span style="background:rgba(15,23,42,0.8); color:#cbd5e1; font-size:0.72rem; padding:2px 8px; border-radius:10px;">⬇️ ८० प्रश्न फ्रेममध्ये सरळ धरा</span>
-        </div>
-      </div>
-
-      <canvas id="omr-hidden-canvas" style="display:none;"></canvas>
-
-      <div id="omr-summary-display-card" style="display:none;">
-        <div class="omr-summary-dashboard-card">
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.2px solid #bbf7d0; padding-bottom:4px;">
-            <strong style="color:#065f46; font-size:0.92rem;"><i class="fa-solid fa-square-poll-vertical"></i> OMR तपासणी गोशवारा:</strong>
-            <span style="font-size:0.75rem; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-weight:800;">तपासणी पूर्ण</span>
-          </div>
-
-          <div class="omr-summary-grid">
-            <div class="omr-summary-item">
-              <span>एकूण सोडवलेले:</span>
-              <strong id="omr-sum-attempted" style="color:#0f172a;">-- / 80</strong>
-            </div>
-            <div class="omr-summary-item" style="border-left:3px solid #16a34a;">
-              <span style="color:#15803d;"><i class="fa-solid fa-check"></i> बरोबर प्रश्न:</span>
-              <strong id="omr-sum-correct" style="color:#16a34a;">--</strong>
-            </div>
-            <div class="omr-summary-item" style="border-left:3px solid #dc2626;">
-              <span style="color:#b91c1c;"><i class="fa-solid fa-xmark"></i> चुकीचे प्रश्न:</span>
-              <strong id="omr-sum-wrong" style="color:#dc2626;">--</strong>
-            </div>
-            <div class="omr-summary-item" style="border-left:3px solid #d97706;">
-              <span style="color:#b45309;"><i class="fa-solid fa-triangle-exclamation"></i> इनव्हॅलिड/दुहेरी:</span>
-              <strong id="omr-sum-invalid" style="color:#d97706;">--</strong>
-            </div>
-          </div>
-
-          <div class="omr-score-highlight">
-            <div>अंतिम प्राप्त गुण (प्रत्येक प्रश्नास 1.25 गुण):</div>
-            <span id="omr-sum-final-score">-- / 100</span>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top:12px; display:flex; gap:8px;">
-        <button class="app-btn btn-outline" style="height:44px;" onclick="closeOmrScanner()">रद्द करा</button>
-        <button class="app-btn btn-success" id="btn-capture-omr" style="height:44px;" onclick="submitScannedScoreDirectly()">
-          <i class="fa-solid fa-camera"></i> OMR कडे कॅमेरा धरा
-        </button>
-      </div>
-    </div>
-  </div>
-
   <div class="toast" id="toastMsg">माहिती सेव्ह झाली!</div>
 
+  <!-- मुख्य जावास्क्रिप्ट लॉजिक -->
   <script>
     const TALUKA_LIST = [
       "अंबाजोगाई", "आष्टी", "बीड ग्रामीण", "बीड शहर", "धारूर", 
@@ -1812,11 +1644,6 @@
     let TEST_DEFINITIONS_STORE = {};
     let ACTIVE_TESTS_STORE = {};
     let NAVODAYA_ANSWER_KEYS_STORE = {};
-    let CURRENT_SCANNING_STUDENT_ID = null;
-    let cameraMediaStream = null;
-    let omrDetectionInterval = null;
-    let omrConsecutiveStableFrames = 0;
-    let isAutoCaptured = false;
 
     function getDefaultTests(category) {
       const minStart = getMinAllowedTestNo(category);
@@ -2620,263 +2447,21 @@
       });
     }
 
-    /* ================= OMR कॅमेरा स्कॅनर - रेड-टू-ग्रीन लाइव्ह व्हॅलिडेशन व ऑटो-कॅप्चर ================= */
+    /* ================= १. स्वतंत्र OMR स्कॅनर विंडो उघडणे ================= */
     function openOmrScannerModal(stdId, stdName) {
-      CURRENT_SCANNING_STUDENT_ID = stdId;
       const testNo = document.getElementById('entry-test-no').value;
-      const savedKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`];
+      const currentKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`] || {};
 
-      if (!savedKey || Object.keys(savedKey).length === 0) {
+      if (!currentKey || Object.keys(currentKey).length === 0) {
         showCustomAlert(`शिक्षणाधिकारी कक्षातून अद्याप या चाचणीची अधिकृत नवोदय Answer Key फीड केलेली नाही! Answer Key फीड केल्यानंतरच OMR स्कॅनिंग करता येईल.`);
         return;
       }
 
-      document.getElementById('omr-scanning-student-label').innerHTML = `विद्यार्थी: <span style="color:#0284c7; font-weight:800;">${stdName}</span>`;
-      document.getElementById('omr-summary-display-card').style.display = 'none';
-      
-      const captureBtn = document.getElementById('btn-capture-omr');
-      captureBtn.removeAttribute('data-state');
-      captureBtn.innerHTML = `<i class="fa-solid fa-camera"></i> OMR कडे कॅमेरा धरा`;
-      captureBtn.style.opacity = '0.65';
-      captureBtn.disabled = true;
+      // सध्याच्या चाचणीची Answer Key मेमरीमध्ये ठेवणे जेणेकरून स्कॅनर ती वाचू शकेल
+      localStorage.setItem('omr_saved_key', JSON.stringify(currentKey));
 
-      const pBox = document.getElementById('omr-portrait-box');
-      pBox.classList.remove('detected-green');
-      document.getElementById('omr-live-status-pill').innerText = "❌ OMR शीट दिसत नाही";
-      
-      document.getElementById('omrCameraModal').style.display = 'flex';
-
-      const video = document.getElementById('omr-video-stream');
-      const placeholder = document.getElementById('omr-camera-placeholder');
-      isAutoCaptured = false;
-      omrConsecutiveStableFrames = 0;
-
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ 
-          video: { facingMode: "environment" } 
-        }).then(stream => {
-          cameraMediaStream = stream;
-          video.srcObject = stream;
-          video.style.display = 'block';
-          placeholder.style.display = 'none';
-
-          clearInterval(omrDetectionInterval);
-          omrDetectionInterval = setInterval(checkLiveOmrPatternInFrame, 160);
-        }).catch(err => {
-          console.warn("कॅमेरा सुरू होऊ शकला नाही:", err);
-          video.style.display = 'none';
-          placeholder.style.display = 'block';
-        });
-      }
-    }
-
-    function closeOmrScanner() {
-      clearInterval(omrDetectionInterval);
-      omrDetectionInterval = null;
-      if (cameraMediaStream) {
-        cameraMediaStream.getTracks().forEach(track => track.stop());
-        cameraMediaStream = null;
-      }
-      document.getElementById('omrCameraModal').style.display = 'none';
-      CURRENT_SCANNING_STUDENT_ID = null;
-      isAutoCaptured = false;
-    }
-
-    /* रिअल-टाइम फ्रेम तपासणी: OMR पॅटर्न असेल तरच लाल ते हिरवे व ऑटो-कॅप्चर */
-    function checkLiveOmrPatternInFrame() {
-      if (isAutoCaptured) return;
-      const video = document.getElementById('omr-video-stream');
-      if (!video || video.readyState !== 4) return;
-
-      const canvas = document.getElementById('omr-hidden-canvas');
-      const ctx = canvas.getContext('2d');
-      const vWidth = video.videoWidth || 640;
-      const vHeight = video.videoHeight || 480;
-      canvas.width = vWidth;
-      canvas.height = vHeight;
-      ctx.drawImage(video, 0, 0, vWidth, vHeight);
-
-      const imgData = ctx.getImageData(0, 0, vWidth, vHeight);
-      const pixels = imgData.data;
-
-      // १. पांढऱ्या कागदाची पडताळणी (Overall Background Brightness)
-      let lightPixels = 0;
-      let totalSampled = 0;
-      for (let y = vHeight * 0.2; y < vHeight * 0.8; y += 12) {
-        for (let x = vWidth * 0.2; x < vWidth * 0.8; x += 12) {
-          const idx = (Math.floor(y) * vWidth + Math.floor(x)) * 4;
-          const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
-          if (brightness > 130) lightPixels++;
-          totalSampled++;
-        }
-      }
-      const paperWhiteRatio = lightPixels / totalSampled;
-
-      // २. ४ स्तंभांमधील पांढऱ्या उभ्या गॅप्स (Vertical Gutters) तपासणी
-      const gutterXPositions = [0.32, 0.53, 0.74];
-      let validGuttersCount = 0;
-
-      gutterXPositions.forEach(ratio => {
-        let gutterDarkCount = 0;
-        let gutterTotal = 0;
-        const gX = vWidth * ratio;
-        for (let gY = vHeight * 0.25; gY < vHeight * 0.85; gY += 8) {
-          const idx = (Math.floor(gY) * vWidth + Math.floor(gX)) * 4;
-          const br = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
-          if (br < 115) gutterDarkCount++;
-          gutterTotal++;
-        }
-        if ((gutterDarkCount / gutterTotal) < 0.12) {
-          validGuttersCount++;
-        }
-      });
-
-      const pBox = document.getElementById('omr-portrait-box');
-      const statusPill = document.getElementById('omr-live-status-pill');
-      const isOmrValid = (paperWhiteRatio > 0.60 && validGuttersCount >= 2);
-
-      if (isOmrValid) {
-        omrConsecutiveStableFrames++;
-        pBox.classList.add('detected-green');
-        statusPill.innerText = "✅ OMR शीट जुळली (स्थिर ठेवा)";
-        
-        if (omrConsecutiveStableFrames >= 3) {
-          isAutoCaptured = true;
-          statusPill.innerText = "📸 आपोआप कॅप्चर झाले!";
-          executeRealOmrAnalysis(pixels, vWidth, vHeight);
-        }
-      } else {
-        omrConsecutiveStableFrames = 0;
-        pBox.classList.remove('detected-green');
-        statusPill.innerText = "❌ OMR शीट दिसत नाही";
-      }
-    }
-
-    /* प्रत्यक्ष कॅप्चर व इमेज ॲनालिसिस (खरे गुण व गोशवारा) */
-    function executeRealOmrAnalysis(pixels, vWidth, vHeight) {
-      clearInterval(omrDetectionInterval);
-      showToast("OMR शीट स्कॅन झाली! गुण मोजले जात आहेत...");
-
-      const testNo = document.getElementById('entry-test-no').value;
-      const savedKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`] || {};
-
-      function getBubbleDarkness(centerX, centerY, radius) {
-        let darkPixelCount = 0;
-        let totalCount = 0;
-        for (let x = centerX - radius; x <= centerX + radius; x += 2) {
-          for (let y = centerY - radius; y <= centerY + radius; y += 2) {
-            if (x >= 0 && x < vWidth && y >= 0 && y < vHeight) {
-              const idx = (Math.floor(y) * vWidth + Math.floor(x)) * 4;
-              const brightness = pixels[idx] * 0.299 + pixels[idx+1] * 0.587 + pixels[idx+2] * 0.114;
-              if (brightness < 120) darkPixelCount++;
-              totalCount++;
-            }
-          }
-        }
-        return totalCount > 0 ? (darkPixelCount / totalCount) : 0;
-      }
-
-      const tableLeft = vWidth * 0.11;
-      const tableTop = vHeight * 0.16;
-      const tableWidth = vWidth * 0.78;
-      const tableHeight = vHeight * 0.74;
-
-      const colWidth = tableWidth / 4;
-      const rowHeight = tableHeight / 20;
-      const optLetters = ['A', 'B', 'C', 'D'];
-
-      let studentAnswers = {};
-
-      for (let col = 0; col < 4; col++) {
-        for (let row = 0; row < 20; row++) {
-          const qNo = col * 20 + (row + 1);
-          const qY = tableTop + (row + 0.5) * rowHeight;
-          const qColX = tableLeft + col * colWidth;
-
-          let detectedForThisQ = [];
-          for (let optIdx = 0; optIdx < 4; optIdx++) {
-            const bubbleX = qColX + (colWidth * 0.32) + (optIdx * (colWidth * 0.16));
-            const darkness = getBubbleDarkness(bubbleX, qY, 6);
-
-            if (darkness > 0.38) {
-              detectedForThisQ.push(optLetters[optIdx]);
-            }
-          }
-
-          if (detectedForThisQ.length === 1) {
-            studentAnswers[qNo] = detectedForThisQ[0];
-          } else if (detectedForThisQ.length > 1) {
-            studentAnswers[qNo] = 'INVALID';
-          } else {
-            studentAnswers[qNo] = null;
-          }
-        }
-      }
-
-      let attemptedCount = 0;
-      let correctCount = 0;
-      let wrongCount = 0;
-      let invalidCount = 0;
-
-      for (let q = 1; q <= 80; q++) {
-        const stdAns = studentAnswers[q];
-        const correctAns = savedKey[q];
-
-        if (stdAns === 'INVALID') {
-          invalidCount++;
-          attemptedCount++;
-        } else if (stdAns) {
-          attemptedCount++;
-          if (stdAns === correctAns) {
-            correctCount++;
-          } else {
-            wrongCount++;
-          }
-        }
-      }
-
-      if (attemptedCount === 0) {
-        showCustomAlert("ओएमआर शीटवरील वर्तुळे स्पष्ट ओळखता आली नाहीत! कृपया उत्तरपत्रिका कॅमेऱ्याच्या आयताकृती फ्रेममध्ये सरळ व चांगल्या प्रकाशात धरा.");
-        return;
-      }
-
-      const totalCalculatedMarks = parseFloat((correctCount * 1.25).toFixed(2));
-
-      document.getElementById('omr-sum-attempted').innerText = `${attemptedCount} / 80`;
-      document.getElementById('omr-sum-correct').innerText = `${correctCount}`;
-      document.getElementById('omr-sum-wrong').innerText = `${wrongCount}`;
-      document.getElementById('omr-sum-invalid').innerText = `${invalidCount}`;
-      document.getElementById('omr-sum-final-score').innerText = `${totalCalculatedMarks} / 100`;
-
-      document.getElementById('omr-summary-display-card').style.display = 'block';
-
-      const captureBtn = document.getElementById('btn-capture-omr');
-      captureBtn.setAttribute('data-state', 'confirm');
-      captureBtn.setAttribute('data-score', totalCalculatedMarks);
-      captureBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> हे गुण सबमिट करा (${totalCalculatedMarks})`;
-      captureBtn.style.opacity = '1';
-      captureBtn.disabled = false;
-      showToast("OMR पडताळणी पूर्ण! खात्री करून गुण सबमिट करा.");
-    }
-
-    function submitScannedScoreDirectly() {
-      const captureBtn = document.getElementById('btn-capture-omr');
-      if (captureBtn.getAttribute('data-state') === 'confirm') {
-        const finalScore = parseFloat(captureBtn.getAttribute('data-score'));
-        if (CURRENT_SCANNING_STUDENT_ID) {
-          const inp = document.getElementById(`marks-input-${CURRENT_SCANNING_STUDENT_ID}`);
-          if (inp) {
-            inp.value = finalScore;
-            inp.style.backgroundColor = '#dcfce7';
-            inp.style.borderColor = '#16a34a';
-            validateMarksInput(inp, CURRENT_SCANNING_STUDENT_ID);
-          }
-          setAttendance(CURRENT_SCANNING_STUDENT_ID, 'present');
-        }
-        captureBtn.removeAttribute('data-state');
-        closeOmrScanner();
-        showToast(`गुण यशस्वीरीत्या नोंदवले: ${finalScore}`);
-      }
+      // स्वतंत्र OMR स्कॅनर पेज नवीन विंडो/टॅबमध्ये उघडणे
+      window.open(`omr-scanner.html?id=${stdId}&name=${encodeURIComponent(stdName)}&test=${testNo}`, '_blank');
     }
 
     function initPortal() {
@@ -4561,7 +4146,137 @@
       });
     }
 
+    /* ================= १. स्वतंत्र OMR स्कॅनर विंडो उघडणे ================= */
+    function openOmrScannerModal(stdId, stdName) {
+      const testNo = document.getElementById('entry-test-no').value;
+      const currentKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`] || {};
+
+      if (!currentKey || Object.keys(currentKey).length === 0) {
+        showCustomAlert(`शिक्षणाधिकारी कक्षातून अद्याप या चाचणीची अधिकृत नवोदय Answer Key फीड केलेली नाही! Answer Key फीड केल्यानंतरच OMR स्कॅनिंग करता येईल.`);
+        return;
+      }
+
+      // सध्याच्या चाचणीची Answer Key मेमरीमध्ये ठेवणे जेणेकरून स्कॅनर ती वाचू शकेल
+      localStorage.setItem('omr_saved_key', JSON.stringify(currentKey));
+
+      // स्वतंत्र OMR स्कॅनर पेज नवीन विंडो/टॅबमध्ये उघडणे
+      window.open(`omr-scanner.html?id=${stdId}&name=${encodeURIComponent(stdName)}&test=${testNo}`, '_blank');
+    }
+
+    function initAdminPanelOptions() {
+      refreshAdminTestManagerUI();
+      updateAdminTestOptions();
+      updateAdminLockTestOptions();
+      loadCurrentCustomMaxMarks();
+      updateAdminMaxMarksInfo();
+    }
+
+    function initPortal() {
+      loadSchoolsData();
+      initTalukaDropdowns();
+      build12Taluka4ColGrid();
+      listenDeclaredResults();
+      listenTestDefinitionsAndActive();
+      buildDashboardTestPills();
+      buildEntryTestOptions();
+      listenLiveDashboardData();
+      listenCustomMaxMarks();
+      listenCustomTemplates();
+      initAdminPanelOptions();
+      initAllDraggables();
+      initNavodayaAkTestOptions();
+
+      try { history.pushState({ page: 'home' }, ''); } catch(e) {}
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPortal);
+    } else {
+      initPortal();
+    }
+
+    function showCustomAlert(message) {
+      document.getElementById('customNoticeBody').innerText = message;
+      document.getElementById('customNoticeActions').innerHTML = `
+        <button class="app-btn btn-primary" style="height:40px; width:auto; padding:0 24px;" onclick="closeModal('customNoticeModal')">समजले</button>
+      `;
+      document.getElementById('customNoticeModal').style.display = 'flex';
+    }
+
+    function showCustomConfirm(message, onConfirm, onCancel) {
+      document.getElementById('customNoticeBody').innerText = message;
+      document.getElementById('customNoticeActions').innerHTML = `
+        <button class="app-btn btn-outline" style="height:38px; width:auto; padding:0 18px;" id="cnCancelBtn">रद्द करा</button>
+        <button class="app-btn btn-danger" style="height:38px; width:auto; padding:0 22px;" id="cnOkBtn">होय</button>
+      `;
+      document.getElementById('customNoticeModal').style.display = 'flex';
+
+      document.getElementById('cnOkBtn').onclick = () => {
+        closeModal('customNoticeModal');
+        if (onConfirm) onConfirm();
+      };
+      document.getElementById('cnCancelBtn').onclick = () => {
+        closeModal('customNoticeModal');
+        if (onCancel) onCancel();
+      };
+    }
+
+    window.addEventListener('popstate', function(event) {
+      const openModal = document.querySelector('.modal[style*="display: flex"]');
+      if (openModal) {
+        openModal.style.display = 'none';
+        try { history.pushState({ page: 'home' }, ''); } catch(e) {}
+        return;
+      }
+
+      const activeView = ['screen-entry', 'screen-admin-backend'].find(id => {
+        const el = document.getElementById(id);
+        return el && el.style.display !== 'none';
+      });
+
+      if (activeView) {
+        switchTab('dashboard');
+        try { history.pushState({ page: 'home' }, ''); } catch(e) {}
+        return;
+      }
+
+      showCustomConfirm("आपणास हे ॲप बंद करायचे आहे का?", () => {
+        history.back();
+      }, () => {
+        try { history.pushState({ page: 'home' }, ''); } catch(e) {}
+      });
+    });
+
+    function showToast(msg) {
+      const t = document.getElementById('toastMsg');
+      t.innerText = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 2200);
+    }
+
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    /* ================= २. OMR स्कॅनरने पाठवलेले गुण आपोआप स्वीकारणे ================= */
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'scanned_result') {
+        const data = JSON.parse(e.newValue || '{}');
+        if (data && data.id) {
+          const inp = document.getElementById(`marks-input-${data.id}`);
+          if (inp) {
+            inp.value = data.marks;
+            inp.style.backgroundColor = '#dcfce7';
+            inp.style.borderColor = '#16a34a';
+            if (typeof validateMarksInput === 'function') {
+              validateMarksInput(inp, data.id);
+            }
+          }
+          if (typeof setAttendance === 'function') {
+            setAttendance(data.id, 'present');
+          }
+          showToast(`गुण यशस्वीरीत्या नोंदवले: ${data.marks}`);
+        }
+      }
+    });
   </script>
 </body>
 </html>
