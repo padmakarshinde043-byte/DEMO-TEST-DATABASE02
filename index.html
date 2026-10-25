@@ -61,22 +61,39 @@
 
     .app-container { max-width: 650px; margin: 0 auto; padding: 12px; }
 
-    .static-entry-notice-strip {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      color: #334155;
-      padding: 7px 12px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      line-height: 1.35;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
+    /* ५ सेकंद टिकणारा हिरव्या रंगाचा फ्लॅश मेसेज */
+    .flash-notice-banner {
+      display: none;
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.3);
+      border: 1.5px solid #a7f3d0;
+      animation: slideDownNotice 0.3s ease-out forwards;
+      position: relative;
     }
-    .static-entry-notice-strip i { color: #d97706; font-size: 1rem; }
+    @keyframes slideDownNotice {
+      from { transform: translateY(-10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .flash-notice-content { display: flex; align-items: flex-start; gap: 10px; }
+    .flash-notice-content i { font-size: 1.6rem; color: #fef08a; margin-top: 2px; }
+    .flash-notice-text h4 { font-size: 1.05rem; font-weight: 800; color: #fef08a; margin-bottom: 2px; }
+    .flash-notice-text p { font-size: 0.94rem; font-weight: 600; line-height: 1.45; color: #ffffff; }
+    .flash-close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
 
+    /* विभाग कार्ड्स */
     .app-card {
       background: var(--surface);
       border-radius: var(--radius);
@@ -97,27 +114,7 @@
       padding-bottom: 6px;
     }
 
-    .soft-blink-omr-banner {
-      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
-      border: 1.8px solid #34d399;
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
-      animation: softBlinkGlow 2.2s infinite ease-in-out;
-    }
-    @keyframes softBlinkGlow {
-      0% { border-color: #34d399; box-shadow: 0 0 8px rgba(16, 185, 129, 0.25); background-color: #f0fdf4; }
-      50% { border-color: #059669; box-shadow: 0 0 16px rgba(5, 150, 105, 0.45); background-color: #d1fae5; }
-      100% { border-color: #34d399; box-shadow: 0 0 8px rgba(16, 185, 129, 0.25); background-color: #f0fdf4; }
-    }
-    .soft-blink-omr-banner i { font-size: 1.6rem; color: #059669; flex-shrink: 0; }
-    .soft-blink-omr-banner p { font-size: 0.94rem; font-weight: 700; color: #065f46; line-height: 1.4; margin: 0; }
-    .soft-blink-omr-banner strong { color: #047857; text-decoration: underline; }
-
+    /* Collapsible Accordion Header */
     .collapsible-card-header {
       display: flex;
       justify-content: space-between;
@@ -140,7 +137,10 @@
       transition: all 0.2s;
     }
 
-    .dropdown-group { margin-bottom: 10px; }
+    /* परीक्षा निवडक ड्रॉपडाऊन */
+    .dropdown-group {
+      margin-bottom: 10px;
+    }
     .dropdown-label {
       font-size: 1.02rem;
       font-weight: 800;
@@ -167,9 +167,17 @@
       box-shadow: 0 3px 10px rgba(2, 132, 199, 0.08);
       transition: all 0.15s ease;
     }
-    .luxury-dropdown:focus { border-color: var(--kesari); box-shadow: 0 3px 12px rgba(234, 88, 12, 0.15); }
+    .luxury-dropdown:focus {
+      border-color: var(--kesari);
+      box-shadow: 0 3px 12px rgba(234, 88, 12, 0.15);
+    }
 
-    .test-capsule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    /* २-कॉलम कॅप्सूल ग्रीड */
+    .test-capsule-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
     .test-capsule-chip {
       background: #ffffff;
       border: 1.5px solid #cbd5e1;
@@ -185,7 +193,10 @@
       gap: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
-    .test-capsule-chip:hover { border-color: var(--sky); background: #f0f9ff; }
+    .test-capsule-chip:hover {
+      border-color: var(--sky);
+      background: #f0f9ff;
+    }
     .test-capsule-chip.active {
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
       color: white;
@@ -205,12 +216,35 @@
       flex-shrink: 0;
       transition: all 0.15s;
     }
-    .test-capsule-chip.active .capsule-badge-icon { background: rgba(255, 255, 255, 0.25); color: #ffffff; }
-    .capsule-text-wrap { display: flex; flex-direction: column; text-align: left; line-height: 1.2; overflow: hidden; }
-    .capsule-text-title { font-size: 0.98rem; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .capsule-text-sub { font-size: 0.82rem; font-weight: 700; color: #64748b; font-family: 'Poppins', sans-serif; }
-    .test-capsule-chip.active .capsule-text-sub { color: #d1fae5; }
+    .test-capsule-chip.active .capsule-badge-icon {
+      background: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+    .capsule-text-wrap {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      line-height: 1.2;
+      overflow: hidden;
+    }
+    .capsule-text-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .capsule-text-sub {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #64748b;
+      font-family: 'Poppins', sans-serif;
+    }
+    .test-capsule-chip.active .capsule-text-sub {
+      color: #d1fae5;
+    }
 
+    /* Form Controls */
     .form-group { margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px; position: relative; }
     .form-group label { font-size: 0.96rem; font-weight: 700; color: #334155; }
     .form-control {
@@ -249,7 +283,9 @@
     .btn-outline { background: white; border: 2px solid var(--sky); color: var(--sky); }
     .btn-gold { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; }
     .btn-danger { background: var(--danger); color: white; }
+    .btn-whatsapp { background: var(--whatsapp); color: white; }
 
+    /* UDISE Suggest Box */
     .udise-suggestions-box {
       position: absolute;
       top: 100%;
@@ -273,6 +309,7 @@
     }
     .udise-suggest-item:hover, .udise-suggest-item:active { background: var(--sky-light); }
 
+    /* Stats Grid & Animation Effect */
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
     .stat-box {
       background: white;
@@ -282,12 +319,24 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
     .stat-box p { font-size: 0.88rem; color: var(--text-muted); font-weight: 700; margin-bottom: 2px; }
-    .stat-box h2 { font-size: 1.6rem; font-weight: 800; font-family: 'Poppins', sans-serif; line-height: 1.2; }
+    .stat-box h2 { font-size: 1.6rem; font-weight: 800; font-family: 'Poppins', sans-serif; line-height: 1.2; transition: all 0.3s ease; }
+    
+    @keyframes countPulse {
+      0% { transform: scale(0.95); opacity: 0.5; }
+      50% { transform: scale(1.03); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .stat-box h2.updating {
+      animation: countPulse 0.35s ease-out;
+      color: var(--kesari) !important;
+    }
+
     .stat-box-students { border-left: 5px solid #7c3aed; background: linear-gradient(to right, #faf5ff, #ffffff); }
     .stat-box-students h2 { color: #6b21a8; }
     .stat-box-schools { border-left: 5px solid #0284c7; background: linear-gradient(to right, #f0f9ff, #ffffff); }
     .stat-box-schools h2 { color: #075985; }
 
+    /* ३ टॉपर्स टॅब्स */
     .topper-tri-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
     .tri-tab-btn {
       flex: 1;
@@ -325,7 +374,13 @@
       box-shadow: 0 3px 10px rgba(217, 119, 6, 0.3);
     }
 
-    .taluka-4col-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 10px; }
+    /* १२ तालुक्यांची ग्रीड */
+    .taluka-4col-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      margin-bottom: 10px;
+    }
     .taluka-4col-btn {
       background: white;
       border: 1.5px solid #cbd5e1;
@@ -345,7 +400,12 @@
       box-shadow: 0 2px 6px rgba(2, 132, 199, 0.15);
     }
 
-    .registered-students-container { margin-top: 12px; border-top: 1.5px dashed var(--border); padding-top: 10px; }
+    /* Registered Students Manager */
+    .registered-students-container {
+      margin-top: 12px;
+      border-top: 1.5px dashed var(--border);
+      padding-top: 10px;
+    }
     .reg-std-item {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
@@ -359,70 +419,112 @@
     .reg-std-item strong { font-size: 1.02rem; color: #1e293b; }
     .reg-std-item span { font-size: 0.84rem; color: var(--text-muted); }
 
-    .btn-icon-action {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      transition: 0.15s;
-    }
-    .btn-edit { background: #e0f2fe; color: #0369a1; }
-    .btn-delete { background: #fee2e2; color: #b91c1c; }
-
+    /* विद्यार्थी गुण नोंदणी कार्ड */
     .student-entry-card {
       background: #ffffff;
       border: 1.5px solid #e2e8f0;
       border-radius: 10px;
-      padding: 10px 12px;
-      margin-bottom: 8px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
     .student-entry-card:nth-child(even) { background: #fafcff; }
 
-    .compact-name-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-    .compact-name-text { font-size: 1.05rem; font-weight: 800; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
-    .compact-gender-tag { font-size: 0.78rem; font-weight: 700; padding: 2px 7px; border-radius: 8px; background: #f1f5f9; color: #475569; white-space: nowrap; border: 1px solid #e2e8f0; }
+    .compact-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .compact-name-text {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+    .compact-gender-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      color: #475569;
+      white-space: nowrap;
+      border: 1px solid #e2e8f0;
+    }
     .compact-gender-tag.girl { background: #fdf2f8; color: #be185d; border-color: #fbcfe8; }
     .compact-gender-tag.boy { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
 
-    .compact-action-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
-    .compact-att-group { display: flex; border: 1.5px solid #cbd5e1; border-radius: 8px; overflow: hidden; background: white; }
-    .compact-att-btn { padding: 4px 8px; font-size: 0.82rem; font-weight: 800; border: none; background: transparent; cursor: pointer; color: #64748b; transition: 0.12s; }
+    .compact-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .compact-att-group {
+      display: flex;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+      background: white;
+    }
+    .compact-att-btn {
+      padding: 4px 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: #64748b;
+      transition: 0.12s;
+    }
     .compact-att-btn.present.active { background: #dcfce7; color: #15803d; }
     .compact-att-btn.absent.active { background: #fee2e2; color: #b91c1c; }
 
-    .btn-scan-omr {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      color: white;
-      border: 1.5px solid #064e3b;
-      border-radius: 8px;
-      padding: 4px 10px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      cursor: pointer;
+    .compact-marks-wrap {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      box-shadow: 0 2px 5px rgba(5, 150, 105, 0.25);
-      transition: all 0.15s;
+      justify-content: center;
+      background: white;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      gap: 3px;
     }
-    .btn-scan-omr:active { transform: scale(0.96); }
-    .btn-scan-omr i { font-size: 1rem; color: #fef08a; }
-
-    .compact-marks-wrap { display: inline-flex; align-items: center; justify-content: center; background: white; padding: 2px 8px; border-radius: 8px; border: 1.5px solid #cbd5e1; gap: 3px; }
-    .compact-marks-wrap:focus-within { border-color: var(--sky); box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15); }
-    .compact-marks-input { width: 52px; height: 28px; text-align: center; font-size: 1.15rem; font-weight: 800; border: none; outline: none; background: transparent; font-family: 'Poppins', sans-serif; color: #0f172a; }
-    .compact-marks-input.is-absent { color: var(--danger); font-weight: 800; background: #fef2f2; }
-    .compact-marks-input.invalid-mark { color: white !important; background: var(--danger) !important; border-radius: 4px; }
-    .compact-denominator { font-size: 0.82rem; font-weight: 800; color: #64748b; font-family: 'Poppins', sans-serif; }
+    .compact-marks-wrap:focus-within {
+      border-color: var(--sky);
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+    }
+    .compact-marks-input {
+      width: 52px;
+      height: 28px;
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 800;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: 'Poppins', sans-serif;
+      color: #0f172a;
+    }
+    .compact-marks-input.is-absent {
+      color: var(--danger);
+      font-weight: 800;
+      background: #fef2f2;
+    }
+    .compact-denominator {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #64748b;
+      font-family: 'Poppins', sans-serif;
+    }
 
     .btn-compact-chart {
       width: 32px;
@@ -440,6 +542,7 @@
     }
     .btn-compact-chart:active { background: #0284c7; color: white; }
 
+    /* Leaderboard Cards */
     .topper-card {
       background: white;
       border: 1.5px solid #e2e8f0;
@@ -470,36 +573,91 @@
     .topper-details h4 { font-size: 1.12rem; font-weight: 800; line-height: 1.25; color: #0f172a; }
     .topper-details p { font-size: 0.88rem; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
     .topper-score { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-    .topper-score-badge { background: #d1fae5; color: #065f46; padding: 3px 10px; border-radius: 12px; font-weight: 800; font-size: 0.98rem; font-family: 'Poppins', sans-serif; }
-
-    .navodaya-ak-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      background: #f8fafc;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1.5px solid #cbd5e1;
-      max-height: 480px;
-      overflow-y: auto;
+    .topper-score-badge {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.98rem;
+      font-family: 'Poppins', sans-serif;
     }
-    .navodaya-ak-col { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px; }
-    .navodaya-ak-col-title { font-size: 0.78rem; font-weight: 800; text-align: center; background: #e0f2fe; color: #0369a1; padding: 3px 2px; border-radius: 6px; margin-bottom: 6px; }
-    .navodaya-ak-row { display: flex; align-items: center; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.84rem; font-family: 'Poppins', sans-serif; font-weight: 700; }
-    .ak-opt-group { display: flex; gap: 3px; }
-    .ak-opt-btn { width: 22px; height: 22px; border-radius: 50%; border: 1px solid #cbd5e1; background: white; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #475569; transition: 0.1s; }
-    .ak-opt-btn.active { background: #0284c7; color: white; border-color: #0369a1; }
 
-    /* Modal Styles - मूळ रुंदी ८४०px संपूर्णपणे अबाधित */
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 68px;
+      background: #ffffff;
+      border-top: 2px solid #cbd5e1;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+      padding: 6px 14px;
+      gap: 12px;
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      background: #f8fafc;
+      border: 1.5px solid transparent;
+      border-radius: 12px;
+      color: #64748b;
+      cursor: pointer;
+      gap: 8px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      transition: all 0.15s;
+    }
+    .nav-item i { font-size: 1.3rem; }
+    .nav-item-dash.active {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      border-color: #0369a1;
+      box-shadow: 0 3px 10px rgba(2, 132, 199, 0.3);
+    }
+    .nav-item-entry.active {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: #ffffff;
+      border-color: #c2410c;
+      box-shadow: 0 3px 10px rgba(234, 88, 12, 0.3);
+    }
+
+    /* Professional Website Footer */
+    .site-legal-footer {
+      text-align: center;
+      padding: 14px 8px 10px 8px;
+      font-size: 0.78rem;
+      color: #64748b;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 12px;
+    }
+    .site-legal-footer span {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    /* Modals & Dialogs */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0,0,0,0.7);
       z-index: 2000;
       justify-content: center;
       align-items: center;
-      padding: 10px;
+      padding: 12px;
     }
     .modal-content {
       background: white;
@@ -509,8 +667,6 @@
       max-width: 840px;
       max-height: 94vh;
       overflow-y: auto;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      position: relative;
     }
     .custom-dialog-box {
       background: white;
@@ -539,6 +695,7 @@
       margin-bottom: 18px;
     }
 
+    /* प्रमाणपत्र रेंडरिंग बॉक्स */
     .cert-scroll-wrapper {
       width: 100%;
       overflow-x: auto;
@@ -596,7 +753,10 @@
       box-shadow: 0 3px 10px rgba(217, 119, 6, 0.2);
       font-family: 'Mukta', 'Poppins', sans-serif;
     }
-    .gold-capsule-badge i { color: #d97706; font-size: 1.15rem; }
+    .gold-capsule-badge i {
+      color: #d97706;
+      font-size: 1.15rem;
+    }
 
     .cert-congrats-ribbon {
       background: transparent !important;
@@ -612,6 +772,7 @@
       letter-spacing: 0.5px;
     }
 
+    /* बॅनर प्रिव्ह्यू कंटेनर */
     .banner-fit-wrapper {
       width: 100%;
       display: flex;
@@ -625,7 +786,7 @@
     .banner-preview-box {
       width: 720px;
       min-width: 720px;
-      height: 1020px;
+      height: auto;
       min-height: 1020px;
       background: #ffffff;
       border: 5px solid #d97706;
@@ -634,101 +795,194 @@
       box-shadow: 0 10px 30px rgba(217, 119, 6, 0.18);
       position: relative;
       margin: 0 auto;
-      overflow: hidden;
+      overflow: visible;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       box-sizing: border-box;
       transform-origin: top center;
     }
-    .banner-top-header { text-align: center; border-bottom: 2px double #d97706; padding-bottom: 10px; margin-bottom: 8px; }
-    .banner-dept-title { font-size: 1.2rem; font-weight: 800; color: #0f2b5c; letter-spacing: 0.5px; margin-bottom: 4px; }
-    .banner-exam-badge { display: inline-block; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; padding: 4px 18px; border-radius: 20px; font-size: 0.98rem; font-weight: 800; margin-bottom: 6px; }
-    .banner-heading-main { font-size: 1.65rem; font-weight: 800; color: #991b1b; line-height: 1.25; margin-bottom: 2px; }
-    .banner-subheading { font-size: 1.05rem; font-weight: 700; color: #b45309; }
-    .banner-congrats-tag { background: linear-gradient(135deg, #b45309 0%, #d97706 100%); color: white; padding: 5px 22px; border-radius: 25px; font-size: 0.95rem; font-weight: 800; display: inline-block; margin-top: 6px; }
-    .banner-topper-grid { display: flex; flex-direction: column; gap: 6px; width: 100%; margin: 8px 0; flex: 1; justify-content: space-evenly; }
-    .banner-row { background: #ffffff; border: 1.5px solid #fed7aa; border-radius: 10px; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; font-size: 1.02rem; font-weight: 700; }
-    .banner-row .b-std-name { font-size: 1.1rem; font-weight: 800; color: #0f172a; }
-    .banner-row .b-sch-name { font-size: 0.94rem; font-weight: 600; color: #475569; margin-left: 6px; }
-    .banner-row .b-marks-badge { font-size: 1.08rem; font-weight: 800; color: #ffffff; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); padding: 5px 14px; border-radius: 8px; font-family: 'Poppins', sans-serif; border: 1.5px solid #fbbf24; white-space: nowrap; }
-    .banner-row:nth-child(1) { background: linear-gradient(to right, #fffdf2, #fef3c7); border: 2px solid #f59e0b; }
-    .banner-row:nth-child(2) { background: linear-gradient(to right, #fbfcfe, #f1f5f9); border: 2px solid #94a3b8; }
-    .banner-row:nth-child(3) { background: linear-gradient(to right, #fffaf5, #ffedd5); border: 2px solid #fb923c; }
-    .banner-footer-auth { display: flex; justify-content: space-between; align-items: center; border-top: 2px dashed #cbd5e1; padding-top: 10px; margin-top: 6px; font-size: 0.95rem; color: #0f2b5c; font-weight: 800; width: 100%; }
+    .banner-top-header {
+      text-align: center;
+      border-bottom: 2px double #d97706;
+      padding-bottom: 10px;
+      margin-bottom: 8px;
+    }
+    .banner-dept-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f2b5c;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .banner-exam-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      padding: 4px 18px;
+      border-radius: 20px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .banner-heading-main {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #991b1b;
+      line-height: 1.25;
+      margin-bottom: 2px;
+    }
+    .banner-subheading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #b45309;
+    }
+    .banner-congrats-tag {
+      background: linear-gradient(135deg, #b45309 0%, #d97706 100%);
+      color: white;
+      padding: 5px 22px;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      display: inline-block;
+      margin-top: 6px;
+    }
+    .banner-topper-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      margin: 8px 0;
+      flex: 1;
+      justify-content: space-evenly;
+    }
+    .banner-row {
+      background: #ffffff;
+      border: 1.5px solid #fed7aa;
+      border-radius: 10px;
+      padding: 10px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.02rem;
+      font-weight: 700;
+    }
+    .banner-row .b-std-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .banner-row .b-sch-name {
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: #475569;
+      margin-left: 6px;
+    }
+    .banner-row .b-marks-badge {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #ffffff;
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      padding: 5px 14px;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      border: 1.5px solid #fbbf24;
+      white-space: nowrap;
+    }
+    .banner-row:nth-child(1) {
+      background: linear-gradient(to right, #fffdf2, #fef3c7);
+      border: 2px solid #f59e0b;
+    }
+    .banner-row:nth-child(2) {
+      background: linear-gradient(to right, #fbfcfe, #f1f5f9);
+      border: 2px solid #94a3b8;
+    }
+    .banner-row:nth-child(3) {
+      background: linear-gradient(to right, #fffaf5, #ffedd5);
+      border: 2px solid #fb923c;
+    }
+    .banner-footer-auth {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px dashed #cbd5e1;
+      padding-top: 10px;
+      margin-top: 6px;
+      font-size: 0.95rem;
+      color: #0f2b5c;
+      font-weight: 800;
+      width: 100%;
+    }
 
-    .designer-toolbar-card { background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 12px; padding: 12px; margin-bottom: 12px; }
-    .designer-tabs-wrap { display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1.5px solid #cbd5e1; padding-bottom: 8px; }
-    .des-tab-btn { flex: 1; padding: 8px; border-radius: 8px; border: 1.5px solid #cbd5e1; background: white; font-weight: 800; font-size: 0.88rem; cursor: pointer; color: #475569; }
-    .des-tab-btn.active { background: var(--sky); color: white; border-color: var(--sky-dark); }
-    .slider-control-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+    /* ॲडमिन कस्टमायझर टूलबार */
+    .designer-toolbar-card {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .designer-tabs-wrap {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1.5px solid #cbd5e1;
+      padding-bottom: 8px;
+    }
+    .des-tab-btn {
+      flex: 1;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: white;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      color: #475569;
+    }
+    .des-tab-btn.active {
+      background: var(--sky);
+      color: white;
+      border-color: var(--sky-dark);
+    }
+    .slider-control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
     .slider-control-row label { font-size: 0.85rem; font-weight: 700; color: #334155; min-width: 130px; }
     .slider-control-row input[type="range"] { flex: 1; height: 6px; }
     .slider-val-badge { font-size: 0.8rem; font-weight: 800; font-family:'Poppins', sans-serif; color: var(--sky-dark); min-width: 45px; text-align: right; }
 
-    .school-record-page { background: white; padding: 24px 28px; width: 800px; min-height: 1100px; color: #0f172a; font-family: 'Aparajita', 'Mukta', sans-serif; box-sizing: border-box; margin-bottom: 20px; position: relative; }
-    .school-record-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    .school-record-table th, .school-record-table td { border: 1.5px solid #334155; padding: 5px 8px; font-size: 0.98rem; }
-    .school-record-table th { background: #f1f5f9; font-weight: 800; text-align: center; }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      background: #ffffff;
-      border-top: 2px solid #cbd5e1;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 1000;
-      box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
-      padding: 4px 12px;
-      gap: 10px;
+    /* शाळेच्या रेकॉर्डसाठी Multi-page A4 शीट */
+    .school-record-page {
+      background: white;
+      padding: 24px 28px;
+      width: 800px;
+      min-height: 1100px;
+      color: #0f172a;
+      font-family: 'Aparajita', 'Mukta', sans-serif;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      position: relative;
     }
-    .nav-item {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      height: 48px;
-      background: #f8fafc;
-      border: 1.5px solid transparent;
-      border-radius: 12px;
-      color: #64748b;
-      cursor: pointer;
-      gap: 6px;
-      font-size: 1rem;
+    .school-record-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .school-record-table th, .school-record-table td {
+      border: 1.5px solid #334155;
+      padding: 5px 8px;
+      font-size: 0.98rem;
+    }
+    .school-record-table th {
+      background: #f1f5f9;
       font-weight: 800;
-      transition: all 0.15s;
-    }
-    .nav-item i { font-size: 1.25rem; }
-    .nav-item-dash.active {
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-      color: #ffffff;
-      border-color: #0369a1;
-      box-shadow: 0 3px 10px rgba(2, 132, 199, 0.3);
-    }
-    .nav-item-entry.active {
-      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-      color: #ffffff;
-      border-color: #c2410c;
-      box-shadow: 0 3px 10px rgba(234, 88, 12, 0.3);
-    }
-
-    .site-legal-footer {
       text-align: center;
-      padding: 14px 8px 10px 8px;
-      font-size: 0.78rem;
-      color: #64748b;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      border-top: 1px solid #e2e8f0;
-      margin-top: 12px;
     }
-    .site-legal-footer span { font-family: 'Poppins', sans-serif; font-weight: 700; color: #334155; }
 
     .toast {
       position: fixed;
@@ -744,6 +998,83 @@
       display: none;
       z-index: 3000;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }/* नवोदय ऑनलाईन चाचण्या कॉम्पॅक्ट व फिक्कट रंगाचे बॅनर */
+    .navodaya-special-banner {
+      background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+      color: white;
+      border-radius: 8px;
+      padding: 6px 10px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(129, 140, 248, 0.2);
+      border: 1px solid #c7d2fe;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .navodaya-special-banner:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(129, 140, 248, 0.3);
+    }
+    .banner-icon-pulse {
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.25);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fef08a;
+    }
+    .banner-text-content { flex: 1; }
+    .banner-text-content h3 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 0px;
+      color: #fef08a;
+    }
+    .banner-text-content p {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #f9fafb;
+      line-height: 1.2;
+    }
+    .banner-arrow-icon {
+      font-size: 0.9rem;
+      color: #fef08a;
+    }
+    .banner-icon-pulse {
+      font-size: 1.8rem;
+      background: rgba(255, 255, 255, 0.2);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fef08a;
+    }
+    .banner-text-content { flex: 1; }
+    .banner-text-content h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 2px;
+      color: #fef08a;
+      letter-spacing: 0.3px;
+    }
+    .banner-text-content p {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #e0e7ff;
+      line-height: 1.35;
+    }
+    .banner-arrow-icon {
+      font-size: 1.2rem;
+      color: #fef08a;
     }
   </style>
 </head>
@@ -765,6 +1096,7 @@
     <!-- ================= 1. डॅशबोर्ड स्क्रीन ================= -->
     <div id="screen-dashboard">
       
+      <!-- विभाग १: परीक्षा निवडक ड्रॉपडाऊन -->
       <div class="dropdown-group">
         <label class="dropdown-label"><i class="fa-solid fa-graduation-cap"></i> परीक्षा निवडा:</label>
         <select class="luxury-dropdown" id="dashboard-category-select" onchange="selectDashboardCategoryBySelect(this.value)">
@@ -775,22 +1107,33 @@
         </select>
       </div>
 
+      <!-- विभाग २: २-कॉलम कॅप्सूल ग्रीड (चाचणी क्रमांक) -->
       <div class="app-card">
         <p class="dropdown-label" style="font-size: 0.96rem; margin-bottom: 6px;"><i class="fa-solid fa-file-signature"></i> चाचणी क्रमांक निवडा:</p>
         <div class="test-capsule-grid" id="dash-test-pills"></div>
       </div>
-
+<div id="navodaya-banner-tab" class="navodaya-special-banner" onclick="window.open('https://nvs.savezpschools.in/', '_blank')" style="display: none;">
+  <div class="banner-icon-pulse"><i class="fa-solid fa-globe"></i></div>
+  <div class="banner-text-content" style="flex:1;">
+    <h3 style="color:#fef08a; font-size:1.15rem; font-weight:800; margin-bottom:2px;">नवोदय online चाचण्या</h3>
+    <p style="color:#e0e7ff; font-size:0.85rem; font-weight:600; line-height:1.35;">दिनांक 11 नोव्हेंबर पासून दररोज एक चाचणी सोडवण्यासाठी उपलब्ध होईल.</p>
+  </div>
+  <div class="banner-arrow-icon" style="color:#fef08a; font-size:1.2rem;"><i class="fa-solid fa-arrow-right"></i></div>
+</div>
+      
+      <!-- विभाग ३: आकडेवारी (Stats Grid) -->
       <div class="stats-grid">
         <div class="stat-box stat-box-students">
           <p>प्रविष्ट विद्यार्थी</p>
-          <h2 id="stat-total-students">...</h2>
+          <h2 id="stat-total-students">0</h2>
         </div>
         <div class="stat-box stat-box-schools">
           <p>गुण भरलेल्या शाळा</p>
-          <h2 id="stat-active-schools">...</h2>
+          <h2 id="stat-active-schools">0/0</h2>
         </div>
       </div>
 
+      <!-- विभाग ४: अधिकृत गुणवत्ता यादी व टॉपर्स -->
       <div class="app-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
           <h3 class="app-card-title" style="margin:0; border:none; padding:0;">
@@ -814,6 +1157,7 @@
           </button>
         </div>
 
+        <!-- १२ तालुक्यांची ग्रीड -->
         <div id="taluka-4col-grid-wrap" style="display:none; margin-bottom:10px;">
           <p style="font-size:0.88rem; font-weight:700; color:#475569; margin-bottom:5px;" id="taluka-grid-label">
             <i class="fa-solid fa-hand-pointer" style="color:var(--sky);"></i> तालुका निवडा:
@@ -830,11 +1174,19 @@
     <!-- ================= 2. गुण नोंदणी स्क्रीन (शिक्षक पोर्टल) ================= -->
     <div id="screen-entry" style="display:none;">
 
-      <div class="static-entry-notice-strip">
-        <i class="fa-solid fa-circle-info"></i>
-        <span>📢 सूचना: शनिवारी होणाऱ्या चाचणीचे गुण पुढील गुरुवारपूर्वी भरण्यात यावेत. गुरुवारी सायंकाळी निकाल व गुणवत्ता याद्या जाहीर करण्यात येतील.</span>
+      <!-- ५ सेकंदांचा हिरवा फ्लॅश मेसेज -->
+      <div class="flash-notice-banner" id="flash-entry-notice">
+        <button class="flash-close-btn" onclick="closeFlashNotice()">&times;</button>
+        <div class="flash-notice-content">
+          <i class="fa-solid fa-calendar-check"></i>
+          <div class="flash-notice-text">
+            <h4>📢 अत्यंत महत्त्वाची सूचना</h4>
+            <p>शनिवारी होणाऱ्या चाचणीचे गुण <strong>पुढील गुरुवारपूर्वी</strong> भरण्यात यावेत. गुरुवारी सायंकाळी चाचणीचे निकाल आणि गुणवत्ता याद्या जाहीर करण्यात येतील.</p>
+          </div>
+        </div>
       </div>
 
+      <!-- परीक्षा निवडक ड्रॉपडाऊन -->
       <div class="dropdown-group">
         <label class="dropdown-label"><i class="fa-solid fa-pen-to-square"></i> परीक्षा निवडा (गुण भरण्यासाठी):</label>
         <select class="luxury-dropdown" id="entry-category-select" onchange="selectEntryCategory(this.value)">
@@ -919,13 +1271,6 @@
           <i class="fa-solid fa-pen-nib" style="color:var(--kesari);"></i> 3. विद्यार्थ्यांची हजेरी व गुण नोंदणी
         </div>
 
-        <div class="soft-blink-omr-banner">
-          <i class="fa-solid fa-camera-retro"></i>
-          <p>
-            📢 <strong>आता OMR शीट हाताने तपासण्याची आवश्यकता नाही!</strong> विद्यार्थ्याच्या नावासमोरील कॅमेऱ्याने OMR शीट स्कॅन करा, तात्काळ अचूक गुण आपोआप भरले जातील.
-          </p>
-        </div>
-
         <div class="form-group" style="background:#f0fdf4; padding:10px 14px; border-radius:10px; margin-bottom:12px; border:1.5px solid #86efac;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <div>
@@ -969,34 +1314,8 @@
           <button class="app-btn btn-outline" style="width:auto; height:30px; font-size:0.8rem; padding:0 10px;" onclick="switchTab('dashboard')">बंद करा</button>
         </div>
         <p style="font-size:0.86rem; color:#475569;">
-          येथून आपण चाचणी निकाल जाहीर व लॉक करण्यापूर्वी तात्पुरते जिल्हा व तालुका टॉपर्स तपासू शकता, नवोदय ८० प्रश्नांची Answer Key भरू शकता, प्रमाणपत्र/बॅनर डिझाईन करू शकता तसेच चालू चाचणी निश्चित करू शकता.
+          येथून आपण चाचणी निकाल जाहीर व लॉक करण्यापूर्वी तात्पुरते जिल्हा व तालुका टॉपर्स तपासू शकता, प्रमाणपत्र/बॅनर लेआउट हाताने ड्रॅग करून सेट करू शकता, तसेच चालू चाचणी ठरवणे, नवीन चाचण्या जोडणे व त्यांची नावे बदलू शकता.
         </p>
-      </div>
-
-      <!-- नवोदय अधिकृत ८० प्रश्न Answer Key व्यवस्थापन -->
-      <div class="app-card" style="border-left: 5px solid #059669;">
-        <div class="app-card-title"><i class="fa-solid fa-key" style="color:#059669;"></i> 🔑 नवोदय उत्तरतालिका (Answer Key - 80 Questions)</div>
-        
-        <div class="grid-2" style="margin-bottom:8px;">
-          <div>
-            <label style="font-size:0.82rem; font-weight:700;">चाचणी निवडा:</label>
-            <select class="form-control" id="admin-ak-test-select" onchange="loadNavodayaAnswerKey()"></select>
-          </div>
-          <div>
-            <label style="font-size:0.82rem; font-weight:700;">जलद की पेस्ट (उदा. ABCD... 80 अक्षरे):</label>
-            <input type="text" class="form-control" id="admin-ak-fast-string" placeholder="80 अक्षरे पेस्ट करा" oninput="applyFastKeyString(this.value)">
-          </div>
-        </div>
-
-        <p style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">
-          * खालील ४ विभागांतून प्रत्यक्ष ओएमआर प्रमाणे उत्तरे तपासा व सेव्ह करा (प्रत्येक प्रश्नास १.२५ गुण = एकूण १०० गुण):
-        </p>
-
-        <div class="navodaya-ak-grid" id="navodaya-ak-container"></div>
-
-        <button class="app-btn btn-success" style="margin-top:10px;" onclick="saveNavodayaAnswerKey()">
-          <i class="fa-solid fa-floppy-disk"></i> ही ८० प्रश्नांची Answer Key जतन करा
-        </button>
       </div>
 
       <!-- ०. चाचणी व्यवस्थापन -->
@@ -1013,10 +1332,14 @@
           </select>
         </div>
 
+        <!-- अ. चालू चाचणी निश्चित करणे -->
         <div style="background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:10px; padding:10px; margin-bottom:10px;">
           <div style="font-weight:800; font-size:0.92rem; color:#0369a1; margin-bottom:4px;">
             <i class="fa-solid fa-toggle-on"></i> १. सध्या शाळांसाठी कोणती चाचणी सुरू ठेवायची?
           </div>
+          <p style="font-size:0.8rem; color:#475569; margin-bottom:6px;">
+            येथून निवडलेली चाचणी सर्व शाळांच्या 'गुण भरा' स्क्रीनवर थेट सक्रिय होईल.
+          </p>
           <div class="grid-2">
             <select class="form-control" id="admin-active-test-select"></select>
             <button class="app-btn btn-primary" onclick="saveAdminActiveTest()">
@@ -1025,6 +1348,7 @@
           </div>
         </div>
 
+        <!-- ब. सध्याच्या चाचणीचे नाव बदलणे -->
         <div style="background:#fffbeb; border:1.5px solid #fde68a; border-radius:10px; padding:10px; margin-bottom:10px;">
           <div style="font-weight:800; font-size:0.92rem; color:#92400e; margin-bottom:4px;">
             <i class="fa-solid fa-pen"></i> २. चाचणीचे नाव बदला (उदा. महारिव्हिजन चाचणी)
@@ -1044,6 +1368,7 @@
           </button>
         </div>
 
+        <!-- क. नवीन चाचणी जोडणे -->
         <div style="background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:10px; padding:10px;">
           <div style="font-weight:800; font-size:0.92rem; color:#166534; margin-bottom:4px;">
             <i class="fa-solid fa-plus-circle"></i> ३. नवीन चाचणी जोडा (पुढील क्रमांक व सानुकूल नाव)
@@ -1118,8 +1443,10 @@
             </button>
           </div>
 
+          <!-- विभाग अ: प्रमाणपत्र सेटिंग्ज -->
           <div id="section-designer-cert">
             <div class="designer-toolbar-card">
+              
               <div class="form-group" style="margin-bottom:8px;">
                 <label>प्रमाणपत्र मुख्य शीर्षक:</label>
                 <input type="text" class="form-control" id="tmpl-cert-title" value="गुणवत्ता सन्मान प्रमाणपत्र" oninput="updateLiveDesigner()">
@@ -1223,6 +1550,7 @@
             </div>
           </div>
 
+          <!-- विभाग ब: बॅनर सेटिंग्ज -->
           <div id="section-designer-banner" style="display:none;">
             <div class="designer-toolbar-card">
               <div class="form-group" style="margin-bottom:6px;">
@@ -1299,6 +1627,7 @@
             </div>
           </div>
         </div>
+
       </div>
 
       <!-- ४. चाचणीनिहाय एकूण गुण सेट करा -->
@@ -1327,6 +1656,19 @@
           <i class="fa-solid fa-floppy-disk"></i> या चाचणीचे एकूण गुण निश्चित करा
         </button>
       </div>
+      <!-- ५. शाळा पिन व मोबाईल नंबर शोध कक्ष -->
+    <div class="app-card" style="border-left: 5px solid #7c3aed;">
+      <div class="app-card-title"><i class="fa-solid fa-key" style="color:#7c3aed;"></i> शाळा पिन व मोबाईल नंबर शोधा (UDISE द्वारे)</div>
+      <div class="form-group" style="margin-bottom:8px;">
+        <label>शाळेचा UDISE कोड टाका:</label>
+        <input type="text" class="form-control" id="admin-lookup-udise" placeholder="उदा. 27270710302" style="font-family:'Poppins', sans-serif; font-weight:800;" maxlength="11">
+      </div>
+      <button class="app-btn btn-primary" style="background:linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); margin-bottom:10px;" onclick="adminLookupSchoolPin()">
+        <i class="fa-solid fa-magnifying-glass"></i> पिन आणि मोबाईल नंबर शोधा
+      </button>
+      <div id="admin-lookup-result" style="background:#faf5ff; border:1.5px solid #d8b4fe; border-radius:10px; padding:10px; display:none; font-size:0.92rem; color:#4c1d95; line-height:1.5;">
+      </div>
+    </div>
     </div>
 
     <!-- व्यावसायिक वेबसाइट तळटीप (Copyright Footer) -->
@@ -1360,11 +1702,14 @@
         <button onclick="closeModal('preLockReviewModal')" style="border:none; background:none; font-size:1.4rem; cursor:pointer;">&times;</button>
       </div>
 
-      <div style="margin-bottom:10px; display:flex; gap:6px; overflow-x:auto;">
-        <button class="app-btn btn-primary" style="height:36px; font-size:0.88rem;" onclick="renderPreLockDistrictReview()">बीड जिल्हा Toppers</button>
+      <div style="margin-bottom:10px; display:flex; gap:6px; overflow-x:auto; align-items:center;">
+        <button class="app-btn btn-primary" style="height:36px; font-size:0.88rem;" onclick="renderPreLockDistrictReview()">बीड जिल्हा</button>
         <select class="form-control" id="pre-lock-taluka-select" style="height:36px; font-size:0.88rem; width:auto; font-weight:700;" onchange="renderPreLockTalukaReview(this.value)">
-          <option value="">-- तालुका Toppers निवडा --</option>
+          <option value="">-- तालुका निवडा --</option>
         </select>
+        <button class="app-btn btn-danger" style="height:36px; font-size:0.84rem; background:#dc2626; width:auto; padding:0 12px; white-space:nowrap;" onclick="renderPreLockSchoolsCleanup()">
+          <i class="fa-solid fa-trash-can"></i> नोंदी तपासा/डिलीट
+        </button>
       </div>
 
       <div id="pre-lock-content-area" style="max-height:60vh; overflow-y:auto; padding:4px;"></div>
@@ -1617,7 +1962,6 @@
 
   <div class="toast" id="toastMsg">माहिती सेव्ह झाली!</div>
 
-  <!-- मुख्य जावास्क्रिप्ट लॉजिक -->
   <script>
     const TALUKA_LIST = [
       "अंबाजोगाई", "आष्टी", "बीड ग्रामीण", "बीड शहर", "धारूर", 
@@ -1643,7 +1987,6 @@
 
     let TEST_DEFINITIONS_STORE = {};
     let ACTIVE_TESTS_STORE = {};
-    let NAVODAYA_ANSWER_KEYS_STORE = {};
 
     function getDefaultTests(category) {
       const minStart = getMinAllowedTestNo(category);
@@ -1692,18 +2035,36 @@
       return minStart;
     }
 
-    function listenTestDefinitionsAndActive() {
+function listenTestDefinitionsAndActive() {
+      // पेज उघडताच तत्काळ दाखवण्यासाठी कॅश केलेले चाचणीचे नाव लोड करा
+      const cachedDefs = localStorage.getItem('cache_test_definitions');
+      if (cachedDefs) {
+        try { TEST_DEFINITIONS_STORE = JSON.parse(cachedDefs); } catch(e) {}
+      }
+      const cachedActive = localStorage.getItem('cache_active_tests');
+      if (cachedActive) {
+        try { ACTIVE_TESTS_STORE = JSON.parse(cachedActive); } catch(e) {}
+      }
+      
+      // पेज ओपन होताच कोणत्याही डिलेविना चाचण्यांची नावे तत्काळ प्रदर्शिंत करा
+      buildDashboardTestPills();
+      updateAdminTestOptions();
+      updateAdminLockTestOptions();
+      refreshAdminTestManagerUI();
+
       db.ref('test_definitions').on('value', (snap) => {
         TEST_DEFINITIONS_STORE = snap.val() || {};
+        localStorage.setItem('cache_test_definitions', JSON.stringify(TEST_DEFINITIONS_STORE));
         buildDashboardTestPills();
         updateAdminTestOptions();
         updateAdminLockTestOptions();
         refreshAdminTestManagerUI();
-        initNavodayaAkTestOptions();
       });
 
+      // 'active_tests' चा एकच आणि अधिकृत लिसनर (डुप्लिकेट काढला आहे)
       db.ref('active_tests').on('value', (snap) => {
         ACTIVE_TESTS_STORE = snap.val() || {};
+        localStorage.setItem('cache_active_tests', JSON.stringify(ACTIVE_TESTS_STORE));
         if (currentEntryCategory) {
           const aTest = getAutoActiveTest(currentEntryCategory);
           const inp = document.getElementById('entry-test-no');
@@ -1712,11 +2073,6 @@
         }
         buildDashboardTestPills();
         refreshAdminTestManagerUI();
-      });
-
-      db.ref('navodaya_answer_keys').on('value', (snap) => {
-        NAVODAYA_ANSWER_KEYS_STORE = snap.val() || {};
-        loadNavodayaAnswerKey();
       });
     }
 
@@ -1766,12 +2122,27 @@
     let isReRegistrationNeeded = false;
     let fetchedSchoolSecurityPin = null;
     let fetchedSchoolHmMobile = null;
+    let selectedAdminTaluka = TALUKA_LIST[0];
 
+    let flashTimer = null;
     let BEED_ALL_SCHOOLS = [];
     let PRE_LOCK_CALCULATED_DATA = null;
-
-    let DASH_STATS_MEMORY_CACHE = {};
     let currentActiveDashboardRef = null;
+
+    /* Top 10 Tie-Handling Helper */
+    function getTop10WithTies(sortedArr) {
+      if (sortedArr.length <= 10) return sortedArr;
+      const tenthMarks = sortedArr[9].marks;
+      let res = [];
+      for (let i = 0; i < sortedArr.length; i++) {
+        if (i < 10 || sortedArr[i].marks === tenthMarks) {
+          res.push(sortedArr[i]);
+        } else {
+          break;
+        }
+      }
+      return res;
+    }
 
     function toggleStudentAddCard() {
       const body = document.getElementById('body-student-add-section');
@@ -1813,25 +2184,6 @@
         if (hint) hint.style.display = 'block';
       } else {
         if (hint) hint.style.display = 'none';
-      }
-    }
-
-    function validateMarksInput(inputEl, studentId) {
-      const val = inputEl.value.trim();
-      const testNo = parseInt(document.getElementById('entry-test-no').value, 10) || getMinAllowedTestNo(currentEntryCategory);
-      const maxLimit = getMaxMarksForTest(currentEntryCategory, testNo);
-
-      if (val.toUpperCase() === 'AB' || val === '') {
-        inputEl.classList.remove('invalid-mark');
-        return;
-      }
-
-      const num = parseFloat(val);
-      if (isNaN(num) || num < 0 || num > maxLimit) {
-        inputEl.classList.add('invalid-mark');
-        showToast(`गुण ० ते ${maxLimit} दरम्यान असावेत!`);
-      } else {
-        inputEl.classList.remove('invalid-mark');
       }
     }
 
@@ -2230,240 +2582,6 @@
       });
     }
 
-    function openPreLockReviewModal() {
-      const cat = document.getElementById('admin-lock-category').value;
-      const testNo = document.getElementById('admin-lock-test').value;
-      const maxM = getMaxMarksForTest(cat, parseInt(testNo, 10));
-
-      showToast('तात्पुरती गुणवत्ता यादी संकलित होत आहे...');
-
-      db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
-        const data = snap.val() || {};
-        let allStudents = [];
-        let talukaWise = {};
-
-        Object.values(data).forEach(entry => {
-          if (entry.students && Array.isArray(entry.students)) {
-            entry.students.forEach(st => {
-              if (st.marks !== '' && String(st.marks).toUpperCase() !== 'AB') {
-                const marksNum = parseFloat(st.marks) || 0;
-                const rec = {
-                  name: st.name,
-                  school: entry.school,
-                  taluka: entry.taluka || 'इतर',
-                  udise: entry.udise || '-',
-                  marks: marksNum,
-                  gender: st.gender || 'मुलगा'
-                };
-                allStudents.push(rec);
-
-                if (!talukaWise[entry.taluka]) talukaWise[entry.taluka] = [];
-                talukaWise[entry.taluka].push(rec);
-              }
-            });
-          }
-        });
-
-        allStudents.sort((a,b) => b.marks - a.marks);
-        const districtToppers = allStudents.slice(0, 10);
-
-        let talukaToppers = {};
-        Object.keys(talukaWise).forEach(tName => {
-          talukaWise[tName].sort((a,b) => b.marks - a.marks);
-          talukaToppers[tName] = talukaWise[tName].slice(0, 10);
-        });
-
-        PRE_LOCK_CALCULATED_DATA = {
-          cat: cat,
-          testNo: testNo,
-          maxM: maxM,
-          districtToppers: districtToppers,
-          talukaToppers: talukaToppers
-        };
-
-        renderPreLockDistrictReview();
-        document.getElementById('preLockReviewModal').style.display = 'flex';
-      });
-    }
-
-    function renderPreLockDistrictReview() {
-      if (!PRE_LOCK_CALCULATED_DATA) return;
-      const area = document.getElementById('pre-lock-content-area');
-      const list = PRE_LOCK_CALCULATED_DATA.districtToppers || [];
-      const maxM = PRE_LOCK_CALCULATED_DATA.maxM;
-
-      area.innerHTML = `<h4 style="color:#0f2b5c; font-size:1.02rem; margin-bottom:8px;"><i class="fa-solid fa-trophy" style="color:var(--gold);"></i> बीड जिल्हा Top 10 प्रिव्ह्यू:</h4>`;
-
-      if (list.length === 0) {
-        area.innerHTML += `<p style="text-align:center; color:#64748b; padding:12px;">अद्याप गुण नोंदवलेले नाहीत.</p>`;
-        return;
-      }
-
-      list.forEach((st, idx) => {
-        area.innerHTML += `
-          <div class="topper-card">
-            <div class="topper-rank">#${idx + 1}</div>
-            <div class="topper-details">
-              <h4>${st.name}</h4>
-              <p>${st.school} (${st.taluka})</p>
-            </div>
-            <div class="topper-score">
-              <span class="topper-score-badge">${st.marks}/${maxM} गुण</span>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function renderPreLockTalukaReview(talukaName) {
-      if (!PRE_LOCK_CALCULATED_DATA || !talukaName) return;
-      const area = document.getElementById('pre-lock-content-area');
-      const tToppers = PRE_LOCK_CALCULATED_DATA.talukaToppers[talukaName] || [];
-      const maxM = PRE_LOCK_CALCULATED_DATA.maxM;
-
-      area.innerHTML = `<h4 style="color:#059669; font-size:1.02rem; margin-bottom:8px;"><i class="fa-solid fa-award"></i> ${talukaName} तालुका Top 10 प्रिव्ह्यू:</h4>`;
-
-      if (tToppers.length === 0) {
-        area.innerHTML += `<p style="text-align:center; color:#64748b; padding:12px;">या तालुक्यात अद्याप गुण उपलब्ध नाहीत.</p>`;
-        return;
-      }
-
-      tToppers.forEach((st, idx) => {
-        area.innerHTML += `
-          <div class="topper-card">
-            <div class="topper-rank">#${idx + 1}</div>
-            <div class="topper-details">
-              <h4>${st.name}</h4>
-              <p>${st.school}</p>
-            </div>
-            <div class="topper-score">
-              <span class="topper-score-badge">${st.marks}/${maxM} गुण</span>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function initNavodayaAkTestOptions() {
-      const sel = document.getElementById('admin-ak-test-select');
-      if (!sel) return;
-      sel.innerHTML = '';
-      const tests = getTestsListForCategory('navodaya');
-      tests.forEach(t => {
-        sel.innerHTML += `<option value="${t.no}">${t.name}</option>`;
-      });
-      renderNavodayaAkGrid();
-      loadNavodayaAnswerKey();
-    }
-
-    function renderNavodayaAkGrid() {
-      const cont = document.getElementById('navodaya-ak-container');
-      if (!cont) return;
-      cont.innerHTML = '';
-
-      const sections = [
-        { title: "विभाग १: मानसिक (०१-२०)", start: 1, end: 20 },
-        { title: "विभाग २: पर्यावरण (२१-४०)", start: 21, end: 40 },
-        { title: "विभाग ३: अंकगणित (४१-६०)", start: 41, end: 60 },
-        { title: "विभाग ४: भाषा (६१-८०)", start: 61, end: 80 }
-      ];
-
-      sections.forEach(sec => {
-        let colHtml = `<div class="navodaya-ak-col"><div class="navodaya-ak-col-title">${sec.title}</div>`;
-        for (let q = sec.start; q <= sec.end; q++) {
-          const qStr = q < 10 ? '0' + q : q;
-          colHtml += `
-            <div class="navodaya-ak-row">
-              <span>Q${qStr}:</span>
-              <div class="ak-opt-group" id="ak-q-group-${q}">
-                <button type="button" class="ak-opt-btn" onclick="selectAkOption(${q}, 'A')">A</button>
-                <button type="button" class="ak-opt-btn" onclick="selectAkOption(${q}, 'B')">B</button>
-                <button type="button" class="ak-opt-btn" onclick="selectAkOption(${q}, 'C')">C</button>
-                <button type="button" class="ak-opt-btn" onclick="selectAkOption(${q}, 'D')">D</button>
-              </div>
-            </div>
-          `;
-        }
-        colHtml += `</div>`;
-        cont.innerHTML += colHtml;
-      });
-    }
-
-    let CURRENT_NAVODAYA_KEY_OBJECT = {};
-
-    function selectAkOption(qNo, optionLetter) {
-      CURRENT_NAVODAYA_KEY_OBJECT[qNo] = optionLetter;
-      const group = document.getElementById(`ak-q-group-${qNo}`);
-      if (group) {
-        group.querySelectorAll('.ak-opt-btn').forEach(btn => {
-          btn.classList.toggle('active', btn.innerText === optionLetter);
-        });
-      }
-    }
-
-    function applyFastKeyString(keyStr) {
-      const clean = keyStr.toUpperCase().replace(/[^ABCD]/g, '');
-      for (let i = 0; i < clean.length && i < 80; i++) {
-        selectAkOption(i + 1, clean[i]);
-      }
-    }
-
-    function loadNavodayaAnswerKey() {
-      const sel = document.getElementById('admin-ak-test-select');
-      if (!sel) return;
-      const tNo = sel.value;
-      CURRENT_NAVODAYA_KEY_OBJECT = {};
-
-      const savedKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${tNo}`];
-      if (savedKey) {
-        let fastStr = "";
-        for (let q = 1; q <= 80; q++) {
-          if (savedKey[q]) {
-            selectAkOption(q, savedKey[q]);
-            fastStr += savedKey[q];
-          }
-        }
-        const fastInp = document.getElementById('admin-ak-fast-string');
-        if (fastInp) fastInp.value = fastStr;
-      } else {
-        renderNavodayaAkGrid();
-        const fastInp = document.getElementById('admin-ak-fast-string');
-        if (fastInp) fastInp.value = "";
-      }
-    }
-
-    function saveNavodayaAnswerKey() {
-      const sel = document.getElementById('admin-ak-test-select');
-      const tNo = sel.value;
-
-      let count = Object.keys(CURRENT_NAVODAYA_KEY_OBJECT).length;
-      if (count < 80) {
-        showCustomAlert(`आपण अद्याप फक्त ${count}/80 प्रश्नांची उत्तरे भरली आहेत. कृपया सर्व 80 प्रश्नांची उत्तरे भरावीत.`);
-      }
-
-      db.ref(`navodaya_answer_keys/test_${tNo}`).set(CURRENT_NAVODAYA_KEY_OBJECT).then(() => {
-        showToast('नवोदय 80 प्रश्नांची Answer Key सेव्ह झाली!');
-        showCustomAlert(`यशस्वी! चाचणी क्रमांक ${tNo} साठी नवोदय ओएमआर Answer Key क्लाऊडवर सुरक्षित सेव्ह झाली आहे.`);
-      });
-    }
-
-    /* ================= १. स्वतंत्र OMR स्कॅनर विंडो उघडणे ================= */
-    function openOmrScannerModal(stdId, stdName) {
-      const testNo = document.getElementById('entry-test-no').value;
-      const currentKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`] || {};
-
-      if (!currentKey || Object.keys(currentKey).length === 0) {
-        showCustomAlert(`शिक्षणाधिकारी कक्षातून अद्याप या चाचणीची अधिकृत नवोदय Answer Key फीड केलेली नाही! Answer Key फीड केल्यानंतरच OMR स्कॅनिंग करता येईल.`);
-        return;
-      }
-
-      // सध्याच्या चाचणीची Answer Key मेमरीमध्ये ठेवणे जेणेकरून स्कॅनर ती वाचू शकेल
-      localStorage.setItem('omr_saved_key', JSON.stringify(currentKey));
-
-      // स्वतंत्र OMR स्कॅनर पेज नवीन विंडो/टॅबमध्ये उघडणे
-      window.open(`omr-scanner.html?id=${stdId}&name=${encodeURIComponent(stdName)}&test=${testNo}`, '_blank');
-    }
-
     function initPortal() {
       loadSchoolsData();
       initTalukaDropdowns();
@@ -2477,7 +2595,6 @@
       listenCustomTemplates();
       initAdminPanelOptions();
       initAllDraggables();
-      initNavodayaAkTestOptions();
 
       try { history.pushState({ page: 'home' }, ''); } catch(e) {}
     }
@@ -2547,6 +2664,22 @@
       setTimeout(() => { t.style.display = 'none'; }, 2200);
     }
 
+    function triggerFlashNotice() {
+      const banner = document.getElementById('flash-entry-notice');
+      if (!banner) return;
+      banner.style.display = 'block';
+      clearTimeout(flashTimer);
+      flashTimer = setTimeout(() => {
+        closeFlashNotice();
+      }, 5000);
+    }
+
+    function closeFlashNotice() {
+      const banner = document.getElementById('flash-entry-notice');
+      if (banner) banner.style.display = 'none';
+      clearTimeout(flashTimer);
+    }
+
     function switchTab(view) {
       document.getElementById('screen-dashboard').style.display = (view === 'dashboard') ? 'block' : 'none';
       document.getElementById('screen-entry').style.display = (view === 'entry') ? 'block' : 'none';
@@ -2556,6 +2689,7 @@
       document.getElementById('nav-btn-entry').classList.toggle('active', view === 'entry');
       
       if (view === 'entry') {
+        triggerFlashNotice();
         const autoTest = getAutoActiveTest(currentEntryCategory);
         document.getElementById('entry-test-no').value = autoTest;
         updateEntryNotice(autoTest);
@@ -2566,7 +2700,6 @@
         refreshAdminTestManagerUI();
         updateAdminTestOptions();
         updateAdminLockTestOptions();
-        initNavodayaAkTestOptions();
       }
       window.scrollTo(0, 0);
     }
@@ -2658,6 +2791,8 @@
             </div>
           </button>`;
       });
+const banner = document.getElementById('navodaya-banner-tab');
+  if (banner) banner.style.display = (currentSelectedCategory === 'navodaya') ? 'flex' : 'none';      
     }
 
     function buildEntryTestOptions() {
@@ -2782,7 +2917,6 @@
       handleSchoolSelectionWithSecurity();
     }
 
-    /* शाळा सुरक्षा पिन (Login PIN) पडताळणी - १००% सुरक्षित पूर्ववत */
     function handleSchoolSelectionWithSecurity() {
       const udise = document.getElementById('entry-school').value;
       if (!udise) return;
@@ -3036,39 +3170,6 @@
       });
     }
 
-    function openEditStudentModal(id, name, gender) {
-      document.getElementById('edit-std-id').value = id;
-      document.getElementById('edit-std-name').value = name;
-      document.getElementById('edit-std-gender').value = gender || 'मुलगा';
-      document.getElementById('editStudentModal').style.display = 'flex';
-    }
-
-    function saveEditedStudent() {
-      const id = parseInt(document.getElementById('edit-std-id').value, 10);
-      const newName = document.getElementById('edit-std-name').value.trim();
-      const newGender = document.getElementById('edit-std-gender').value;
-
-      if (!newName) {
-        showCustomAlert('नाव रिकामे असू शकत नाही!');
-        return;
-      }
-
-      const key = getSchoolDbKey();
-      if (!key) return;
-
-      const std = currentStudentsList.find(s => s.id === id);
-      if (std) {
-        std.name = newName;
-        std.gender = newGender;
-        db.ref(`students_master/${key}`).set(currentStudentsList).then(() => {
-          closeModal('editStudentModal');
-          renderRegisteredStudentsManager();
-          loadStudentMarksForSelectedTest();
-          showToast('माहिती अद्ययावत झाली!');
-        });
-      }
-    }
-
     function setAttendance(id, status) {
       const inp = document.getElementById(`marks-input-${id}`);
       const btnP = document.getElementById(`att-p-${id}`);
@@ -3078,7 +3179,6 @@
         inp.value = 'AB';
         inp.readOnly = true;
         inp.classList.add('is-absent');
-        inp.classList.remove('invalid-mark');
         btnA.classList.add('active');
         btnP.classList.remove('active');
       } else {
@@ -3140,6 +3240,39 @@
       });
     }
 
+    function openEditStudentModal(id, name, gender) {
+      document.getElementById('edit-std-id').value = id;
+      document.getElementById('edit-std-name').value = name;
+      document.getElementById('edit-std-gender').value = gender || 'मुलगा';
+      document.getElementById('editStudentModal').style.display = 'flex';
+    }
+
+    function saveEditedStudent() {
+      const id = parseInt(document.getElementById('edit-std-id').value, 10);
+      const newName = document.getElementById('edit-std-name').value.trim();
+      const newGender = document.getElementById('edit-std-gender').value;
+
+      if (!newName) {
+        showCustomAlert('नाव रिकामे असू शकत नाही!');
+        return;
+      }
+
+      const key = getSchoolDbKey();
+      if (!key) return;
+
+      const std = currentStudentsList.find(s => s.id === id);
+      if (std) {
+        std.name = newName;
+        std.gender = newGender;
+        db.ref(`students_master/${key}`).set(currentStudentsList).then(() => {
+          closeModal('editStudentModal');
+          renderRegisteredStudentsManager();
+          loadStudentMarksForSelectedTest();
+          showToast('माहिती अद्ययावत झाली!');
+        });
+      }
+    }
+
     function loadStudentMarksForSelectedTest() {
       const key = getSchoolDbKey();
       const testNo = document.getElementById('entry-test-no').value;
@@ -3149,6 +3282,27 @@
         const testData = snapshot.val();
         renderMobileStudentList(testData ? testData.students : null);
       });
+    }
+
+    function validateMarksInput(inputEl, maxLimit, studentName) {
+      const val = inputEl.value.trim();
+      if (val === '' || val.toUpperCase() === 'AB') {
+        inputEl.style.borderColor = '#cbd5e1';
+        inputEl.style.backgroundColor = 'transparent';
+        return;
+      }
+
+      const num = parseFloat(val);
+      if (isNaN(num) || num < 0 || num > maxLimit) {
+        inputEl.style.borderColor = '#dc2626';
+        inputEl.style.backgroundColor = '#fee2e2';
+        showCustomAlert(`विद्यार्थी "${studentName}" चे गुण 0 ते ${maxLimit} च्या मर्यादेतच असावेत! आपण टाकलेले गुण (${val}) स्वीकारले जाणार नाहीत.`);
+        inputEl.value = '';
+        inputEl.focus();
+      } else {
+        inputEl.style.borderColor = '#059669';
+        inputEl.style.backgroundColor = '#f0fdf4';
+      }
     }
 
     function renderMobileStudentList(savedStudents) {
@@ -3190,17 +3344,13 @@
                 <button type="button" class="compact-att-btn absent ${isAbsent ? 'active' : ''}" id="att-a-${st.id}" onclick="setAttendance(${st.id}, 'absent')">गैरहजर</button>
               </div>
 
-              <!-- थेट OMR स्कॅनर कॅमेरा बटण -->
-              <button type="button" class="btn-scan-omr" onclick="openOmrScannerModal(${st.id}, '${st.name}')" title="कॅमेऱ्याने OMR स्कॅन करा">
-                <i class="fa-solid fa-camera"></i> OMR स्कॅन
-              </button>
-
               <div class="compact-marks-wrap">
                 <input type="text" inputmode="numeric" pattern="[0-9]*" class="compact-marks-input ${isAbsent ? 'is-absent' : ''}" 
-                  id="marks-input-${st.id}" value="${marks}" placeholder="गुण" ${isAbsent ? 'readonly' : ''} oninput="validateMarksInput(this, ${st.id})">
+                  id="marks-input-${st.id}" value="${marks}" placeholder="गुण" ${isAbsent ? 'readonly' : ''}
+                  onchange="validateMarksInput(this, ${maxLimit}, '${st.name}')">
                 <span class="compact-denominator">/ ${maxLimit}</span>
               </div>
-
+              
               <button class="btn-compact-chart" onclick="openReportCardModal(${st.id}, '${st.name}')" title="विद्यार्थी प्रगती आलेख">
                 <i class="fa-solid fa-chart-column"></i>
               </button>
@@ -3219,14 +3369,23 @@
 
       const testNo = document.getElementById('entry-test-no').value;
       const maxLimit = getMaxMarksForTest(currentEntryCategory, parseInt(testNo, 10));
+      let hasError = false;
 
-      let hasInvalidMarks = false;
       let currentScreenInputs = {};
       currentStudentsList.forEach(st => {
         const inp = document.getElementById(`marks-input-${st.id}`);
         const val = inp ? inp.value.trim() : '';
-        if (inp && inp.classList.contains('invalid-mark')) {
-          hasInvalidMarks = true;
+        if (val !== '' && val.toUpperCase() !== 'AB') {
+          const num = parseFloat(val);
+          if (isNaN(num) || num < 0 || num > maxLimit) {
+            showCustomAlert(`विद्यार्थी "${st.name}" चे गुण 0 ते ${maxLimit} दरम्यान असावेत! आपण ${val} गुण टाकले आहेत.`);
+            if (inp) {
+              inp.focus();
+              inp.style.borderColor = '#dc2626';
+              inp.style.backgroundColor = '#fee2e2';
+            }
+            hasError = true;
+          }
         }
         currentScreenInputs[st.id] = {
           name: st.name,
@@ -3235,10 +3394,7 @@
         };
       });
 
-      if (hasInvalidMarks) {
-        showCustomAlert(`काही विद्यार्थ्यांचे गुण चुकीचे भरले आहेत (कमाल गुण ${maxLimit} पेक्षा जास्त असू नयेत). कृपया लाल रंगातील गुण दुरुस्त करा!`);
-        return;
-      }
+      if (hasError) return;
 
       const targetDbRef = db.ref(`results/${currentEntryCategory}/test_${testNo}/${key}`);
 
@@ -3467,17 +3623,57 @@
       });
     }
 
+    /* ॲनिमेशन आणि झटपट कॅशिंगसह डॅशबोर्ड आकडे लोडर */
+    function updateStatWithAnimation(elementId, newValueText) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      if (el.innerText !== String(newValueText)) {
+        el.innerText = newValueText;
+        el.classList.add('updating');
+        setTimeout(() => { el.classList.remove('updating'); }, 350);
+      }
+    }
+
+function listenDeclaredResults() {
+      // १. पेज उघडताच इंटरनेटची वाट न पाहाता कॅश केलेले निकाल व टॉपर्स तत्काळ दाखवा
+      const cachedDeclared = localStorage.getItem('cache_declared_toppers');
+      if (cachedDeclared) {
+        try {
+          DECLARED_DATA_STORE = JSON.parse(cachedDeclared);
+          currentSelectedTest = getInitialDeclaredTestForDashboard(currentSelectedCategory);
+          buildDashboardTestPills();
+          renderDeclaredResultsOnDashboard();
+        } catch(e) {}
+      }
+
+      db.ref('declared_toppers').on('value', (snap) => {
+        DECLARED_DATA_STORE = snap.val() || {};
+        // २. नवीन निकाल येताच तो मोबाईलच्या LocalStorage मध्ये कायमस्वरूपी (Static) सेव्ह करा
+        localStorage.setItem('cache_declared_toppers', JSON.stringify(DECLARED_DATA_STORE));
+        
+        // ३. सर्वात मोठ्या क्रमांकाची (नुकतीच जाहीर झालेली) चाचणी आपोआप निवडा
+        currentSelectedTest = getInitialDeclaredTestForDashboard(currentSelectedCategory);
+        buildDashboardTestPills();
+        listenLiveDashboardData();
+        renderDeclaredResultsOnDashboard();
+      });
+    }
+
     function listenLiveDashboardData() {
-      const cacheKey = `${currentSelectedCategory}_test_${currentSelectedTest}`;
+      const cacheKey = `dash_stats_${currentSelectedCategory}_test_${currentSelectedTest}`;
       const totalEligibleSchools = getTotalEligibleSchoolsForCategory(currentSelectedCategory);
 
-      if (DASH_STATS_MEMORY_CACHE[cacheKey]) {
-        const c = DASH_STATS_MEMORY_CACHE[cacheKey];
-        document.getElementById('stat-total-students').innerText = c.students;
-        document.getElementById('stat-active-schools').innerText = `${c.active}/${totalEligibleSchools}`;
+      // एकदा जाहीर झालेला निकाल बदलत नसल्यामुळे, त्याची आकडेवारी देखील लोकल स्टोरेजवरून सेकंदाच्या आत दाखवा
+      const cachedData = localStorage.getItem(cacheKey);
+      if (cachedData) {
+        try {
+          const parsed = JSON.parse(cachedData);
+          updateStatWithAnimation('stat-total-students', parsed.students);
+          updateStatWithAnimation('stat-active-schools', `${parsed.active}/${totalEligibleSchools}`);
+        } catch(e) {}
       } else {
-        document.getElementById('stat-total-students').innerText = '...';
-        document.getElementById('stat-active-schools').innerText = `.../${totalEligibleSchools}`;
+        updateStatWithAnimation('stat-total-students', '0');
+        updateStatWithAnimation('stat-active-schools', `0/${totalEligibleSchools}`);
       }
 
       if (currentActiveDashboardRef) {
@@ -3514,24 +3710,17 @@
           });
         }
 
-        DASH_STATS_MEMORY_CACHE[cacheKey] = {
+        const statsPayload = {
           students: allStudentsCount,
           active: submittedSchoolsSet.size
         };
 
-        document.getElementById('stat-total-students').innerText = allStudentsCount;
-        document.getElementById('stat-active-schools').innerText = `${submittedSchoolsSet.size}/${totalEligibleSchools}`;
+        // आकडेवारी कॅशमध्ये जतन करा जेणेकरून नंतर लोड होण्यास वेळ लागणार नाही
+        localStorage.setItem(cacheKey, JSON.stringify(statsPayload));
 
-        renderDeclaredResultsOnDashboard();
-      });
-    }
+        updateStatWithAnimation('stat-total-students', allStudentsCount);
+        updateStatWithAnimation('stat-active-schools', `${submittedSchoolsSet.size}/${totalEligibleSchools}`);
 
-    function listenDeclaredResults() {
-      db.ref('declared_toppers').on('value', (snap) => {
-        DECLARED_DATA_STORE = snap.val() || {};
-        currentSelectedTest = getInitialDeclaredTestForDashboard(currentSelectedCategory);
-        buildDashboardTestPills();
-        listenLiveDashboardData();
         renderDeclaredResultsOnDashboard();
       });
     }
@@ -3615,10 +3804,11 @@
     function renderStudentsCards(list, maxM, rankPrefix) {
       const cont = document.getElementById('dashboard-toppers-container');
       list.forEach((st, idx) => {
-        const fullRankText = `${rankPrefix} #${idx + 1}`;
+        const displayRank = idx < 9 ? (idx + 1) : 10;
+        const fullRankText = `${rankPrefix} #${displayRank}`;
         cont.innerHTML += `
           <div class="topper-card">
-            <div class="topper-rank">#${idx + 1}</div>
+            <div class="topper-rank">#${displayRank}</div>
             <div class="topper-details">
               <h4>${st.name}</h4>
               <p>${st.school} (${st.taluka || '-'})</p>
@@ -3677,10 +3867,11 @@
       document.getElementById('banner-render-footer').innerText = BANNER_CONFIG.footer || "🎯 शिक्षण विभाग, जिल्हा परिषद बीड";
 
       toppersList.forEach((st, idx) => {
+        const displayRank = idx + 1;
         const medal = (idx === 0) ? '🥇 ' : (idx === 1) ? '🥈 ' : (idx === 2) ? '🥉 ' : '🎖️ ';
         listEl.innerHTML += `
           <div class="banner-row">
-            <div>${medal} <span class="b-std-name">${idx + 1}. ${st.name}</span> <span class="b-sch-name">(${st.school})</span></div>
+            <div>${medal} <span class="b-std-name">${displayRank}. ${st.name}</span> <span class="b-sch-name">(${st.school})</span></div>
             <div class="b-marks-badge">${st.marks}/${maxM} गुण</div>
           </div>
         `;
@@ -3704,6 +3895,379 @@
           }
         }
       }, 50);
+    }
+
+    function onAdminTManageCategoryChange() {
+      refreshAdminTestManagerUI();
+    }
+
+    function refreshAdminTestManagerUI() {
+      const cat = document.getElementById('admin-tmanage-category') ? document.getElementById('admin-tmanage-category').value : 'navodaya';
+      const tests = getTestsListForCategory(cat);
+      const activeTest = getAutoActiveTest(cat);
+
+      const actSelect = document.getElementById('admin-active-test-select');
+      if (actSelect) {
+        actSelect.innerHTML = '';
+        tests.forEach(t => {
+          actSelect.innerHTML += `<option value="${t.no}" ${t.no === activeTest ? 'selected' : ''}>${t.name}</option>`;
+        });
+      }
+
+      const renSelect = document.getElementById('admin-rename-test-select');
+      if (renSelect) {
+        renSelect.innerHTML = '';
+        tests.forEach(t => {
+          renSelect.innerHTML += `<option value="${t.no}">${t.name}</option>`;
+        });
+        onAdminRenameTestSelectChange();
+      }
+
+      const addNoInp = document.getElementById('admin-add-test-no');
+      if (addNoInp) {
+        const maxNo = tests.reduce((max, t) => Math.max(max, t.no), getMinAllowedTestNo(cat) - 1);
+        addNoInp.value = Math.max(maxNo + 1, getMinAllowedTestNo(cat));
+      }
+    }
+
+    function onAdminRenameTestSelectChange() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const tNo = parseInt(document.getElementById('admin-rename-test-select').value, 10);
+      const tests = getTestsListForCategory(cat);
+      const found = tests.find(t => t.no === tNo);
+      const inp = document.getElementById('admin-rename-test-input');
+      if (inp && found) {
+        inp.value = found.name;
+      }
+    }
+
+    function saveAdminActiveTest() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const testNo = parseInt(document.getElementById('admin-active-test-select').value, 10);
+
+      db.ref(`active_tests/${cat}`).set(testNo).then(() => {
+        ACTIVE_TESTS_STORE[cat] = testNo;
+        showToast(`सध्या ${getTestDisplayName(cat, testNo)} सुरू केली!`);
+        showCustomAlert(`यशस्वी! आता सर्व शाळांना ${getTestDisplayName(cat, testNo)} चे गुण भरणे सुरू झाले आहे.`);
+        if (currentEntryCategory === cat) {
+          buildEntryTestOptions();
+        }
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    function saveTestRenaming() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const tNo = parseInt(document.getElementById('admin-rename-test-select').value, 10);
+      const newName = document.getElementById('admin-rename-test-input').value.trim();
+
+      if (!newName) {
+        showCustomAlert('कृपया चाचणीचे नाव भरा!');
+        return;
+      }
+
+      let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
+      const idx = tests.findIndex(t => t.no === tNo);
+      if (idx !== -1) {
+        tests[idx].name = newName;
+      } else {
+        tests.push({ no: tNo, name: newName });
+      }
+
+      db.ref(`test_definitions/${cat}`).set(tests).then(() => {
+        TEST_DEFINITIONS_STORE[cat] = tests;
+        showToast('चाचणीचे नाव यशस्वीरीत्या बदलले!');
+        showCustomAlert(`यशस्वी! चाचणीचे नाव बदलून "${newName}" केले आहे.`);
+        refreshAdminTestManagerUI();
+        buildDashboardTestPills();
+        updateAdminTestOptions();
+        updateAdminLockTestOptions();
+        if (currentEntryCategory === cat) {
+          updateEntryNotice(document.getElementById('entry-test-no').value);
+        }
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    function addNewTestDefinition() {
+      const cat = document.getElementById('admin-tmanage-category').value;
+      const newNo = parseInt(document.getElementById('admin-add-test-no').value, 10);
+      const newName = document.getElementById('admin-add-test-name').value.trim();
+
+      if (!newName) {
+        showCustomAlert('कृपया नवीन चाचणीचे नाव भरा (उदा. महारिव्हिजन चाचणी 1)!');
+        return;
+      }
+
+      let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
+      if (tests.find(t => t.no === newNo)) {
+        showCustomAlert(`चाचणी क्रमांक ${newNo} आधीच अस्तित्वात आहे!`);
+        return;
+      }
+
+      tests.push({ no: newNo, name: newName });
+
+      db.ref(`test_definitions/${cat}`).set(tests).then(() => {
+        TEST_DEFINITIONS_STORE[cat] = tests;
+        document.getElementById('admin-add-test-name').value = '';
+        showToast(`नवीन चाचणी यशस्वीरित्या जोडली गेली!`);
+        showCustomAlert(`अभिनंदन! नवीन "${newName}" यशस्वीरित्या यादीत समाविष्ट केली गेली आहे.`);
+        refreshAdminTestManagerUI();
+        buildDashboardTestPills();
+        updateAdminTestOptions();
+        updateAdminLockTestOptions();
+      }).catch(err => {
+        showCustomAlert("त्रुटी: " + err.message);
+      });
+    }
+
+    function initAdminPanelOptions() {
+      refreshAdminTestManagerUI();
+      updateAdminTestOptions();
+      updateAdminLockTestOptions();
+      loadCurrentCustomMaxMarks();
+      updateAdminMaxMarksInfo();
+    }
+
+    function updateAdminTestOptions() {
+      const cat = document.getElementById('admin-mm-category').value;
+      const admMmTest = document.getElementById('admin-mm-test');
+      if (!admMmTest) return;
+
+      const tests = getTestsListForCategory(cat);
+      admMmTest.innerHTML = '';
+      tests.forEach(t => {
+        admMmTest.innerHTML += `<option value="${t.no}">${t.name}</option>`;
+      });
+    }
+
+    function updateAdminLockTestOptions() {
+      const cat = document.getElementById('admin-lock-category').value;
+      const admLockTest = document.getElementById('admin-lock-test');
+      if (!admLockTest) return;
+
+      const tests = getTestsListForCategory(cat);
+      admLockTest.innerHTML = '';
+      tests.forEach(t => {
+        admLockTest.innerHTML += `<option value="${t.no}">${t.name}</option>`;
+      });
+    }
+
+    function loadCurrentCustomMaxMarks() {
+      const cat = document.getElementById('admin-mm-category').value;
+      const testNo = parseInt(document.getElementById('admin-mm-test').value, 10) || getAutoActiveTest(cat);
+      const currentVal = getMaxMarksForTest(cat, testNo);
+      const inp = document.getElementById('admin-mm-input');
+      if (inp) inp.value = currentVal;
+    }
+
+    function saveCustomMaxMarks() {
+      const cat = document.getElementById('admin-mm-category').value;
+      const testNo = parseInt(document.getElementById('admin-mm-test').value, 10) || getAutoActiveTest(cat);
+      const val = parseInt(document.getElementById('admin-mm-input').value, 10);
+
+      if (!val || val <= 0) {
+        showCustomAlert('कृपया वैध एकूण गुण भरा (उदा. 50 किंवा 100)!');
+        return;
+      }
+
+      const key = `${cat}_test_${testNo}`;
+      db.ref(`custom_max_marks/${key}`).set(val).then(() => {
+        showToast('या चाचणीचे एकूण गुण सुरक्षित सेव्ह झाले!');
+        showCustomAlert(`यशस्वी! ${getTestDisplayName(cat, testNo)} चे एकूण गुण ${val} निश्चित केले आहेत.`);
+        updateAdminMaxMarksInfo();
+      }).catch(err => {
+        showCustomAlert('त्रुटी: ' + err.message);
+      });
+    }
+
+    function updateAdminMaxMarksInfo() {
+      const cat = document.getElementById('admin-lock-category').value;
+      const testNo = parseInt(document.getElementById('admin-lock-test').value, 10) || getAutoActiveTest(cat);
+      const maxM = getMaxMarksForTest(cat, testNo);
+      const info = document.getElementById('admin-max-marks-info');
+      if (info) {
+        info.innerText = `* या चाचणीचे कमाल गुण: ${maxM} पैकी धरले जातील.`;
+      }
+    }
+
+    function openPreLockReviewModal() {
+      const cat = document.getElementById('admin-lock-category').value;
+      const testNo = document.getElementById('admin-lock-test').value;
+      const maxM = getMaxMarksForTest(cat, parseInt(testNo, 10));
+
+      showToast('तात्पुरती गुणवत्ता यादी संकलित होत आहे...');
+
+      db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
+        const data = snap.val() || {};
+        let allStudents = [];
+        let talukaWise = {};
+
+        Object.values(data).forEach(entry => {
+          if (entry.students && Array.isArray(entry.students)) {
+            entry.students.forEach(st => {
+              if (st.marks !== '' && String(st.marks).toUpperCase() !== 'AB') {
+                const marksNum = parseFloat(st.marks) || 0;
+                const rec = {
+                  name: st.name,
+                  school: entry.school,
+                  taluka: entry.taluka || 'इतर',
+                  udise: entry.udise || '-',
+                  marks: marksNum,
+                  gender: st.gender || 'मुलगा'
+                };
+                allStudents.push(rec);
+
+                if (!talukaWise[entry.taluka]) talukaWise[entry.taluka] = [];
+                talukaWise[entry.taluka].push(rec);
+              }
+            });
+          }
+        });
+
+        allStudents.sort((a,b) => b.marks - a.marks);
+        const districtToppers = getTop10WithTies(allStudents);
+
+        let talukaToppers = {};
+        Object.keys(talukaWise).forEach(tName => {
+          talukaWise[tName].sort((a,b) => b.marks - a.marks);
+          talukaToppers[tName] = getTop10WithTies(talukaWise[tName]);
+        });
+
+        PRE_LOCK_CALCULATED_DATA = {
+          cat: cat,
+          testNo: testNo,
+          maxM: maxM,
+          districtToppers: districtToppers,
+          talukaToppers: talukaToppers
+        };
+
+        renderPreLockDistrictReview();
+        document.getElementById('preLockReviewModal').style.display = 'flex';
+      });
+    }
+
+    function renderPreLockDistrictReview() {
+      if (!PRE_LOCK_CALCULATED_DATA) return;
+      const area = document.getElementById('pre-lock-content-area');
+      const list = PRE_LOCK_CALCULATED_DATA.districtToppers || [];
+      const maxM = PRE_LOCK_CALCULATED_DATA.maxM;
+
+      area.innerHTML = `<h4 style="color:#0f2b5c; font-size:1.02rem; margin-bottom:8px;"><i class="fa-solid fa-trophy" style="color:var(--gold);"></i> बीड जिल्हा Top 10 प्रिव्ह्यू:</h4>`;
+
+      if (list.length === 0) {
+        area.innerHTML += `<p style="text-align:center; color:#64748b; padding:12px;">अद्याप गुण नोंदवलेले नाहीत.</p>`;
+        return;
+      }
+
+      list.forEach((st, idx) => {
+        const displayRank = idx < 9 ? (idx + 1) : 10;
+        area.innerHTML += `
+          <div class="topper-card">
+            <div class="topper-rank">#${displayRank}</div>
+            <div class="topper-details">
+              <h4>${st.name}</h4>
+              <p>${st.school} (${st.taluka})</p>
+            </div>
+            <div class="topper-score">
+              <span class="topper-score-badge">${st.marks}/${maxM} गुण</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function renderPreLockTalukaReview(talukaName) {
+      if (!PRE_LOCK_CALCULATED_DATA || !talukaName) return;
+      const area = document.getElementById('pre-lock-content-area');
+      const tToppers = PRE_LOCK_CALCULATED_DATA.talukaToppers[talukaName] || [];
+      const maxM = PRE_LOCK_CALCULATED_DATA.maxM;
+
+      area.innerHTML = `<h4 style="color:#059669; font-size:1.02rem; margin-bottom:8px;"><i class="fa-solid fa-award"></i> ${talukaName} तालुका Top 10 प्रिव्ह्यू:</h4>`;
+
+      if (tToppers.length === 0) {
+        area.innerHTML += `<p style="text-align:center; color:#64748b; padding:12px;">या तालुक्यात अद्याप गुण उपलब्ध नाहीत.</p>`;
+        return;
+      }
+
+      tToppers.forEach((st, idx) => {
+        const displayRank = idx < 9 ? (idx + 1) : 10;
+        area.innerHTML += `
+          <div class="topper-card">
+            <div class="topper-rank">#${displayRank}</div>
+            <div class="topper-details">
+              <h4>${st.name}</h4>
+              <p>${st.school}</p>
+            </div>
+            <div class="topper-score">
+              <span class="topper-score-badge">${st.marks}/${maxM} गुण</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function declareAndLockResults() {
+      const cat = document.getElementById('admin-lock-category').value;
+      const testNo = document.getElementById('admin-lock-test').value;
+      const maxM = getMaxMarksForTest(cat, parseInt(testNo, 10));
+
+      showCustomConfirm(`तुम्ही सर्व जिल्हा व तालुका टॉपर्स तपासले आहेत का? निकाल लॉक केल्यास ते अधिकृत म्हणून सर्व पोर्टलवर जाहीर होतील!`, () => {
+        showToast('गुणांची गणना व अधिकृत लॉकिंग सुरू आहे...');
+
+        db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
+          const data = snap.val() || {};
+          let allStudents = [];
+          let talukaWise = {};
+
+          Object.values(data).forEach(entry => {
+            if (entry.students && Array.isArray(entry.students)) {
+              entry.students.forEach(st => {
+                if (st.marks !== '' && String(st.marks).toUpperCase() !== 'AB') {
+                  const marksNum = parseFloat(st.marks) || 0;
+                  const rec = {
+                    name: st.name,
+                    school: entry.school,
+                    taluka: entry.taluka || 'इतर',
+                    udise: entry.udise || '-',
+                    marks: marksNum,
+                    gender: st.gender || 'मुलगा'
+                  };
+                  allStudents.push(rec);
+
+                  if (!talukaWise[entry.taluka]) talukaWise[entry.taluka] = [];
+                  talukaWise[entry.taluka].push(rec);
+                }
+              });
+            }
+          });
+
+          allStudents.sort((a,b) => b.marks - a.marks);
+          const districtToppers = getTop10WithTies(allStudents);
+
+          let talukaToppers = {};
+          Object.keys(talukaWise).forEach(tName => {
+            talukaWise[tName].sort((a,b) => b.marks - a.marks);
+            talukaToppers[tName] = getTop10WithTies(talukaWise[tName]);
+          });
+
+          const payload = {
+            declaredAt: new Date().toISOString(),
+            maxMarks: maxM,
+            districtToppers: districtToppers,
+            talukaToppers: talukaToppers
+          };
+
+          db.ref(`declared_toppers/${cat}/test_${testNo}`).set(payload).then(() => {
+            showCustomAlert(`अभिनंदन! ${getTestDisplayName(cat, testNo)} चे अधिकृत निकाल यशस्वीरित्या जाहीर व लॉक झाले आहेत!`);
+            showToast('निकाल यशस्वीरित्या जाहीर झाले!');
+          }).catch(err => {
+            showCustomAlert('लॉकिंग त्रुटी: ' + err.message);
+          });
+        });
+      });
     }
 
     function downloadBannerPDF() {
@@ -3940,343 +4504,80 @@
       });
     }
 
-    function onAdminTManageCategoryChange() {
-      refreshAdminTestManagerUI();
-    }
-
-    function refreshAdminTestManagerUI() {
-      const cat = document.getElementById('admin-tmanage-category') ? document.getElementById('admin-tmanage-category').value : 'navodaya';
-      const tests = getTestsListForCategory(cat);
-      const activeTest = getAutoActiveTest(cat);
-
-      const actSelect = document.getElementById('admin-active-test-select');
-      if (actSelect) {
-        actSelect.innerHTML = '';
-        tests.forEach(t => {
-          actSelect.innerHTML += `<option value="${t.no}" ${t.no === activeTest ? 'selected' : ''}>${t.name}</option>`;
-        });
-      }
-
-      const renSelect = document.getElementById('admin-rename-test-select');
-      if (renSelect) {
-        renSelect.innerHTML = '';
-        tests.forEach(t => {
-          renSelect.innerHTML += `<option value="${t.no}">${t.name}</option>`;
-        });
-      }
-    }
-
-    function saveAdminActiveTest() {
-      const cat = document.getElementById('admin-tmanage-category').value;
-      const testNo = parseInt(document.getElementById('admin-active-test-select').value, 10);
-
-      db.ref(`active_tests/${cat}`).set(testNo).then(() => {
-        ACTIVE_TESTS_STORE[cat] = testNo;
-        showToast(`सध्या ${getTestDisplayName(cat, testNo)} सुरू केली!`);
-      });
-    }
-
-    function saveTestRenaming() {
-      const cat = document.getElementById('admin-tmanage-category').value;
-      const tNo = parseInt(document.getElementById('admin-rename-test-select').value, 10);
-      const newName = document.getElementById('admin-rename-test-input').value.trim();
-
-      if (!newName) {
-        showCustomAlert('कृपया चाचणीचे नाव भरा!');
-        return;
-      }
-
-      let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
-      const idx = tests.findIndex(t => t.no === tNo);
-      if (idx !== -1) {
-        tests[idx].name = newName;
-      } else {
-        tests.push({ no: tNo, name: newName });
-      }
-
-      db.ref(`test_definitions/${cat}`).set(tests).then(() => {
-        TEST_DEFINITIONS_STORE[cat] = tests;
-        showToast('नाव बदलले!');
-        refreshAdminTestManagerUI();
-        buildDashboardTestPills();
-      });
-    }
-
-    function addNewTestDefinition() {
-      const cat = document.getElementById('admin-tmanage-category').value;
-      const newNo = parseInt(document.getElementById('admin-add-test-no').value, 10);
-      const newName = document.getElementById('admin-add-test-name').value.trim();
-
-      if (!newName) {
-        showCustomAlert('कृपया नवीन चाचणीचे नाव भरा!');
-        return;
-      }
-
-      let tests = JSON.parse(JSON.stringify(getTestsListForCategory(cat)));
-      tests.push({ no: newNo, name: newName });
-
-      db.ref(`test_definitions/${cat}`).set(tests).then(() => {
-        TEST_DEFINITIONS_STORE[cat] = tests;
-        showToast('नवीन चाचणी जोडली!');
-        refreshAdminTestManagerUI();
-        buildDashboardTestPills();
-      });
-    }
-
-    function updateAdminTestOptions() {
-      const cat = document.getElementById('admin-mm-category').value;
-      const admMmTest = document.getElementById('admin-mm-test');
-      if (!admMmTest) return;
-
-      const tests = getTestsListForCategory(cat);
-      admMmTest.innerHTML = '';
-      tests.forEach(t => {
-        admMmTest.innerHTML += `<option value="${t.no}">${t.name}</option>`;
-      });
-    }
-
-    function updateAdminLockTestOptions() {
-      const cat = document.getElementById('admin-lock-category').value;
-      const admLockTest = document.getElementById('admin-lock-test');
-      if (!admLockTest) return;
-
-      const tests = getTestsListForCategory(cat);
-      admLockTest.innerHTML = '';
-      tests.forEach(t => {
-        admLockTest.innerHTML += `<option value="${t.no}">${t.name}</option>`;
-      });
-    }
-
-    function loadCurrentCustomMaxMarks() {
-      const cat = document.getElementById('admin-mm-category').value;
-      const testNo = parseInt(document.getElementById('admin-mm-test').value, 10) || getAutoActiveTest(cat);
-      const currentVal = getMaxMarksForTest(cat, testNo);
-      const inp = document.getElementById('admin-mm-input');
-      if (inp) inp.value = currentVal;
-    }
-
-    function saveCustomMaxMarks() {
-      const cat = document.getElementById('admin-mm-category').value;
-      const testNo = parseInt(document.getElementById('admin-mm-test').value, 10) || getAutoActiveTest(cat);
-      const val = parseInt(document.getElementById('admin-mm-input').value, 10);
-
-      if (!val || val <= 0) {
-        showCustomAlert('कृपया वैध एकूण गुण भरा (उदा. 50 किंवा 100)!');
-        return;
-      }
-
-      const key = `${cat}_test_${testNo}`;
-      db.ref(`custom_max_marks/${key}`).set(val).then(() => {
-        showToast('या चाचणीचे एकूण गुण सुरक्षित सेव्ह झाले!');
-        showCustomAlert(`यशस्वी! ${getTestDisplayName(cat, testNo)} चे एकूण गुण ${val} निश्चित केले आहेत.`);
-        updateAdminMaxMarksInfo();
-      }).catch(err => {
-        showCustomAlert('त्रुटी: ' + err.message);
-      });
-    }
-
-    function updateAdminMaxMarksInfo() {
-      const cat = document.getElementById('admin-lock-category').value;
-      const testNo = parseInt(document.getElementById('admin-lock-test').value, 10) || getAutoActiveTest(cat);
-      const maxM = getMaxMarksForTest(cat, testNo);
-      const info = document.getElementById('admin-max-marks-info');
-      if (info) {
-        info.innerText = `* या चाचणीचे कमाल गुण: ${maxM} पैकी धरले जातील.`;
-      }
-    }
-
-    function declareAndLockResults() {
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+function renderPreLockSchoolsCleanup() {
       const cat = document.getElementById('admin-lock-category').value;
       const testNo = document.getElementById('admin-lock-test').value;
-      const maxM = getMaxMarksForTest(cat, parseInt(testNo, 10));
+      const area = document.getElementById('pre-lock-content-area');
+      area.innerHTML = `
+        <h4 style="color:#dc2626; font-size:1.02rem; margin-bottom:6px;"><i class="fa-solid fa-triangle-exclamation"></i> संशयास्पद किंवा चुकीच्या नोंदी डिलीट करा:</h4>
+        <p style="font-size:0.84rem; color:#64748b; margin-bottom:10px;">येथे या चाचणीचे गुण भरलेल्या सर्व शाळांची यादी आहे. जर एखादी नोंद <strong>'demo', 'abcd'</strong> किंवा चुकीची असेल, तर समोर 'डिलीट करा' दाबून ती काढून टाका.</p>
+        <div id="pre-lock-schools-list">माहिती लोड होत आहे...</div>
+      `;
 
-      showCustomConfirm(`तुम्ही सर्व जिल्हा व तालुका टॉपर्स तपासले आहेत का? निकाल लॉक केल्यास ते अधिकृत म्हणून सर्व पोर्टलवर जाहीर होतील!`, () => {
-        showToast('गुणांची गणना व अधिकृत लॉकिंग सुरू आहे...');
-
-        db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
-          const data = snap.val() || {};
-          let allStudents = [];
-          let talukaWise = {};
-
-          Object.values(data).forEach(entry => {
-            if (entry.students && Array.isArray(entry.students)) {
-              entry.students.forEach(st => {
-                if (st.marks !== '' && String(st.marks).toUpperCase() !== 'AB') {
-                  const marksNum = parseFloat(st.marks) || 0;
-                  const rec = {
-                    name: st.name,
-                    school: entry.school,
-                    taluka: entry.taluka || 'इतर',
-                    udise: entry.udise || '-',
-                    marks: marksNum,
-                    gender: st.gender || 'मुलगा'
-                  };
-                  allStudents.push(rec);
-
-                  if (!talukaWise[entry.taluka]) talukaWise[entry.taluka] = [];
-                  talukaWise[entry.taluka].push(rec);
-                }
-              });
-            }
-          });
-
-          allStudents.sort((a,b) => b.marks - a.marks);
-          const districtToppers = allStudents.slice(0, 10);
-
-          let talukaToppers = {};
-          Object.keys(talukaWise).forEach(tName => {
-            talukaWise[tName].sort((a,b) => b.marks - a.marks);
-            talukaToppers[tName] = talukaWise[tName].slice(0, 10);
-          });
-
-          const payload = {
-            declaredAt: new Date().toISOString(),
-            maxMarks: maxM,
-            districtToppers: districtToppers,
-            talukaToppers: talukaToppers
-          };
-
-          db.ref(`declared_toppers/${cat}/test_${testNo}`).set(payload).then(() => {
-            showCustomAlert(`अभिनंदन! ${getTestDisplayName(cat, testNo)} चे अधिकृत निकाल यशस्वीरित्या जाहीर व लॉक झाले आहेत!`);
-            showToast('निकाल यशस्वीरित्या जाहीर झाले!');
-          }).catch(err => {
-            showCustomAlert('लॉकिंग त्रुटी: ' + err.message);
-          });
+      db.ref(`results/${cat}/test_${testNo}`).once('value', (snap) => {
+        const data = snap.val() || {};
+        const listContainer = document.getElementById('pre-lock-schools-list');
+        if (!listContainer) return;
+        const keys = Object.keys(data);
+        if (keys.length === 0) {
+          listContainer.innerHTML = `<p style="text-align:center; color:#64748b; padding:12px;">कोणतीही नोंद सापडली नाही.</p>`;
+          return;
+        }
+        listContainer.innerHTML = '';
+        keys.forEach(schoolKey => {
+          const entry = data[schoolKey];
+          let studentCount = 0;
+          if (entry.students && Array.isArray(entry.students)) {
+            studentCount = entry.students.filter(s => s.marks !== '' && String(s.marks).toUpperCase() !== 'AB').length;
+          }
+          listContainer.innerHTML += `
+            <div style="background:white; border:1.5px solid #cbd5e1; border-radius:10px; padding:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+              <div style="overflow:hidden;">
+                <strong style="font-size:0.98rem; color:#0f172a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block;">${entry.school || 'अज्ञात शाळा'}</strong>
+                <span style="font-size:0.82rem; color:#64748b;">UDISE: <strong>${entry.udise || schoolKey}</strong> | तालुका: ${entry.taluka || '-'} | गुण भरलेले: ${studentCount}</span>
+              </div>
+              <button class="app-btn btn-danger" style="height:32px; width:auto; padding:0 12px; font-size:0.8rem; flex-shrink:0;" onclick="deleteSchoolTestSubmission('${cat}', '${testNo}', '${schoolKey}', '${entry.school || 'शाळा'}')">
+                <i class="fa-solid fa-trash"></i> डिलीट
+              </button>
+            </div>
+          `;
         });
       });
     }
 
-    /* ================= १. स्वतंत्र OMR स्कॅनर विंडो उघडणे ================= */
-    function openOmrScannerModal(stdId, stdName) {
-      const testNo = document.getElementById('entry-test-no').value;
-      const currentKey = NAVODAYA_ANSWER_KEYS_STORE[`test_${testNo}`] || {};
-
-      if (!currentKey || Object.keys(currentKey).length === 0) {
-        showCustomAlert(`शिक्षणाधिकारी कक्षातून अद्याप या चाचणीची अधिकृत नवोदय Answer Key फीड केलेली नाही! Answer Key फीड केल्यानंतरच OMR स्कॅनिंग करता येईल.`);
-        return;
-      }
-
-      // सध्याच्या चाचणीची Answer Key मेमरीमध्ये ठेवणे जेणेकरून स्कॅनर ती वाचू शकेल
-      localStorage.setItem('omr_saved_key', JSON.stringify(currentKey));
-
-      // स्वतंत्र OMR स्कॅनर पेज नवीन विंडो/टॅबमध्ये उघडणे
-      window.open(`omr-scanner.html?id=${stdId}&name=${encodeURIComponent(stdName)}&test=${testNo}`, '_blank');
-    }
-
-    function initAdminPanelOptions() {
-      refreshAdminTestManagerUI();
-      updateAdminTestOptions();
-      updateAdminLockTestOptions();
-      loadCurrentCustomMaxMarks();
-      updateAdminMaxMarksInfo();
-    }
-
-    function initPortal() {
-      loadSchoolsData();
-      initTalukaDropdowns();
-      build12Taluka4ColGrid();
-      listenDeclaredResults();
-      listenTestDefinitionsAndActive();
-      buildDashboardTestPills();
-      buildEntryTestOptions();
-      listenLiveDashboardData();
-      listenCustomMaxMarks();
-      listenCustomTemplates();
-      initAdminPanelOptions();
-      initAllDraggables();
-      initNavodayaAkTestOptions();
-
-      try { history.pushState({ page: 'home' }, ''); } catch(e) {}
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initPortal);
-    } else {
-      initPortal();
-    }
-
-    function showCustomAlert(message) {
-      document.getElementById('customNoticeBody').innerText = message;
-      document.getElementById('customNoticeActions').innerHTML = `
-        <button class="app-btn btn-primary" style="height:40px; width:auto; padding:0 24px;" onclick="closeModal('customNoticeModal')">समजले</button>
-      `;
-      document.getElementById('customNoticeModal').style.display = 'flex';
-    }
-
-    function showCustomConfirm(message, onConfirm, onCancel) {
-      document.getElementById('customNoticeBody').innerText = message;
-      document.getElementById('customNoticeActions').innerHTML = `
-        <button class="app-btn btn-outline" style="height:38px; width:auto; padding:0 18px;" id="cnCancelBtn">रद्द करा</button>
-        <button class="app-btn btn-danger" style="height:38px; width:auto; padding:0 22px;" id="cnOkBtn">होय</button>
-      `;
-      document.getElementById('customNoticeModal').style.display = 'flex';
-
-      document.getElementById('cnOkBtn').onclick = () => {
-        closeModal('customNoticeModal');
-        if (onConfirm) onConfirm();
-      };
-      document.getElementById('cnCancelBtn').onclick = () => {
-        closeModal('customNoticeModal');
-        if (onCancel) onCancel();
-      };
-    }
-
-    window.addEventListener('popstate', function(event) {
-      const openModal = document.querySelector('.modal[style*="display: flex"]');
-      if (openModal) {
-        openModal.style.display = 'none';
-        try { history.pushState({ page: 'home' }, ''); } catch(e) {}
-        return;
-      }
-
-      const activeView = ['screen-entry', 'screen-admin-backend'].find(id => {
-        const el = document.getElementById(id);
-        return el && el.style.display !== 'none';
+    function deleteSchoolTestSubmission(cat, testNo, schoolKey, schoolName) {
+      showCustomConfirm(`तुम्हाला "${schoolName}" या शाळेची या चाचणीतील सर्व गुण नोंदणी कायमची डिलीट करायची आहे का?`, () => {
+        db.ref(`results/${cat}/test_${testNo}/${schoolKey}`).remove().then(() => {
+          showToast('शाळेची नोंद यशस्वीरित्या डिलीट केली!');
+          renderPreLockSchoolsCleanup();
+        }).catch(err => {
+          showCustomAlert('त्रुटी: ' + err.message);
+        });
       });
-
-      if (activeView) {
-        switchTab('dashboard');
-        try { history.pushState({ page: 'home' }, ''); } catch(e) {}
+    }
+function adminLookupSchoolPin() {
+      const udise = document.getElementById('admin-lookup-udise').value.trim();
+      const resBox = document.getElementById('admin-lookup-result');
+      if (!udise || udise.length < 4) {
+        showCustomAlert('कृपया वैध UDISE कोड टाका!');
         return;
       }
-
-      showCustomConfirm("आपणास हे ॲप बंद करायचे आहे का?", () => {
-        history.back();
-      }, () => {
-        try { history.pushState({ page: 'home' }, ''); } catch(e) {}
-      });
-    });
-
-    function showToast(msg) {
-      const t = document.getElementById('toastMsg');
-      t.innerText = msg;
-      t.style.display = 'block';
-      setTimeout(() => { t.style.display = 'none'; }, 2200);
-    }
-
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-    /* ================= २. OMR स्कॅनरने पाठवलेले गुण आपोआप स्वीकारणे ================= */
-    window.addEventListener('storage', function(e) {
-      if (e.key === 'scanned_result') {
-        const data = JSON.parse(e.newValue || '{}');
-        if (data && data.id) {
-          const inp = document.getElementById(`marks-input-${data.id}`);
-          if (inp) {
-            inp.value = data.marks;
-            inp.style.backgroundColor = '#dcfce7';
-            inp.style.borderColor = '#16a34a';
-            if (typeof validateMarksInput === 'function') {
-              validateMarksInput(inp, data.id);
-            }
-          }
-          if (typeof setAttendance === 'function') {
-            setAttendance(data.id, 'present');
-          }
-          showToast(`गुण यशस्वीरीत्या नोंदवले: ${data.marks}`);
+      db.ref(`school_auth/${udise}`).once('value', (snap) => {
+        const data = snap.val();
+        resBox.style.display = 'block';
+        if (data) {
+          resBox.innerHTML = `
+            <strong><i class="fa-solid fa-circle-check" style="color:#059669;"></i> शाळेची सुरक्षित माहिती सापडली:</strong><br>
+            📌 सुरक्षा पिन (PIN): <span style="font-family:'Poppins', sans-serif; font-weight:800; color:#dc2626; font-size:1.15rem; background:white; padding:1px 8px; border-radius:4px; border:1px solid #cbd5e1;">${data.pin || 'उपलब्ध नाही'}</span><br>
+            📱 WhatsApp नंबर: <span style="font-family:'Poppins', sans-serif; font-weight:800; color:#047857; font-size:1.05rem;">${data.mobile || 'उपलब्ध नाही'}</span><br>
+            🕒 शेवटी अपडेट: ${data.updatedAt ? new Date(data.updatedAt).toLocaleString('mr-IN') : 'निश्चित नाही'}
+          `;
+        } else {
+          resBox.innerHTML = `<span style="color:#dc2626; font-weight:700;"><i class="fa-solid fa-triangle-exclamation"></i> या UDISE कोडसाठी कोणतीही पिन नोंदणी झालेली नाही (शाळेने अजून पिन सेट केला नाही).</span>`;
         }
-      }
-    });
+      });
+    }
   </script>
 </body>
 </html>
